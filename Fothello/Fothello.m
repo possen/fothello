@@ -568,7 +568,7 @@
 
 
 - (void)boxCoord:(NSInteger)dist block:
-    (void (^)(Position position, BOOL isCorner, NSInteger count))block
+    (void (^)(Position position, BOOL isCorner, NSInteger count, BOOL *stop))block
 {
     // calculates the positions of the pieces in a box dist from center.
     
@@ -590,7 +590,10 @@
         position.x += diff.dx;
         position.y += diff.dy;
         
-        block(position, YES, moveDist);
+        BOOL stop = NO;
+        block(position, ABS(position.x) == ABS(position.y), moveDist, &stop);
+        if (stop)
+            break;
     }
 }
 
@@ -602,7 +605,7 @@
     Board *board = self.board;
     Position center = board.center;
 
-    [self boxCoord:1 block:^(Position position, BOOL isCorner, NSInteger count)
+    [self boxCoord:1 block:^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
      {
          NSInteger playerCount = (count + 1) % self.players.count;
          
@@ -626,6 +629,43 @@
 
 - (void)test
 {
+  
+#if 0
+    NSArray *players = self.players;
+    Board *board = self.board;
+    Position center = board.center;
+    
+    NSInteger boxSize = 0;
+    while ( boxSize < 8)
+    {
+        __block BOOL foundForLoop = NO;
+        [self boxCoord:boxSize block:
+         ^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
+         {
+             NSInteger playerCount = (count + 1) % self.players.count;
+             
+             BOOL found = [self placePieceForPlayer:players[playerCount]
+                                                atX:center.x + position.x
+                                                  Y:center.y + position.y];
+
+
+             if (found)
+             {
+                 NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
+
+                 [self nextTurn];
+                 foundForLoop = YES;
+                 *stop = YES;
+             }
+             count++;
+         }];
+        
+        if (foundForLoop == NO)
+            boxSize ++;
+    }
+
+    
+#else 
     [self nextTurn];
 
     [self testTurnX:3  Y:2 ];
@@ -689,49 +729,12 @@
     [self testTurnX:7  Y:6 ];
     [self testTurnX:4  Y:6 ];
     [self testTurnX:7  Y:5 ];
-    
+#endif
     NSLog(@"player %@ score %ld", self.players[0],
           (long)[self calculateScore:self.players[0]]);
     
     NSLog(@"player %@ score %ld", self.players[1],
           (long)[self calculateScore:self.players[1]]);
-
-#if 0
-    [self reset];
-
-    BOOL player1 = NO;
-    BOOL player2 = NO;
-    
-    while (!player1 || !player2)
-    {
-        NSInteger count = 30;
-        
-        while (!player1 /*&& count != 0*/)
-        {
-            NSInteger x = arc4random() % self.board.size;
-            NSInteger y = arc4random() % self.board.size;
-            
-            player1 = [self placePieceForPlayer:self.currentPlayer atX:x Y:y];
-            NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
-
-            count --;
-        }
-        [self nextTurn];
-        
-        count = 30;
-        while (!player2 /*&& count != 0*/)
-        {
-            NSInteger x = arc4random() % self.board.size;
-            NSInteger y = arc4random() % self.board.size;
-            
-            [self placePieceForPlayer:self.currentPlayer atX:x Y:y];
-            NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
-
-            count --;
-        }
-        [self nextTurn];
-    }
-#endif
 }
 
 
