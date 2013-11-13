@@ -2,11 +2,14 @@ fothello
 ========
 
 Reversi like game.
+-----------------
 
 This is the very beginnings of a Reversi/Othello like game for iOS. Eventually it will use SpriteKit to display
 board but right now it just does the piece placement and handles the game board to flip the appropriate pieces.
 You can see that in the debug window the pieces are placed and the pieces are flipped for one game. 
 
+Capabilities
+------------
 * It handles persisting games and related information. 
 * It supports boards of larger than 8x8. 
 * It handles the naming conflicts and preferred piece colors for a player
@@ -16,6 +19,7 @@ You can see that in the debug window the pieces are placed and the pieces are fl
 * It reports correct or bad moves. 
 
 Limitations
+-----------
 * right now the Strategy classes are just placeholders
 * The main game are in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
