@@ -55,7 +55,7 @@ goes here.
 Strategy
 --------
 Overridable strategy object. Currently not working but will have a ManualStrategy which lets players play and
-Computer player strategy which could have different stratgeies for playing in the various subclasses.
+Computer player strategy which could have different strategies for playing in the various subclasses.
 
 Nov 12, 2013
 - Paul
