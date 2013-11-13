@@ -1,6 +1,6 @@
 //
 //  Fothello.h
-//  CodingTest
+//  Fothello
 //
 //  Created by Paul Ossenbruggen on 11/10/13.
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  Fothello.m
-//  CodingTest
+//  Fothello
 //
 //  Created by Paul Ossenbruggen on 11/10/13.
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
@@ -701,6 +701,8 @@
 @end
 
 @implementation Strategy
+
+// Not done and not used yet.
 - (id)initWithGame:(Game *)game
 {
     self = [super init];
