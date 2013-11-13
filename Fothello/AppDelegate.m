@@ -7,12 +7,28 @@
 //
 
 #import "AppDelegate.h"
+#import "Fothello.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+        
+    NSString *docsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *filename = [docsPath stringByAppendingPathComponent:@"Fothello"];
+    
+    Fothello *fothello ;//= [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
+    if (fothello == nil)
+    {
+        fothello = [[Fothello alloc] init];
+    }
+    Game *game = fothello.currentGame;
+    [game reset];
+    [game test];
+    
+    [NSKeyedArchiver archiveRootObject:fothello toFile:filename];
+
     return YES;
 }
 							
