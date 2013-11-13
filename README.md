@@ -21,16 +21,16 @@ Limitations
   file then break out later.
 
 example output from debugger log. UI Not working yet. 
-----------
-|.●●●●●●●|
-|...●●●●.|
-|○●●●●●○○|
-|○○●○●...|
-|○●○○○...|
-|○○○○.○..|
-|●●....○.|
-|●.○....○|
-----------
+    ----------
+    |.●●●●●●●|
+    |...●●●●.|
+    |○●●●●●○○|
+    |○○●○●...|
+    |○●○○○...|
+    |○○○○.○..|
+    |●●....○.|
+    |●.○....○|
+    ----------
 
 As I said this is just the beginnings of the app and it constitues about 4-6 hours of work right now. 
 
