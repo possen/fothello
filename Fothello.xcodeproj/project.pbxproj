@@ -18,7 +18,6 @@
 		D5441B3E1831CB1100B5166A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */; };
 		D5441B411831CB1100B5166A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* ViewController.m */; };
 		D5441B441831CB1100B5166A /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* MyScene.m */; };
-		D5441B461831CB1100B5166A /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B451831CB1100B5166A /* Spaceship.png */; };
 		D5441B481831CB1100B5166A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5441B471831CB1100B5166A /* Images.xcassets */; };
 		D5441B4F1831CB1100B5166A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B4E1831CB1100B5166A /* XCTest.framework */; };
 		D5441B501831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
@@ -62,7 +61,6 @@
 		D5441B401831CB1100B5166A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D5441B421831CB1100B5166A /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		D5441B431831CB1100B5166A /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		D5441B451831CB1100B5166A /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		D5441B471831CB1100B5166A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D5441B4D1831CB1100B5166A /* FothelloTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B4E1831CB1100B5166A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -148,7 +146,6 @@
 				D5441B431831CB1100B5166A /* MyScene.m */,
 				D5441B641831CB2800B5166A /* Fothello.h */,
 				D5441B651831CB2800B5166A /* Fothello.m */,
-				D5441B451831CB1100B5166A /* Spaceship.png */,
 				D5441B471831CB1100B5166A /* Images.xcassets */,
 				D5441B671831F26E00B5166A /* blue-sphere.png */,
 				D5441B681831F26E00B5166A /* dark-sphere.jpg */,
@@ -268,7 +265,6 @@
 			files = (
 				D5441B711831F26E00B5166A /* red-sphere.png in Resources */,
 				D5441B6F1831F26E00B5166A /* green-sphere.png in Resources */,
-				D5441B461831CB1100B5166A /* Spaceship.png in Resources */,
 				D5441B481831CB1100B5166A /* Images.xcassets in Resources */,
 				D5441B6E1831F26E00B5166A /* dark-sphere.jpg in Resources */,
 				D5441B3E1831CB1100B5166A /* Main_iPad.storyboard in Resources */,
@@ -520,6 +516,7 @@
 				D5441B601831CB1100B5166A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D5441B611831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +525,7 @@
 				D5441B631831CB1100B5166A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
