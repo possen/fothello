@@ -602,7 +602,7 @@
     Board *board = self.board;
     Position center = board.center;
 
-    [self boxCoord:4 block:^(Position position, BOOL isCorner, NSInteger count)
+    [self boxCoord:1 block:^(Position position, BOOL isCorner, NSInteger count)
      {
          NSInteger playerCount = (count + 1) % self.players.count;
          
