@@ -38,7 +38,7 @@ Root object for game. Initializes objects. Manages players, games and current ga
 Game
 ----
 Associates a players to a particular game. Initiates the board, manages the game logic such as who's turn it
-is and how moves are made. Could be subclassed for a differnt variant of the game. Has functions to determine
+is and how moves are made. Could be subclassed for a different variant of the game. Has functions to determine
 tracks of what pieces would be flipped. It also knows how to calculate the current score. 
 
 Player
