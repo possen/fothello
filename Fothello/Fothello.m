@@ -581,7 +581,7 @@
 
     // calculate how many pieces to place.
     // Four times dist for the number of directions
-    for (NSInteger moveDist = 0; moveDist < dist * 4; moveDist ++ )
+    for (NSInteger moveDist = 0; moveDist < dist * 4; moveDist ++)
     {
         // times two so we get only UP, RIGHT, DOWN, LEFT
         Direction dir = moveDist / dist * 2 + DirectionFirst;
@@ -590,8 +590,6 @@
         position.x += diff.dx;
         position.y += diff.dy;
         
-        NSLog(@"moveDist:%ld dist:%ld px:%ld py:%ld", (long)moveDist,(long)dist, (long)position.x, (long)position.y );
-
         block(position, YES, moveDist);
     }
 }
