@@ -273,10 +273,20 @@
     return self;
 }
 
+
+
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.grid forKey:@"grid"];
     [aCoder encodeInteger:self.size forKey:@"size"];
+}
+
+- (Position)center
+{
+    Position pos;
+    pos.x = self.size / 2 - 1; // zero
+    pos.y = self.size / 2 - 1;
+    return pos;
 }
 
 - (void)reset
@@ -373,6 +383,7 @@
 
 - (void)setupPlayersColors
 {
+    // For now twoplayer only.
     Player *player0 = self.players[0];
     Player *player1 = self.players[1];
   
@@ -388,7 +399,7 @@
     }
 }
 
-- (Difference)determineDirection:(Direction)direction
+- (Delta)determineDirection:(Direction)direction
 {
     NSInteger x = 0;
     NSInteger y = 0;
@@ -431,23 +442,24 @@
             break;
     }
     
-    Difference difference;
-    difference.x = x;
-    difference.y = y;
-    return difference;
+    Delta Delta;
+    Delta.dx = x;
+    Delta.dy = y;
+    return Delta;
 }
 
-// calls block for each direction that has a successful track
-// does not call for invalid tracks. Will call back for each complete track.
-// a track does not include start position, one or more
-// pieces of different color than the player's color, terminated by a piece of the same
-// color as the player.
 
 - (BOOL)findTracksX:(NSInteger)x
                   Y:(NSInteger)y
           forPlayer:(Player *)player
          trackBlock:(void (^)(NSArray *pieces))trackBlock
 {
+    // calls block for each direction that has a successful track
+    // does not call for invalid tracks. Will call back for each complete track.
+    // a track does not include start position, one or more
+    // pieces of different color than the player's color, terminated by a piece of
+    // the same color as the player.
+
     BOOL found = NO;
     
     // check that piece is on board and we are placing on clear space
@@ -456,9 +468,9 @@
         return NO;
     
     // try each direction, to see if there is a track
-    for (Direction direction = DirectionNone + 1; direction < DirectionLast; direction ++)
+    for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
     {
-        Difference diff = [self determineDirection:direction];
+        Delta diff = [self determineDirection:direction];
         
         NSInteger offsetx = x; NSInteger offsety = y;
         
@@ -469,7 +481,7 @@
         BOOL valid;
         
         do {
-            offsetx += diff.x; offsety += diff.y;
+            offsetx += diff.dx; offsety += diff.dy;
             piece = [self.board pieceAtPositionX:offsetx Y:offsety];
             valid = piece && ![piece isClear]; // make sure it is on board and not clear.
            
@@ -555,18 +567,52 @@
 }
 
 
+- (void)boxCoord:(NSInteger)dist block:
+    (void (^)(Position position, BOOL isCorner, NSInteger count))block
+{
+    // calculates the positions of the pieces in a box dist from center.
+    
+    dist = (dist - 1) * 2 + 1; // skip even rings
+    
+    // calculate start position
+    Position position;
+    position.x = dist - dist / 2;
+    position.y = dist - dist / 2;
+
+    // calculate how many pieces to place.
+    // times 2 to go from negative to positive. Four for the number of directions
+    for (NSInteger moveDist = 0; moveDist < (dist * 4 * 2); moveDist ++ )
+    {
+        // times two so we get only UP, RIGHT, DOWN, LEFT
+        Direction dir = moveDist / dist * 2 + DirectionFirst;
+        Delta diff = [self determineDirection:dir];
+
+        position.x += diff.dx;
+        position.y += diff.dy;
+        
+        block(position, YES, moveDist);
+    }
+}
+
 - (void)reset
 {
     [_board reset];
     
-    NSInteger size = self.board.size;
     NSArray *players = self.players;
     Board *board = self.board;
+    Position center = board.center;
+
+    [self boxCoord:4 block:^(Position position, BOOL isCorner, NSInteger count)
+     {
+         NSInteger playerCount = (count + 1) % self.players.count;
+         
+         [board player:players[playerCount]
+      pieceAtPositionX:center.x + position.x
+                     Y:center.y + position.y];
+         
+         count++;
+     }];
     
-    [board player:players[0] pieceAtPositionX:size / 2 - 1 Y:size / 2 - 1];
-    [board player:players[1] pieceAtPositionX:size / 2 - 1 Y:size / 2 - 0];
-    [board player:players[1] pieceAtPositionX:size / 2 - 0 Y:size / 2 - 1];
-    [board player:players[0] pieceAtPositionX:size / 2 - 0 Y:size / 2 - 0];
     NSLog(@"\n%@\n", [board print]);
 }
 

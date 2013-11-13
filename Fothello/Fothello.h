@@ -21,8 +21,8 @@ typedef enum PieceColor : NSInteger
 
 typedef enum Direction : NSInteger
 {
-    DirectionNone,
-    DirectionUp,
+    DirectionNone = 0,
+    DirectionUp = 1,     DirectionFirst = 1,
     DirectionUpLeft,
     DirectionLeft,
     DirectionDownLeft,
@@ -33,11 +33,30 @@ typedef enum Direction : NSInteger
     DirectionLast
 } Direction;
 
-typedef struct Difference
+typedef struct Delta
+{
+    NSInteger dx;
+    NSInteger dy;
+} Delta;
+
+typedef struct Position
 {
     NSInteger x;
     NSInteger y;
-} Difference;
+} Position;
+
+// specify a range with start and end
+typedef struct Range
+{
+    NSInteger start;
+    NSInteger end;
+} Range;
+
+typedef struct RangePoint
+{
+    Range x;
+    Range y;
+} RangePoint;
 
 @class Game;
 @class Board;
@@ -81,6 +100,7 @@ typedef struct Difference
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
+- (Position)center;
 
 @property (nonatomic) NSMutableArray *grid;
 @property (nonatomic) NSInteger size;
