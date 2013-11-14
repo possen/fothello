@@ -45,25 +45,13 @@ typedef struct Position
     NSInteger y;
 } Position;
 
-// specify a range with start and end
-typedef struct Range
-{
-    NSInteger start;
-    NSInteger end;
-} Range;
-
-typedef struct RangePoint
-{
-    Range x;
-    Range y;
-} RangePoint;
-
 @class Game;
 @class Board;
 @class Piece;
 @class Player;
+@class Strategy;
 
-#pragma mark - Intefaces -
+#pragma mark - Classes -
 
 #pragma mark - Fothello -
 
@@ -81,7 +69,10 @@ typedef struct RangePoint
 @property (nonatomic) NSString *name;
 @property (nonatomic) PieceColor preferredPieceColor;
 @property (nonatomic) PieceColor color;
+@property (nonatomic) Strategy *strategy;
+
 - (instancetype)initWithName:(NSString *)name;
+- (BOOL)takeTurn;
 @end
 
 #pragma mark - Piece -
@@ -113,6 +104,8 @@ typedef struct RangePoint
 - (BOOL)placePieceForPlayer:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
 - (void)test;
+- (BOOL)done;
+- (void)nextPlayer;
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) Board *board;
@@ -126,10 +119,18 @@ typedef struct RangePoint
 @interface Strategy : NSObject <NSCoding>
 
 @property (nonatomic) Game *game;
+@property (nonatomic) NSString *name;
 
-- (id)initWithGame:(Game *)game;
+- (id)initWithGame:(Game *)game name:(NSString *)name;
+- (BOOL)takeTurn:(Player *)player;
 
 @end
+
+#pragma mark - BoxStrategy -
+
+@interface BoxStrategy : Strategy <NSCoding>
+@end
+
 
 
 

@@ -21,11 +21,15 @@
         _games = [[NSMutableArray alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
-        // defaut to two to get things going.
-        [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorBlack];
-        [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorWhite];
+        // TODO: defaut to two to get things going. Support more players later.
+        Player *player1 = [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorBlack];
+        Player *player2 = [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorWhite];
+        
         Game *game = [self newGame:@"default game" players:_players];
         self.currentGame = game;
+        
+        player1.strategy = [[BoxStrategy alloc] initWithGame:game name:@"Computer"];
+        player2.strategy = [[BoxStrategy alloc] initWithGame:game name:@"Computer"];
     }
     return self;
 }
@@ -109,6 +113,7 @@
     Player *player = [[Player alloc] initWithName:name];
     player.preferredPieceColor  = preferredPieceColor;
     [self.players addObject:player];
+    player.strategy = strategy;
     return player;
 }
 
@@ -158,6 +163,11 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"name %@",self.name];
+}
+
+- (BOOL)takeTurn
+{
+    return [self.strategy takeTurn:self];
 }
 
 - (BOOL)isEqual:(id)name
@@ -273,8 +283,6 @@
     return self;
 }
 
-
-
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.grid forKey:@"grid"];
@@ -383,7 +391,9 @@
 
 - (void)setupPlayersColors
 {
-    // For now twoplayer only.
+    // if the player's prefered colors are the same, pick one for each.
+    
+    //TODO: For now twoplayer only. Future support more
     Player *player0 = self.players[0];
     Player *player1 = self.players[1];
   
@@ -518,7 +528,7 @@
             }];
 }
 
-- (void)nextTurn
+- (void)nextPlayer
 {
     NSArray *players = self.players;
 
@@ -622,10 +632,16 @@
 - (void)testTurnX:(NSInteger)x Y:(NSInteger)y
 {
     [self placePieceForPlayer:self.currentPlayer atX:x  Y:y ];
-    NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
-    [self nextTurn];
+    NSLog(@"\%@ player %@", [[self board] print], self.currentPlayer);
+    [self nextPlayer];
     usleep(100000);
 }
+
+- (BOOL)done
+{
+    return NO;
+}
+
 
 - (void)test
 {
@@ -652,7 +668,7 @@
              if (found)
              {
                  NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
-                 [self nextTurn];
+                 [self nextPlayer];
 
                  foundForLoop = YES;
                  *stop = YES;
@@ -752,15 +768,18 @@
 }
 @end
 
+#pragma mark - Strategy -
+
 @implementation Strategy
 
 // Not done and not used yet.
-- (id)initWithGame:(Game *)game
+- (id)initWithGame:(Game *)game name:(NSString *)name
 {
     self = [super init];
     if (self)
     {
         _game = game;
+        _name = name;
     }
     return self;
 }
@@ -771,6 +790,7 @@
     if (self)
     {
         self.game = [coder decodeObjectForKey:@"game"];
+        self.name = [coder decodeObjectForKey:@"name"];
     }
     return self;
 }
@@ -778,8 +798,56 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.game forKey:@"game"];
+    [aCoder encodeObject:self.name forKey:@"name"];
 }
 
+- (BOOL)takeTurn:(Player *)player
+{
+    // subclass
+    return NO;
+}
+
+@end
+
+#pragma mark - BoxStategy -
+
+@implementation BoxStrategy
+
+- (BOOL)takeTurn:(Player *)player
+{
+    Game *game = self.game;
+    Board *board = game.board;
+    Position center = board.center;
+    
+    for (NSInteger boxSize = 0; boxSize < board.size; boxSize++)
+    {
+        __block BOOL placedInbox = NO;
+        
+        [self.game boxCoord:boxSize block:
+         ^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
+         {
+             BOOL placed = [game placePieceForPlayer:player
+                                                atX:center.x + position.x
+                                                  Y:center.y + position.y];
+             
+             
+             if (placed)
+             {
+                 NSLog(@"\n%@ player %@", [board print], player);
+                 
+                 placedInbox = YES;
+                 *stop = YES;
+             }
+         }];
+        
+        if (placedInbox)
+        {
+            return YES; // whether piece could be placed.
+        }
+    }
+    
+    return NO;
+}
 
 @end
 
