@@ -630,21 +630,21 @@
 - (void)test
 {
   
-#if 0
-    NSArray *players = self.players;
+#if 1
     Board *board = self.board;
     Position center = board.center;
     
     NSInteger boxSize = 0;
     while ( boxSize < 8)
     {
+        NSInteger count = 0;
+        
         __block BOOL foundForLoop = NO;
         [self boxCoord:boxSize block:
          ^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
          {
-             NSInteger playerCount = (count + 1) % self.players.count;
              
-             BOOL found = [self placePieceForPlayer:players[playerCount]
+             BOOL found = [self placePieceForPlayer:self.currentPlayer
                                                 atX:center.x + position.x
                                                   Y:center.y + position.y];
 
@@ -652,16 +652,19 @@
              if (found)
              {
                  NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
-
                  [self nextTurn];
+
                  foundForLoop = YES;
                  *stop = YES;
              }
-             count++;
          }];
-        
+      
+        count++;
+
         if (foundForLoop == NO)
+        {
             boxSize ++;
+        }
     }
 
     
