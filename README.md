@@ -17,10 +17,10 @@ Capabilities
 * It has a callback mechanism to get tracks of what pieces will be flipped by a move.
 * It is designed to support more than two players at once (thus the multiple colors other than black and white). 
 * It reports correct or bad moves. 
+* Allows different strategies for each player. 
 
 Limitations
 -----------
-* right now the Strategy classes are just placeholders
 * The main game are in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
 
@@ -58,8 +58,7 @@ goes here.
 
 Strategy
 --------
-Overridable strategy object. Currently not working but will have a ManualStrategy which lets players play and
-Computer player strategy which could have different strategies for playing in the various subclasses.
+Overridable strategy object. It will called with the takeTurn method for each player. 
 
 Nov 12, 2013
 - Paul
