@@ -629,14 +629,6 @@
     NSLog(@"\n%@\n", [board print]);
 }
 
-- (void)testTurnX:(NSInteger)x Y:(NSInteger)y
-{
-    [self placePieceForPlayer:self.currentPlayer atX:x  Y:y ];
-    NSLog(@"\%@ player %@", [[self board] print], self.currentPlayer);
-    [self nextPlayer];
-    usleep(100000);
-}
-
 - (BOOL)done
 {
     return NO;
@@ -645,110 +637,6 @@
 
 - (void)test
 {
-  
-#if 1
-    Board *board = self.board;
-    Position center = board.center;
-    
-    NSInteger boxSize = 0;
-    while ( boxSize < 8)
-    {
-        NSInteger count = 0;
-        
-        __block BOOL foundForLoop = NO;
-        [self boxCoord:boxSize block:
-         ^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
-         {
-             
-             BOOL found = [self placePieceForPlayer:self.currentPlayer
-                                                atX:center.x + position.x
-                                                  Y:center.y + position.y];
-
-
-             if (found)
-             {
-                 NSLog(@"\n%@ player %@", [[self board] print], self.currentPlayer);
-                 [self nextPlayer];
-
-                 foundForLoop = YES;
-                 *stop = YES;
-             }
-         }];
-      
-        count++;
-
-        if (foundForLoop == NO)
-        {
-            boxSize ++;
-        }
-    }
-
-    
-#else 
-    [self nextTurn];
-
-    [self testTurnX:3  Y:2 ];
-    [self testTurnX:4  Y:2 ];
-    [self testTurnX:5  Y:2 ];
-    [self testTurnX:2  Y:4 ];
-    [self testTurnX:5  Y:5 ];
-    [self testTurnX:3  Y:1 ];
-    [self testTurnX:2  Y:0 ];
-    [self testTurnX:6  Y:2 ];
-    [self testTurnX:2  Y:5 ];
-    [self testTurnX:3  Y:0 ];
-    [self testTurnX:2  Y:3 ];
-    [self testTurnX:1  Y:6 ];
-    [self testTurnX:4  Y:0 ];
-    [self testTurnX:1  Y:3 ];
-    [self testTurnX:0  Y:2 ];
-    [self testTurnX:0  Y:3 ];
-    [self testTurnX:0  Y:4 ];
-    [self testTurnX:1  Y:4 ];
-    [self testTurnX:4  Y:1 ];
-    [self testTurnX:6  Y:6 ];
-    [self testTurnX:7  Y:2 ];
-    [self testTurnX:6  Y:1 ];
-    [self testTurnX:6  Y:0 ];
-    [self testTurnX:7  Y:0 ];
-    [self testTurnX:0  Y:5 ];
-    [self testTurnX:5  Y:0 ];
-    [self testTurnX:2  Y:7 ];
-    [self testTurnX:0  Y:7 ];
-    [self testTurnX:1  Y:5 ];
-    [self testTurnX:1  Y:0 ];
-    [self testTurnX:1  Y:0 ];
-    [self testTurnX:5  Y:1 ];
-    [self testTurnX:7  Y:7 ];
-    [self testTurnX:0  Y:6 ];
-    [self testTurnX:2  Y:2 ];
-    [self testTurnX:1  Y:2 ];
-    [self testTurnX:3  Y:5 ];
-    [self testTurnX:0  Y:1 ];
-    [self testTurnX:1  Y:7 ];
-    [self testTurnX:3  Y:7 ];
-    [self testTurnX:2  Y:1 ];
-    [self testTurnX:1  Y:1 ];
-    [self testTurnX:0  Y:0 ];
-    [self testTurnX:2  Y:6 ];
-    [self testTurnX:7  Y:1 ];
-    [self testTurnX:3  Y:6 ];
-    [self testTurnX:5  Y:3 ];
-    [self testTurnX:6  Y:3 ];
-    [self testTurnX:7  Y:3 ];
-    [self testTurnX:7  Y:4 ];
-    [self testTurnX:5  Y:4 ];
-    [self testTurnX:4  Y:5 ];
-    [self testTurnX:6  Y:4 ];
-    [self testTurnX:5  Y:6 ];
-    [self testTurnX:6  Y:5 ];
-    [self testTurnX:6  Y:7 ];
-    [self testTurnX:5  Y:7 ];
-    [self testTurnX:4  Y:7 ];
-    [self testTurnX:7  Y:6 ];
-    [self testTurnX:4  Y:6 ];
-    [self testTurnX:7  Y:5 ];
-#endif
     NSLog(@"player %@ score %ld", self.players[0],
           (long)[self calculateScore:self.players[0]]);
     
@@ -850,4 +738,8 @@
 }
 
 @end
+
+
+
+
 
