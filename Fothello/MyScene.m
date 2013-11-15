@@ -76,14 +76,17 @@
         
         NSInteger x = (location.x - boardRect.origin.x) / spacing;
         NSInteger y = (location.y - boardRect.origin.y) / spacing;
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"red-sphere"];
+        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"blue-sphere"];
         
-        sprite.position = CGPointMake(x * spacing + boardRect.origin.x + spriteSize.width / 2,
-                                      y * spacing + boardRect.origin.y + spriteSize.height / 2);
+        if (x < boardDim && y < boardDim)
+        {
+            sprite.position = CGPointMake(x * spacing + boardRect.origin.x + spriteSize.width / 2 + 3,
+                                          y * spacing + boardRect.origin.y + spriteSize.height / 2 + 2);
+            sprite.size = spriteSize;
+            
+            [self addChild:sprite];
+        }
         
-        sprite.size = spriteSize;
-                
-        [self addChild:sprite];
     }
 }
 

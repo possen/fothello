@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
+		D52B11B91835FF1D008DBED5 /* orange-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D52B11B81835FF1D008DBED5 /* orange-sphere.png */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
 		D5441B281831CB1100B5166A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B271831CB1100B5166A /* CoreGraphics.framework */; };
 		D5441B2A1831CB1100B5166A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B291831CB1100B5166A /* UIKit.framework */; };
@@ -28,7 +29,6 @@
 		D5441B6D1831F26E00B5166A /* blue-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B671831F26E00B5166A /* blue-sphere.png */; };
 		D5441B6E1831F26E00B5166A /* dark-sphere.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D5441B681831F26E00B5166A /* dark-sphere.jpg */; };
 		D5441B6F1831F26E00B5166A /* green-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B691831F26E00B5166A /* green-sphere.png */; };
-		D5441B701831F26E00B5166A /* orange-sphere.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D5441B6A1831F26E00B5166A /* orange-sphere.jpg */; };
 		D5441B711831F26E00B5166A /* red-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B6B1831F26E00B5166A /* red-sphere.png */; };
 		D5441B721831F26E00B5166A /* violet-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B6C1831F26E00B5166A /* violet-sphere.png */; };
 /* End PBXBuildFile section */
@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D52B11B81835FF1D008DBED5 /* orange-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-sphere.png"; sourceTree = "<group>"; };
 		D5441B221831CB1100B5166A /* Fothello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fothello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B251831CB1100B5166A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D5441B271831CB1100B5166A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -72,7 +73,6 @@
 		D5441B671831F26E00B5166A /* blue-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-sphere.png"; sourceTree = "<group>"; };
 		D5441B681831F26E00B5166A /* dark-sphere.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dark-sphere.jpg"; sourceTree = "<group>"; };
 		D5441B691831F26E00B5166A /* green-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-sphere.png"; sourceTree = "<group>"; };
-		D5441B6A1831F26E00B5166A /* orange-sphere.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "orange-sphere.jpg"; sourceTree = "<group>"; };
 		D5441B6B1831F26E00B5166A /* red-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red-sphere.png"; sourceTree = "<group>"; };
 		D5441B6C1831F26E00B5166A /* violet-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "violet-sphere.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,7 +150,7 @@
 				D5441B671831F26E00B5166A /* blue-sphere.png */,
 				D5441B681831F26E00B5166A /* dark-sphere.jpg */,
 				D5441B691831F26E00B5166A /* green-sphere.png */,
-				D5441B6A1831F26E00B5166A /* orange-sphere.jpg */,
+				D52B11B81835FF1D008DBED5 /* orange-sphere.png */,
 				D5441B6B1831F26E00B5166A /* red-sphere.png */,
 				D5441B6C1831F26E00B5166A /* violet-sphere.png */,
 				D5441B2E1831CB1100B5166A /* Supporting Files */,
@@ -265,11 +265,11 @@
 			files = (
 				D5441B711831F26E00B5166A /* red-sphere.png in Resources */,
 				D5441B6F1831F26E00B5166A /* green-sphere.png in Resources */,
+				D52B11B91835FF1D008DBED5 /* orange-sphere.png in Resources */,
 				D5441B481831CB1100B5166A /* Images.xcassets in Resources */,
 				D5441B6E1831F26E00B5166A /* dark-sphere.jpg in Resources */,
 				D5441B3E1831CB1100B5166A /* Main_iPad.storyboard in Resources */,
 				D5441B3B1831CB1100B5166A /* Main_iPhone.storyboard in Resources */,
-				D5441B701831F26E00B5166A /* orange-sphere.jpg in Resources */,
 				D5441B6D1831F26E00B5166A /* blue-sphere.png in Resources */,
 				D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */,
 				D5441B721831F26E00B5166A /* violet-sphere.png in Resources */,
