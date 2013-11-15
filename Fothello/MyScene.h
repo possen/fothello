@@ -8,6 +8,11 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+
 @interface MyScene : SKScene
+
+@property (nonatomic,readonly) NSInteger boardDimensions;
+@property (nonatomic,readonly) CGRect boardRect;
+@property (nonatomic,readonly) NSInteger boardDim;
 
 @end
