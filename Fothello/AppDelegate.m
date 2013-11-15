@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Fothello.h"
+#import "FothelloGame.h"
 
 @implementation AppDelegate
 
@@ -22,24 +22,24 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     
     NSString *filename = [docsPath stringByAppendingPathComponent:@"Fothello"];
     
-    Fothello *fothello ;//= [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
+    FothelloGame *fothello ;//= [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
     if (fothello == nil)
     {
-        fothello = [[Fothello alloc] init];
+        fothello = [[FothelloGame alloc] init];
     }
     
-    Game *game = fothello.currentGame;
-    [game reset];
+    Match *match = fothello.currentMatch;
+    [match reset];
     
     BOOL couldMove1; BOOL couldMove2;
     
     do
     {
-        couldMove1 = [game.currentPlayer takeTurn];
-        [game nextPlayer];
+        couldMove1 = [match.currentPlayer takeTurn];
+        [match nextPlayer];
         
-        couldMove2 = [game.currentPlayer takeTurn];
-        [game nextPlayer];
+        couldMove2 = [match.currentPlayer takeTurn];
+        [match nextPlayer];
         
     } while (couldMove1 || couldMove2);
     

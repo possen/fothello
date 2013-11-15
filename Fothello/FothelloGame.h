@@ -45,7 +45,7 @@ typedef struct Position
     NSInteger y;
 } Position;
 
-@class Game;
+@class Match;
 @class Board;
 @class Piece;
 @class Player;
@@ -55,10 +55,10 @@ typedef struct Position
 
 #pragma mark - Fothello -
 
-@interface Fothello : NSObject <NSCoding>
-- (Game *)newGame:(NSString *)name players:(NSArray *)players; // name can be nil for automatic name
-@property (nonatomic) Game *currentGame;
-@property (nonatomic) NSMutableArray *games;
+@interface FothelloGame : NSObject <NSCoding>
+- (Match *)newMatch:(NSString *)name players:(NSArray *)players; // name can be nil for automatic name
+@property (nonatomic) Match *currentMatch;
+@property (nonatomic) NSMutableArray *matches;
 @property (nonatomic) NSMutableArray *players;
 @end
 
@@ -97,9 +97,9 @@ typedef struct Position
 @property (nonatomic) NSInteger size;
 @end
 
-#pragma mark - Game -
+#pragma mark - Match -
 
-@interface Game : NSObject <NSCoding>
+@interface Match : NSObject <NSCoding>
 - (instancetype)initWithName:(NSString *)name players:(NSArray *)players;
 - (BOOL)placePieceForPlayer:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
@@ -118,10 +118,10 @@ typedef struct Position
 
 @interface Strategy : NSObject <NSCoding>
 
-@property (nonatomic) Game *game;
+@property (nonatomic) Match *match;
 @property (nonatomic) NSString *name;
 
-- (id)initWithGame:(Game *)game name:(NSString *)name;
+- (id)initWithMatch:(Match *)match name:(NSString *)name;
 - (BOOL)takeTurn:(Player *)player;
 
 @end

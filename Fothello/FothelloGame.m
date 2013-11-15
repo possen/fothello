@@ -6,30 +6,30 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "Fothello.h"
+#import "FothelloGame.h"
 
 
 #pragma mark - Fothello -
 
-@implementation Fothello
+@implementation FothelloGame
 
 - (id)init
 {
     self = [super init];
     if (self)
     {
-        _games = [[NSMutableArray alloc] initWithCapacity:10];
+        _matches = [[NSMutableArray alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
         // TODO: defaut to two to get things going. Support more players later.
         Player *player1 = [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorBlack];
         Player *player2 = [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorWhite];
         
-        Game *game = [self newGame:@"default game" players:_players];
-        self.currentGame = game;
+        Match *match = [self newMatch:@"default game" players:_players];
+        self.currentMatch = match;
         
-        player1.strategy = [[BoxStrategy alloc] initWithGame:game name:@"Computer"];
-        player2.strategy = [[BoxStrategy alloc] initWithGame:game name:@"Computer"];
+        player1.strategy = [[BoxStrategy alloc] initWithMatch:match name:@"Computer"];
+        player2.strategy = [[BoxStrategy alloc] initWithMatch:match name:@"Computer"];
     }
     return self;
 }
@@ -41,39 +41,39 @@
     if (self)
     {
         self.players = [coder decodeObjectForKey:@"players"];
-        self.games = [coder decodeObjectForKey:@"games"];
-        self.currentGame = [coder decodeObjectForKey:@"currentGame"];
+        self.matches = [coder decodeObjectForKey:@"matches"];
+        self.currentMatch = [coder decodeObjectForKey:@"currentMatch"];
     }
     return self;
 }
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"currentGame %@",self.currentGame];
+    return [NSString stringWithFormat:@"currentMatch %@",self.currentMatch];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:self.players forKey:@"players"];
-    [encoder encodeObject:self.games  forKey:@"games"];
-    [encoder encodeObject:self.currentGame forKey:@"currentGame"];
+    [encoder encodeObject:self.matches  forKey:@"matches"];
+    [encoder encodeObject:self.currentMatch forKey:@"currentMatch"];
 }
 
-- (Game *)createGame:(NSString *)name players:(NSArray *)players
+- (Match *)createMatch:(NSString *)name players:(NSArray *)players
 {
-    Game *game = [[Game alloc] initWithName:name players:players];
+    Match *match = [[Match alloc] initWithName:name players:players];
     
-    if ([self.games indexOfObject:game] == NSNotFound)
+    if ([self.matches indexOfObject:match] == NSNotFound)
     {
-        [self.games addObject:game];
-        return game;
+        [self.matches addObject:match];
+        return match;
     }
     return nil; // not able to create with that name.
 }
 
-- (Game *)newGame:(NSString *)name players:(NSArray *)players
+- (Match *)newMatch:(NSString *)name players:(NSArray *)players
 {
-    Game *game = nil;
+    Match *match = nil;
     if (name == nil)
     {
         NSInteger count = 0;
@@ -81,21 +81,21 @@
         while (name == nil)
         {
             name = [NSString stringWithFormat:@"Unnamed Game %ld", (long)count];
-            game = [self createGame:name players:players];
+            match = [self createMatch:name players:players];
             count++;
         }
     }
     else
     {
-        game = [self createGame:name players:players];
+        match = [self createMatch:name players:players];
     }
     
-    return game;
+    return match;
 }
 
-- (void)deleteGame:(Game *)game
+- (void)deleteMatch:(Match *)match
 {
-    [self.games removeObject:game];
+    [self.matches removeObject:match];
 }
 
 - (Player *)newPlayerWithName:(NSString *)name
@@ -366,11 +366,11 @@
 
 @end
 
-#pragma mark - Game -
+#pragma mark - Match -
 
-@implementation Game
+@implementation Match
 
-- (instancetype)initWithName:(NSString *)name players:(NSArray *)players
+- (instancetype)initWithName:(NSString *)match players:(NSArray *)players
 {
     self = [super init];
     
@@ -554,7 +554,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"game %@",self.name];
+    return [NSString stringWithFormat:@"match %@",self.name];
 }
 
 - (id)initWithCoder:(NSCoder *)coder
@@ -661,12 +661,12 @@
 @implementation Strategy
 
 // Not done and not used yet.
-- (id)initWithGame:(Game *)game name:(NSString *)name
+- (id)initWithMatch:(Match *)match name:(NSString *)name
 {
     self = [super init];
     if (self)
     {
-        _game = game;
+        _match = match;
         _name = name;
     }
     return self;
@@ -677,7 +677,7 @@
     self = [super init];
     if (self)
     {
-        self.game = [coder decodeObjectForKey:@"game"];
+        self.match = [coder decodeObjectForKey:@"match"];
         self.name = [coder decodeObjectForKey:@"name"];
     }
     return self;
@@ -685,7 +685,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.game forKey:@"game"];
+    [aCoder encodeObject:self.match forKey:@"match"];
     [aCoder encodeObject:self.name forKey:@"name"];
 }
 
@@ -703,18 +703,18 @@
 
 - (BOOL)takeTurn:(Player *)player
 {
-    Game *game = self.game;
-    Board *board = game.board;
+    Match *match = self.match;
+    Board *board = match.board;
     Position center = board.center;
     
     for (NSInteger boxSize = 0; boxSize < board.size; boxSize++)
     {
         __block BOOL placedInbox = NO;
         
-        [self.game boxCoord:boxSize block:
+        [self.match boxCoord:boxSize block:
          ^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
          {
-             BOOL placed = [game placePieceForPlayer:player
+             BOOL placed = [match placePieceForPlayer:player
                                                 atX:center.x + position.x
                                                   Y:center.y + position.y];
              

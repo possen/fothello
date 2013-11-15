@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
 		D5441B281831CB1100B5166A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B271831CB1100B5166A /* CoreGraphics.framework */; };
 		D5441B2A1831CB1100B5166A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B291831CB1100B5166A /* UIKit.framework */; };
@@ -24,7 +25,6 @@
 		D5441B511831CB1100B5166A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B291831CB1100B5166A /* UIKit.framework */; };
 		D5441B591831CB1100B5166A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5441B571831CB1100B5166A /* InfoPlist.strings */; };
 		D5441B5B1831CB1100B5166A /* FothelloTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.m */; };
-		D5441B661831CB2800B5166A /* Fothello.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* Fothello.m */; };
 		D5441B6D1831F26E00B5166A /* blue-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B671831F26E00B5166A /* blue-sphere.png */; };
 		D5441B6E1831F26E00B5166A /* dark-sphere.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D5441B681831F26E00B5166A /* dark-sphere.jpg */; };
 		D5441B6F1831F26E00B5166A /* green-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B691831F26E00B5166A /* green-sphere.png */; };
@@ -67,8 +67,8 @@
 		D5441B561831CB1100B5166A /* FothelloTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FothelloTests-Info.plist"; sourceTree = "<group>"; };
 		D5441B581831CB1100B5166A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D5441B5A1831CB1100B5166A /* FothelloTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloTests.m; sourceTree = "<group>"; };
-		D5441B641831CB2800B5166A /* Fothello.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fothello.h; sourceTree = "<group>"; };
-		D5441B651831CB2800B5166A /* Fothello.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Fothello.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FothelloGame.h; sourceTree = "<group>"; };
+		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5441B671831F26E00B5166A /* blue-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blue-sphere.png"; sourceTree = "<group>"; };
 		D5441B681831F26E00B5166A /* dark-sphere.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "dark-sphere.jpg"; sourceTree = "<group>"; };
 		D5441B691831F26E00B5166A /* green-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "green-sphere.png"; sourceTree = "<group>"; };
@@ -144,8 +144,8 @@
 				D5441B401831CB1100B5166A /* ViewController.m */,
 				D5441B421831CB1100B5166A /* MyScene.h */,
 				D5441B431831CB1100B5166A /* MyScene.m */,
-				D5441B641831CB2800B5166A /* Fothello.h */,
-				D5441B651831CB2800B5166A /* Fothello.m */,
+				D5441B641831CB2800B5166A /* FothelloGame.h */,
+				D5441B651831CB2800B5166A /* FothelloGame.m */,
 				D5441B471831CB1100B5166A /* Images.xcassets */,
 				D5441B671831F26E00B5166A /* blue-sphere.png */,
 				D5441B681831F26E00B5166A /* dark-sphere.jpg */,
@@ -293,9 +293,9 @@
 			files = (
 				D5441B441831CB1100B5166A /* MyScene.m in Sources */,
 				D5441B411831CB1100B5166A /* ViewController.m in Sources */,
-				D5441B661831CB2800B5166A /* Fothello.m in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,
+				D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
