@@ -9,7 +9,7 @@
 #import "FothelloGame.h"
 
 
-#pragma mark - Fothello -
+#pragma mark - FothelloGame -
 
 @implementation FothelloGame
 
@@ -370,7 +370,7 @@
 
 @implementation Match
 
-- (instancetype)initWithName:(NSString *)match players:(NSArray *)players
+- (instancetype)initWithName:(NSString *)name players:(NSArray *)players
 {
     self = [super init];
     
