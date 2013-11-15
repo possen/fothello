@@ -23,6 +23,7 @@ Limitations
 -----------
 * The main game are in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
+* No UI Yet.
 
 
 As I said this is just the beginnings of the app and it constitues about 4-6 hours of work right now. 
