@@ -13,6 +13,50 @@
 
 @implementation FothelloGame
 
++ (id)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    __strong static id _sharedObject = nil;
+    
+    dispatch_once(&onceToken,
+    ^{
+        NSString *filename = [self pathForGameState];
+        
+        FothelloGame *fothello = [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
+
+        // if there is no saved game state create it for the first time.
+        // if (fothello == nil)
+        {
+            fothello = [[FothelloGame alloc] init];
+        }
+
+        _sharedObject = fothello;
+    });
+    
+    return _sharedObject;
+}
+
+
++ (NSString *)pathForGameState
+{
+    NSString *docsPath
+    = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)
+       objectAtIndex:0];
+    
+    NSString *filename = [docsPath stringByAppendingPathComponent:@"Fothello"];
+    
+    return filename;
+}
+
+- (void)saveGameState
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    NSString *filename = [FothelloGame pathForGameState];
+    
+    [NSKeyedArchiver archiveRootObject:game toFile:filename];
+}
+
+
 - (id)init
 {
     self = [super init];
@@ -247,10 +291,17 @@
 
 - (id)initWithBoardSize:(NSInteger)size
 {
+    return [self initWithBoardSize:size piecePlacedBlock:nil];
+}
+
+- (id)initWithBoardSize:(NSInteger)size piecePlacedBlock:(PlaceBlock)block
+{
     self = [super init];
     
     if (self)
     {
+        _placeBlock = block;
+        
         if (size % 2 == 1)
             return nil; // must be multiple of 2
         
@@ -261,6 +312,7 @@
         {
             [_grid addObject:[[Piece alloc] init]];
         }
+
         _size = size;
     }
     return self;
@@ -292,7 +344,7 @@
 - (Position)center
 {
     Position pos;
-    pos.x = self.size / 2 - 1; // zero
+    pos.x = self.size / 2 - 1; // zero based counting
     pos.y = self.size / 2 - 1;
     return pos;
 }
@@ -317,6 +369,7 @@
 {
     if (x >= self.size || y >= self.size || x < 0 || y < 0)
         return nil;
+    
     return [self.grid objectAtIndex:[self calculateIndexX:x Y:y]];
 }
 
@@ -324,13 +377,13 @@
 {
     Piece *piece = [self pieceAtPositionX:x Y:y];
 
-    if (piece.pieceColor == PieceColorNone)
+    piece.pieceColor =  player.color;
+    
+    if (self.placeBlock)
     {
-        piece.pieceColor =  player.color;
-        return YES;
+        self.placeBlock(x, y, piece.pieceColor);
     }
-    else
-        return NO; // can't place piece there.
+    return YES;
 }
 
 - (void)printBanner:(NSMutableString *)boardString
@@ -384,7 +437,6 @@
         _currentPlayer = players[0];
         [self setupPlayersColors];
         _board = [[Board alloc] initWithBoardSize:8];
-        [self reset];
     }
     return self;
 }
@@ -521,6 +573,9 @@
                 for (Piece *piece in pieces)
                 {
                     piece.pieceColor = player.color;
+                  
+                    if (self.board.placeBlock)
+                        self.board.placeBlock(x, y, piece.pieceColor);
                 }
             }];
 }
@@ -714,7 +769,6 @@
              BOOL placed = [match placePieceForPlayer:player
                                                 atX:center.x + position.x
                                                   Y:center.y + position.y];
-             
              
              if (placed)
              {

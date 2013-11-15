@@ -51,12 +51,18 @@ typedef struct Position
 @class Player;
 @class Strategy;
 
+typedef void (^PlaceBlock)(NSInteger x, NSInteger y, PieceColor color);
+
 #pragma mark - Classes -
 
 #pragma mark - Fothello -
 
 @interface FothelloGame : NSObject <NSCoding>
+
++ (id)sharedInstance;
 - (Match *)newMatch:(NSString *)name players:(NSArray *)players; // name can be nil for automatic name
+- (void)saveGameState;
+
 @property (nonatomic) Match *currentMatch;
 @property (nonatomic) NSMutableArray *matches;
 @property (nonatomic) NSMutableArray *players;
@@ -87,7 +93,10 @@ typedef struct Position
 #pragma mark - Board -
 
 @interface Board : NSObject <NSCoding>
+
 - (id)initWithBoardSize:(NSInteger)size;
+- (id)initWithBoardSize:(NSInteger)size
+       piecePlacedBlock:(void (^)(NSInteger x, NSInteger y, PieceColor color))block;
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
@@ -95,6 +104,7 @@ typedef struct Position
 
 @property (nonatomic) NSMutableArray *grid;
 @property (nonatomic) NSInteger size;
+@property (nonatomic, copy) PlaceBlock placeBlock;
 @end
 
 #pragma mark - Match -

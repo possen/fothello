@@ -8,11 +8,14 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+@class FothelloGame;
 
-@interface MyScene : SKScene
+@interface BoardScene : SKScene
+
+@property (nonatomic) FothelloGame *game;
 
 @property (nonatomic,readonly) NSInteger boardDimensions;
 @property (nonatomic,readonly) CGRect boardRect;
-@property (nonatomic,readonly) NSInteger boardDim;
+@property (nonatomic,readonly) NSInteger boardSize;
 
 @end
