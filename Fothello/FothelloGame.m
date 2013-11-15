@@ -411,8 +411,7 @@
 
 - (Delta)determineDirection:(Direction)direction
 {
-    NSInteger x = 0;
-    NSInteger y = 0;
+    NSInteger x = 0; NSInteger y = 0;
     
     switch (direction)
     {
@@ -452,10 +451,8 @@
             break;
     }
     
-    Delta Delta;
-    Delta.dx = x;
-    Delta.dy = y;
-    return Delta;
+    Delta delta; delta.dx = x; delta.dy = y;
+    return delta;
 }
 
 
