@@ -4,9 +4,8 @@ fothello
 Reversi like game.
 -----------------
 
-This is the very beginnings of a Reversi/Othello like game for iOS. Eventually it will use SpriteKit to display
-board but right now it just does the piece placement and handles the game board to flip the appropriate pieces.
-You can see that in the debug window the pieces are placed and the pieces are flipped for one game. 
+This is the beginnings of a Reversi like game which supports two players. The idea is to get familiar with 
+SpriteKit and eventually GameKit. 
 
 Capabilities
 ------------
