@@ -11,10 +11,20 @@
 
 @implementation BoardScene
 
+- (void)syncronizeBoardStateWithModel
+{
+    Board *board = self.game.currentMatch.board;
+    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+     {
+         [self placeSpriteAtX:x Y:y withPiece:piece];
+     }];
+}
 
 - (id)initWithSize:(CGSize)size
 {
-    if (self = [super initWithSize:size])
+    self = [super initWithSize:size];
+    
+    if (self)
     {
         _boardDimensions = 280;
         _boardRect = CGRectMake(20, 100, _boardDimensions, _boardDimensions);
@@ -24,12 +34,12 @@
         __weak BoardScene *weakBlockSelf = self;
         
         _game.currentMatch.board.placeBlock =
-            ^(NSInteger x, NSInteger y, PieceColor color)
+            ^(NSInteger x, NSInteger y, Piece *piece)
             {
-                [weakBlockSelf placeSpriteAtX:x Y:y withColor:color];
+                [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
             };
         
-        [_game.currentMatch reset];
+        [self syncronizeBoardStateWithModel];
         
         /* Setup your scene here */
         
@@ -119,15 +129,18 @@
     return nil;
 }
 
-- (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withColor:(PieceColor)color
+- (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
 {
     CGRect boardRect = self.boardRect;
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
     
-    if (color != PieceColorNone)
+    [piece.identifier removeFromParent];
+    piece.identifier = nil;
+    
+    if (piece.color != PieceColorNone)
     {
-        NSString *filename = [self pieceColorToFileName:color];
+        NSString *filename = [self pieceColorToFileName:piece.color];
         CGSize spriteSize = CGSizeMake(30, 30);
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:filename];
 
@@ -137,6 +150,7 @@
 
         sprite.size = spriteSize;
         [self addChild:sprite];
+        piece.identifier = sprite;
     }
     else
     {

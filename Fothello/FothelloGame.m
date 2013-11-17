@@ -8,6 +8,17 @@
 
 #import "FothelloGame.h"
 
+#pragma mark - TrackInfo -
+
+@interface TrackInfo : NSObject
+@property (nonatomic) Piece *piece;
+@property (nonatomic) NSInteger x;
+@property (nonatomic) NSInteger y;
+@end
+
+@implementation TrackInfo
+
+@end
 
 #pragma mark - FothelloGame -
 
@@ -25,7 +36,7 @@
         FothelloGame *fothello = [NSKeyedUnarchiver unarchiveObjectWithFile:filename];
 
         // if there is no saved game state create it for the first time.
-        // if (fothello == nil)
+        if (fothello == nil)
         {
             fothello = [[FothelloGame alloc] init];
         }
@@ -84,9 +95,9 @@
     
     if (self)
     {
-        self.players = [coder decodeObjectForKey:@"players"];
-        self.matches = [coder decodeObjectForKey:@"matches"];
-        self.currentMatch = [coder decodeObjectForKey:@"currentMatch"];
+        _players = [coder decodeObjectForKey:@"players"];
+        _matches = [coder decodeObjectForKey:@"matches"];
+        _currentMatch = [coder decodeObjectForKey:@"currentMatch"];
     }
     return self;
 }
@@ -189,9 +200,10 @@
     self = [super init];
     if (self)
     {
-        self.name = [aDecoder decodeObjectForKey:@"name"];
+        _name = [aDecoder decodeObjectForKey:@"name"];
         _preferredPieceColor = [aDecoder decodeIntegerForKey:@"prefereredPieceColor"];
         _color = [aDecoder decodeIntegerForKey:@"currentPieceColor"];
+        _strategy = [aDecoder decodeObjectForKey:@"strategy"];
 
     }
     return self;
@@ -202,6 +214,7 @@
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeInteger:self.preferredPieceColor forKey:@"prefereredPieceColor"];
     [aCoder encodeInteger:self.color forKey:@"currentPieceColor"];
+    [aCoder encodeObject:self.strategy forKey:@"strategy"];
 }
 
 - (NSString *)description
@@ -236,14 +249,14 @@
     
     if (self)
     {
-        _pieceColor = [coder decodeIntegerForKey:@"pieceColor"];
+        _color = [coder decodeIntegerForKey:@"pieceColor"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeInteger:self.pieceColor forKey:@"pieceColor"];
+    [aCoder encodeInteger:self.color forKey:@"pieceColor"];
 }
 
 - (NSString *)description
@@ -253,17 +266,17 @@
 
 - (BOOL)isClear
 {
-    return self.pieceColor == PieceColorNone;
+    return self.color == PieceColorNone;
 }
 
 - (void)clear
 {
-    self.pieceColor = PieceColorNone;
+    self.color = PieceColorNone;
 }
 
 - (NSString *)colorStringRepresentation
 {
-    switch (self.pieceColor)
+    switch (self.color)
     {
         case PieceColorNone:
             return @".";
@@ -360,6 +373,19 @@
     }
 }
 
+- (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
+{
+    for (NSInteger y = 0; y < self.size; y++)
+    {
+        for (NSInteger x = 0; x < self.size; x++)
+        {
+            Piece *piece = [self pieceAtPositionX:x Y:y];
+
+            block(x, y, piece);
+        }
+    }
+}
+
 - (NSInteger)calculateIndexX:(NSInteger)x Y:(NSInteger)y
 {
     return x * self.size + y;
@@ -377,11 +403,11 @@
 {
     Piece *piece = [self pieceAtPositionX:x Y:y];
 
-    piece.pieceColor =  player.color;
+    piece.color =  player.color;
     
     if (self.placeBlock)
     {
-        self.placeBlock(x, y, piece.pieceColor);
+        self.placeBlock(x, y, piece);
     }
     return YES;
 }
@@ -437,9 +463,33 @@
         _currentPlayer = players[0];
         [self setupPlayersColors];
         _board = [[Board alloc] initWithBoardSize:8];
+        [self reset];
+
     }
     return self;
 }
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    if (self)
+    {
+        _players = [coder decodeObjectForKey:@"players"];
+        _board = [coder decodeObjectForKey:@"board"];
+        _name = [coder decodeObjectForKey:@"name"];
+        _currentPlayer = [coder decodeObjectForKey:@"currentPlayer"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.players forKey:@"players"];
+    [aCoder encodeObject:self.board forKey:@"board"];
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.currentPlayer forKey:@"currentPlayer"];
+}
+
 
 - (void)setupPlayersColors
 {
@@ -545,12 +595,17 @@
             valid = piece && ![piece isClear]; // make sure it is on board and not clear.
            
             if (valid)
-                [track addObject:piece];
-     
-        } while (valid && piece.pieceColor != player.color);
+            {
+                TrackInfo *trackInfo = [[TrackInfo alloc] init];
+                trackInfo.x = offsetx;
+                trackInfo.y = offsety;
+                trackInfo.piece = piece;
+                [track addObject:trackInfo];
+            }
+        } while (valid && piece.color != player.color);
   
         // found piece of same color, end track and call back.
-        if (valid && piece.pieceColor == player.color && track.count > 1)
+        if (valid && piece.color == player.color && track.count > 1)
         {
             trackBlock(track);
             found = YES;
@@ -565,17 +620,24 @@
     return [self findTracksX:x Y:y
                    forPlayer:player
                   trackBlock:
-            ^(NSArray *pieces)
+            ^(NSArray *trackInfo)
             {
                 Piece *piece = [self.board pieceAtPositionX:x Y:y];
-                piece.pieceColor = player.color;
+                piece.color = player.color;
                 
-                for (Piece *piece in pieces)
+                self.board.placeBlock(x, y, piece);
+
+                for (TrackInfo *trackItem in trackInfo)
                 {
-                    piece.pieceColor = player.color;
+                    piece = trackItem.piece;
+                    NSInteger x = trackItem.x;
+                    NSInteger y = trackItem.y;
+                    piece.color = player.color;
                   
                     if (self.board.placeBlock)
-                        self.board.placeBlock(x, y, piece.pieceColor);
+                    {
+                        self.board.placeBlock(x, y, piece);
+                    }
                 }
             }];
 }
@@ -598,7 +660,7 @@
         for (NSInteger x = 0; x < self.board.size; x++)
         {
             Piece *piece = [self.board pieceAtPositionX:x Y:y];
-            score += piece.pieceColor == player.color;
+            score += piece.color == player.color;
         }
     }
     return score;
@@ -607,25 +669,6 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"match %@",self.name];
-}
-
-- (id)initWithCoder:(NSCoder *)coder
-{
-    self = [super init];
-    if (self)
-    {
-        self.players = [coder decodeObjectForKey:@"players"];
-        self.board = [coder decodeObjectForKey:@"board"];
-        self.name = [coder decodeObjectForKey:@"name"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject:self.players forKey:@"players"];
-    [aCoder encodeObject:self.board forKey:@"board"];
-    [aCoder encodeObject:self.name forKey:@"name"];
 }
 
 
@@ -729,8 +772,8 @@
     self = [super init];
     if (self)
     {
-        self.match = [coder decodeObjectForKey:@"match"];
-        self.name = [coder decodeObjectForKey:@"name"];
+        _match = [coder decodeObjectForKey:@"match"];
+        _name = [coder decodeObjectForKey:@"name"];
     }
     return self;
 }

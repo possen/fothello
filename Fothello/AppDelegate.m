@@ -24,4 +24,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [game saveGameState];
 }
 
+- (void)applicationWillTerminate
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game saveGameState];
+}
 @end

@@ -51,7 +51,7 @@ typedef struct Position
 @class Player;
 @class Strategy;
 
-typedef void (^PlaceBlock)(NSInteger x, NSInteger y, PieceColor color);
+typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 
 #pragma mark - Classes -
 
@@ -84,7 +84,8 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, PieceColor color);
 #pragma mark - Piece -
 
 @interface Piece : NSObject <NSCoding>
-@property (nonatomic) PieceColor pieceColor;
+@property (nonatomic) PieceColor color;
+@property (nonatomic) id identifier; // Store reference to UI object
 
 - (BOOL)isClear;
 - (void)clear;
@@ -96,11 +97,13 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, PieceColor color);
 
 - (id)initWithBoardSize:(NSInteger)size;
 - (id)initWithBoardSize:(NSInteger)size
-       piecePlacedBlock:(void (^)(NSInteger x, NSInteger y, PieceColor color))block;
+       piecePlacedBlock:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
 - (Position)center;
+- (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
+
 
 @property (nonatomic) NSMutableArray *grid;
 @property (nonatomic) NSInteger size;
