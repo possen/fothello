@@ -22,11 +22,10 @@ Limitations
 -----------
 * The main game are in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
-* Basic UI
+* Basic UI and images (need an artist)
 * Computer play is not very challenging
-* No real way to skip move. 
 
-As I said this is just the beginnings of the app and it constitues about 4-6 hours of work right now. 
+As I said this is just the beginnings of the app and it constitues about 6-8 hours of work right now. 
 
 
 Classes
