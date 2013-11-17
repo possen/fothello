@@ -83,7 +83,7 @@
         Match *match = [self newMatch:@"default game" players:_players];
         self.currentMatch = match;
         
-        player1.strategy = [[BoxStrategy alloc] initWithMatch:match name:@"Computer"];
+        player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
         player2.strategy = [[BoxStrategy alloc] initWithMatch:match name:@"Computer"];
     }
     return self;
@@ -222,9 +222,9 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (BOOL)takeTurn
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y
 {
-    return [self.strategy takeTurn:self];
+    return [self.strategy takeTurn:self atX:x Y:y];
 }
 
 - (BOOL)isEqual:(id)name
@@ -784,7 +784,7 @@
     [aCoder encodeObject:self.name forKey:@"name"];
 }
 
-- (BOOL)takeTurn:(Player *)player
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
 {
     // subclass
     return NO;
@@ -796,7 +796,7 @@
 
 @implementation BoxStrategy
 
-- (BOOL)takeTurn:(Player *)player
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
 {
     Match *match = self.match;
     Board *board = match.board;
@@ -806,12 +806,12 @@
     {
         __block BOOL placedInbox = NO;
         
-        [self.match boxCoord:boxSize block:
+        [match boxCoord:boxSize block:
          ^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
          {
              BOOL placed = [match placePieceForPlayer:player
-                                                atX:center.x + position.x
-                                                  Y:center.y + position.y];
+                                                  atX:center.x + position.x
+                                                    Y:center.y + position.y];
              
              if (placed)
              {
@@ -829,6 +829,30 @@
     }
     
     return NO;
+}
+
+@end
+
+#pragma mark - HumanStategy -
+
+@implementation HumanStrategy
+
+- (id)initWithMatch:(Match *)match name:(NSString *)name
+{
+    self = [super initWithMatch:match name:name];
+    if (self)
+    {
+        self.manual = YES;
+    }
+    return self;
+}
+
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
+{
+    Match *match = self.match;
+
+    BOOL placed = [match placePieceForPlayer:player atX:x Y:y];
+    return placed;
 }
 
 @end

@@ -107,10 +107,16 @@
         if (x < boardSize && y < boardSize)
         {
             Match *match = self.game.currentMatch;
-            BOOL couldMove1; BOOL couldMove2;
 
-            couldMove1 = [match.currentPlayer takeTurn];
-            [match nextPlayer];
+            do
+            {
+                BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
+                if (placed)
+                {
+                    [match nextPlayer];
+                }
+                
+            } while (!match.currentPlayer.strategy.manual);
         }
     }
 }

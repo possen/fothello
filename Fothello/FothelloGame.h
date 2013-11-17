@@ -78,7 +78,7 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 @property (nonatomic) Strategy *strategy;
 
 - (instancetype)initWithName:(NSString *)name;
-- (BOOL)takeTurn;
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
 @end
 
 #pragma mark - Piece -
@@ -133,9 +133,10 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 
 @property (nonatomic) Match *match;
 @property (nonatomic) NSString *name;
+@property (nonatomic) BOOL manual;
 
 - (id)initWithMatch:(Match *)match name:(NSString *)name;
-- (BOOL)takeTurn:(Player *)player;
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 
 @end
 
@@ -143,6 +144,12 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 
 @interface BoxStrategy : Strategy <NSCoding>
 @end
+
+#pragma mark - HumanStrategy -
+
+@interface HumanStrategy : Strategy <NSCoding>
+@end
+
 
 
 
