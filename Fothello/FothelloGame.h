@@ -52,6 +52,7 @@ typedef struct Position
 @class Strategy;
 
 typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
+typedef void (^CurrentPlayerBlock)(Player *player);
 
 #pragma mark - Classes -
 
@@ -62,6 +63,7 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 + (id)sharedInstance;
 - (Match *)newMatch:(NSString *)name players:(NSArray *)players; // name can be nil for automatic name
 - (void)saveGameState;
+- (void)ready;
 
 @property (nonatomic) Match *currentMatch;
 @property (nonatomic) NSMutableArray *matches;
@@ -76,6 +78,7 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 @property (nonatomic) PieceColor preferredPieceColor;
 @property (nonatomic) PieceColor color;
 @property (nonatomic) Strategy *strategy;
+@property (nonatomic) id identifier;
 
 - (instancetype)initWithName:(NSString *)name;
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
@@ -120,11 +123,13 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 - (BOOL)done;
 - (void)nextPlayer;
 - (void)processOtherTurns;
+- (void)ready;
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) Board *board;
 @property (nonatomic) NSArray *players;
 @property (nonatomic) Player *currentPlayer;
+@property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 
 @end
 

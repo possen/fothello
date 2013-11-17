@@ -11,15 +11,6 @@
 
 @implementation BoardScene
 
-- (void)syncronizeBoardStateWithModel
-{
-    Board *board = self.game.currentMatch.board;
-    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-     {
-         [self placeSpriteAtX:x Y:y withPiece:piece];
-     }];
-}
-
 - (id)initWithSize:(CGSize)size
 {
     self = [super initWithSize:size];
@@ -31,7 +22,9 @@
                                 _boardDimensions, _boardDimensions);
         
         _game = [FothelloGame sharedInstance];
-        _boardSize = self.game.currentMatch.board.size;
+        Match *currentMatch = self.game.currentMatch;
+
+        _boardSize = currentMatch.board.size;
         
         __weak BoardScene *weakBlockSelf = self;
         
@@ -43,54 +36,129 @@
             };
         
         [self syncronizeBoardStateWithModel];
+
+        _game.currentMatch.currentPlayerBlock =
+            ^(Player *player)
+            {
+                [weakBlockSelf displayCurrentPlayer:player];
+            };
         
+
         /* Setup your scene here */
-        
-        self.backgroundColor = [SKColor colorWithRed:.0 green:.70 blue:0.3 alpha:1.0];
-        
-        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-        
-        myLabel.text = @"Fothello";
-        myLabel.fontSize = 30;
-        myLabel.position = CGPointMake(CGRectGetMidX(self.frame), 20);
-        
-        CGRect boardRect = self.boardRect;
-        NSInteger boardDimensions = self.boardDimensions;
-        SKShapeNode *boardUI = [SKShapeNode node];
-        
-        CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        CGPathMoveToPoint(pathToDraw, NULL, boardRect.origin.x, boardRect.origin.y);
-        CGPathAddRect(pathToDraw, NULL, CGRectMake(boardRect.origin.x,
-                                                   boardRect.origin.y,
-                                                   boardRect.size.width,
-                                                   boardRect.size.height));
-        
-        NSInteger spacing = boardDimensions / _boardSize;
-        for (NSInteger lines = 0; lines < boardDimensions; lines += spacing)
-        {
-            CGPathMoveToPoint(pathToDraw, NULL,
-                              boardRect.origin.x,
-                              boardRect.origin.y + lines);
-            
-            CGPathAddLineToPoint(pathToDraw, NULL,
-                                 boardRect.origin.x + boardRect.size.width,
-                                 boardRect.origin.y + lines);
-            
-            CGPathMoveToPoint(pathToDraw, NULL,
-                              boardRect.origin.x + lines,
-                              boardRect.origin.y);
-            
-            CGPathAddLineToPoint(pathToDraw, NULL,
-                                 boardRect.origin.x + lines,
-                                 boardRect.origin.y + boardRect.size.width);
-        }
-        
-        boardUI.path = pathToDraw;
-        [boardUI setStrokeColor:[UIColor whiteColor]];
-        [self addChild:boardUI];
-        [self addChild:myLabel];
+        [self drawBoard];
+        [self addPlayerSprites];
+        self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
+        [_game ready];
     }
     return self;
+}
+
+- (void)syncronizeBoardStateWithModel
+{
+    Board *board = self.game.currentMatch.board;
+    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+     {
+         [self placeSpriteAtX:x Y:y withPiece:piece];
+     }];
+}
+
+- (void)drawBoard
+{
+    self.backgroundColor = [SKColor colorWithRed:.0 green:.70 blue:0.3 alpha:1.0];
+    
+    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    
+    myLabel.text = @"Fothello";
+    myLabel.fontSize = 30;
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), 20);
+    
+    CGRect boardRect = self.boardRect;
+    NSInteger boardDimensions = self.boardDimensions;
+    SKShapeNode *boardUI = [SKShapeNode node];
+    
+    CGMutablePathRef pathToDraw = CGPathCreateMutable();
+    CGPathMoveToPoint(pathToDraw, NULL, boardRect.origin.x, boardRect.origin.y);
+    CGPathAddRect(pathToDraw, NULL, CGRectMake(boardRect.origin.x,
+                                               boardRect.origin.y,
+                                               boardRect.size.width,
+                                               boardRect.size.height));
+    
+    NSInteger spacing = boardDimensions / _boardSize;
+    for (NSInteger lines = 0; lines < boardDimensions; lines += spacing)
+    {
+        CGPathMoveToPoint(pathToDraw, NULL,
+                          boardRect.origin.x,
+                          boardRect.origin.y + lines);
+        
+        CGPathAddLineToPoint(pathToDraw, NULL,
+                             boardRect.origin.x + boardRect.size.width,
+                             boardRect.origin.y + lines);
+        
+        CGPathMoveToPoint(pathToDraw, NULL,
+                          boardRect.origin.x + lines,
+                          boardRect.origin.y);
+        
+        CGPathAddLineToPoint(pathToDraw, NULL,
+                             boardRect.origin.x + lines,
+                             boardRect.origin.y + boardRect.size.width);
+    }
+    
+    boardUI.path = pathToDraw;
+    [boardUI setStrokeColor:[UIColor whiteColor]];
+    [self addChild:boardUI];
+    [self addChild:myLabel];
+}
+
+- (void)addPlayerSprites
+{
+    Match *match = self.game.currentMatch;
+    
+    for (Player *player in match.players)
+    {
+        SKSpriteNode *playerSprite = [[SKSpriteNode alloc] init];
+        playerSprite.position = CGPointMake(CGRectGetMidX(self.frame), -100);
+        playerSprite.size = CGSizeMake(40, 30);
+
+        NSString *filename = [self pieceColorToFileName:player.color];
+        SKSpriteNode *pieceSprite = [[SKSpriteNode alloc] initWithImageNamed:filename];
+        pieceSprite.size = CGSizeMake(30, 30);
+        [playerSprite addChild:pieceSprite];
+        
+        SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        playerLabel.text = player.name;
+        playerLabel.fontSize = 14;
+        playerLabel.position = CGPointMake(0, -40);
+        [playerSprite addChild:playerLabel];
+        
+        //  playerSprite = playerLabel.frame
+        [self addChild:playerSprite];
+        player.identifier = playerSprite;
+    }
+}
+
+- (void)displayCurrentPlayer:(Player *)player
+{
+#if 1
+    SKAction *action = [SKAction moveToY:-100 duration:.5];
+         
+    [self.currentPlayerSprite runAction:action];
+    self.currentPlayerSprite = player.identifier;
+  
+    action = [SKAction moveToY:100 duration:.5];
+
+    [self.currentPlayerSprite runAction:action];
+#else
+
+    SKAction *action = [SKAction fadeOutWithDuration:.5];
+    
+    [self.currentPlayerSprite runAction:action];
+    self.currentPlayerSprite = player.identifier;
+    
+    action = [SKAction fadeInWithDuration:.5];
+    
+    [self.currentPlayerSprite runAction:action];
+#endif
+
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

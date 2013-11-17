@@ -62,6 +62,5 @@
 - (IBAction)resetGame:(UIButton *)sender {
     FothelloGame *game = [FothelloGame sharedInstance];
     [game.currentMatch reset];
-
 }
 @end

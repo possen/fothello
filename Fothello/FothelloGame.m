@@ -102,6 +102,12 @@
     return self;
 }
 
+- (void)ready
+{
+    Match *match = self.currentMatch;
+    [match ready];
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"currentMatch %@",self.currentMatch];
@@ -343,7 +349,6 @@
     {
         self.grid = [coder decodeObjectForKey:@"grid"];
         self.size = [coder decodeIntegerForKey:@"size"];
-
     }
     return self;
 }
@@ -463,7 +468,6 @@
         [self setupPlayersColors];
         _board = [[Board alloc] initWithBoardSize:8];
         [self reset];
-
     }
     return self;
 }
@@ -508,6 +512,12 @@
         player0.color = PieceColorBlack;
         player1.color = PieceColorWhite;
     }
+}
+
+- (void)ready
+{
+    if (self.currentPlayerBlock)
+        self.currentPlayerBlock(self.currentPlayer);
 }
 
 - (Delta)determineDirection:(Direction)direction
@@ -649,6 +659,8 @@
                                              ? players[1]
                                              : players[0];
     
+    if (self.currentPlayerBlock)
+        self.currentPlayerBlock(self.currentPlayer);
 }
 
 - (void)processOtherTurns

@@ -28,6 +28,15 @@ Limitations
 
 As I said this is just the beginnings of the app and it constitues about 4-6 hours of work right now. 
 
+ToDo
+----
+* Undo
+* Allow users to enter their names
+* Add gamekit.
+* UI for managing users, selecting competitors and selecting multiple manual players. 
+* better UI. 
+* saving game state in more places. 
+* more intellegent computer play.
 
 Classes
 =======
