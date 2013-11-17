@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
 		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D52B11B91835FF1D008DBED5 /* orange-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D52B11B81835FF1D008DBED5 /* orange-sphere.png */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D517EA3518385AC2009C54E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		D52B11B81835FF1D008DBED5 /* orange-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-sphere.png"; sourceTree = "<group>"; };
 		D5441B221831CB1100B5166A /* Fothello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fothello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B251831CB1100B5166A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -105,6 +107,7 @@
 		D5441B191831CB1100B5166A = {
 			isa = PBXGroup;
 			children = (
+				D517EA3518385AC2009C54E8 /* README.md */,
 				D5441B2D1831CB1100B5166A /* Fothello */,
 				D5441B541831CB1100B5166A /* FothelloTests */,
 				D5441B241831CB1100B5166A /* Frameworks */,
@@ -272,6 +275,7 @@
 				D5441B3B1831CB1100B5166A /* Main_iPhone.storyboard in Resources */,
 				D5441B6D1831F26E00B5166A /* blue-sphere.png in Resources */,
 				D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */,
+				D517EA3618385AC2009C54E8 /* README.md in Resources */,
 				D5441B721831F26E00B5166A /* violet-sphere.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

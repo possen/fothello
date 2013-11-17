@@ -33,6 +33,7 @@
         
         __weak BoardScene *weakBlockSelf = self;
         
+        // whenever a piece is placed on board calls back to here.
         _game.currentMatch.board.placeBlock =
             ^(NSInteger x, NSInteger y, Piece *piece)
             {
@@ -108,15 +109,25 @@
         {
             Match *match = self.game.currentMatch;
 
-            do
+            BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
+            if (placed)
             {
-                BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
-                if (placed)
+                [match nextPlayer];
+
+                double delayInSeconds = .5;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
                 {
-                    [match nextPlayer];
-                }
-                
-            } while (!match.currentPlayer.strategy.manual);
+                    while (! match.currentPlayer.strategy.manual)
+                    {
+                        BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
+                        if (placed)
+                        {
+                            [match nextPlayer];
+                        }
+                    }
+                });
+            }
         }
     }
 }
@@ -135,11 +146,29 @@
     return nil;
 }
 
+- (void)processTurn:(NSInteger)x Y:(NSInteger)y
+{
+    Match *match = self.game.currentMatch;
+
+    do
+    {
+        self.turnInProgress = YES;
+        
+        BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
+        if (placed)
+        {
+            [match nextPlayer];
+        }
+        
+    } while (! match.currentPlayer.strategy.manual);
+}
+
 - (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
 {
     CGRect boardRect = self.boardRect;
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
+
     
     [piece.identifier removeFromParent];
     piece.identifier = nil;
@@ -155,12 +184,16 @@
                           y * spacing + boardRect.origin.y + spriteSize.height / 2 + 2);
 
         sprite.size = spriteSize;
+        sprite.alpha = 0.0;
         [self addChild:sprite];
-        piece.identifier = sprite;
-    }
-    else
-    {
+        SKAction *action = [SKAction fadeInWithDuration:.5];
         
+        // All the animations should complete at about the same time but only want one
+        // callback.
+        [sprite runAction:action completion:^{
+            self.turnInProgress = NO;
+        }];
+        piece.identifier = sprite;
     }
 }
 
