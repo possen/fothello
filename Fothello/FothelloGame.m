@@ -364,13 +364,12 @@
 
 - (void)reset
 {
-    for (NSInteger y = 0; y < self.size; y++)
-    {
-        for (NSInteger x = 0; x < self.size; x++)
-        {
-            [[self pieceAtPositionX:x Y:y] clear];
-        }
-    }
+    [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+     {
+        [piece clear];
+        if (self.placeBlock)
+             self.placeBlock(x,y,piece);
+     }];
 }
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
@@ -426,7 +425,7 @@
     NSMutableString *boardString = [[NSMutableString alloc] init];
     [self printBanner:boardString];
     
-    for (NSInteger y = 0; y < self.size; y++)
+    for (NSInteger y = self.size -1; y >= 0; --y)
     {
         [boardString appendString:@"|"];
         for (NSInteger x = 0; x < self.size; x++)
@@ -459,7 +458,7 @@
             return nil;
         
         _name = name;
-        _players = players;
+        _players = [players copy];
         _currentPlayer = players[0];
         [self setupPlayersColors];
         _board = [[Board alloc] initWithBoardSize:8];
@@ -652,6 +651,17 @@
     
 }
 
+- (void)processOtherTurns
+{
+    while (! self.currentPlayer.strategy.manual)
+    {
+        BOOL placed = [self.currentPlayer takeTurnAtX:0 Y:0];
+        [self nextPlayer];
+        if (!placed)
+            break;
+    }
+}
+
 - (NSInteger)calculateScore:(Player *)player
 {
     NSInteger score = 0;
@@ -704,10 +714,11 @@
 
 - (void)reset
 {
-    [_board reset];
+    Board *board = self.board;
+
+    [board reset];
     
     NSArray *players = self.players;
-    Board *board = self.board;
     Position center = board.center;
 
     [self boxCoord:1 block:^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
@@ -837,14 +848,9 @@
 
 @implementation HumanStrategy
 
-- (id)initWithMatch:(Match *)match name:(NSString *)name
+- (BOOL)manual
 {
-    self = [super initWithMatch:match name:name];
-    if (self)
-    {
-        self.manual = YES;
-    }
-    return self;
+    return YES;
 }
 
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y

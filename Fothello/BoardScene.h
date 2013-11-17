@@ -17,6 +17,5 @@
 @property (nonatomic,readonly) NSInteger boardDimensions;
 @property (nonatomic,readonly) CGRect boardRect;
 @property (nonatomic,readonly) NSInteger boardSize;
-@property (nonatomic) BOOL turnInProgress;
 
 @end

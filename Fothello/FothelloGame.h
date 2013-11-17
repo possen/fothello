@@ -119,6 +119,7 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 - (void)test;
 - (BOOL)done;
 - (void)nextPlayer;
+- (void)processOtherTurns;
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) Board *board;
@@ -133,7 +134,7 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 
 @property (nonatomic) Match *match;
 @property (nonatomic) NSString *name;
-@property (nonatomic) BOOL manual;
+@property (nonatomic, readonly) BOOL manual;
 
 - (id)initWithMatch:(Match *)match name:(NSString *)name;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;

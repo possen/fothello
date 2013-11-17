@@ -26,8 +26,10 @@
     
     if (self)
     {
-        _boardDimensions = 280;
-        _boardRect = CGRectMake(20, 100, _boardDimensions, _boardDimensions);
+        _boardDimensions = MIN(size.width, size.height) - 40;
+        _boardRect = CGRectMake(20, size.height / 2 - _boardDimensions / 2,
+                                _boardDimensions, _boardDimensions);
+        
         _game = [FothelloGame sharedInstance];
         _boardSize = self.game.currentMatch.board.size;
         
@@ -115,17 +117,11 @@
                 [match nextPlayer];
 
                 double delayInSeconds = .5;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
+                                                        (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
                 {
-                    while (! match.currentPlayer.strategy.manual)
-                    {
-                        BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
-                        if (placed)
-                        {
-                            [match nextPlayer];
-                        }
-                    }
+                    [match processOtherTurns];
                 });
             }
         }
@@ -146,29 +142,12 @@
     return nil;
 }
 
-- (void)processTurn:(NSInteger)x Y:(NSInteger)y
-{
-    Match *match = self.game.currentMatch;
-
-    do
-    {
-        self.turnInProgress = YES;
-        
-        BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
-        if (placed)
-        {
-            [match nextPlayer];
-        }
-        
-    } while (! match.currentPlayer.strategy.manual);
-}
 
 - (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
 {
     CGRect boardRect = self.boardRect;
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
-
     
     [piece.identifier removeFromParent];
     piece.identifier = nil;
@@ -176,7 +155,7 @@
     if (piece.color != PieceColorNone)
     {
         NSString *filename = [self pieceColorToFileName:piece.color];
-        CGSize spriteSize = CGSizeMake(30, 30);
+        CGSize spriteSize = CGSizeMake(spacing - 5, spacing - 5);
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:filename];
 
         sprite.position
@@ -190,9 +169,7 @@
         
         // All the animations should complete at about the same time but only want one
         // callback.
-        [sprite runAction:action completion:^{
-            self.turnInProgress = NO;
-        }];
+        [sprite runAction:action];
         piece.identifier = sprite;
     }
 }

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "BoardScene.h"
+#import "FothelloGame.h"
 
 @implementation ViewController
 
@@ -17,8 +18,8 @@
 
     // Configure the view.
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    //    skView.showsFPS = YES;
+    //skView.showsNodeCount = YES;
     
     // Create and configure the scene.
     SKScene * scene = [BoardScene sceneWithSize:skView.bounds.size];
@@ -26,6 +27,7 @@
     
     // Present the scene.
     [skView presentScene:scene];
+    
 }
 
 - (BOOL)shouldAutorotate
@@ -48,4 +50,18 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+
+- (IBAction)pass:(UIButton *)sender
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game.currentMatch nextPlayer];
+    [game.currentMatch processOtherTurns];
+}
+
+- (IBAction)resetGame:(UIButton *)sender {
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game.currentMatch reset];
+
+}
 @end
