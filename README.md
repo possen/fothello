@@ -10,13 +10,14 @@ SpriteKit and eventually GameKit.
 Capabilities
 ------------
 * It handles persisting games and related information. 
-* It supports boards of larger than 8x8. 
-* It handles the naming conflicts and preferred piece colors for a player
+* It supports boards of larger than 8x8.
+* Model handles the naming conflicts and preferred piece colors for a player
 * It lets you store a game for later play.
 * It has a callback mechanism to get tracks of what pieces will be flipped by a move.
 * It is designed to support more than two players at once (thus the multiple colors other than black and white). 
 * It reports correct or bad moves. 
 * Allows different strategies for each player. 
+* legal move display
 
 Limitations
 -----------
@@ -27,8 +28,8 @@ Limitations
 
 As I said this is just the beginnings of the app and it constitues about 6-8 hours of work right now. 
 
-ToDo
-----
+To Do
+-----
 * Undo
 * Allow users to enter their names
 * Add gamekit.
@@ -36,6 +37,8 @@ ToDo
 * better UI. 
 * saving game state in more places. 
 * more intellegent computer play.
+* detect end of game, display score
+* more than 2 players. 
 
 Classes
 =======

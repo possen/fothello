@@ -16,7 +16,8 @@ typedef enum PieceColor : NSInteger
     PieceColorRed,     // for 3 or more players
     PieceColorBlue,
     PieceColorGreen,
-    PieceColorYellow
+    PieceColorYellow,
+    PieceColorLegal
 } PieceColor;
 
 typedef enum Direction : NSInteger
@@ -124,6 +125,9 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (void)nextPlayer;
 - (void)processOtherTurns;
 - (void)ready;
+- (void)beginTurn;
+- (void)endTurn;
+
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) Board *board;
@@ -143,6 +147,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 
 - (id)initWithMatch:(Match *)match name:(NSString *)name;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
+- (void)displayLegalMoves:(Player *)player display:(BOOL)display;
 
 @end
 

@@ -138,7 +138,6 @@
 
 - (void)displayCurrentPlayer:(Player *)player
 {
-#if 1
     SKAction *action = [SKAction moveToY:-100 duration:.5];
          
     [self.currentPlayerSprite runAction:action];
@@ -147,18 +146,6 @@
     action = [SKAction moveToY:100 duration:.5];
 
     [self.currentPlayerSprite runAction:action];
-#else
-
-    SKAction *action = [SKAction fadeOutWithDuration:.5];
-    
-    [self.currentPlayerSprite runAction:action];
-    self.currentPlayerSprite = player.identifier;
-    
-    action = [SKAction fadeInWithDuration:.5];
-    
-    [self.currentPlayerSprite runAction:action];
-#endif
-
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -186,7 +173,7 @@
 
                 double delayInSeconds = .5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
-                                                        (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                                            (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
                 {
                     [match processOtherTurns];
@@ -204,6 +191,8 @@
             return @"violet-sphere";
         case PieceColorWhite:
             return @"green-sphere";
+        case PieceColorLegal:
+            return @"GrayDot";
         default:
             break;
     }
@@ -225,15 +214,22 @@
         NSString *filename = [self pieceColorToFileName:piece.color];
         CGSize spriteSize = CGSizeMake(spacing - 5, spacing - 5);
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:filename];
-
+        sprite.alpha = 0.0;
+     
         sprite.position
             = CGPointMake(x * spacing + boardRect.origin.x + spriteSize.width / 2 + 3,
                           y * spacing + boardRect.origin.y + spriteSize.height / 2 + 2);
 
+        CGFloat finalAlpha = 1.0;
+        if (piece.color == PieceColorLegal)
+        {
+            spriteSize = CGSizeMake(spacing - 10, spacing - 10);
+            finalAlpha = .3;
+        }
+
         sprite.size = spriteSize;
-        sprite.alpha = 0.0;
         [self addChild:sprite];
-        SKAction *action = [SKAction fadeInWithDuration:.5];
+        SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];
         
         // All the animations should complete at about the same time but only want one
         // callback.

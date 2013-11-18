@@ -230,7 +230,11 @@
 
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y
 {
-    return [self.strategy takeTurn:self atX:x Y:y];
+    [self.strategy.match endTurn];
+    BOOL moved =  [self.strategy takeTurn:self atX:x Y:y];
+    if (!moved)
+        [self.strategy.match beginTurn];
+    return moved;
 }
 
 - (BOOL)isEqual:(id)name
@@ -272,7 +276,7 @@
 
 - (BOOL)isClear
 {
-    return self.color == PieceColorNone;
+    return self.color == PieceColorNone || self.color == PieceColorLegal;
 }
 
 - (void)clear
@@ -298,6 +302,8 @@
             return @"Y";
         case PieceColorBlue:
             return @"B";
+        case PieceColorLegal:
+            return @"•";
     }
 }
 
@@ -379,9 +385,11 @@
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
 {
-    for (NSInteger y = 0; y < self.size; y++)
+    NSInteger size = self.size;
+    
+    for (NSInteger y = 0; y < size; y++)
     {
-        for (NSInteger x = 0; x < self.size; x++)
+        for (NSInteger x = 0; x < size; x++)
         {
             Piece *piece = [self pieceAtPositionX:x Y:y];
 
@@ -430,7 +438,8 @@
     NSMutableString *boardString = [[NSMutableString alloc] init];
     [self printBanner:boardString];
     
-    for (NSInteger y = self.size -1; y >= 0; --y)
+    NSInteger size = self.size;
+    for (NSInteger y = size -1; y >= 0; --y)
     {
         [boardString appendString:@"|"];
         for (NSInteger x = 0; x < self.size; x++)
@@ -518,6 +527,7 @@
 {
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer);
+    [self beginTurn];
 }
 
 - (Delta)determineDirection:(Direction)direction
@@ -616,7 +626,8 @@
         // found piece of same color, end track and call back.
         if (valid && piece.color == player.color && track.count > 1)
         {
-            trackBlock(track);
+            if (trackBlock)
+                trackBlock(track);
             found = YES;
         }
     }
@@ -658,10 +669,23 @@
     self.currentPlayer = self.currentPlayer == players[0]
                                              ? players[1]
                                              : players[0];
-    
+    [self beginTurn];
+ 
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer);
 }
+
+- (void)beginTurn
+{
+    [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:YES];
+    
+}
+
+- (void)endTurn
+{
+    [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:NO];
+}
+
 
 - (void)processOtherTurns
 {
@@ -813,6 +837,11 @@
     return NO;
 }
 
+- (void)displayLegalMoves:(Player *)player display:(BOOL)display
+{
+    // subclass
+}
+
 @end
 
 #pragma mark - BoxStategy -
@@ -871,6 +900,25 @@
 
     BOOL placed = [match placePieceForPlayer:player atX:x Y:y];
     return placed;
+}
+
+- (void)displayLegalMoves:(Player *)player display:(BOOL)display
+{
+    Match *match = self.match;
+    Board *board = match.board;
+    
+    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    {
+        BOOL foundMove = [match findTracksX:x Y:y
+                                  forPlayer:player
+                                 trackBlock:nil];
+        if (foundMove)
+        {
+            Piece *piece = [board pieceAtPositionX:x Y:y];
+            piece.color = display ? PieceColorLegal : PieceColorNone;
+            board.placeBlock(x, y, piece);
+        }
+    }];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
+		D517EA38183947BA009C54E8 /* GrayDot.png in Resources */ = {isa = PBXBuildFile; fileRef = D517EA37183947BA009C54E8 /* GrayDot.png */; };
 		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D52B11B91835FF1D008DBED5 /* orange-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D52B11B81835FF1D008DBED5 /* orange-sphere.png */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		D517EA3518385AC2009C54E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D517EA37183947BA009C54E8 /* GrayDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GrayDot.png; sourceTree = SOURCE_ROOT; };
 		D52B11B81835FF1D008DBED5 /* orange-sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "orange-sphere.png"; sourceTree = "<group>"; };
 		D5441B221831CB1100B5166A /* Fothello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fothello.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B251831CB1100B5166A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -156,6 +158,7 @@
 				D52B11B81835FF1D008DBED5 /* orange-sphere.png */,
 				D5441B6B1831F26E00B5166A /* red-sphere.png */,
 				D5441B6C1831F26E00B5166A /* violet-sphere.png */,
+				D517EA37183947BA009C54E8 /* GrayDot.png */,
 				D5441B2E1831CB1100B5166A /* Supporting Files */,
 			);
 			path = Fothello;
@@ -266,6 +269,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D517EA38183947BA009C54E8 /* GrayDot.png in Resources */,
 				D5441B711831F26E00B5166A /* red-sphere.png in Resources */,
 				D5441B6F1831F26E00B5166A /* green-sphere.png in Resources */,
 				D52B11B91835FF1D008DBED5 /* orange-sphere.png in Resources */,
