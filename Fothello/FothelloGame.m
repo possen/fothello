@@ -67,6 +67,22 @@
     [NSKeyedArchiver archiveRootObject:game toFile:filename];
 }
 
+- (void)pass
+{
+    Match *match = self.currentMatch;
+    [match endTurn];
+    [match nextPlayer];
+    [match processOtherTurns];
+    [match beginTurn];
+}
+
+- (void)reset
+{
+    Match *match = self.currentMatch;
+
+    [match reset];
+    [match beginTurn];
+}
 
 - (id)init
 {
@@ -106,6 +122,28 @@
 {
     Match *match = self.currentMatch;
     [match ready];
+}
+
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y
+{
+    Match *match = self.currentMatch;
+    [match endTurn];
+    
+    BOOL moved = [match.currentPlayer takeTurnAtX:x Y:y];
+
+    // if not moved, put legal moves back.
+    if (!moved)
+        [match beginTurn];
+
+    return moved;
+}
+
+- (void)processOtherTurns
+{
+    Match *match = self.currentMatch;
+    [match endTurn];
+    [match processOtherTurns];
+    [match beginTurn];
 }
 
 - (NSString *)description
@@ -230,10 +268,11 @@
 
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y
 {
-    [self.strategy.match endTurn];
     BOOL moved =  [self.strategy takeTurn:self atX:x Y:y];
-    if (!moved)
-        [self.strategy.match beginTurn];
+    
+    if (moved)
+        [self.strategy.match nextPlayer];
+
     return moved;
 }
 
@@ -669,7 +708,6 @@
     self.currentPlayer = self.currentPlayer == players[0]
                                              ? players[1]
                                              : players[0];
-    [self beginTurn];
  
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer);
@@ -692,7 +730,6 @@
     while (! self.currentPlayer.strategy.manual)
     {
         BOOL placed = [self.currentPlayer takeTurnAtX:0 Y:0];
-        [self nextPlayer];
         if (!placed)
             break;
     }

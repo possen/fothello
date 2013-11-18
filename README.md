@@ -4,16 +4,16 @@ fothello
 Reversi like game.
 -----------------
 
-This is the beginnings of a Reversi like game which supports two players. The idea is to get familiar with 
+This is the beginnings of a Reversi like game. The idea is to get familiar with
 SpriteKit and eventually GameKit. 
 
 Capabilities
 ------------
-* It handles persisting games and related information. 
-* It supports boards of larger than 8x8.
+* Model handles persisting games and related information.
+* Model supports boards of larger than 8x8.
 * Model handles the naming conflicts and preferred piece colors for a player
-* It lets you store a game for later play.
-* It has a callback mechanism to get tracks of what pieces will be flipped by a move.
+* Model lets you store a game for later play.
+* Model has a callback mechanism to get tracks of what pieces will be flipped by a move.
 * It is designed to support more than two players at once (thus the multiple colors other than black and white). 
 * It reports correct or bad moves. 
 * Allows different strategies for each player. 
@@ -21,12 +21,12 @@ Capabilities
 
 Limitations
 -----------
-* The main game are in one file, when getting started on a project I find it is easier to deal with just one
+* The game model is in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
 * Basic UI and images (need an artist)
 * Computer play is not very challenging
 
-As I said this is just the beginnings of the app and it constitues about 6-8 hours of work right now. 
+As I said this is just the beginnings of the app and it constitues about 10 hours of work right now. 
 
 To Do
 -----
@@ -38,7 +38,7 @@ To Do
 * saving game state in more places. 
 * more intellegent computer play.
 * detect end of game, display score
-* more than 2 players. 
+* more than 2 players.
 
 Classes
 =======

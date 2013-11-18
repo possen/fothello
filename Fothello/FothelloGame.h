@@ -65,6 +65,10 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (Match *)newMatch:(NSString *)name players:(NSArray *)players; // name can be nil for automatic name
 - (void)saveGameState;
 - (void)ready;
+- (void)pass;
+- (void)reset;
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
+- (void)processOtherTurns;
 
 @property (nonatomic) Match *currentMatch;
 @property (nonatomic) NSMutableArray *matches;

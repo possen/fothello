@@ -55,12 +55,11 @@
 - (IBAction)pass:(UIButton *)sender
 {
     FothelloGame *game = [FothelloGame sharedInstance];
-    [game.currentMatch nextPlayer];
-    [game.currentMatch processOtherTurns];
+    [game pass];
 }
 
 - (IBAction)resetGame:(UIButton *)sender {
     FothelloGame *game = [FothelloGame sharedInstance];
-    [game.currentMatch reset];
+    [game reset];
 }
 @end

@@ -66,12 +66,6 @@
 {
     self.backgroundColor = [SKColor colorWithRed:.0 green:.70 blue:0.3 alpha:1.0];
     
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    
-    myLabel.text = @"Fothello";
-    myLabel.fontSize = 30;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), 20);
-    
     CGRect boardRect = self.boardRect;
     NSInteger boardDimensions = self.boardDimensions;
     SKShapeNode *boardUI = [SKShapeNode node];
@@ -105,7 +99,17 @@
     
     boardUI.path = pathToDraw;
     [boardUI setStrokeColor:[UIColor whiteColor]];
+    
     [self addChild:boardUI];
+    
+    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    
+    myLabel.text = @"Fothello";
+    myLabel.fontSize = 30;
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
+                                   boardRect.origin.y
+                                   + boardRect.size.height + 20 );
+
     [self addChild:myLabel];
 }
 
@@ -143,7 +147,7 @@
     [self.currentPlayerSprite runAction:action];
     self.currentPlayerSprite = player.identifier;
   
-    action = [SKAction moveToY:100 duration:.5];
+    action = [SKAction moveToY:60 duration:.5];
 
     [self.currentPlayerSprite runAction:action];
 }
@@ -164,19 +168,16 @@
         
         if (x < boardSize && y < boardSize)
         {
-            Match *match = self.game.currentMatch;
-
-            BOOL placed = [match.currentPlayer takeTurnAtX:x Y:y];
+            BOOL placed = [self.game takeTurnAtX:x Y:y];
+            
             if (placed)
             {
-                [match nextPlayer];
-
                 double delayInSeconds = .5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
                 {
-                    [match processOtherTurns];
+                    [self.game processOtherTurns];
                 });
             }
         }
