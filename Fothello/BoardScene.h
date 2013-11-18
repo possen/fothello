@@ -18,5 +18,6 @@
 @property (nonatomic,readonly) CGRect boardRect;
 @property (nonatomic,readonly) NSInteger boardSize;
 @property (nonatomic) SKSpriteNode *currentPlayerSprite;
+@property (nonatomic) BOOL turnProcessing;
 
 @end

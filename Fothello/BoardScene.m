@@ -134,7 +134,6 @@
         playerLabel.position = CGPointMake(0, -40);
         [playerSprite addChild:playerLabel];
         
-        //  playerSprite = playerLabel.frame
         [self addChild:playerSprite];
         player.identifier = playerSprite;
     }
@@ -154,6 +153,10 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    // ignore clicks if turn still processing. 
+    if (self.turnProcessing)
+        return;
+    
     /* Called when a touch begins */
     CGRect boardRect = self.boardRect;
     NSInteger boardSize = self.boardSize;
@@ -166,18 +169,21 @@
         NSInteger x = (location.x - boardRect.origin.x) / spacing;
         NSInteger y = (location.y - boardRect.origin.y) / spacing;
         
-        if (x < boardSize && y < boardSize)
+        if (x < boardSize && y < boardSize && !self.turnProcessing)
         {
             BOOL placed = [self.game takeTurnAtX:x Y:y];
             
             if (placed)
             {
+                self.turnProcessing = YES;
+
                 double delayInSeconds = .5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
                 {
                     [self.game processOtherTurns];
+                    self.turnProcessing = NO;
                 });
             }
         }
