@@ -18,13 +18,13 @@ Capabilities
 * It reports correct or bad moves. 
 * Allows different strategies for each player. 
 * legal move display
+* challenging play with Mini Othello for AI Strategy.
 
 Limitations
 -----------
 * The game model is in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
 * Basic UI and images (need an artist)
-* Computer play is not very challenging
 
 As I said this is just the beginnings of the app and it constitues about 10 hours of work right now. 
 
@@ -36,7 +36,6 @@ To Do
 * UI for managing users, selecting competitors and selecting multiple manual players. 
 * better UI. 
 * saving game state in more places. 
-* more intellegent computer play.
 * detect end of game, display score
 * more than 2 players.
 
