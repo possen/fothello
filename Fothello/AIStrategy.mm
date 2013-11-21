@@ -143,22 +143,24 @@ char player1, player2;
     printBoard(_board, legalMoves);
     printf("placed %d %d\n", ax, ay);
 
-    //    if (legalMove(_board, ax, ay))
+    if (legalMove(_board, ax, ay))
     {
         makeMove(_board, ax, ay);
         printBoard(_board, legalMoves);
 
         return [match placePieceForPlayer:player atX:ax Y:ay];
     }
-#if 0
     else
     {
            makePass(_board);
         
+        FothelloGame *game = [FothelloGame sharedInstance];
+
+        [game pass];
         //  [match] TODO tell model to pass
         return YES;
     }
-#endif
+
     return YES;
 }
 
