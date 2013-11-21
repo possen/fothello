@@ -35,7 +35,6 @@
 		D5441B721831F26E00B5166A /* violet-sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = D5441B6C1831F26E00B5166A /* violet-sphere.png */; };
 		D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
 		D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
-		D5EECCD3183B4EC2005D5507 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCA183B4EC2005D5507 /* game.cpp */; };
 		D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
 		D5EECCD9183B5152005D5507 /* AIStrategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* AIStrategy.mm */; };
 /* End PBXBuildFile section */
@@ -88,12 +87,8 @@
 		D5EECCC7183B4EC2005D5507 /* board.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board.hpp; sourceTree = "<group>"; };
 		D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = endgamecx.cpp; sourceTree = "<group>"; };
 		D5EECCC9183B4EC2005D5507 /* endgamecx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endgamecx.h; sourceTree = "<group>"; };
-		D5EECCCA183B4EC2005D5507 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
-		D5EECCCB183B4EC2005D5507 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
 		D5EECCCD183B4EC2005D5507 /* minimax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minimax.cpp; sourceTree = "<group>"; };
 		D5EECCCE183B4EC2005D5507 /* minimax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minimax.hpp; sourceTree = "<group>"; };
-		D5EECCCF183B4EC2005D5507 /* othello.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = othello.cpp; sourceTree = "<group>"; };
-		D5EECCD0183B4EC2005D5507 /* othello.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = othello.hpp; sourceTree = "<group>"; };
 		D5EECCD7183B5152005D5507 /* AIStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIStrategy.h; sourceTree = "<group>"; };
 		D5EECCD8183B5152005D5507 /* AIStrategy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AIStrategy.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -220,12 +215,8 @@
 				D5EECCC7183B4EC2005D5507 /* board.hpp */,
 				D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */,
 				D5EECCC9183B4EC2005D5507 /* endgamecx.h */,
-				D5EECCCA183B4EC2005D5507 /* game.cpp */,
-				D5EECCCB183B4EC2005D5507 /* game.hpp */,
 				D5EECCCD183B4EC2005D5507 /* minimax.cpp */,
 				D5EECCCE183B4EC2005D5507 /* minimax.hpp */,
-				D5EECCCF183B4EC2005D5507 /* othello.cpp */,
-				D5EECCD0183B4EC2005D5507 /* othello.hpp */,
 			);
 			name = "Mini-Othello";
 			sourceTree = "<group>";
@@ -340,7 +331,6 @@
 				D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */,
 				D5EECCD9183B5152005D5507 /* AIStrategy.mm in Sources */,
 				D5441B411831CB1100B5166A /* ViewController.m in Sources */,
-				D5EECCD3183B4EC2005D5507 /* game.cpp in Sources */,
 				D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */,

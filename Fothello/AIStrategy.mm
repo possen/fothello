@@ -8,7 +8,6 @@
 
 #import "AIStrategy.h"
 #import "FothelloGame.h"
-#import "game.hpp"
 #import "board.hpp"
 #import "minimax.hpp"
 
@@ -50,6 +49,8 @@ bool showDots;
 bool showTime;
 char selfPlayLimit;
 char player1, player2;
+#define HUMAN 1
+#define COMPUTER 2
 
 #pragma mark - AIStrategy -
 
@@ -117,7 +118,7 @@ char player1, player2;
     bool legalMoves[64];
     _board->wt = BLACK;
     
-    char hasLegalMove = findLegalMoves(_board, legalMoves);
+    char humanHasLegalMove = findLegalMoves(_board, legalMoves);
     printBoard(_board, legalMoves);
 
     if (x == -1)
@@ -133,12 +134,13 @@ char player1, player2;
     //    [self convertBoard];
     _board->wt = WHITE;
 
-    hasLegalMove = findLegalMoves(_board, legalMoves);
+    char computerHasLegalMove = findLegalMoves(_board, legalMoves);
+    if (!humanHasLegalMove && !computerHasLegalMove)
+        return NO; // game over
     char nextMove = getMinimaxMove(_board, legalMoves);
 
     char ay = nextMove / 8;
     char ax = nextMove % 8;
-    
     
     printBoard(_board, legalMoves);
     printf("placed %d %d\n", ax, ay);
@@ -152,7 +154,7 @@ char player1, player2;
     }
     else
     {
-           makePass(_board);
+        makePass(_board);
         
         FothelloGame *game = [FothelloGame sharedInstance];
 
