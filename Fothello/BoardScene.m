@@ -55,7 +55,7 @@
 
 - (void)syncronizeBoardStateWithModel
 {
-    Board *board = self.game.currentMatch.board;
+    FBoard *board = self.game.currentMatch.board;
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
          [self placeSpriteAtX:x Y:y withPiece:piece];
@@ -182,7 +182,7 @@
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
                 dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
                 {
-                    [self.game processOtherTurns];
+                    [self.game processOtherTurnsX:x Y:y]; // x & y represent human player move
                     self.turnProcessing = NO;
                 });
             }

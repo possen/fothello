@@ -47,7 +47,7 @@ typedef struct Position
 } Position;
 
 @class Match;
-@class Board;
+@class FBoard;
 @class Piece;
 @class Player;
 @class Strategy;
@@ -68,7 +68,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (void)pass;
 - (void)reset;
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
-- (void)processOtherTurns;
+- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y;
 
 @property (nonatomic) Match *currentMatch;
 @property (nonatomic) NSMutableArray *matches;
@@ -101,7 +101,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 
 #pragma mark - Board -
 
-@interface Board : NSObject <NSCoding>
+@interface FBoard : NSObject <NSCoding>
 
 - (id)initWithBoardSize:(NSInteger)size;
 - (id)initWithBoardSize:(NSInteger)size
@@ -127,14 +127,14 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (void)test;
 - (BOOL)done;
 - (void)nextPlayer;
-- (void)processOtherTurns;
+- (void)processOtherTurnsX:(NSInteger)humanX Y:(NSInteger)y;
 - (void)ready;
 - (void)beginTurn;
 - (void)endTurn;
 
 
 @property (nonatomic) NSString *name;
-@property (nonatomic) Board *board;
+@property (nonatomic) FBoard *board;
 @property (nonatomic) NSArray *players;
 @property (nonatomic) Player *currentPlayer;
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
@@ -152,6 +152,8 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (id)initWithMatch:(Match *)match name:(NSString *)name;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 - (void)displayLegalMoves:(Player *)player display:(BOOL)display;
+- (void)reset;
+- (void)pass;
 
 @end
 
@@ -164,6 +166,8 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 
 @interface HumanStrategy : Strategy <NSCoding>
 @end
+
+
 
 
 

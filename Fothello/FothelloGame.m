@@ -7,6 +7,7 @@
 //
 
 #import "FothelloGame.h"
+#import "AIStrategy.h"
 
 #pragma mark - TrackInfo -
 
@@ -71,15 +72,17 @@
 {
     Match *match = self.currentMatch;
     [match endTurn];
+    [match.currentPlayer.strategy pass];
     [match nextPlayer];
-    [match processOtherTurns];
+    [match processOtherTurnsX:-1 Y:-1];
     [match beginTurn];
 }
 
 - (void)reset
 {
     Match *match = self.currentMatch;
-
+    for (Player *player in match.players)
+        [player.strategy reset];
     [match reset];
     [match beginTurn];
 }
@@ -100,7 +103,7 @@
         self.currentMatch = match;
         
         player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
-        player2.strategy = [[BoxStrategy alloc] initWithMatch:match name:@"Computer"];
+        player2.strategy = [[AIStrategy alloc] initWithMatch:match name:@"Computer"];
     }
     return self;
 }
@@ -138,11 +141,11 @@
     return moved;
 }
 
-- (void)processOtherTurns
+- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y
 {
     Match *match = self.currentMatch;
     [match endTurn];
-    [match processOtherTurns];
+    [match processOtherTurnsX:x Y:y];
     [match beginTurn];
 }
 
@@ -351,7 +354,7 @@
 
 #pragma mark - Board -
 
-@implementation Board
+@implementation FBoard
 
 - (id)initWithBoardSize:(NSInteger)size
 {
@@ -514,7 +517,7 @@
         _players = [players copy];
         _currentPlayer = players[0];
         [self setupPlayersColors];
-        _board = [[Board alloc] initWithBoardSize:8];
+        _board = [[FBoard alloc] initWithBoardSize:8];
         [self reset];
     }
     return self;
@@ -725,11 +728,11 @@
 }
 
 
-- (void)processOtherTurns
+- (void)processOtherTurnsX:(NSInteger)humanx Y:(NSInteger)humany
 {
     while (! self.currentPlayer.strategy.manual)
     {
-        BOOL placed = [self.currentPlayer takeTurnAtX:0 Y:0];
+        BOOL placed = [self.currentPlayer takeTurnAtX:humanx Y:humany];
         if (!placed)
             break;
     }
@@ -787,7 +790,7 @@
 
 - (void)reset
 {
-    Board *board = self.board;
+    FBoard *board = self.board;
 
     [board reset];
     
@@ -796,7 +799,7 @@
 
     [self boxCoord:1 block:^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
      {
-         NSInteger playerCount = (count + 1) % self.players.count;
+         NSInteger playerCount = (count) % self.players.count;
          
          [board player:players[playerCount]
       pieceAtPositionX:center.x + position.x
@@ -879,6 +882,16 @@
     // subclass
 }
 
+- (void)reset
+{
+    // subclass
+}
+
+- (void)pass
+{
+    // subclass
+}
+
 @end
 
 #pragma mark - BoxStategy -
@@ -888,7 +901,7 @@
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
 {
     Match *match = self.match;
-    Board *board = match.board;
+    FBoard *board = match.board;
     Position center = board.center;
     
     for (NSInteger boxSize = 0; boxSize < board.size; boxSize++)
@@ -942,7 +955,7 @@
 - (void)displayLegalMoves:(Player *)player display:(BOOL)display
 {
     Match *match = self.match;
-    Board *board = match.board;
+    FBoard *board = match.board;
     
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
     {
@@ -959,6 +972,7 @@
 }
 
 @end
+
 
 
 
