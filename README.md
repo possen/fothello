@@ -39,6 +39,10 @@ To Do
 * detect end of game, display score
 * more than 2 players.
 
+Help Needed
+-----------
+* An artist who can do animation of black and white othello chips (and perhaps evenutally other colors too). Looking to do something that complements iOS 7. 
+
 Classes
 =======
 
