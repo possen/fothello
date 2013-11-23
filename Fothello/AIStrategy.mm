@@ -160,7 +160,7 @@ char player1, player2;
 
         [game pass];
         //  [match] TODO tell model to pass
-        return YES;
+        return NO;
     }
 
     return YES;
