@@ -13,11 +13,11 @@
 @interface BoardScene : SKScene
 
 @property (nonatomic) FothelloGame *game;
-
 @property (nonatomic,readonly) NSInteger boardDimensions;
 @property (nonatomic,readonly) CGRect boardRect;
 @property (nonatomic,readonly) NSInteger boardSize;
 @property (nonatomic) SKSpriteNode *currentPlayerSprite;
 @property (nonatomic) BOOL turnProcessing;
 
+- (void)setupCurrentMatch;
 @end

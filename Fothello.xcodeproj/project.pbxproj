@@ -37,6 +37,7 @@
 		D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
 		D5EECCD9183B5152005D5507 /* AIStrategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* AIStrategy.mm */; };
+		D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F2C15D18418C5B000F089E /* DialogViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,8 @@
 		D5EECCCE183B4EC2005D5507 /* minimax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minimax.hpp; sourceTree = "<group>"; };
 		D5EECCD7183B5152005D5507 /* AIStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIStrategy.h; sourceTree = "<group>"; };
 		D5EECCD8183B5152005D5507 /* AIStrategy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AIStrategy.mm; sourceTree = "<group>"; };
+		D5F2C15C18418C5B000F089E /* DialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewController.h; sourceTree = "<group>"; };
+		D5F2C15D18418C5B000F089E /* DialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +162,8 @@
 				D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */,
 				D5441B3F1831CB1100B5166A /* ViewController.h */,
 				D5441B401831CB1100B5166A /* ViewController.m */,
+				D5F2C15C18418C5B000F089E /* DialogViewController.h */,
+				D5F2C15D18418C5B000F089E /* DialogViewController.m */,
 				D5441B421831CB1100B5166A /* BoardScene.h */,
 				D5441B431831CB1100B5166A /* BoardScene.m */,
 				D5441B641831CB2800B5166A /* FothelloGame.h */,
@@ -333,6 +338,7 @@
 				D5441B411831CB1100B5166A /* ViewController.m in Sources */,
 				D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
+				D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */,
 				D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,
 				D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */,

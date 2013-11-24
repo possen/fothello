@@ -82,10 +82,11 @@
 {
     Match *match = self.currentMatch;
     for (Player *player in match.players)
-        [player.strategy reset];
+        [player.strategy resetWithDifficulty:match.difficulty];
     [match reset];
     [match beginTurn];
 }
+
 
 - (id)init
 {
@@ -95,15 +96,13 @@
         _matches = [[NSMutableArray alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
-        // TODO: defaut to two to get things going. Support more players later.
-        Player *player1 = [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorBlack];
-        Player *player2 = [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorWhite];
-        
-        Match *match = [self newMatch:@"default game" players:_players];
-        self.currentMatch = match;
-        
-        player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
-        player2.strategy = [[AIStrategy alloc] initWithMatch:match name:@"Computer"];
+        // create default players.
+        [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorBlack];
+        [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorWhite];
+  
+        [self matchWithDifficulty:DifficultyEasy
+                 firstPlayerColor:PieceColorBlack
+                     opponentType:PlayerTypeComputer];
     }
     return self;
 }
@@ -161,9 +160,11 @@
     [encoder encodeObject:self.currentMatch forKey:@"currentMatch"];
 }
 
-- (Match *)createMatch:(NSString *)name players:(NSArray *)players
+- (Match *)createMatch:(NSString *)name
+               players:(NSArray *)players
+            difficulty:(Difficulty)difficulty
 {
-    Match *match = [[Match alloc] initWithName:name players:players];
+    Match *match = [[Match alloc] initWithName:name players:players difficulty:difficulty];
     
     if ([self.matches indexOfObject:match] == NSNotFound)
     {
@@ -173,23 +174,50 @@
     return nil; // not able to create with that name.
 }
 
-- (Match *)newMatch:(NSString *)name players:(NSArray *)players
+- (void)matchWithDifficulty:(Difficulty)difficulty
+           firstPlayerColor:(PieceColor)pieceColor
+               opponentType:(PlayerType)opposingPlayerType
+{
+    Player *player1 = self.players[0];
+    Player *player2 = self.players[1];
+    
+    NSArray *players = @[player1, player2];
+    Match *match = [self matchWithName:nil players:players difficulty:difficulty];
+
+    if (opposingPlayerType == PlayerTypeComputer)
+    {
+        player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
+        player2.strategy = [[AIStrategy alloc] initWithMatch:match name:@"Computer"];
+    }
+    else
+    {
+        player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
+        player2.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
+    }
+    
+    self.currentMatch = match;
+}
+
+
+- (Match *)matchWithName:(NSString *)name
+                 players:(NSArray *)players
+              difficulty:(Difficulty)difficulty
 {
     Match *match = nil;
     if (name == nil)
     {
         NSInteger count = 0;
 
-        while (name == nil)
+        while (match == nil)
         {
             name = [NSString stringWithFormat:@"Unnamed Game %ld", (long)count];
-            match = [self createMatch:name players:players];
+            match = [self createMatch:name players:players difficulty:difficulty];
             count++;
         }
     }
     else
     {
-        match = [self createMatch:name players:players];
+        match = [self createMatch:name players:players difficulty:difficulty];
     }
     
     return match;
@@ -251,7 +279,6 @@
         _preferredPieceColor = [aDecoder decodeIntegerForKey:@"prefereredPieceColor"];
         _color = [aDecoder decodeIntegerForKey:@"currentPieceColor"];
         _strategy = [aDecoder decodeObjectForKey:@"strategy"];
-
     }
     return self;
 }
@@ -504,7 +531,9 @@
 
 @implementation Match
 
-- (instancetype)initWithName:(NSString *)name players:(NSArray *)players
+- (instancetype)initWithName:(NSString *)name
+                     players:(NSArray *)players
+                  difficulty:(Difficulty)difficulty
 {
     self = [super init];
     
@@ -515,6 +544,7 @@
         
         _name = name;
         _players = [players copy];
+        _difficulty = difficulty;
         _currentPlayer = players[0];
         [self setupPlayersColors];
         _board = [[FBoard alloc] initWithBoardSize:8];
@@ -882,7 +912,7 @@
     // subclass
 }
 
-- (void)reset
+- (void)resetWithDifficulty:(Difficulty)difficulty
 {
     // subclass
 }

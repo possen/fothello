@@ -22,35 +22,41 @@
                                 _boardDimensions, _boardDimensions);
         
         _game = [FothelloGame sharedInstance];
-        Match *currentMatch = self.game.currentMatch;
 
-        _boardSize = currentMatch.board.size;
+        [self setupCurrentMatch];
         
-        __weak BoardScene *weakBlockSelf = self;
-        
-        // whenever a piece is placed on board calls back to here.
-        _game.currentMatch.board.placeBlock =
-            ^(NSInteger x, NSInteger y, Piece *piece)
-            {
-                [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
-            };
-        
-        [self syncronizeBoardStateWithModel];
-
-        _game.currentMatch.currentPlayerBlock =
-            ^(Player *player)
-            {
-                [weakBlockSelf displayCurrentPlayer:player];
-            };
-        
-
         /* Setup your scene here */
         [self drawBoard];
         [self addPlayerSprites];
-        self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
         [_game ready];
     }
     return self;
+}
+
+- (void)setupCurrentMatch
+{
+    Match *currentMatch = self.game.currentMatch;
+    
+    _boardSize = currentMatch.board.size;
+    
+    __weak BoardScene *weakBlockSelf = self;
+    
+    // whenever a piece is placed on board calls back to here.
+    currentMatch.board.placeBlock =
+    ^(NSInteger x, NSInteger y, Piece *piece)
+    {
+        [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
+    };
+    
+    [self syncronizeBoardStateWithModel];
+    
+    currentMatch.currentPlayerBlock =
+    ^(Player *player)
+    {
+        [weakBlockSelf displayCurrentPlayer:player];
+    };
+    
+    self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
 }
 
 - (void)syncronizeBoardStateWithModel

@@ -63,6 +63,7 @@ char player1, player2;
     {
         char isFlipped  = NO;
 
+        // globals not good but miniothello uses them.
         player1 = HUMAN;
         player2 = COMPUTER;
         searchDepth = SEARCH_BEGINNER;
@@ -159,16 +160,40 @@ char player1, player2;
         FothelloGame *game = [FothelloGame sharedInstance];
 
         [game pass];
-        //  [match] TODO tell model to pass
         return NO;
     }
 
     return YES;
 }
 
-- (void)reset
+- (void)resetWithDifficulty:(Difficulty)difficulty
 {
     initBoard(_board, NO);
+    switch (difficulty)
+    {
+        case DifficultyEasy:
+            searchDepth = SEARCH_NOVICE;
+            bruteForceDepth = BRUTE_FORCE_NOVICE;
+            break;
+            
+        case DifficultyModerate:
+            searchDepth = SEARCH_BEGINNER;
+            bruteForceDepth = BRUTE_FORCE_BEGINNER;
+            break;
+            
+        case DifficultyHard:
+            searchDepth = SEARCH_AMATEUR;
+            bruteForceDepth = BRUTE_FORCE_AMATEUR;
+            break;
+            
+        case DifficultyHardest:
+            searchDepth = SEARCH_EXPERIENCED;
+            bruteForceDepth = BRUTE_FORCE_EXPERIENCED;
+            useAndersson = YES;
+            break;            
+    }
+    
+    originalSearchDepth = searchDepth;
 }
 @end
 

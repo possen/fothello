@@ -574,14 +574,6 @@ float evaluateBoard(char *a, char forWhom, char whoseTurn, char prevmaxDOF,
   result += (((a[7]+1) % 3 - mean) * sign) * ESTIMATED_CORNER_WORTH;
   result += (((a[56]+1) % 3 - mean) * sign) * ESTIMATED_CORNER_WORTH;
   result += (((a[63]+1) % 3 - mean) * sign) * ESTIMATED_CORNER_WORTH;
-  // */
-  /* // Approach 2 -- need to set sign = -2.0 for BLACK, 2.0 for WHITE
-  float mean = ((float)BLACK + (float)WHITE) * 0.5;
-  result += ((float)(a[0]) - mean) * (a[0] / (a[0] + 1.0e-20)) * sign * cornerWorth;
-  result += ((float)(a[7]) - mean) * (a[7] / (a[7] + 1.0e-20)) * sign * cornerWorth;
-  result += ((float)(a[56]) - mean) * (a[56] / (a[56] + 1.0e-20)) * sign * cornerWorth;
-  result += ((float)(a[63]) - mean) * (a[63] / (a[63] + 1.0e-20)) * sign * cornerWorth;
-  // */
   return result;
 }
 

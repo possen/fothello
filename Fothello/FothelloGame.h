@@ -46,6 +46,21 @@ typedef struct Position
     NSInteger y;
 } Position;
 
+typedef enum PlayerType : NSInteger
+{
+    PlayerTypeHuman,
+    PlayerTypeComputer
+} PlayerType;
+
+typedef enum Difficulty : NSInteger
+{
+    DifficultyEasy,
+    DifficultyModerate,
+    DifficultyHard,
+    DifficultyHardest
+} Difficulty;
+
+
 @class Match;
 @class FBoard;
 @class Piece;
@@ -62,11 +77,20 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 @interface FothelloGame : NSObject <NSCoding>
 
 + (id)sharedInstance;
-- (Match *)newMatch:(NSString *)name players:(NSArray *)players; // name can be nil for automatic name
+
+- (Match *)matchWithName:(NSString *)name       // name can be nil for automatic name
+                 players:(NSArray *)players
+              difficulty:(Difficulty)difficulty;
+
 - (void)saveGameState;
 - (void)ready;
 - (void)pass;
 - (void)reset;
+
+- (void)matchWithDifficulty:(Difficulty)difficulty
+          firstPlayerColor:(PieceColor)pieceColor
+              opponentType:(PlayerType)playerType;
+
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
 - (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y;
 
@@ -121,7 +145,11 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 #pragma mark - Match -
 
 @interface Match : NSObject <NSCoding>
-- (instancetype)initWithName:(NSString *)name players:(NSArray *)players;
+
+- (instancetype)initWithName:(NSString *)name
+                     players:(NSArray *)players
+                  difficulty:(Difficulty)difficulty;
+
 - (BOOL)placePieceForPlayer:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
 - (void)test;
@@ -137,6 +165,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 @property (nonatomic) FBoard *board;
 @property (nonatomic) NSArray *players;
 @property (nonatomic) Player *currentPlayer;
+@property (nonatomic) Difficulty difficulty; // only used by AIStrategy
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 
 @end
@@ -152,7 +181,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (id)initWithMatch:(Match *)match name:(NSString *)name;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 - (void)displayLegalMoves:(Player *)player display:(BOOL)display;
-- (void)reset;
+- (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
 
 @end

@@ -10,6 +10,7 @@
 #import "BoardScene.h"
 #import "FothelloGame.h"
 #import <iAd/iAd.h>
+#import "DialogViewController.h"
 
 @implementation ViewController
 
@@ -18,20 +19,22 @@
     [super viewDidLoad];
 
     // Configure the view.
-    SKView * skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.view;
     //    skView.showsFPS = YES;
     //skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [BoardScene sceneWithSize:skView.bounds.size];
+    BoardScene *scene = [BoardScene sceneWithSize:skView.bounds.size];
+    self.boardScene = scene;
+    
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:scene];
     
     ADBannerView *adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-    adView.frame = CGRectOffset(adView.frame, 0, 20);
-    adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
+    //    adView.frame = CGRectOffset(adView.frame, 0, 20);
+    [adView sizeThatFits:[skView frame].size];
     adView.delegate = self;
     [self.view addSubview:adView];
 }
@@ -54,7 +57,7 @@
     {
         [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
         // Assumes the banner view is placed at the bottom of the screen.
-        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height + 20);
+        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
         [UIView commitAnimations];
         self.bannerIsVisible = NO;
     }
@@ -66,16 +69,37 @@
     {
         [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
         // Assumes the banner view is just off the bottom of the screen.
-        banner.frame = CGRectOffset(banner.frame, 0, -(banner.frame.size.height + 20));
+        banner.frame = CGRectOffset(banner.frame, 0, -(banner.frame.size.height));
         [UIView commitAnimations];
         self.bannerIsVisible = YES;
     }
 }
 
+- (IBAction)unwindFromCancelForm:(UIStoryboardSegue *)segue
+{
+}
+
 - (IBAction)unwindFromConfirmationForm:(UIStoryboardSegue *)segue
 {
+    DialogViewController *dvc = segue.sourceViewController;
+    
+    UISegmentedControl *playerTypeControl = dvc.playerType;
+    PlayerType playerType = [playerTypeControl selectedSegmentIndex];
+    
+    UISegmentedControl *humanControl = dvc.humanPlayerColor;
+    PieceColor pieceColor = [humanControl selectedSegmentIndex];
+
+    UISegmentedControl *difficultyControl = dvc.difficulty;
+    Difficulty difficulty = [difficultyControl selectedSegmentIndex];
+
     FothelloGame *game = [FothelloGame sharedInstance];
+
     [game reset];
+    [game matchWithDifficulty:difficulty
+             firstPlayerColor:pieceColor
+                 opponentType:playerType];
+    
+    [self.boardScene setupCurrentMatch];
 }
 
 - (BOOL)allowActionToRun
@@ -112,7 +136,7 @@
 }
 
 - (IBAction)resetGame:(UIButton *)sender {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game reset];
+    //   FothelloGame *game = [FothelloGame sharedInstance];
+    //    [game reset];
 }
 @end
