@@ -175,10 +175,11 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 @interface Strategy : NSObject <NSCoding>
 
 @property (nonatomic) Match *match;
-@property (nonatomic) NSString *name;
 @property (nonatomic, readonly) BOOL manual;
+@property (nonatomic) BOOL firstPlayer;
 
-- (id)initWithMatch:(Match *)match name:(NSString *)name;
+
+- (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
 - (void)displayLegalMoves:(Player *)player display:(BOOL)display;
 - (void)resetWithDifficulty:(Difficulty)difficulty;

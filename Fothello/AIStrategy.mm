@@ -56,16 +56,25 @@ char player1, player2;
 
 @implementation AIStrategy
 
-- (id)initWithMatch:(Match *)match name:(NSString *)name
+- (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer
 {
-    self = [super initWithMatch:match name:name];
+    self = [super initWithMatch:match firstPlayer:firstPlayer];
     if (self)
     {
         char isFlipped  = NO;
 
         // globals not good but miniothello uses them.
-        player1 = HUMAN;
-        player2 = COMPUTER;
+        if (firstPlayer)
+        {
+            player1 = COMPUTER;
+            player2 = HUMAN;
+        }
+        else
+        {
+            player1 = HUMAN;
+            player2 = COMPUTER;
+        }
+        
         searchDepth = SEARCH_BEGINNER;
         originalSearchDepth = searchDepth;
         bruteForceDepth = BRUTE_FORCE_BEGINNER;
@@ -117,7 +126,7 @@ char player1, player2;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
 {
     bool legalMoves[64];
-    _board->wt = BLACK;
+    _board->wt = self.firstPlayer ? WHITE : BLACK;
     
     char humanHasLegalMove = findLegalMoves(_board, legalMoves);
     printBoard(_board, legalMoves);
@@ -133,7 +142,7 @@ char player1, player2;
     //   FBoard *board = match.board;
     
     //    [self convertBoard];
-    _board->wt = WHITE;
+    _board->wt = self.firstPlayer ? BLACK : WHITE;
 
     char computerHasLegalMove = findLegalMoves(_board, legalMoves);
     if (!humanHasLegalMove && !computerHasLegalMove)

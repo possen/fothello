@@ -95,8 +95,10 @@
     FothelloGame *game = [FothelloGame sharedInstance];
 
     [game reset];
+    [self.boardScene teardownCurrentMatch];
+
     [game matchWithDifficulty:difficulty
-             firstPlayerColor:pieceColor
+             firstPlayerColor:pieceColor + PieceColorBlack
                  opponentType:playerType];
     
     [self.boardScene setupCurrentMatch];

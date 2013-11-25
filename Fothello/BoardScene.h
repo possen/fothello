@@ -20,4 +20,6 @@
 @property (nonatomic) BOOL turnProcessing;
 
 - (void)setupCurrentMatch;
+- (void)teardownCurrentMatch;
+
 @end

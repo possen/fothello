@@ -59,6 +59,14 @@
     self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
 }
 
+- (void)teardownCurrentMatch
+{
+    Match *currentMatch = self.game.currentMatch;
+    currentMatch.board.placeBlock = nil;
+    currentMatch.currentPlayerBlock = nil;
+    self.currentPlayerSprite = nil;;
+}
+
 - (void)syncronizeBoardStateWithModel
 {
     FBoard *board = self.game.currentMatch.board;

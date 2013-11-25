@@ -186,18 +186,26 @@
 
     if (opposingPlayerType == PlayerTypeComputer)
     {
-        player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
-        player2.strategy = [[AIStrategy alloc] initWithMatch:match name:@"Computer"];
+        if (pieceColor == PieceColorBlack)
+        {
+            player1.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:YES];
+            player2.strategy = [[AIStrategy alloc] initWithMatch:match firstPlayer:NO];
+        }
+        else
+        {
+            // need to make computer do first move.
+            player1.strategy = [[AIStrategy alloc] initWithMatch:match firstPlayer:YES];
+            player2.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:NO];
+        }
     }
     else
     {
-        player1.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
-        player2.strategy = [[HumanStrategy alloc] initWithMatch:match name:@"Human"];
+        player1.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:YES];
+        player2.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:NO];
     }
     
     self.currentMatch = match;
 }
-
 
 - (Match *)matchWithName:(NSString *)name
                  players:(NSArray *)players
@@ -206,14 +214,9 @@
     Match *match = nil;
     if (name == nil)
     {
-        NSInteger count = 0;
-
-        while (match == nil)
-        {
-            name = [NSString stringWithFormat:@"Unnamed Game %ld", (long)count];
-            match = [self createMatch:name players:players difficulty:difficulty];
-            count++;
-        }
+        long count = self.matches.count;
+        name = [NSString stringWithFormat:@"Unnamed Game %ld", (long)count];
+        match = [self createMatch:name players:players difficulty:difficulty];
     }
     else
     {
@@ -873,13 +876,13 @@
 @implementation Strategy
 
 // Not done and not used yet.
-- (id)initWithMatch:(Match *)match name:(NSString *)name
+- (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer
 {
     self = [super init];
     if (self)
     {
         _match = match;
-        _name = name;
+        _firstPlayer = firstPlayer;
     }
     return self;
 }
@@ -890,7 +893,7 @@
     if (self)
     {
         _match = [coder decodeObjectForKey:@"match"];
-        _name = [coder decodeObjectForKey:@"name"];
+        _firstPlayer = [coder decodeBoolForKey:@"firstPlayer"];
     }
     return self;
 }
@@ -898,7 +901,7 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.match forKey:@"match"];
-    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeBool:self.firstPlayer forKey:@"firstPlayer"];
 }
 
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
