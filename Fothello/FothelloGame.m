@@ -71,16 +71,16 @@
 - (void)pass
 {
     Match *match = self.currentMatch;
-    [match endTurn];
     [match.currentPlayer.strategy pass];
     [match nextPlayer];
     [match processOtherTurnsX:-1 Y:-1];
-    [match beginTurn];
 }
 
 - (void)reset
 {
     Match *match = self.currentMatch;
+    [match endTurn];
+    match.currentPlayer = match.players[0];
     for (Player *player in match.players)
         [player.strategy resetWithDifficulty:match.difficulty];
     [match reset];
@@ -143,9 +143,7 @@
 - (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y
 {
     Match *match = self.currentMatch;
-    [match endTurn];
     [match processOtherTurnsX:x Y:y];
-    [match beginTurn];
 }
 
 - (NSString *)description
@@ -451,7 +449,9 @@
      {
         [piece clear];
         if (self.placeBlock)
-             self.placeBlock(x,y,piece);
+        {
+             self.placeBlock(x, y, piece);
+        }
      }];
 }
 
@@ -741,23 +741,34 @@
 {
     NSArray *players = self.players;
 
+    [self endTurn];
     self.currentPlayer = self.currentPlayer == players[0]
                                              ? players[1]
                                              : players[0];
  
+    NSLog(@"current player %@", self.currentPlayer);
+    
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer);
+
+    [self beginTurn];
+
 }
 
 - (void)beginTurn
 {
+    NSLog(@"begin(");
     [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:YES];
+    NSLog(@")begin %@", self.board);
+  
     
 }
 
 - (void)endTurn
 {
+    NSLog(@"end(");
     [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:NO];
+    NSLog(@")end %@", self.board);
 }
 
 
@@ -990,6 +1001,7 @@
     Match *match = self.match;
     FBoard *board = match.board;
     
+    // Determine moves
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
     {
         BOOL foundMove = [match findTracksX:x Y:y
@@ -998,8 +1010,12 @@
         if (foundMove)
         {
             Piece *piece = [board pieceAtPositionX:x Y:y];
-            piece.color = display ? PieceColorLegal : PieceColorNone;
-            board.placeBlock(x, y, piece);
+            PieceColor color = display ? PieceColorLegal : PieceColorNone;
+            if (piece.color != color)
+            {
+                piece.color = color;
+                board.placeBlock(x, y, piece);
+            }
         }
     }];
 }

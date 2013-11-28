@@ -94,7 +94,7 @@
 
     FothelloGame *game = [FothelloGame sharedInstance];
 
-    [game reset];
+    [game.currentMatch reset]; // clear the board only. 
     [self.boardScene teardownCurrentMatch];
 
     [game matchWithDifficulty:difficulty
@@ -102,6 +102,7 @@
                  opponentType:playerType];
     
     [self.boardScene setupCurrentMatch];
+    [game reset];
 }
 
 - (BOOL)allowActionToRun

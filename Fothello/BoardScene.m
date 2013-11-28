@@ -60,7 +60,7 @@
 }
 
 - (void)teardownCurrentMatch
-{
+{    
     Match *currentMatch = self.game.currentMatch;
     currentMatch.board.placeBlock = nil;
     currentMatch.currentPlayerBlock = nil;
@@ -194,7 +194,8 @@
                 double delayInSeconds = .5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
-                dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
+                dispatch_after(popTime, dispatch_get_main_queue(),
+                               ^(void)
                 {
                     [self.game processOtherTurnsX:x Y:y]; // x & y represent human player move
                     self.turnProcessing = NO;
@@ -227,8 +228,10 @@
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
     
+    NSLog(@"piece %d x:%d y:%d %@", piece.color, x, y, piece.identifier);
+
     [piece.identifier removeFromParent];
-    piece.identifier = nil;
+    piece.identifier = nil;    
     
     if (piece.color != PieceColorNone)
     {

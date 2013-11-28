@@ -42,9 +42,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kAm-hv-i9O" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="32" id="16Z-rL-WgI"/>
-                            <constraint firstAttribute="trailing" secondItem="AXO-CC-62x" secondAttribute="trailing" constant="20" symbolic="YES" id="Gww-Nc-YgG"/>
+                            <constraint firstItem="AXO-CC-62x" firstAttribute="baseline" secondItem="kAm-hv-i9O" secondAttribute="baseline" id="4VE-Bh-TVV"/>
                             <constraint firstAttribute="bottom" secondItem="kAm-hv-i9O" secondAttribute="bottom" constant="20" symbolic="YES" id="HNb-DD-UTW"/>
-                            <constraint firstItem="AXO-CC-62x" firstAttribute="baseline" secondItem="kAm-hv-i9O" secondAttribute="baseline" id="ZO0-CV-nQ3"/>
+                            <constraint firstAttribute="trailing" secondItem="AXO-CC-62x" secondAttribute="trailing" constant="20" symbolic="YES" id="LH1-to-r9D"/>
                         </constraints>
                     </view>
                     <connections>
