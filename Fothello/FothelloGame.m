@@ -743,6 +743,7 @@
     NSArray *players = self.players;
 
     [self endTurn];
+    BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
     self.currentPlayer = self.currentPlayer == players[0]
                                              ? players[1]
                                              : players[0];
@@ -750,6 +751,9 @@
     NSLog(@"current player %@", self.currentPlayer);
     
     BOOL canMove = [self beginTurn];
+    self.currentPlayer.canMove = canMove;
+    if (!prevPlayerCouldMove  && !canMove)
+        self.matchStatusBlock(YES);
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer, canMove);
 }
@@ -757,14 +761,14 @@
 - (BOOL)beginTurn
 {
     //    NSLog(@"begin(");
-   return [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:YES];
+   return [self.currentPlayer.strategy findLegalMoves:self.currentPlayer display:YES];
     //NSLog(@")begin %@", self.board);
 }
 
 - (void)endTurn
 {
     //NSLog(@"end(");
-    [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:NO];
+    [self.currentPlayer.strategy findLegalMoves:self.currentPlayer display:NO];
     //NSLog(@")end %@", self.board);
 }
 
@@ -918,10 +922,32 @@
     return NO;
 }
 
-- (BOOL)displayLegalMoves:(Player *)player display:(BOOL)display
+- (BOOL)findLegalMoves:(Player *)player display:(BOOL)display
 {
-    // subclass
-    return NO;
+    Match *match = self.match;
+    FBoard *board = match.board;
+    __block BOOL foundLegal = NO;
+    
+    // Determine moves
+    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+     {
+         BOOL foundMove = [match findTracksX:x Y:y
+                                   forPlayer:player
+                                  trackBlock:nil];
+         if (foundMove)
+         {
+             Piece *piece = [board pieceAtPositionX:x Y:y];
+             PieceColor color = display ? PieceColorLegal : PieceColorNone;
+             if (piece.color != color)
+             {
+                 piece.color = color;
+                 if (self.manual)
+                     board.placeBlock(x, y, piece);
+             }
+             foundLegal = YES;
+         }
+     }];
+    return foundLegal;
 }
 
 - (void)resetWithDifficulty:(Difficulty)difficulty
@@ -994,32 +1020,6 @@
     return placed;
 }
 
-- (BOOL)displayLegalMoves:(Player *)player display:(BOOL)display
-{
-    Match *match = self.match;
-    FBoard *board = match.board;
-    __block BOOL foundLegal = NO;
-    
-    // Determine moves
-    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-    {
-        BOOL foundMove = [match findTracksX:x Y:y
-                                  forPlayer:player
-                                 trackBlock:nil];
-        if (foundMove)
-        {
-            Piece *piece = [board pieceAtPositionX:x Y:y];
-            PieceColor color = display ? PieceColorLegal : PieceColorNone;
-            if (piece.color != color)
-            {
-                piece.color = color;
-                board.placeBlock(x, y, piece);
-            }
-            foundLegal = YES;
-        }
-    }];
-    return foundLegal;
-}
 
 @end
 

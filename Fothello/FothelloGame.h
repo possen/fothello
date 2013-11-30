@@ -69,6 +69,7 @@ typedef enum Difficulty : NSInteger
 
 typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
+typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 #pragma mark - Classes -
 
@@ -108,6 +109,7 @@ typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 @property (nonatomic) PieceColor color;
 @property (nonatomic) Strategy *strategy;
 @property (nonatomic) id identifier;
+@property (nonatomic) BOOL canMove;
 
 - (instancetype)initWithName:(NSString *)name;
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
@@ -167,7 +169,7 @@ typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 @property (nonatomic) Player *currentPlayer;
 @property (nonatomic) Difficulty difficulty; // only used by AIStrategy
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
-
+@property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
 @end
 
 #pragma mark - Strategy -
@@ -181,7 +183,7 @@ typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
-- (BOOL)displayLegalMoves:(Player *)player display:(BOOL)display;
+- (BOOL)findLegalMoves:(Player *)player display:(BOOL)display;
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
 

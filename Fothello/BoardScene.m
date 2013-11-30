@@ -58,6 +58,12 @@
             weakBlockSelf.updatePlayerMove(canMove);
     };
     
+    currentMatch.matchStatusBlock = ^(BOOL gameOver)
+    {
+        if (gameOver)
+            [weakBlockSelf displayGameOver];
+    };
+    
     self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
 }
 
@@ -67,6 +73,7 @@
     currentMatch.board.placeBlock = nil;
     currentMatch.currentPlayerBlock = nil;
     self.currentPlayerSprite = nil;;
+    [self removeGameOver];
 }
 
 - (void)syncronizeBoardStateWithModel
@@ -76,6 +83,28 @@
      {
          [self placeSpriteAtX:x Y:y withPiece:piece];
      }];
+}
+
+- (void)displayGameOver
+{
+    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Modern No. 20"];
+    
+    myLabel.text = @"Game Over!";
+    myLabel.fontSize = 30;
+    myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    SKAction *action = [SKAction fadeInWithDuration:.5];
+    SKAction *action2 = [SKAction fadeOutWithDuration:.5];
+    
+    [myLabel runAction:[SKAction repeatAction:
+                        [SKAction sequence:@[action, action2]] count:5]];
+    [self addChild:myLabel];
+    self.gameOverNode = myLabel;
+}
+
+- (void)removeGameOver
+{
+    [self.gameOverNode removeFromParent];
 }
 
 - (void)drawBoard
