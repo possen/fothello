@@ -105,8 +105,14 @@
     
     [game reset];
 
-    if (pieceColor == 1) // white
-        [game.currentMatch processOtherTurnsX:-1 Y:-1];
+    // segment control is zero based add start piece color to map it correctly.
+    if (pieceColor + PieceColorBlack ==  PieceColorWhite)
+    {
+        if (playerType == PlayerTypeComputer)
+            [game.currentMatch processOtherTurnsX:-1 Y:-1];
+        else
+            [game.currentMatch nextPlayer];
+    }
 }
 
 - (BOOL)allowActionToRun
