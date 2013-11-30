@@ -84,11 +84,11 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XWr-ST-WaU">
-                                <rect key="frame" x="331" y="250" width="107" height="29"/>
+                                <rect key="frame" x="331" y="250" width="99" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="Purple"/>
-                                    <segment title="Green"/>
+                                    <segment title="Black"/>
+                                    <segment title="White"/>
                                 </segments>
                                 <connections>
                                     <action selector="humanPlayerColorAction:" destination="Jsu-pN-x1O" eventType="valueChanged" id="off-TD-Owd"/>

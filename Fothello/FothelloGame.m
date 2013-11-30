@@ -602,7 +602,7 @@
 - (void)ready
 {
     if (self.currentPlayerBlock)
-        self.currentPlayerBlock(self.currentPlayer);
+        self.currentPlayerBlock(self.currentPlayer, YES);
     [self beginTurn];
 }
 
@@ -749,27 +749,23 @@
  
     NSLog(@"current player %@", self.currentPlayer);
     
+    BOOL canMove = [self beginTurn];
     if (self.currentPlayerBlock)
-        self.currentPlayerBlock(self.currentPlayer);
-
-    [self beginTurn];
-
+        self.currentPlayerBlock(self.currentPlayer, canMove);
 }
 
-- (void)beginTurn
+- (BOOL)beginTurn
 {
-    NSLog(@"begin(");
-    [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:YES];
-    NSLog(@")begin %@", self.board);
-  
-    
+    //    NSLog(@"begin(");
+   return [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:YES];
+    //NSLog(@")begin %@", self.board);
 }
 
 - (void)endTurn
 {
-    NSLog(@"end(");
+    //NSLog(@"end(");
     [self.currentPlayer.strategy displayLegalMoves:self.currentPlayer display:NO];
-    NSLog(@")end %@", self.board);
+    //NSLog(@")end %@", self.board);
 }
 
 
@@ -922,9 +918,10 @@
     return NO;
 }
 
-- (void)displayLegalMoves:(Player *)player display:(BOOL)display
+- (BOOL)displayLegalMoves:(Player *)player display:(BOOL)display
 {
     // subclass
+    return NO;
 }
 
 - (void)resetWithDifficulty:(Difficulty)difficulty
@@ -997,10 +994,11 @@
     return placed;
 }
 
-- (void)displayLegalMoves:(Player *)player display:(BOOL)display
+- (BOOL)displayLegalMoves:(Player *)player display:(BOOL)display
 {
     Match *match = self.match;
     FBoard *board = match.board;
+    __block BOOL foundLegal = NO;
     
     // Determine moves
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
@@ -1017,8 +1015,10 @@
                 piece.color = color;
                 board.placeBlock(x, y, piece);
             }
+            foundLegal = YES;
         }
     }];
+    return foundLegal;
 }
 
 @end

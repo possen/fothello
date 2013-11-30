@@ -19,7 +19,7 @@
     {
         _boardDimensions = MIN(size.width, size.height) - 40;
         _boardRect = CGRectMake(20, size.height / 2 - _boardDimensions / 2,
-                                _boardDimensions, _boardDimensions);
+                                    _boardDimensions, _boardDimensions);
         
         _game = [FothelloGame sharedInstance];
 
@@ -51,9 +51,11 @@
     [self syncronizeBoardStateWithModel];
     
     currentMatch.currentPlayerBlock =
-    ^(Player *player)
+    ^(Player *player, BOOL canMove)
     {
         [weakBlockSelf displayCurrentPlayer:player];
+        if (weakBlockSelf.updatePlayerMove)
+            weakBlockSelf.updatePlayerMove(canMove);
     };
     
     self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
@@ -127,6 +129,22 @@
     [self addChild:myLabel];
 }
 
+- (SKNode *)makePieceWithColor:(PieceColor)color size:(CGSize)size
+{
+    SKShapeNode *pieceSprite = [[SKShapeNode alloc] init];
+    
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    CGPathAddEllipseInRect(myPath, NULL, rect);
+    pieceSprite.path = myPath;
+    
+    pieceSprite.lineWidth = 1.0;
+    pieceSprite.fillColor = color == PieceColorWhite ? [SKColor whiteColor] : [SKColor blackColor];
+    pieceSprite.strokeColor = [SKColor lightGrayColor];
+    pieceSprite.glowWidth = 0.5;
+    return pieceSprite;
+}
+
 - (void)addPlayerSprites
 {
     Match *match = self.game.currentMatch;
@@ -134,18 +152,17 @@
     for (Player *player in match.players)
     {
         SKSpriteNode *playerSprite = [[SKSpriteNode alloc] init];
-        playerSprite.position = CGPointMake(CGRectGetMidX(self.frame), -100);
-        playerSprite.size = CGSizeMake(40, 30);
+        playerSprite.size = CGSizeMake(30, 30);
+        playerSprite.position = CGPointMake(CGRectGetMidX(self.frame) - playerSprite.size.width / 2, -100);
 
-        NSString *filename = [self pieceColorToFileName:player.color];
-        SKSpriteNode *pieceSprite = [[SKSpriteNode alloc] initWithImageNamed:filename];
-        pieceSprite.size = CGSizeMake(30, 30);
+        CGSize size = CGSizeMake(30, 30);
+        SKNode *pieceSprite = [self makePieceWithColor:player.color size:size];
         [playerSprite addChild:pieceSprite];
         
         SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
         playerLabel.text = player.name;
         playerLabel.fontSize = 14;
-        playerLabel.position = CGPointMake(0, -40);
+        playerLabel.position = CGPointMake(15, -40);
         [playerSprite addChild:playerLabel];
         
         [self addChild:playerSprite];
@@ -201,25 +218,11 @@
                     self.turnProcessing = NO;
                 });
             }
+            self.updatePlayerMove(placed);
         }
     }
 }
 
-- (NSString *)pieceColorToFileName:(PieceColor)color
-{
-    switch (color)
-    {
-        case PieceColorBlack:
-            return @"violet-sphere";
-        case PieceColorWhite:
-            return @"green-sphere";
-        case PieceColorLegal:
-            return @"GrayDot";
-        default:
-            break;
-    }
-    return nil;
-}
 
 
 - (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
@@ -235,23 +238,22 @@
     
     if (piece.color != PieceColorNone)
     {
-        NSString *filename = [self pieceColorToFileName:piece.color];
-        CGSize spriteSize = CGSizeMake(spacing - 5, spacing - 5);
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:filename];
+        CGFloat finalAlpha = 1.0;
+
+        CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
+        if (piece.color == PieceColorLegal)
+        {
+            spriteSize = CGSizeMake(spacing - 25, spacing - 25);
+            finalAlpha = .3;
+        }
+        SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];
         sprite.alpha = 0.0;
      
         sprite.position
-            = CGPointMake(x * spacing + boardRect.origin.x + spriteSize.width / 2 + 3,
-                          y * spacing + boardRect.origin.y + spriteSize.height / 2 + 2);
+            = CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + 17.5,
+                          y * spacing + boardRect.origin.y - spriteSize.height / 2 + 17 );
 
-        CGFloat finalAlpha = 1.0;
-        if (piece.color == PieceColorLegal)
-        {
-            spriteSize = CGSizeMake(spacing - 10, spacing - 10);
-            finalAlpha = .3;
-        }
 
-        sprite.size = spriteSize;
         [self addChild:sprite];
         SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];
         

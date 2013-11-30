@@ -68,7 +68,7 @@ typedef enum Difficulty : NSInteger
 @class Strategy;
 
 typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
-typedef void (^CurrentPlayerBlock)(Player *player);
+typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 
 #pragma mark - Classes -
 
@@ -157,7 +157,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 - (void)nextPlayer;
 - (void)processOtherTurnsX:(NSInteger)humanX Y:(NSInteger)y;
 - (void)ready;
-- (void)beginTurn;
+- (BOOL)beginTurn;
 - (void)endTurn;
 
 
@@ -181,7 +181,7 @@ typedef void (^CurrentPlayerBlock)(Player *player);
 
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
-- (void)displayLegalMoves:(Player *)player display:(BOOL)display;
+- (BOOL)displayLegalMoves:(Player *)player display:(BOOL)display;
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
 

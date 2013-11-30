@@ -27,6 +27,14 @@
     BoardScene *scene = [BoardScene sceneWithSize:skView.bounds.size];
     self.boardScene = scene;
     
+    self.pass.hidden = YES;
+    
+    __weak ViewController *weakBlockSelf = self;
+    self.boardScene.updatePlayerMove = ^(BOOL canMove)
+    {
+        [weakBlockSelf updateMove:canMove];
+    };
+
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
@@ -39,6 +47,10 @@
     [self.view addSubview:adView];
 }
 
+- (void)updateMove:(BOOL)canMove
+{
+    self.pass.hidden = canMove;
+}
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
 {
