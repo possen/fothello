@@ -182,6 +182,8 @@
     NSArray *players = @[player1, player2];
     Match *match = [self matchWithName:nil players:players difficulty:difficulty];
 
+    self.currentMatch = match;
+
     if (opposingPlayerType == PlayerTypeComputer)
     {
         if (pieceColor == PieceColorBlack)
@@ -202,7 +204,6 @@
         player2.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:NO];
     }
     
-    self.currentMatch = match;
 }
 
 - (Match *)matchWithName:(NSString *)name

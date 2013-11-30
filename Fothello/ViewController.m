@@ -102,7 +102,11 @@
                  opponentType:playerType];
     
     [self.boardScene setupCurrentMatch];
+    
     [game reset];
+
+    if (pieceColor == 1) // white
+        [game.currentMatch processOtherTurnsX:-1 Y:-1];
 }
 
 - (BOOL)allowActionToRun
