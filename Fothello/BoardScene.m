@@ -279,8 +279,8 @@
         sprite.alpha = 0.0;
      
         sprite.position
-            = CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + 17.5,
-                          y * spacing + boardRect.origin.y - spriteSize.height / 2 + 17 );
+            = CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
+                          y * spacing + boardRect.origin.y - spriteSize.height / 2 + spacing / 2);
 
 
         [self addChild:sprite];
