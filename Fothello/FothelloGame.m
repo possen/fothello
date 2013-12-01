@@ -752,8 +752,10 @@
     
     BOOL canMove = [self beginTurn];
     self.currentPlayer.canMove = canMove;
+    
     if (!prevPlayerCouldMove  && !canMove)
         self.matchStatusBlock(YES);
+    
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer, canMove);
 }

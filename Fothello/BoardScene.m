@@ -92,7 +92,7 @@
     myLabel.text = @"Game Over!";
     myLabel.fontSize = 30;
     myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)/8 +10);
     SKAction *action = [SKAction fadeInWithDuration:.5];
     SKAction *action2 = [SKAction fadeOutWithDuration:.5];
     
@@ -247,7 +247,6 @@
                     self.turnProcessing = NO;
                 });
             }
-            self.updatePlayerMove(placed);
         }
     }
 }
