@@ -787,6 +787,7 @@
 
 - (NSInteger)calculateScore:(Player *)player
 {
+    // Probably need a less brute force calculation of score. 
     NSInteger score = 0;
     for (NSInteger y = 0; y < self.board.size; y++)
     {

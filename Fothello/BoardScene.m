@@ -99,12 +99,36 @@
     [myLabel runAction:[SKAction repeatAction:
                         [SKAction sequence:@[action, action2]] count:5]];
     [self addChild:myLabel];
+    
     self.gameOverNode = myLabel;
+
+    Player *player1 = self.game.currentMatch.players[0];
+    [player1.identifier runAction:
+     [SKAction sequence:
+        @[[SKAction moveToX:CGRectGetMidX(self.frame)/2 duration:.5],
+          [SKAction moveToY:60 duration:.5]]] ];
+
+    Player *player2 = self.game.currentMatch.players[1];
+
+    [player2.identifier runAction:
+     [SKAction sequence:
+      @[[SKAction moveToX:CGRectGetMidX(self.frame) + CGRectGetMidX(self.frame) /2 duration:.5],
+        [SKAction moveToY:60 duration:.5]]] ];
 }
 
 - (void)removeGameOver
 {
     [self.gameOverNode removeFromParent];
+    self.gameOverNode = nil;
+    Match *match = self.game.currentMatch;
+    
+    for (Player *player in match.players)
+    {
+        SKSpriteNode *node = player.identifier;
+        node.position = CGPointMake(CGRectGetMidX(self.frame) - node.size.width / 2, -100);
+    }
+    
+    [self displayCurrentPlayer:match.players[0]];
 }
 
 - (void)drawBoard
@@ -188,6 +212,13 @@
         SKNode *pieceSprite = [self makePieceWithColor:player.color size:size];
         [playerSprite addChild:pieceSprite];
         
+        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        scoreLabel.name = @"score";
+        scoreLabel.text = [NSString stringWithFormat:@"%d", [match calculateScore:player]];
+        scoreLabel.fontSize = 14;
+        scoreLabel.position = CGPointMake(15, -20);
+        [playerSprite addChild:scoreLabel];
+
         SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
         playerLabel.text = player.name;
         playerLabel.fontSize = 14;
@@ -201,20 +232,23 @@
 
 - (void)displayCurrentPlayer:(Player *)player
 {
+    Match *match = self.game.currentMatch;
     SKAction *action = [SKAction moveToY:-100 duration:.5];
          
     [self.currentPlayerSprite runAction:action];
     self.currentPlayerSprite = player.identifier;
+    
+    SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
+    scoreLabel.text = [NSString stringWithFormat:@"%d", [match calculateScore:player]];
   
     action = [SKAction moveToY:60 duration:.5];
-
     [self.currentPlayerSprite runAction:action];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     // ignore clicks if turn still processing. 
-    if (self.turnProcessing)
+    if (self.turnProcessing && self.gameOverNode)
         return;
     
     /* Called when a touch begins */
@@ -271,7 +305,7 @@
         CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
         if (piece.color == PieceColorLegal)
         {
-            spriteSize = CGSizeMake(spacing - 25, spacing - 25);
+            spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
             finalAlpha = .3;
         }
         SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];

@@ -108,6 +108,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 @property (nonatomic) PieceColor preferredPieceColor;
 @property (nonatomic) PieceColor color;
 @property (nonatomic) Strategy *strategy;
+@property (nonatomic) NSInteger score;
 @property (nonatomic) id identifier;
 @property (nonatomic) BOOL canMove;
 
@@ -161,6 +162,8 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 - (void)ready;
 - (BOOL)beginTurn;
 - (void)endTurn;
+- (NSInteger)calculateScore:(Player *)player;
+
 
 
 @property (nonatomic) NSString *name;
