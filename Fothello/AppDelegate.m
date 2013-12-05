@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "FothelloGame.h"
+#import "DialogViewController.h"
 
 @implementation AppDelegate
 
@@ -17,16 +18,39 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder
+{
+    return YES;
+}
 
-- (void)applicationWillResignActive:(UIApplication *)application
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder
+{
+    return YES;    
+}
+
++ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
+                                                            coder:(NSCoder *)coder
+{
+    DialogViewController* vc;
+    UIStoryboard* sb = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
+    if (sb)
+    {
+        vc = (DialogViewController *)[sb instantiateViewControllerWithIdentifier:@"DialogViewController"];
+        vc.restorationIdentifier = [identifierComponents lastObject];
+        vc.restorationClass = [DialogViewController class];
+    }
+    return vc;
+}
+
+- (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
 {
     FothelloGame *game = [FothelloGame sharedInstance];
     [game saveGameState];
 }
 
-- (void)applicationWillTerminate
+- (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game saveGameState];
+    [FothelloGame sharedInstance];
 }
+
 @end

@@ -87,12 +87,13 @@
 
 - (void)displayGameOver
 {
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Modern No. 20"];
+    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
     myLabel.text = @"Game Over!";
-    myLabel.fontSize = 30;
+    myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    myLabel.fontSize = 40;
     myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)/8 +10);
+    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     SKAction *action = [SKAction fadeInWithDuration:.5];
     SKAction *action2 = [SKAction fadeOutWithDuration:.5];
     
@@ -105,14 +106,14 @@
     Player *player1 = self.game.currentMatch.players[0];
     [player1.identifier runAction:
      [SKAction sequence:
-        @[[SKAction moveToX:CGRectGetMidX(self.frame)/2 duration:.5],
+        @[[SKAction moveToX:self.frame.size.width/4 duration:.5],
           [SKAction moveToY:60 duration:.5]]] ];
 
     Player *player2 = self.game.currentMatch.players[1];
 
     [player2.identifier runAction:
      [SKAction sequence:
-      @[[SKAction moveToX:CGRectGetMidX(self.frame) + CGRectGetMidX(self.frame) /2 duration:.5],
+      @[[SKAction moveToX:self.frame.size.width/4 *3 duration:.5],
         [SKAction moveToY:60 duration:.5]]] ];
 }
 
@@ -179,6 +180,9 @@
                                    boardRect.origin.y
                                    + boardRect.size.height + 20 );
 
+    SKAction *action = [SKAction fadeAlphaTo:0 duration:2];
+    [myLabel runAction:action];
+
     [self addChild:myLabel];
 }
 
@@ -205,10 +209,10 @@
     for (Player *player in match.players)
     {
         SKSpriteNode *playerSprite = [[SKSpriteNode alloc] init];
-        playerSprite.size = CGSizeMake(30, 30);
+        CGSize size = CGSizeMake(30, 30);
+        playerSprite.size = size;
         playerSprite.position = CGPointMake(CGRectGetMidX(self.frame) - playerSprite.size.width / 2, -100);
 
-        CGSize size = CGSizeMake(30, 30);
         SKNode *pieceSprite = [self makePieceWithColor:player.color size:size];
         [playerSprite addChild:pieceSprite];
         

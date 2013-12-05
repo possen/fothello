@@ -268,6 +268,7 @@
     if (self)
     {
         _name = name;
+        _canMove = YES;
     }
     return self;
 }
@@ -281,6 +282,7 @@
         _preferredPieceColor = [aDecoder decodeIntegerForKey:@"prefereredPieceColor"];
         _color = [aDecoder decodeIntegerForKey:@"currentPieceColor"];
         _strategy = [aDecoder decodeObjectForKey:@"strategy"];
+        _canMove = [aDecoder decodeBoolForKey:@"canMove"];
     }
     return self;
 }
@@ -291,6 +293,7 @@
     [aCoder encodeInteger:self.preferredPieceColor forKey:@"prefereredPieceColor"];
     [aCoder encodeInteger:self.color forKey:@"currentPieceColor"];
     [aCoder encodeObject:self.strategy forKey:@"strategy"];
+    [aCoder encodeBool:self.canMove forKey:@"canMove"];
 }
 
 - (NSString *)description

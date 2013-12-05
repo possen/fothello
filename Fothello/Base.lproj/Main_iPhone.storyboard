@@ -67,7 +67,7 @@
                         <viewControllerLayoutGuide type="top" id="Syf-kF-hZQ"/>
                         <viewControllerLayoutGuide type="bottom" id="bJF-VZ-qS2"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="WtA-6R-oKr">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="DialogViewController" id="WtA-6R-oKr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
