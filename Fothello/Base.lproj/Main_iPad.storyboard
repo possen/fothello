@@ -7,7 +7,7 @@
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BV1-FR-VrT" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JLu-pN-cEu"/>
                         <viewControllerLayoutGuide type="bottom" id="F0R-vO-Uug"/>
@@ -57,7 +57,7 @@
         <!--Dialog View Controller-->
         <scene sceneID="jrT-y4-6rT">
             <objects>
-                <viewController id="Jsu-pN-x1O" customClass="DialogViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DialogViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jsu-pN-x1O" customClass="DialogViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7CE-j0-cvY"/>
                         <viewControllerLayoutGuide type="bottom" id="e8d-go-9Fh"/>
@@ -72,7 +72,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8ys-gB-PuK">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Against" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8ys-gB-PuK">
                                 <rect key="frame" x="310" y="167" width="149" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -83,7 +83,7 @@
                                     <action selector="againstAction:" destination="Jsu-pN-x1O" eventType="valueChanged" id="Vh7-Ge-n1e"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="DialogViewController" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XWr-ST-WaU">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Color" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XWr-ST-WaU">
                                 <rect key="frame" x="331" y="250" width="99" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -94,7 +94,7 @@
                                     <action selector="humanPlayerColorAction:" destination="Jsu-pN-x1O" eventType="valueChanged" id="off-TD-Owd"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mm2-1Y-xuU">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="Difficulty" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mm2-1Y-xuU">
                                 <rect key="frame" x="260" y="329" width="249" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -113,7 +113,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTq-SW-btb">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTq-SW-btb">
                                 <rect key="frame" x="702" y="974" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play">
@@ -146,6 +146,7 @@
                             <constraint firstItem="xLL-p1-2cI" firstAttribute="leading" secondItem="Pdi-Mt-Tf7" secondAttribute="leading" constant="20" symbolic="YES" id="3Th-5T-29C"/>
                             <constraint firstAttribute="bottom" secondItem="xLL-p1-2cI" secondAttribute="bottom" constant="20" symbolic="YES" id="7KU-l2-0Af"/>
                             <constraint firstItem="xLL-p1-2cI" firstAttribute="baseline" secondItem="DTq-SW-btb" secondAttribute="baseline" id="KhN-gt-hm9"/>
+                            <constraint firstAttribute="trailing" secondItem="DTq-SW-btb" secondAttribute="trailing" constant="36" id="gHX-od-7hX"/>
                         </constraints>
                     </view>
                     <connections>

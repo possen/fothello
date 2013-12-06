@@ -7,12 +7,12 @@
         <!--View Controller-->
         <scene sceneID="CtS-rA-C9T">
             <objects>
-                <viewController id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LVB-YS-i5n" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="O8r-Wv-Dp1"/>
                         <viewControllerLayoutGuide type="bottom" id="Uh9-qP-Zc5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bdc-N1-crn" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ViewController" id="bdc-N1-crn" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -62,7 +62,7 @@
         <!--Dialog View Controller-->
         <scene sceneID="D1r-Da-U6m">
             <objects>
-                <viewController id="Ki6-IX-gBB" customClass="DialogViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DialogViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ki6-IX-gBB" customClass="DialogViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Syf-kF-hZQ"/>
                         <viewControllerLayoutGuide type="bottom" id="bJF-VZ-qS2"/>
@@ -77,7 +77,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-7u-fjR">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Against" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-7u-fjR">
                                 <rect key="frame" x="86" y="118" width="149" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -88,7 +88,7 @@
                                     <action selector="againstAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="OtH-te-iIG"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LsH-Uh-uwa">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Color" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LsH-Uh-uwa">
                                 <rect key="frame" x="111" y="201" width="99" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
@@ -99,7 +99,7 @@
                                     <action selector="humanPlayerColorAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="07l-gy-inR"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uSL-Kx-Cnj">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Difficulty" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uSL-Kx-Cnj">
                                 <rect key="frame" x="15" y="281" width="291" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>

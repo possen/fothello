@@ -28,23 +28,29 @@
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
-    [coder encodeObject:self.playerType forKey:@"playerType"];
-    [coder encodeObject:self.humanPlayerColor forKey:@"humanColor"];
-    [coder encodeObject:self.difficulty forKey:@"difficulty"];
+
+    [coder encodeInteger:[self.playerType selectedSegmentIndex] forKey:@"playerType"];
+    [coder encodeInteger:[self.humanPlayerColor selectedSegmentIndex] forKey:@"humanColor"];
+    [coder encodeInteger:[self.difficulty selectedSegmentIndex] forKey:@"difficulty"];
+    NSLog(@"saving state");
 }
+
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    self.playerType = [coder decodeObjectForKey:@"playerType"];
-    self.humanPlayerColor = [coder decodeObjectForKey:@"humanColor"];
-    self.difficulty = [coder decodeObjectForKey:@"difficulty"];
+    [self.playerType setSelectedSegmentIndex:[coder decodeIntegerForKey:@"playerType"]];
+    [self.humanPlayerColor setSelectedSegmentIndex:[coder decodeIntegerForKey:@"humanColor"]];
+    [self.difficulty setSelectedSegmentIndex:[coder decodeIntegerForKey:@"difficulty"]];
+    [self setupPlayerType:[self.playerType selectedSegmentIndex]];
+    NSLog(@"restoring state");
+
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self setupPlayerType:[self.playerType selectedSegmentIndex]];
 }
 
 - (void)didReceiveMemoryWarning

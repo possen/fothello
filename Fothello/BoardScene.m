@@ -87,11 +87,17 @@
 
 - (void)displayGameOver
 {
+    Match *match = self.game.currentMatch;
+    Player *player1 = match.players[0];
+    Player *player2 = match.players[1];
+    NSInteger score1 = [match calculateScore:player1];
+    NSInteger score2 = [match calculateScore:player2];
+
+    Player *winner = score1 > score2 ? player1 : player2;
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    
-    myLabel.text = @"Game Over!";
+    myLabel.text = [NSString stringWithFormat:@"%@ Wins", winner.name];
     myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    myLabel.fontSize = 40;
+    myLabel.fontSize = 32;
     myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     SKAction *action = [SKAction fadeInWithDuration:.5];
@@ -103,18 +109,28 @@
     
     self.gameOverNode = myLabel;
 
-    Player *player1 = self.game.currentMatch.players[0];
-    [player1.identifier runAction:
-     [SKAction sequence:
-        @[[SKAction moveToX:self.frame.size.width/4 duration:.5],
-          [SKAction moveToY:60 duration:.5]]] ];
+    SKNode *playerNode1 =  player1.identifier;
+    
+    // assuming both player displays are same height
+    NSInteger ypos = self.boardRect.origin.y + self.boardRect.size.height
+                    + playerNode1.frame.size.height;
+    
+    SKNode *node1 = player1.identifier;
+    SKNode *playerName1 = [playerNode1 childNodeWithName:@"playerName"];
+    [playerName1 runAction:[SKAction fadeAlphaTo:0 duration:1]];
+    [node1 runAction:
+     [SKAction group:
+        @[[SKAction moveToX:self.frame.size.width / 4 - playerNode1.frame.size.width/2 duration:1],
+          [SKAction moveToY:ypos duration:1]]] ];
 
-    Player *player2 = self.game.currentMatch.players[1];
+    SKNode *node2 = player2.identifier;
+    SKNode *playerName2 = [node2 childNodeWithName:@"playerName"];
+    [playerName2 runAction:[SKAction fadeAlphaTo:0 duration:1]];
 
-    [player2.identifier runAction:
-     [SKAction sequence:
-      @[[SKAction moveToX:self.frame.size.width/4 *3 duration:.5],
-        [SKAction moveToY:60 duration:.5]]] ];
+    [node2 runAction:
+     [SKAction group:
+      @[[SKAction moveToX:self.frame.size.width / 4 * 3 - playerNode1.frame.size.width /2 duration:1],
+        [SKAction moveToY:ypos duration:1]]] ];
 }
 
 - (void)removeGameOver
@@ -127,6 +143,8 @@
     {
         SKSpriteNode *node = player.identifier;
         node.position = CGPointMake(CGRectGetMidX(self.frame) - node.size.width / 2, -100);
+        SKNode *playerName = [node childNodeWithName:@"playerName"];
+        [playerName runAction:[SKAction fadeAlphaTo:1 duration:1]];
     }
     
     [self displayCurrentPlayer:match.players[0]];
@@ -224,6 +242,7 @@
         [playerSprite addChild:scoreLabel];
 
         SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        playerLabel.name = @"playerName";
         playerLabel.text = player.name;
         playerLabel.fontSize = 14;
         playerLabel.position = CGPointMake(15, -40);

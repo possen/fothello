@@ -13,7 +13,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+    willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     return YES;
 }
@@ -28,6 +28,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     return YES;    
 }
 
+#if 0
 + (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
                                                             coder:(NSCoder *)coder
 {
@@ -41,6 +42,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     }
     return vc;
 }
+#endif
 
 - (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
 {
