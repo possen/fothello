@@ -24,9 +24,6 @@ Limitations
 -----------
 * The game model is in one file, when getting started on a project I find it is easier to deal with just one
   file then break out later.
-* Basic UI and images (need an artist)
-
-As I said this is just the beginnings of the app and it constitues about 10 hours of work right now. 
 
 To Do
 -----
@@ -37,7 +34,7 @@ To Do
 * UI for managing users, selecting competitors and selecting multiple manual players. 
 * saving game state in more places. 
 * detect end of game, display score
-* more than 2 players.
+* more than 2 players?
 
 Classes
 =======
