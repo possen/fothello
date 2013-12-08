@@ -190,7 +190,7 @@
     
     boardUI.path = pathToDraw;
     [boardUI setStrokeColor:[UIColor whiteColor]];
-    
+    CFRelease(pathToDraw);
     [self addChild:boardUI];
     
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -215,6 +215,7 @@
     CGRect rect = CGRectMake(0, 0, size.width, size.height);
     CGPathAddEllipseInRect(myPath, NULL, rect);
     pieceSprite.path = myPath;
+    CFRelease(myPath);
     
     pieceSprite.lineWidth = 1.0;
     pieceSprite.fillColor = color == PieceColorWhite ? [SKColor whiteColor] : [SKColor blackColor];
