@@ -86,7 +86,7 @@ char player1, player2;
         useAndersson = false;
         showDots = false;
         selfPlayLimit = 127;  // big enough.
-        srand(time(NULL));
+        srand((unsigned)time(NULL));
         _board = makeBoard(NO);
     }
     return self;

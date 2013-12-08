@@ -405,6 +405,7 @@
             return nil; // must be multiple of 2
         
         _grid = [[NSMutableArray alloc] initWithCapacity:size*size];
+        _piecesPlayed = [[NSMutableDictionary alloc] init];
  
         // init with empty pieces
         for (NSInteger index = 0; index < size * size; index ++)
@@ -422,6 +423,46 @@
     return [NSString stringWithFormat:@"\n%@",[self print]];
 }
 
+- (void)updateColor:(Piece *)piece incdec:(NSInteger)incDec
+{
+    if ([piece isClear])
+        return;
+        
+    NSNumber *key = @(piece.color);
+    NSNumber *count = self.piecesPlayed[key];
+    
+    NSInteger newCount = [count integerValue] + incDec;
+    self.piecesPlayed[key] = @(newCount);
+}
+
+- (void)changePiece:(Piece *)piece withColor:(PieceColor)color
+{
+    [self updateColor:piece incdec:-1];
+    piece.color = color;
+    [self updateColor:piece incdec:1];
+}
+
+- (BOOL)boardFull
+{
+    NSInteger total = 0;
+    for (NSNumber *key in self.piecesPlayed)
+    {
+        NSInteger score = [self.piecesPlayed[key] integerValue];
+        if (score == 0)
+            return YES; // all white or all black.
+        
+        total += score;
+    }
+    
+    return (total >= self.size * self.size);
+}
+
+- (NSInteger)playerScore:(Player *)player
+{
+    NSNumber *key = @(player.color);
+    return [self.piecesPlayed[key] integerValue];
+}
+
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
@@ -429,6 +470,7 @@
     {
         self.grid = [coder decodeObjectForKey:@"grid"];
         self.size = [coder decodeIntegerForKey:@"size"];
+        self.piecesPlayed = [coder decodeObjectForKey:@"piecesPlayed"];
     }
     return self;
 }
@@ -437,6 +479,7 @@
 {
     [aCoder encodeObject:self.grid forKey:@"grid"];
     [aCoder encodeInteger:self.size forKey:@"size"];
+    [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
 }
 
 - (Position)center
@@ -457,6 +500,8 @@
              self.placeBlock(x, y, piece);
         }
      }];
+    
+    [self.piecesPlayed removeAllObjects];
 }
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
@@ -491,7 +536,7 @@
 {
     Piece *piece = [self pieceAtPositionX:x Y:y];
 
-    piece.color =  player.color;
+    [self changePiece:piece withColor:player.color];
     
     if (self.placeBlock)
     {
@@ -508,6 +553,7 @@
     }
     [boardString appendString:@"\n"];
 }
+
 
 - (NSString *)print
 {
@@ -722,7 +768,7 @@
             ^(NSArray *trackInfo)
             {
                 Piece *piece = [self.board pieceAtPositionX:x Y:y];
-                piece.color = player.color;
+                [self.board changePiece:piece withColor:player.color];
                 
                 self.board.placeBlock(x, y, piece);
 
@@ -731,7 +777,7 @@
                     piece = trackItem.piece;
                     NSInteger x = trackItem.x;
                     NSInteger y = trackItem.y;
-                    piece.color = player.color;
+                    [self.board changePiece:piece withColor:player.color];
                   
                     if (self.board.placeBlock)
                     {
@@ -752,11 +798,11 @@
                                              : players[0];
  
     NSLog(@"current player %@", self.currentPlayer);
-    
+    BOOL boardFull = [self.board boardFull];
     BOOL canMove = [self beginTurn];
     self.currentPlayer.canMove = canMove;
     
-    if (!prevPlayerCouldMove  && !canMove)
+    if ((!prevPlayerCouldMove  && !canMove) || boardFull)
         self.matchStatusBlock(YES);
     
     if (self.currentPlayerBlock)
@@ -775,7 +821,8 @@
     {
         if (piece.color == PieceColorLegal)
         {
-            [piece clear];
+            [self.board changePiece:piece withColor:PieceColorNone];
+
             self.board.placeBlock(x, y, piece);
         }
     }];
@@ -797,17 +844,7 @@
 
 - (NSInteger)calculateScore:(Player *)player
 {
-    // Probably need a less brute force calculation of score. 
-    NSInteger score = 0;
-    for (NSInteger y = 0; y < self.board.size; y++)
-    {
-        for (NSInteger x = 0; x < self.board.size; x++)
-        {
-            Piece *piece = [self.board pieceAtPositionX:x Y:y];
-            score += piece.color == player.color;
-        }
-    }
-    return score;
+    return [self.board playerScore:player];
 }
 
 - (NSString *)description
@@ -953,7 +990,8 @@
              PieceColor color = display ? PieceColorLegal : PieceColorNone;
              if (piece.color != color)
              {
-                 piece.color = color;
+                 [board changePiece:piece withColor:color];
+
                  if (self.manual)
                      board.placeBlock(x, y, piece);
              }

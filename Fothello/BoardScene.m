@@ -55,7 +55,7 @@
     {
         [weakBlockSelf displayCurrentPlayer:player];
         if (weakBlockSelf.updatePlayerMove)
-            weakBlockSelf.updatePlayerMove(canMove);
+            weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
     };
     
     currentMatch.matchStatusBlock = ^(BOOL gameOver)
@@ -87,6 +87,9 @@
 
 - (void)displayGameOver
 {
+    if (self.gameOverNode)
+        return;
+    
     Match *match = self.game.currentMatch;
     Player *player1 = match.players[0];
     Player *player2 = match.players[1];
@@ -236,7 +239,7 @@
         
         SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
         scoreLabel.name = @"score";
-        scoreLabel.text = [NSString stringWithFormat:@"%d", [match calculateScore:player]];
+        scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
         scoreLabel.fontSize = 14;
         scoreLabel.position = CGPointMake(15, -20);
         [playerSprite addChild:scoreLabel];
@@ -262,7 +265,7 @@
     self.currentPlayerSprite = player.identifier;
     
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
-    scoreLabel.text = [NSString stringWithFormat:@"%d", [match calculateScore:player]];
+    scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
   
     action = [SKAction moveToY:60 duration:.5];
     [self.currentPlayerSprite runAction:action];

@@ -322,7 +322,7 @@ DoFlips( uchar *board, int sqnum,
    if ( j & 1 )
      DrctnlFlips( sq, dirinc[0], color, oppcol );
 
-   return FlipStack - OldFlipStack;
+   return (int)(FlipStack - OldFlipStack);
 }
 
 /* For the last move, we compute the score without updating the board: */
