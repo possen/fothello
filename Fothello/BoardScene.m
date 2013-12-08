@@ -316,7 +316,7 @@
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
     
-    NSLog(@"piece %d x:%d y:%d %@", piece.color, x, y, piece.identifier);
+    //   NSLog(@"piece %d x:%d y:%d %@", piece.color, x, y, piece.identifier);
 
     [piece.identifier removeFromParent];
     piece.identifier = nil;    

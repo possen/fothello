@@ -765,16 +765,23 @@
 
 - (BOOL)beginTurn
 {
-    //    NSLog(@"begin(");
-   return [self.currentPlayer.strategy findLegalMoves:self.currentPlayer display:YES];
-    //NSLog(@")begin %@", self.board);
+    BOOL found = [self.currentPlayer.strategy findLegalMoves:self.currentPlayer display:YES];
+    return found;
 }
 
 - (void)endTurn
 {
-    //NSLog(@"end(");
-    [self.currentPlayer.strategy findLegalMoves:self.currentPlayer display:NO];
-    //NSLog(@")end %@", self.board);
+    [self.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    {
+        if (piece.color == PieceColorLegal)
+        {
+            [piece clear];
+            self.board.placeBlock(x, y, piece);
+        }
+    }];
+    
+    NSLog(@"%@", self.board);
+
 }
 
 

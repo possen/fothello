@@ -129,14 +129,14 @@ char player1, player2;
     _board->wt = self.firstPlayer ? WHITE : BLACK;
     
     char humanHasLegalMove = findLegalMoves(_board, legalMoves);
-    printBoard(_board, legalMoves);
+    //    printBoard(_board, legalMoves);
 
     if (x == -1)
         makePass(_board);
     else
         makeMove(_board, x, y);
     
-    printBoard(_board, legalMoves);
+    //    printBoard(_board, legalMoves);
 
     Match *match = self.match;
     //   FBoard *board = match.board;
@@ -152,13 +152,13 @@ char player1, player2;
     char ay = nextMove / 8;
     char ax = nextMove % 8;
     
-    printBoard(_board, legalMoves);
+    //    printBoard(_board, legalMoves);
     printf("placed %d %d\n", ax, ay);
 
     if (legalMove(_board, ax, ay))
     {
         makeMove(_board, ax, ay);
-        printBoard(_board, legalMoves);
+        //        printBoard(_board, legalMoves);
 
         return [match placePieceForPlayer:player atX:ax Y:ay];
     }
@@ -167,7 +167,6 @@ char player1, player2;
         makePass(_board);
         
         FothelloGame *game = [FothelloGame sharedInstance];
-
         [game pass];
         return NO;
     }
