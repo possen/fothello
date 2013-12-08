@@ -26,6 +26,5 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 
 - (void)setupCurrentMatch;
 - (void)teardownCurrentMatch;
-- (void)ready;
 
 @end

@@ -104,6 +104,12 @@
 
     UISegmentedControl *difficultyControl = dvc.difficulty;
     Difficulty difficulty = [difficultyControl selectedSegmentIndex];
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:playerType forKey:@"playerType"];
+    [prefs setInteger:pieceColor forKey:@"humanColor"];
+    [prefs setInteger:difficulty forKey:@"difficulty"];
+    [prefs synchronize];
 
     FothelloGame *game = [FothelloGame sharedInstance];
 

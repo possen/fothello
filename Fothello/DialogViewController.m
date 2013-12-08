@@ -46,11 +46,18 @@
 
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupPlayerType:[self.playerType selectedSegmentIndex]];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSInteger playerType = [prefs integerForKey:@"playerType"];
+    NSInteger humanColor = [prefs integerForKey:@"humanColor"];
+    NSInteger difficulty = [prefs integerForKey:@"difficulty"];
+
+    [self.playerType setSelectedSegmentIndex:playerType];
+    [self setupPlayerType:playerType];
+    [self.humanPlayerColor setSelectedSegmentIndex:humanColor];
+    [self.difficulty setSelectedSegmentIndex:difficulty];
 }
 
 - (void)didReceiveMemoryWarning
