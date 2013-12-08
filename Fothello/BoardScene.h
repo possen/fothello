@@ -22,8 +22,10 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 @property (nonatomic) BOOL turnProcessing;
 @property (nonatomic, copy) UpdatePlayerMove updatePlayerMove;
 @property (nonatomic) SKNode *gameOverNode;
+@property (nonatomic) SKShapeNode *boardUI;
 
 - (void)setupCurrentMatch;
 - (void)teardownCurrentMatch;
+- (void)ready;
 
 @end

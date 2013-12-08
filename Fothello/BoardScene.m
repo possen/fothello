@@ -28,7 +28,6 @@
         /* Setup your scene here */
         [self drawBoard];
         [self addPlayerSprites];
-        [_game ready];
     }
     return self;
 }
@@ -105,12 +104,31 @@
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     SKAction *action = [SKAction fadeInWithDuration:.5];
     SKAction *action2 = [SKAction fadeOutWithDuration:.5];
+    SKAction *runAction = [SKAction runBlock:
+    ^{
+        [self.boardUI runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+        
+        [self.game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+         {
+             SKNode *node = piece.identifier;
+             [node runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+         }];
+    }];
     
-    [myLabel runAction:[SKAction repeatAction:
-                        [SKAction sequence:@[action, action2]] count:5]];
+    [myLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
+                        [SKAction sequence:@[action, action2]] count:5],
+                                            runAction]]];
     [self addChild:myLabel];
     
     self.gameOverNode = myLabel;
+    
+    [self.boardUI runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
+    
+    [self.game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    {
+        SKNode *node = piece.identifier;
+        [node runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
+    }];
 
     SKNode *playerNode1 =  player1.identifier;
     
@@ -192,6 +210,7 @@
     [boardUI setStrokeColor:[UIColor whiteColor]];
     CFRelease(pathToDraw);
     [self addChild:boardUI];
+    self.boardUI = boardUI;
     
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
@@ -341,7 +360,6 @@
         sprite.position
             = CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
                           y * spacing + boardRect.origin.y - spriteSize.height / 2 + spacing / 2);
-
 
         [self addChild:sprite];
         SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];

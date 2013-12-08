@@ -22,15 +22,15 @@
     SKView *skView = (SKView *)self.view;
     //    skView.showsFPS = YES;
     //skView.showsNodeCount = YES;
+ 
+    self.pass.hidden = YES;
     
     // Create and configure the scene.
     BoardScene *scene = [BoardScene sceneWithSize:skView.bounds.size];
     self.boardScene = scene;
-    
-    self.pass.hidden = YES;
-    
+ 
     __weak ViewController *weakBlockSelf = self;
-    self.boardScene.updatePlayerMove = ^(BOOL canMove)
+    scene.updatePlayerMove = ^(BOOL canMove)
     {
         [weakBlockSelf updateMove:canMove];
     };
@@ -45,6 +45,7 @@
     [adView sizeThatFits:[skView frame].size];
     adView.delegate = self;
     [self.view addSubview:adView];
+    [self.boardScene.game ready];
 }
 
 - (void)updateMove:(BOOL)canMove

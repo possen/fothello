@@ -650,9 +650,9 @@
 
 - (void)ready
 {
+    BOOL canMove = [self beginTurn];
     if (self.currentPlayerBlock)
-        self.currentPlayerBlock(self.currentPlayer, YES);
-    [self beginTurn];
+        self.currentPlayerBlock(self.currentPlayer, canMove);
 }
 
 - (Delta)determineDirection:(Direction)direction
