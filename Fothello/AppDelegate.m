@@ -28,21 +28,6 @@
     return YES;    
 }
 
-#if 0
-+ (UIViewController *)viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents
-                                                            coder:(NSCoder *)coder
-{
-    DialogViewController* vc;
-    UIStoryboard* sb = [coder decodeObjectForKey:UIStateRestorationViewControllerStoryboardKey];
-    if (sb)
-    {
-        vc = (DialogViewController *)[sb instantiateViewControllerWithIdentifier:@"DialogViewController"];
-        vc.restorationIdentifier = [identifierComponents lastObject];
-        vc.restorationClass = [DialogViewController class];
-    }
-    return vc;
-}
-#endif
 
 - (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
 {

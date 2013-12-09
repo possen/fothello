@@ -39,12 +39,13 @@
     
     // Present the scene.
     [skView presentScene:scene];
-    
+
     ADBannerView *adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
     //    adView.frame = CGRectOffset(adView.frame, 0, 20);
     [adView sizeThatFits:[skView frame].size];
     adView.delegate = self;
     [self.view addSubview:adView];
+
     [self.boardScene.game ready];
 }
 

@@ -39,14 +39,13 @@
     _boardSize = currentMatch.board.size;
     
     __weak BoardScene *weakBlockSelf = self;
-    
+
     // whenever a piece is placed on board calls back to here.
     currentMatch.board.placeBlock =
     ^(NSInteger x, NSInteger y, Piece *piece)
     {
         [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
     };
-    
     [self syncronizeBoardStateWithModel];
     
     currentMatch.currentPlayerBlock =
@@ -56,7 +55,7 @@
         if (weakBlockSelf.updatePlayerMove)
             weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
     };
-    
+
     currentMatch.matchStatusBlock = ^(BOOL gameOver)
     {
         if (gameOver)
