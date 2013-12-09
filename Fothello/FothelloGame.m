@@ -653,6 +653,7 @@
     BOOL canMove = [self beginTurn];
     if (self.currentPlayerBlock)
         self.currentPlayerBlock(self.currentPlayer, canMove);
+  
 }
 
 - (Delta)determineDirection:(Direction)direction
@@ -970,6 +971,11 @@
 {
     // subclass
     return NO;
+}
+
+- (void)convertBoard
+{
+    // subclass
 }
 
 - (BOOL)findLegalMoves:(Player *)player display:(BOOL)display

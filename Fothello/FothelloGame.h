@@ -71,8 +71,6 @@ typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 
-#pragma mark - Classes -
-
 #pragma mark - Fothello -
 
 @interface FothelloGame : NSObject <NSCoding>
@@ -189,6 +187,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 - (BOOL)findLegalMoves:(Player *)player display:(BOOL)display;
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
+- (void)convertBoard;
 
 @end
 

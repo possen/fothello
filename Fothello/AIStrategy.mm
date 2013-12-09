@@ -55,39 +55,46 @@ char player1, player2;
 #pragma mark - AIStrategy -
 
 @implementation AIStrategy
+@synthesize firstPlayer = _firstPlayer;
+
+- (void)setupMini:(BOOL)firstPlayer
+{
+    char isFlipped  = NO;
+    
+    // globals not good but miniothello uses them.
+    if (firstPlayer)
+    {
+        player1 = COMPUTER;
+        player2 = HUMAN;
+    }
+    else
+    {
+        player1 = HUMAN;
+        player2 = COMPUTER;
+    }
+    
+    searchDepth = SEARCH_BEGINNER;
+    originalSearchDepth = searchDepth;
+    bruteForceDepth = BRUTE_FORCE_BEGINNER;
+    winLarge = DEF_WIN_LARGE;
+    mpcDepth = MPC_NOVICE; // not used.
+    boardFlipped = isFlipped = DEF_IS_FLIPPED;
+    randomnessLevel = DEF_RANDOMNESS_LEVEL;
+    showLegalMoves = false;
+    useAndersson = false;
+    showDots = false;
+    selfPlayLimit = 127;  // big enough.
+    srand((unsigned)time(NULL));
+}
 
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer
 {
     self = [super initWithMatch:match firstPlayer:firstPlayer];
     if (self)
     {
-        char isFlipped  = NO;
-
-        // globals not good but miniothello uses them.
-        if (firstPlayer)
-        {
-            player1 = COMPUTER;
-            player2 = HUMAN;
-        }
-        else
-        {
-            player1 = HUMAN;
-            player2 = COMPUTER;
-        }
-        
-        searchDepth = SEARCH_BEGINNER;
-        originalSearchDepth = searchDepth;
-        bruteForceDepth = BRUTE_FORCE_BEGINNER;
-        winLarge = DEF_WIN_LARGE;
-        mpcDepth = MPC_NOVICE; // not used.
-        boardFlipped = isFlipped = DEF_IS_FLIPPED;
-        randomnessLevel = DEF_RANDOMNESS_LEVEL;
-        showLegalMoves = true;
-        useAndersson = false;
-        showDots = false;
-        selfPlayLimit = 127;  // big enough.
-        srand((unsigned)time(NULL));
         _board = makeBoard(NO);
+        _firstPlayer = firstPlayer;
+        [self setupMini:firstPlayer];
     }
     return self;
 }
@@ -98,6 +105,20 @@ char player1, player2;
     if (self)
     {
         _board = makeBoard(NO);
+        
+        [self setupMini:self.firstPlayer];
+        
+        NSUInteger len =  sizeof(char) * 61 * 64;
+        const uint8_t *buffer;
+        buffer = [aDecoder decodeBytesForKey:@"boarda" returnedLength:&len];
+        memcpy(_board->a, buffer, 61 * 64 * sizeof(char));
+        buffer = [aDecoder decodeBytesForKey:@"boardmoves" returnedLength:&len];
+        memcpy(_board->moves, buffer, 128 * sizeof(char));
+        
+        _board->n = [aDecoder decodeInt32ForKey:@"n"];
+        _board->m = [aDecoder decodeInt32ForKey:@"m"];
+        _board->top = [aDecoder decodeInt32ForKey:@"top"];
+        _board->wt = [aDecoder decodeInt32ForKey:@"wt"];
     }
     return self;
 }
@@ -105,7 +126,14 @@ char player1, player2;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+    [super encodeWithCoder:aCoder];
     
+    [aCoder encodeBytes:(const uint8_t *)_board->a length:sizeof(char) * 61 * 64 forKey:@"boarda"];
+    [aCoder encodeBytes:(const uint8_t *)_board->moves length:sizeof(char) * 128 forKey:@"boardmoves"];
+    [aCoder encodeInt32:_board->n forKey:@"n"];
+    [aCoder encodeInt32:_board->m forKey:@"m"];
+    [aCoder encodeInt32:_board->top forKey:@"top"];
+    [aCoder encodeInt32:_board->wt forKey:@"wt"];
 }
 
 - (void)convertBoard
@@ -113,7 +141,9 @@ char player1, player2;
     // todo
     char *a = _board->a[0];
 
-    [self.match.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    FothelloGame *game = [FothelloGame sharedInstance];
+
+    [game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
     {
         a[y * 8 + x] = [piece isClear] ? EMPTY :
                         piece.color == PieceColorBlack
@@ -136,12 +166,9 @@ char player1, player2;
     else
         makeMove(_board, x, y);
     
-    //    printBoard(_board, legalMoves);
+    printBoard(_board, legalMoves);
 
     Match *match = self.match;
-    //   FBoard *board = match.board;
-    
-    //    [self convertBoard];
     _board->wt = self.firstPlayer ? BLACK : WHITE;
 
     char computerHasLegalMove = findLegalMoves(_board, legalMoves);

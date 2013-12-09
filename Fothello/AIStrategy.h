@@ -7,9 +7,12 @@
 //
 
 #import "FothelloGame.h"
+
 struct Board;
 @interface AIStrategy : Strategy
 {
     struct Board *_board;
 }
+
+@property (nonatomic) BOOL firstPlayer;
 @end
