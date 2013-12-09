@@ -29,11 +29,8 @@ To Do
 -----
 * Undo
 * Allow users to enter their names
-* Have a way to set difficulty level. 
 * Add gamekit.
 * UI for managing users, selecting competitors and selecting multiple manual players. 
-* saving game state in more places. 
-* detect end of game, display score
 * more than 2 players?
 
 Classes
