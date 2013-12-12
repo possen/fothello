@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *pass;
 @property (weak, nonatomic) IBOutlet UIButton *resetGame;
 @property (nonatomic) BOOL bannerIsVisible;
+@property (nonatomic) ADBannerView *bannerView;
 @property (strong, nonatomic) IBOutlet SKView *mainScene;
 @property (strong, nonatomic) BoardScene *boardScene;
 

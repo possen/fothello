@@ -12,48 +12,57 @@
                         <viewControllerLayoutGuide type="top" id="O8r-Wv-Dp1"/>
                         <viewControllerLayoutGuide type="bottom" id="Uh9-qP-Zc5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ViewController" id="bdc-N1-crn" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="ViewController" id="bdc-N1-crn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-4k-byF">
-                                <rect key="frame" x="266" y="518" width="34" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGx-fN-Uti" userLabel="SKView" customClass="SKView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-Lj-41B">
+                                        <rect key="frame" x="11" y="518" width="76" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="New Game">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Ki6-IX-gBB" kind="modal" id="YFE-Qo-OKg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-4k-byF">
+                                        <rect key="frame" x="266" y="518" width="34" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Pass">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pass:" destination="LVB-YS-i5n" eventType="touchUpInside" id="hIS-Q5-3ew"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="VEP-AA-i1y"/>
+                                    <constraint firstAttribute="bottom" secondItem="iRN-Lj-41B" secondAttribute="bottom" constant="20" symbolic="YES" id="UVd-40-NkG"/>
+                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="leading" secondItem="eGx-fN-Uti" secondAttribute="leading" constant="11" id="V9U-Lc-vE1"/>
+                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="baseline" secondItem="GVI-4k-byF" secondAttribute="baseline" id="cR8-SA-NJf"/>
+                                    <constraint firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" constant="20" symbolic="YES" id="kDe-ti-iDe"/>
                                 </constraints>
-                                <state key="normal" title="Pass">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pass:" destination="LVB-YS-i5n" eventType="touchUpInside" id="hIS-Q5-3ew"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-Lj-41B">
-                                <rect key="frame" x="20" y="518" width="76" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="wrw-qR-XH5"/>
-                                </constraints>
-                                <state key="normal" title="New Game">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Ki6-IX-gBB" kind="modal" id="YFE-Qo-OKg"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="GVI-4k-byF" firstAttribute="baseline" secondItem="iRN-Lj-41B" secondAttribute="baseline" id="Snd-ZW-okf"/>
-                            <constraint firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" constant="20" symbolic="YES" id="mXd-V7-2kW"/>
-                            <constraint firstAttribute="bottom" secondItem="iRN-Lj-41B" secondAttribute="bottom" constant="20" symbolic="YES" id="pD3-mP-RMb"/>
-                            <constraint firstItem="iRN-Lj-41B" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" constant="20" symbolic="YES" id="zeO-sc-3K7"/>
+                            <constraint firstItem="eGx-fN-Uti" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="6Li-Id-eM7"/>
+                            <constraint firstAttribute="trailing" secondItem="eGx-fN-Uti" secondAttribute="trailing" id="V2K-zt-Nal"/>
+                            <constraint firstItem="eGx-fN-Uti" firstAttribute="top" secondItem="bdc-N1-crn" secondAttribute="top" id="ZiP-JQ-Kic"/>
+                            <constraint firstAttribute="bottom" secondItem="eGx-fN-Uti" secondAttribute="bottom" id="tGR-E7-8vV"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainScene" destination="bdc-N1-crn" id="rtR-tB-nQt"/>
+                        <outlet property="bottomConstraint" destination="tGR-E7-8vV" id="Fup-Wa-qgu"/>
+                        <outlet property="mainScene" destination="eGx-fN-Uti" id="a60-cf-8Zt"/>
                         <outlet property="pass" destination="GVI-4k-byF" id="DZ2-SA-4Fs"/>
+                        <outlet property="view" destination="bdc-N1-crn" id="Nef-E7-Y4q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>

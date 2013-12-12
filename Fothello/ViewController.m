@@ -12,6 +12,14 @@
 #import <iAd/iAd.h>
 #import "DialogViewController.h"
 
+@interface ViewController ()
+
+// contentView's vertical bottom constraint, used to alter the contentView's vertical size when ads arrive
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomConstraint;
+
+
+@end
+
 @implementation ViewController
 
 - (void)viewDidLoad
@@ -19,7 +27,7 @@
     [super viewDidLoad];
 
     // Configure the view.
-    SKView *skView = (SKView *)self.view;
+    SKView *skView = (SKView *)self.mainScene;
     //    skView.showsFPS = YES;
     //skView.showsNodeCount = YES;
  
@@ -40,14 +48,64 @@
     // Present the scene.
     [skView presentScene:scene];
 
-    ADBannerView *adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+    ADBannerView *adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
     //    adView.frame = CGRectOffset(adView.frame, 0, 20);
     [adView sizeThatFits:[skView frame].size];
     adView.delegate = self;
+    _bannerView = adView;
     [self.view addSubview:adView];
 
     [self.boardScene.game ready];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self layoutAnimated:NO];
+}
+- (void)viewDidLayoutSubviews
+{
+    [self layoutAnimated:[UIView areAnimationsEnabled]];
+}
+
+
+- (void)layoutAnimated:(BOOL)animated
+{
+    CGRect contentFrame = self.view.bounds;
+    
+    // all we need to do is ask the banner for a size that fits into the layout area we are using
+    CGSize sizeForBanner = [self.bannerView sizeThatFits:contentFrame.size];
+    
+    // compute the ad banner frame
+    CGRect bannerFrame = self.bannerView.frame;
+    if (self.bannerView.bannerLoaded) {
+        
+        // bring the ad into view
+        contentFrame.size.height -= sizeForBanner.height;   // shrink down content frame to fit the banner below it
+        bannerFrame.origin.y = contentFrame.size.height;
+        bannerFrame.size.height = sizeForBanner.height;
+        bannerFrame.size.width = sizeForBanner.width;
+        
+        // if the ad is available and loaded, shrink down the content frame to fit the banner below it,
+        // we do this by modifying the vertical bottom constraint constant to equal the banner's height
+        //
+        NSLayoutConstraint *verticalBottomConstraint = self.bottomConstraint;
+        verticalBottomConstraint.constant = sizeForBanner.height;
+        [self.view layoutSubviews];
+        
+    } else {
+        // hide the banner off screen further off the bottom
+        bannerFrame.origin.y = contentFrame.size.height;
+    }
+    
+    [UIView animateWithDuration:animated ? 0.25 : 0.0 animations:
+     ^{
+        self.mainScene.frame = contentFrame;
+        [self.mainScene layoutIfNeeded];
+        self.bannerView.frame = bannerFrame;
+    }];
+}
+
 
 - (void)updateMove:(BOOL)canMove
 {
@@ -56,13 +114,7 @@
 
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
 {
-    NSLog(@"Banner view is beginning an ad action");
-    BOOL shouldExecuteAction = [self allowActionToRun]; // your application implements this method
-    if (!willLeave && shouldExecuteAction)
-    {
-        // insert code here to suspend any services that might conflict with the advertisement
-    }
-    return shouldExecuteAction;
+    return YES;
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
@@ -79,14 +131,7 @@
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    if (!self.bannerIsVisible)
-    {
-        [UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-        // Assumes the banner view is just off the bottom of the screen.
-        banner.frame = CGRectOffset(banner.frame, 0, -(banner.frame.size.height));
-        [UIView commitAnimations];
-        self.bannerIsVisible = YES;
-    }
+    [self layoutAnimated:YES];
 }
 
 - (IBAction)unwindFromCancelForm:(UIStoryboardSegue *)segue

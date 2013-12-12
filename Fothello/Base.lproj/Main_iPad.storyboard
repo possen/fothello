@@ -12,43 +12,58 @@
                         <viewControllerLayoutGuide type="top" id="JLu-pN-cEu"/>
                         <viewControllerLayoutGuide type="bottom" id="F0R-vO-Uug"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAm-hv-i9O">
-                                <rect key="frame" x="32" y="974" width="76" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Li2-VT-qgw" userLabel="SKView" customClass="SKView">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Jsu-pN-x1O" kind="modal" id="vqw-UD-YoT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXO-CC-62x">
-                                <rect key="frame" x="714" y="974" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Pass">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pass:" destination="BV1-FR-VrT" eventType="touchUpInside" id="nsn-19-YaP"/>
-                                </connections>
-                            </button>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAm-hv-i9O">
+                                        <rect key="frame" x="20" y="974" width="76" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="New Game">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="Jsu-pN-x1O" kind="modal" id="vqw-UD-YoT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AXO-CC-62x">
+                                        <rect key="frame" x="714" y="974" width="34" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Pass">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="pass:" destination="BV1-FR-VrT" eventType="touchUpInside" id="nsn-19-YaP"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="kAm-hv-i9O" firstAttribute="leading" secondItem="Li2-VT-qgw" secondAttribute="leading" constant="20" symbolic="YES" id="8km-hm-Meb"/>
+                                    <constraint firstAttribute="trailing" secondItem="AXO-CC-62x" secondAttribute="trailing" constant="20" symbolic="YES" id="aJQ-Bp-qsJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="kAm-hv-i9O" secondAttribute="bottom" constant="20" symbolic="YES" id="bSj-8s-7At"/>
+                                    <constraint firstItem="kAm-hv-i9O" firstAttribute="baseline" secondItem="AXO-CC-62x" secondAttribute="baseline" id="xgP-6z-caW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="kAm-hv-i9O" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="32" id="16Z-rL-WgI"/>
-                            <constraint firstItem="AXO-CC-62x" firstAttribute="baseline" secondItem="kAm-hv-i9O" secondAttribute="baseline" id="4VE-Bh-TVV"/>
-                            <constraint firstAttribute="bottom" secondItem="kAm-hv-i9O" secondAttribute="bottom" constant="20" symbolic="YES" id="HNb-DD-UTW"/>
-                            <constraint firstAttribute="trailing" secondItem="AXO-CC-62x" secondAttribute="trailing" constant="20" symbolic="YES" id="LH1-to-r9D"/>
+                            <constraint firstAttribute="trailing" secondItem="Li2-VT-qgw" secondAttribute="trailing" id="5lj-i3-pVh"/>
+                            <constraint firstItem="Li2-VT-qgw" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="6XH-Z9-XjL"/>
+                            <constraint firstItem="Li2-VT-qgw" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="ddp-aJ-FWW"/>
+                            <constraint firstAttribute="bottom" secondItem="Li2-VT-qgw" secondAttribute="bottom" id="j9z-mu-JHe"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mainScene" destination="3se-qz-xqx" id="0rP-q0-Cmk"/>
+                        <outlet property="bottomConstraint" destination="j9z-mu-JHe" id="Uh6-2K-hZr"/>
+                        <outlet property="mainScene" destination="Li2-VT-qgw" id="kcR-8N-scL"/>
+                        <outlet property="pass" destination="AXO-CC-62x" id="bGz-K0-nLv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
