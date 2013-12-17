@@ -16,7 +16,7 @@
 
 // contentView's vertical bottom constraint, used to alter the contentView's vertical size when ads arrive
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomConstraint;
-
+@property (nonatomic) BOOL notFirstTime;
 
 @end
 
@@ -63,11 +63,15 @@
     [super viewDidAppear:animated];
     [self layoutAnimated:NO];
 }
+
 - (void)viewDidLayoutSubviews
 {
-    [self layoutAnimated:[UIView areAnimationsEnabled]];
+    if (self.notFirstTime)
+    {
+        [self layoutAnimated:[UIView areAnimationsEnabled]];
+    }
+    self.notFirstTime = YES;
 }
-
 
 - (void)layoutAnimated:(BOOL)animated
 {
@@ -78,8 +82,8 @@
     
     // compute the ad banner frame
     CGRect bannerFrame = self.bannerView.frame;
-    if (self.bannerView.bannerLoaded) {
-        
+    if (self.bannerView.bannerLoaded)
+    {
         // bring the ad into view
         contentFrame.size.height -= sizeForBanner.height;   // shrink down content frame to fit the banner below it
         bannerFrame.origin.y = contentFrame.size.height;
@@ -92,8 +96,9 @@
         NSLayoutConstraint *verticalBottomConstraint = self.bottomConstraint;
         verticalBottomConstraint.constant = sizeForBanner.height;
         [self.view layoutSubviews];
-        
-    } else {
+    }
+    else
+    {
         // hide the banner off screen further off the bottom
         bannerFrame.origin.y = contentFrame.size.height;
     }
@@ -143,13 +148,13 @@
     DialogViewController *dvc = segue.sourceViewController;
     
     UISegmentedControl *playerTypeControl = dvc.playerType;
-    PlayerType playerType = [playerTypeControl selectedSegmentIndex];
+    PlayerType playerType = [playerTypeControl selectedSegmentIndex] + 1;
     
     UISegmentedControl *humanControl = dvc.humanPlayerColor;
-    PieceColor pieceColor = [humanControl selectedSegmentIndex];
+    PieceColor pieceColor = [humanControl selectedSegmentIndex] + 1;
 
     UISegmentedControl *difficultyControl = dvc.difficulty;
-    Difficulty difficulty = [difficultyControl selectedSegmentIndex];
+    Difficulty difficulty = [difficultyControl selectedSegmentIndex] + 1;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     [prefs setInteger:playerType forKey:@"playerType"];
@@ -204,8 +209,6 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
-
-
 
 - (IBAction)pass:(UIButton *)sender
 {

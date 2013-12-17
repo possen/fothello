@@ -48,12 +48,14 @@ typedef struct Position
 
 typedef enum PlayerType : NSInteger
 {
+    PlayerTypeNone = 0,
     PlayerTypeHuman,
     PlayerTypeComputer
 } PlayerType;
 
 typedef enum Difficulty : NSInteger
 {
+    DifficultyNone = 0,
     DifficultyEasy,
     DifficultyModerate,
     DifficultyHard,

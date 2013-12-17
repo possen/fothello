@@ -286,7 +286,7 @@
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
     scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
   
-    action = [SKAction moveToY:60 duration:.5];
+    action = [SKAction moveToY:100 duration:.5];
     [self.currentPlayerSprite runAction:action];
 }
 

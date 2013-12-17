@@ -327,7 +327,7 @@
 
 @implementation Piece
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     
@@ -388,12 +388,12 @@
 
 @implementation FBoard
 
-- (id)initWithBoardSize:(NSInteger)size
+- (instancetype)initWithBoardSize:(NSInteger)size
 {
     return [self initWithBoardSize:size piecePlacedBlock:nil];
 }
 
-- (id)initWithBoardSize:(NSInteger)size piecePlacedBlock:(PlaceBlock)block
+- (instancetype)initWithBoardSize:(NSInteger)size piecePlacedBlock:(PlaceBlock)block
 {
     self = [super init];
     

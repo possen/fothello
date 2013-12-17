@@ -15,49 +15,46 @@
 
 @implementation DialogViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-
-    [self.playerType setSelectedSegmentIndex:PlayerTypeComputer];
-    [self setupPlayerType:PlayerTypeComputer];
-
-    return self;
-}
-
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super encodeRestorableStateWithCoder:coder];
 
-    [coder encodeInteger:[self.playerType selectedSegmentIndex] forKey:@"playerType"];
-    [coder encodeInteger:[self.humanPlayerColor selectedSegmentIndex] forKey:@"humanColor"];
-    [coder encodeInteger:[self.difficulty selectedSegmentIndex] forKey:@"difficulty"];
+    [coder encodeInteger:[self.playerType selectedSegmentIndex] + 1 forKey:@"playerType"];
+    [coder encodeInteger:[self.humanPlayerColor selectedSegmentIndex] + 1 forKey:@"humanColor"];
+    [coder encodeInteger:[self.difficulty selectedSegmentIndex] + 1 forKey:@"difficulty"];
     NSLog(@"saving state");
 }
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder
 {
     [super decodeRestorableStateWithCoder:coder];
-    [self.playerType setSelectedSegmentIndex:[coder decodeIntegerForKey:@"playerType"]];
-    [self.humanPlayerColor setSelectedSegmentIndex:[coder decodeIntegerForKey:@"humanColor"]];
-    [self.difficulty setSelectedSegmentIndex:[coder decodeIntegerForKey:@"difficulty"]];
-    [self setupPlayerType:[self.playerType selectedSegmentIndex]];
+    [self.playerType setSelectedSegmentIndex:[coder decodeIntegerForKey:@"playerType"] - 1 ];
+    [self.humanPlayerColor setSelectedSegmentIndex:[coder decodeIntegerForKey:@"humanColor"] - 1];
+    [self.difficulty setSelectedSegmentIndex:[coder decodeIntegerForKey:@"difficulty"] - 1];
+    [self setupPlayerType:[self.playerType selectedSegmentIndex] - 1];
     NSLog(@"restoring state");
-
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSInteger playerType = [prefs integerForKey:@"playerType"];
-    NSInteger humanColor = [prefs integerForKey:@"humanColor"];
-    NSInteger difficulty = [prefs integerForKey:@"difficulty"];
+    PlayerType playerType = [prefs integerForKey:@"playerType"];
+    PieceColor humanColor = [prefs integerForKey:@"humanColor"];
+    Difficulty difficulty = [prefs integerForKey:@"difficulty"];
 
-    [self.playerType setSelectedSegmentIndex:playerType];
+    if (playerType == PlayerTypeNone)
+    {
+        // defaults
+        playerType = PlayerTypeComputer;
+        humanColor = PieceColorWhite;
+        difficulty = DifficultyEasy;
+    }
+    
+    [self.playerType setSelectedSegmentIndex:playerType - 1];
     [self setupPlayerType:playerType];
-    [self.humanPlayerColor setSelectedSegmentIndex:humanColor];
-    [self.difficulty setSelectedSegmentIndex:difficulty];
+    [self.humanPlayerColor setSelectedSegmentIndex:humanColor - 1];
+    [self.difficulty setSelectedSegmentIndex:difficulty - 1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -79,12 +76,16 @@
             self.difficulty.hidden = NO;
             self.difficultyLabel.hidden = NO;
             break;
+            
+        default:
+            [NSException raise:@"bad selector" format:@"%@", self];
+            break;
     }
 }
 
 - (IBAction)againstAction:(UISegmentedControl *)sender
 {
-    [self setupPlayerType:[sender selectedSegmentIndex]];
+    [self setupPlayerType:[sender selectedSegmentIndex] + 1];
 }
 
 - (IBAction)humanPlayerColorAction:(UISegmentedControl *)sender

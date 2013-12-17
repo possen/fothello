@@ -225,7 +225,11 @@ char player1, player2;
             searchDepth = SEARCH_EXPERIENCED;
             bruteForceDepth = BRUTE_FORCE_EXPERIENCED;
             useAndersson = YES;
-            break;            
+            break;
+        
+        default:
+            [NSException raise:@"bad index" format:@"%@", self];
+            break;
     }
     
     originalSearchDepth = searchDepth;
