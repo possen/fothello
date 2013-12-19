@@ -207,6 +207,7 @@ char player1, player2;
     switch (difficulty)
     {
         case DifficultyEasy:
+        case DifficultyNone:
             searchDepth = SEARCH_NOVICE;
             bruteForceDepth = BRUTE_FORCE_NOVICE;
             break;

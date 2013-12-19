@@ -96,7 +96,10 @@
 
     Player *winner = score1 > score2 ? player1 : player2;
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    myLabel.text = [NSString stringWithFormat:@"%@ Wins", winner.name];
+    myLabel.text = score1 == score2
+                 ? @"Tie"
+                 : [NSString stringWithFormat:@"%@ Wins", winner.name];
+    
     myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     myLabel.fontSize = 32;
     myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
@@ -254,6 +257,7 @@
         playerSprite.position = CGPointMake(CGRectGetMidX(self.frame) - playerSprite.size.width / 2, -100);
 
         SKNode *pieceSprite = [self makePieceWithColor:player.color size:size];
+        pieceSprite.name = @"piece";
         [playerSprite addChild:pieceSprite];
         
         SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
@@ -288,6 +292,23 @@
   
     action = [SKAction moveToY:100 duration:.5];
     [self.currentPlayerSprite runAction:action];
+    
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:.4 duration:1];
+    
+    SKNode *piece = [self.currentPlayerSprite childNodeWithName:@"piece"];
+    if (!player.strategy.manual)
+    {
+        [piece runAction:
+                                             [SKAction repeatActionForever:
+                                             [SKAction sequence:@[fadeIn, fadeOut]]]];
+    }
+    else
+    {
+        [piece removeAllActions];
+        [piece runAction:
+         [SKAction fadeAlphaTo:1 duration:0]];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -321,10 +342,10 @@
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
 
 
-                dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                dispatch_after(popTime,dispatch_get_main_queue(),
                                ^(void)
                 {
-                    dispatch_async(dispatch_get_main_queue(), ^{
+                    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                         [self.game processOtherTurnsX:x Y:y]; // x & y represent human player move
                         self.turnProcessing = NO;
                     });

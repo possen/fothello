@@ -47,7 +47,7 @@
     {
         // defaults
         playerType = PlayerTypeComputer;
-        humanColor = PieceColorWhite;
+        humanColor = PieceColorBlack;
         difficulty = DifficultyEasy;
     }
     

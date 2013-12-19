@@ -18,7 +18,6 @@
 @end
 
 @implementation TrackInfo
-
 @end
 
 #pragma mark - FothelloGame -
