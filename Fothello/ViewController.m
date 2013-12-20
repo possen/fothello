@@ -98,8 +98,8 @@
     }
     else
     {
-        // hide the banner off screen further off the bottom
-        bannerFrame.size.height = 0;
+        // hide the banner off screen further off the top
+        bannerFrame = CGRectOffset(bannerFrame, 0, -bannerFrame.size.height);
     }
     //    self.mainScene.frame = contentFrame;
     
