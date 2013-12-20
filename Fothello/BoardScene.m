@@ -42,25 +42,35 @@
 
     // whenever a piece is placed on board calls back to here.
     currentMatch.board.placeBlock =
-    ^(NSInteger x, NSInteger y, Piece *piece)
-    {
-        [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
-    };
+        ^(NSInteger x, NSInteger y, Piece *piece)
+        {
+            dispatch_async(dispatch_get_main_queue(),
+            ^{
+                [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
+            });
+        };
+    
     [self syncronizeBoardStateWithModel];
     
     currentMatch.currentPlayerBlock =
-    ^(Player *player, BOOL canMove)
-    {
-        [weakBlockSelf displayCurrentPlayer:player];
-        if (weakBlockSelf.updatePlayerMove)
-            weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
-    };
+        ^(Player *player, BOOL canMove)
+        {
+            dispatch_async(dispatch_get_main_queue(),
+            ^{
+                [weakBlockSelf displayCurrentPlayer:player];
+                if (weakBlockSelf.updatePlayerMove)
+                    weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
+            });
+        };
 
     currentMatch.matchStatusBlock = ^(BOOL gameOver)
-    {
-        if (gameOver)
-            [weakBlockSelf displayGameOver];
-    };
+        {
+            dispatch_async(dispatch_get_main_queue(),
+            ^{
+                if (gameOver)
+                    [weakBlockSelf displayGameOver];
+             });
+        };
     
     self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
 }
@@ -300,8 +310,8 @@
     if (!player.strategy.manual)
     {
         [piece runAction:
-                                             [SKAction repeatActionForever:
-                                             [SKAction sequence:@[fadeIn, fadeOut]]]];
+             [SKAction repeatActionForever:
+             [SKAction sequence:@[fadeIn, fadeOut]]]];
     }
     else
     {
