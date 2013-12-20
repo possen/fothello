@@ -41,7 +41,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.30196078430000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="iRN-Lj-41B" secondAttribute="bottom" constant="20" symbolic="YES" id="UVd-40-NkG"/>
                                     <constraint firstItem="iRN-Lj-41B" firstAttribute="leading" secondItem="eGx-fN-Uti" secondAttribute="leading" constant="11" id="V9U-Lc-vE1"/>
@@ -50,7 +50,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1019607931" green="0.7019608021" blue="0.30196079609999998" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="eGx-fN-Uti" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="6Li-Id-eM7"/>
                             <constraint firstAttribute="trailing" secondItem="eGx-fN-Uti" secondAttribute="trailing" id="V2K-zt-Nal"/>

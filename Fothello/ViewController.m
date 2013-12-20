@@ -47,13 +47,7 @@
     
     // Present the scene.
     [skView presentScene:scene];
-
-    ADBannerView *adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    //    adView.frame = CGRectOffset(adView.frame, 0, 20);
-    [adView sizeThatFits:[skView frame].size];
-    adView.delegate = self;
-    _bannerView = adView;
-    [self.view addSubview:adView];
+    [self addAd];
 
     [self.boardScene.game ready];
 }
@@ -61,7 +55,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self layoutAnimated:NO];
+    //    [self layoutAnimated:NO];
 }
 
 - (void)viewDidLayoutSubviews
@@ -71,6 +65,16 @@
         [self layoutAnimated:[UIView areAnimationsEnabled]];
     }
     self.notFirstTime = YES;
+}
+
+- (void)addAd
+{
+    ADBannerView *adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
+    adView.delegate = self;
+    _bannerView = adView;
+    adView.frame = CGRectOffset(adView.frame, 0, -adView.frame.size.height);
+    [adView sizeThatFits:[self.mainScene frame].size];
+    [self.view addSubview:adView];
 }
 
 - (void)layoutAnimated:(BOOL)animated

@@ -43,7 +43,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.30196078430000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstItem="kAm-hv-i9O" firstAttribute="leading" secondItem="Li2-VT-qgw" secondAttribute="leading" constant="20" symbolic="YES" id="8km-hm-Meb"/>
                                     <constraint firstAttribute="trailing" secondItem="AXO-CC-62x" secondAttribute="trailing" constant="20" symbolic="YES" id="aJQ-Bp-qsJ"/>
@@ -52,7 +52,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.30196078430000001" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Li2-VT-qgw" secondAttribute="trailing" id="5lj-i3-pVh"/>
                             <constraint firstItem="Li2-VT-qgw" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="6XH-Z9-XjL"/>
