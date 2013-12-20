@@ -54,8 +54,14 @@ char player1, player2;
 
 #pragma mark - AIStrategy -
 
+@interface AIStrategy ()
+@property (nonatomic) BOOL firstPlayer;
+@property (nonatomic) Difficulty difficulty;
+@end
+
 @implementation AIStrategy
 @synthesize firstPlayer = _firstPlayer;
+@synthesize difficulty = _difficulty;
 
 - (void)setupMini:(BOOL)firstPlayer
 {
@@ -94,6 +100,7 @@ char player1, player2;
     {
         _board = makeBoard(NO);
         _firstPlayer = firstPlayer;
+        _difficulty = match.difficulty;
         [self setupMini:firstPlayer];
     }
     return self;
@@ -119,6 +126,8 @@ char player1, player2;
         _board->m = [aDecoder decodeInt32ForKey:@"m"];
         _board->top = [aDecoder decodeInt32ForKey:@"top"];
         _board->wt = [aDecoder decodeInt32ForKey:@"wt"];
+        _difficulty = (Difficulty)[aDecoder decodeIntegerForKey:@"difficulty"];
+        [self setupDifficulty:_difficulty];
     }
     return self;
 }
@@ -134,6 +143,7 @@ char player1, player2;
     [aCoder encodeInt32:_board->m forKey:@"m"];
     [aCoder encodeInt32:_board->top forKey:@"top"];
     [aCoder encodeInt32:_board->wt forKey:@"wt"];
+    [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
 - (void)convertBoard
@@ -201,9 +211,8 @@ char player1, player2;
     return YES;
 }
 
-- (void)resetWithDifficulty:(Difficulty)difficulty
+- (void)setupDifficulty:(Difficulty)difficulty
 {
-    initBoard(_board, NO);
     switch (difficulty)
     {
         case DifficultyEasy:
@@ -227,13 +236,20 @@ char player1, player2;
             bruteForceDepth = BRUTE_FORCE_EXPERIENCED;
             useAndersson = YES;
             break;
-        
+            
         default:
             [NSException raise:@"bad index" format:@"%@", self];
             break;
     }
     
     originalSearchDepth = searchDepth;
+}
+
+- (void)resetWithDifficulty:(Difficulty)difficulty
+{
+    initBoard(_board, NO);
+    _difficulty = difficulty;
+    [self setupDifficulty:difficulty];
 }
 @end
 

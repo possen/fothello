@@ -14,5 +14,4 @@ struct Board;
     struct Board *_board;
 }
 
-@property (nonatomic) BOOL firstPlayer;
 @end
