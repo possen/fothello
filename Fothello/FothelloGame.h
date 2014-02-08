@@ -69,7 +69,14 @@ typedef enum Difficulty : NSInteger
 @class Player;
 @class Strategy;
 
-typedef void (^PlaceBlock)(NSInteger x, NSInteger y, Piece *piece);
+#pragma mark - PiecePosition - 
+
+@interface PiecePosition : NSObject
+@property (nonatomic) Piece *piece;
+@property (nonatomic) Position position;
+@end
+
+typedef void (^PlaceBlock)(NSArray *pieces);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 
@@ -132,7 +139,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 - (id)initWithBoardSize:(NSInteger)size;
 - (id)initWithBoardSize:(NSInteger)size
-       piecePlacedBlock:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
+       piecePlacedBlock:(PlaceBlock)block;
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;

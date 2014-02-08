@@ -20,6 +20,21 @@
 @implementation TrackInfo
 @end
 
+#pragma mark - PiecePosition -
+
+@implementation PiecePosition
++ (PiecePosition *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece
+{
+    Position pos;
+    pos.x = x;
+    pos.y = y;
+    PiecePosition *piecePosition = [[PiecePosition alloc] init];
+    piecePosition.position = pos;
+    piecePosition.piece = piece;
+    return piecePosition;
+}
+@end
+
 #pragma mark - FothelloGame -
 
 @implementation FothelloGame
@@ -491,15 +506,20 @@
 
 - (void)reset
 {
+    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+
     [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
         [piece clear];
         if (self.placeBlock)
         {
-             self.placeBlock(x, y, piece);
+            [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
         }
      }];
     
+    if (self.placeBlock)
+        self.placeBlock(pieces);
+
     [self.piecesPlayed removeAllObjects];
 }
 
@@ -533,13 +553,17 @@
 
 - (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y
 {
+
     Piece *piece = [self pieceAtPositionX:x Y:y];
 
     [self changePiece:piece withColor:player.color];
     
+    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+    
     if (self.placeBlock)
     {
-        self.placeBlock(x, y, piece);
+        self.placeBlock(pieces);
     }
     return YES;
 }
@@ -762,29 +786,35 @@
 
 - (BOOL)placePieceForPlayer:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
 {
-    return [self findTracksX:x Y:y
-                   forPlayer:player
-                  trackBlock:
-            ^(NSArray *trackInfo)
-            {
-                Piece *piece = [self.board pieceAtPositionX:x Y:y];
-                [self.board changePiece:piece withColor:player.color];
-                
-                self.board.placeBlock(x, y, piece);
+    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
 
-                for (TrackInfo *trackItem in trackInfo)
-                {
-                    piece = trackItem.piece;
-                    NSInteger x = trackItem.x;
-                    NSInteger y = trackItem.y;
-                    [self.board changePiece:piece withColor:player.color];
-                  
-                    if (self.board.placeBlock)
-                    {
-                        self.board.placeBlock(x, y, piece);
-                    }
-                }
-            }];
+    BOOL result = [self findTracksX:x Y:y
+                          forPlayer:player
+                         trackBlock:
+        ^(NSArray *trackInfo)
+        {
+            Piece *piece = [self.board pieceAtPositionX:x Y:y];
+            [self.board changePiece:piece withColor:player.color];
+            
+            [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+
+            for (TrackInfo *trackItem in trackInfo)
+            {
+                piece = trackItem.piece;
+                NSInteger x = trackItem.x;
+                NSInteger y = trackItem.y;
+                [self.board changePiece:piece withColor:player.color];
+              
+                [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+            }
+        }];
+    
+    if (self.board.placeBlock)
+    {
+        self.board.placeBlock(pieces);
+    }
+
+    return result;
 }
 
 - (void)nextPlayer
@@ -815,18 +845,22 @@
     return found;
 }
 
+
 - (void)endTurn
 {
+    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    
     [self.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
     {
         if (piece.color == PieceColorLegal)
         {
             [self.board changePiece:piece withColor:PieceColorNone];
-
-            self.board.placeBlock(x, y, piece);
+            [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
         }
     }];
     
+    self.board.placeBlock(pieces);
+
     NSLog(@"%@", self.board);
 
 }
@@ -983,6 +1017,8 @@
     FBoard *board = match.board;
     __block BOOL foundLegal = NO;
     
+    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+
     // Determine moves
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
@@ -998,11 +1034,16 @@
                  [board changePiece:piece withColor:color];
 
                  if (self.manual)
-                     board.placeBlock(x, y, piece);
+                 {
+                     [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                 }
              }
              foundLegal = YES;
          }
      }];
+    
+    board.placeBlock(pieces);
+
     return foundLegal;
 }
 

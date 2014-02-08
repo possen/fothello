@@ -42,15 +42,18 @@
 
     // whenever a piece is placed on board calls back to here.
     currentMatch.board.placeBlock =
-        ^(NSInteger x, NSInteger y, Piece *piece)
+        ^(NSArray *piecePositions)
         {
             dispatch_async(dispatch_get_main_queue(),
             ^{
-                [weakBlockSelf placeSpriteAtX:x Y:y withPiece:piece];
+                for (PiecePosition *piecePosition in piecePositions)
+                {
+                    [weakBlockSelf placeSpriteAtX:piecePosition.position.x
+                                                Y:piecePosition.position.y
+                                        withPiece:piecePosition.piece];
+                }
             });
         };
-    
-    [self syncronizeBoardStateWithModel];
     
     currentMatch.currentPlayerBlock =
         ^(Player *player, BOOL canMove)
@@ -71,6 +74,8 @@
                     [weakBlockSelf displayGameOver];
              });
         };
+    
+    [self syncronizeBoardStateWithModel];
     
     self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
 }
@@ -307,6 +312,7 @@
     SKAction *fadeOut = [SKAction fadeAlphaTo:.4 duration:1];
     
     SKNode *piece = [self.currentPlayerSprite childNodeWithName:@"piece"];
+    
     if (!player.strategy.manual)
     {
         [piece runAction:
@@ -373,7 +379,7 @@
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
     
-    //   NSLog(@"piece %d x:%d y:%d %@", piece.color, x, y, piece.identifier);
+    NSLog(@"piece %d x:%ld y:%ld %@", (int)piece.color, (long)x, (long)y, piece.identifier);
 
     [piece.identifier removeFromParent];
     piece.identifier = nil;    
@@ -388,6 +394,7 @@
             spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
             finalAlpha = .3;
         }
+        
         SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];
         sprite.alpha = 0.0;
      
