@@ -1,4 +1,4 @@
-//
+ //
 //  ViewController.m
 //  Fothello
 //
@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MatchViewController.h"
 #import "BoardScene.h"
 #import "FothelloGame.h"
 #import <iAd/iAd.h>
 #import "DialogViewController.h"
 
-@interface ViewController ()
+@interface MatchViewController ()
 
 // contentView's vertical bottom constraint, used to alter the contentView's vertical size when ads arrive
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *bottomConstraint;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation ViewController
+@implementation MatchViewController
 
 - (void)viewDidLoad
 {
@@ -30,14 +30,16 @@
     SKView *skView = (SKView *)self.mainScene;
     //    skView.showsFPS = YES;
     //skView.showsNodeCount = YES;
- 
+    
+    self.boardScene.game.currentMatch = self.match;
+    
     self.pass.hidden = YES;
     
     // Create and configure the scene.
     BoardScene *scene = [BoardScene sceneWithSize:skView.bounds.size];
     self.boardScene = scene;
  
-    __weak ViewController *weakBlockSelf = self;
+    __weak MatchViewController *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
         [weakBlockSelf updateMove:canMove];

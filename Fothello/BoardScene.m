@@ -77,7 +77,7 @@
     
     [self syncronizeBoardStateWithModel];
     
-    self.currentPlayerSprite = currentMatch.currentPlayer.identifier;
+    self.currentPlayerSprite = currentMatch.currentPlayer.userReference;
 }
 
 - (void)teardownCurrentMatch
@@ -113,7 +113,7 @@
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     myLabel.text = score1 == score2
                  ? @"Tie"
-                 : [NSString stringWithFormat:@"%@ Wins", winner.name];
+                 : [NSString stringWithFormat:NSLocalizedString(@"%@ Wins", @"user name"), winner.name];
     
     myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
     myLabel.fontSize = 32;
@@ -127,7 +127,7 @@
         
         [self.game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
          {
-             SKNode *node = piece.identifier;
+             SKNode *node = piece.userReference;
              [node runAction:[SKAction fadeAlphaTo:1 duration:.5]];
          }];
     }];
@@ -143,17 +143,17 @@
     
     [self.game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
     {
-        SKNode *node = piece.identifier;
+        SKNode *node = piece.userReference;
         [node runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
     }];
 
-    SKNode *playerNode1 =  player1.identifier;
+    SKNode *playerNode1 =  player1.userReference;
     
     // assuming both player displays are same height
     NSInteger ypos = self.boardRect.origin.y + self.boardRect.size.height
                     + playerNode1.frame.size.height;
     
-    SKNode *node1 = player1.identifier;
+    SKNode *node1 = player1.userReference;
     SKNode *playerName1 = [playerNode1 childNodeWithName:@"playerName"];
     [playerName1 runAction:[SKAction fadeAlphaTo:0 duration:1]];
     [node1 runAction:
@@ -161,7 +161,7 @@
         @[[SKAction moveToX:self.frame.size.width / 4 - playerNode1.frame.size.width/2 duration:1],
           [SKAction moveToY:ypos duration:1]]] ];
 
-    SKNode *node2 = player2.identifier;
+    SKNode *node2 = player2.userReference;
     SKNode *playerName2 = [node2 childNodeWithName:@"playerName"];
     [playerName2 runAction:[SKAction fadeAlphaTo:0 duration:1]];
 
@@ -179,7 +179,7 @@
     
     for (Player *player in match.players)
     {
-        SKSpriteNode *node = player.identifier;
+        SKSpriteNode *node = player.userReference;
         node.position = CGPointMake(CGRectGetMidX(self.frame) - node.size.width / 2, -100);
         SKNode *playerName = [node childNodeWithName:@"playerName"];
         [playerName runAction:[SKAction fadeAlphaTo:1 duration:1]];
@@ -290,7 +290,7 @@
         [playerSprite addChild:playerLabel];
         
         [self addChild:playerSprite];
-        player.identifier = playerSprite;
+        player.userReference = playerSprite;
     }
 }
 
@@ -300,7 +300,7 @@
     SKAction *action = [SKAction moveToY:-100 duration:.5];
          
     [self.currentPlayerSprite runAction:action];
-    self.currentPlayerSprite = player.identifier;
+    self.currentPlayerSprite = player.userReference;
     
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
     scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
@@ -379,10 +379,10 @@
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
     
-    NSLog(@"piece %d x:%ld y:%ld %@", (int)piece.color, (long)x, (long)y, piece.identifier);
+    NSLog(@"piece %d x:%ld y:%ld %@", (int)piece.color, (long)x, (long)y, piece.userReference);
 
-    [piece.identifier removeFromParent];
-    piece.identifier = nil;    
+    [piece.userReference removeFromParent];
+    piece.userReference = nil;    
     
     if (piece.color != PieceColorNone)
     {
@@ -408,7 +408,7 @@
         // All the animations should complete at about the same time but only want one
         // callback.
         [sprite runAction:action];
-        piece.identifier = sprite;
+        piece.userReference = sprite;
     }
 }
 

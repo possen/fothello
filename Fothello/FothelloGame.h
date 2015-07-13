@@ -116,7 +116,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 @property (nonatomic) PieceColor color;
 @property (nonatomic) Strategy *strategy;
 @property (nonatomic) NSInteger score;
-@property (nonatomic) id identifier;
+@property (nonatomic) id userReference;
 @property (nonatomic) BOOL canMove;
 
 - (instancetype)initWithName:(NSString *)name;
@@ -127,7 +127,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 @interface Piece : NSObject <NSCoding>
 @property (nonatomic) PieceColor color;
-@property (nonatomic) id identifier; // Store reference to UI object
+@property (nonatomic) id userReference; // Store reference to UI object
 
 - (BOOL)isClear;
 - (void)clear;
