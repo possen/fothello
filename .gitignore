@@ -1,1 +1,5 @@
 xcuserdata/
+*~
+CMakeFiles
+FothelloServe
+Fothello/cmake_install.cmake
