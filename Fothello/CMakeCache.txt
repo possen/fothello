@@ -120,7 +120,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=FothelloServe
+CMAKE_PROJECT_NAME:STATIC=fothellows.fcgi
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -197,6 +197,12 @@ Tutorial_SOURCE_DIR:STATIC=/home/ubuntu/fothello/Fothello
 
 //Dependencies for target
 fcgi_LIB_DEPENDS:STATIC=
+
+//Value Computed by CMake
+fothellows.fcgi_BINARY_DIR:STATIC=/home/ubuntu/fothello/Fothello
+
+//Value Computed by CMake
+fothellows.fcgi_SOURCE_DIR:STATIC=/home/ubuntu/fothello/Fothello
 
 
 ########################

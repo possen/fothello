@@ -57,6 +57,47 @@ edit_cache:
 edit_cache/fast: edit_cache
 .PHONY : edit_cache/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -99,24 +140,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named FothelloServe
+# Target rules for targets named fothellows.fcgi
 
 # Build rule for target.
-FothelloServe: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 FothelloServe
-.PHONY : FothelloServe
+fothellows.fcgi: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 fothellows.fcgi
+.PHONY : fothellows.fcgi
 
 # fast build rule for target.
-FothelloServe/fast:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/build
-.PHONY : FothelloServe/fast
+fothellows.fcgi/fast:
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/build
+.PHONY : fothellows.fcgi/fast
 
 board.o: board.cpp.o
 .PHONY : board.o
 
 # target to build an object file
 board.cpp.o:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/board.cpp.o
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/board.cpp.o
 .PHONY : board.cpp.o
 
 board.i: board.cpp.i
@@ -124,7 +165,7 @@ board.i: board.cpp.i
 
 # target to preprocess a source file
 board.cpp.i:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/board.cpp.i
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/board.cpp.i
 .PHONY : board.cpp.i
 
 board.s: board.cpp.s
@@ -132,7 +173,7 @@ board.s: board.cpp.s
 
 # target to generate assembly for a file
 board.cpp.s:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/board.cpp.s
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/board.cpp.s
 .PHONY : board.cpp.s
 
 endgamecx.o: endgamecx.cpp.o
@@ -140,7 +181,7 @@ endgamecx.o: endgamecx.cpp.o
 
 # target to build an object file
 endgamecx.cpp.o:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/endgamecx.cpp.o
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/endgamecx.cpp.o
 .PHONY : endgamecx.cpp.o
 
 endgamecx.i: endgamecx.cpp.i
@@ -148,7 +189,7 @@ endgamecx.i: endgamecx.cpp.i
 
 # target to preprocess a source file
 endgamecx.cpp.i:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/endgamecx.cpp.i
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/endgamecx.cpp.i
 .PHONY : endgamecx.cpp.i
 
 endgamecx.s: endgamecx.cpp.s
@@ -156,7 +197,7 @@ endgamecx.s: endgamecx.cpp.s
 
 # target to generate assembly for a file
 endgamecx.cpp.s:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/endgamecx.cpp.s
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/endgamecx.cpp.s
 .PHONY : endgamecx.cpp.s
 
 minimax.o: minimax.cpp.o
@@ -164,7 +205,7 @@ minimax.o: minimax.cpp.o
 
 # target to build an object file
 minimax.cpp.o:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/minimax.cpp.o
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/minimax.cpp.o
 .PHONY : minimax.cpp.o
 
 minimax.i: minimax.cpp.i
@@ -172,7 +213,7 @@ minimax.i: minimax.cpp.i
 
 # target to preprocess a source file
 minimax.cpp.i:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/minimax.cpp.i
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/minimax.cpp.i
 .PHONY : minimax.cpp.i
 
 minimax.s: minimax.cpp.s
@@ -180,7 +221,7 @@ minimax.s: minimax.cpp.s
 
 # target to generate assembly for a file
 minimax.cpp.s:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/minimax.cpp.s
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/minimax.cpp.s
 .PHONY : minimax.cpp.s
 
 smain.o: smain.cpp.o
@@ -188,7 +229,7 @@ smain.o: smain.cpp.o
 
 # target to build an object file
 smain.cpp.o:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/smain.cpp.o
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/smain.cpp.o
 .PHONY : smain.cpp.o
 
 smain.i: smain.cpp.i
@@ -196,7 +237,7 @@ smain.i: smain.cpp.i
 
 # target to preprocess a source file
 smain.cpp.i:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/smain.cpp.i
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/smain.cpp.i
 .PHONY : smain.cpp.i
 
 smain.s: smain.cpp.s
@@ -204,7 +245,7 @@ smain.s: smain.cpp.s
 
 # target to generate assembly for a file
 smain.cpp.s:
-	$(MAKE) -f CMakeFiles/FothelloServe.dir/build.make CMakeFiles/FothelloServe.dir/smain.cpp.s
+	$(MAKE) -f CMakeFiles/fothellows.fcgi.dir/build.make CMakeFiles/fothellows.fcgi.dir/smain.cpp.s
 .PHONY : smain.cpp.s
 
 # Help Target
@@ -213,8 +254,12 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... FothelloServe"
 	@echo "... edit_cache"
+	@echo "... fothellows.fcgi"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... board.o"
 	@echo "... board.i"
