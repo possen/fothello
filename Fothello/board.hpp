@@ -7,6 +7,14 @@
 
 #import <string>
 
+enum BoardDiffculty {
+    BoardDiffcultyBeginner = 1,
+    BoardDiffcultyNovice,
+    BoardDiffcultyAmateure,
+    BoardDiffcultyExperienced
+};
+#define CONV_21(x, y) (((y) << 3)+(x))
+
 extern bool showLegalMoves;
 
 const char DIRECTION[8][2] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
@@ -23,7 +31,7 @@ struct Board {
 #define uchar unsigned char
 
 
-void startNew(char searchDepth);
+void startNew(char difficulty);
 
 Board* makeBoard(char isFlipped);
 void initBoard(Board *board, char isFlipped);

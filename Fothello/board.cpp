@@ -321,36 +321,4 @@ bool boardFromString(Board *board, const std::string &boardStr) {
 
 
 
-//********************************************//
-/*
-// Debug/test
-int main (int argc, char ** argv) {
-  printf("sizeof(Board): %d\n", sizeof(Board));
-  Board* myB = makeBoard();
-  bool legal[64];
-  findLegalMoves(myB, legal);
-  printBoard(myB, legal);
-  makeMove(myB, 5, 4);
-  findLegalMoves(myB, legal);
-  printBoard(myB, legal);
-  char nblack, nwhite;
-  countPieces(myB, &nblack, &nwhite);
-  printf("# black: %d, # white: %d\n", nblack, nwhite);
-  //bool leg54 = legalMove(myB, 5, 4);
-//  bool leg53 = legalMove(myB, 5, 3);
-//  bool leg55 = legalMove(myB, 5, 5);
-//  printf("leg53: %d, leg54: %d, leg55: %d\n", leg53, leg54, leg55);
-  // makeStartGameBoard(myB);
-  // printBoard(myB);
-  //int p1, p2, p3;
-//  p1 = getColor(myB, 3, 3);
-//  p2 = getColor(myB, 2, 4);
-//  p3 = getColor(myB, 3, 4);
-//  printf("27: %d, 34: %d, 35: %d\n", p1, p2, p3);
-//  
-//  printf("COORD_21(3, 5): %d\n", COORD_21(3, 5));
-//  flipBoard(myB, 1 << COORD_21(3, 3), 0);
-//  printBoard(myB);
-}
-//*/
 

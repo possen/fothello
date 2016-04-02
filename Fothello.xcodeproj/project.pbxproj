@@ -25,7 +25,7 @@
 		D5441B501831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
 		D5441B511831CB1100B5166A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B291831CB1100B5166A /* UIKit.framework */; };
 		D5441B591831CB1100B5166A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5441B571831CB1100B5166A /* InfoPlist.strings */; };
-		D5441B5B1831CB1100B5166A /* FothelloTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.m */; };
+		D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.mm */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66818C40E58000DCEB8 /* GameViewController.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
@@ -71,7 +71,7 @@
 		D5441B4E1831CB1100B5166A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D5441B561831CB1100B5166A /* FothelloTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FothelloTests-Info.plist"; sourceTree = "<group>"; };
 		D5441B581831CB1100B5166A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D5441B5A1831CB1100B5166A /* FothelloTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloTests.m; sourceTree = "<group>"; };
+		D5441B5A1831CB1100B5166A /* FothelloTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FothelloTests.mm; sourceTree = "<group>"; };
 		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FothelloGame.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launchscreen.storyboard; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		D5441B541831CB1100B5166A /* FothelloTests */ = {
 			isa = PBXGroup;
 			children = (
-				D5441B5A1831CB1100B5166A /* FothelloTests.m */,
+				D5441B5A1831CB1100B5166A /* FothelloTests.mm */,
 				D5441B551831CB1100B5166A /* Supporting Files */,
 			);
 			path = FothelloTests;
@@ -346,7 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5441B5B1831CB1100B5166A /* FothelloTests.m in Sources */,
+				D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
