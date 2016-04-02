@@ -51,14 +51,6 @@
             
             dispatch_async(dispatch_get_main_queue(),
             ^{
-//                NSMutableArray *piecePositionsMutable = [piecePositions mutableCopy];
-//                PiecePosition *piece = piecePositionsMutable[0];
-//                if (piece.piece.color != PieceColorLegal)
-//                {
-//                    [weakBlockSelf movePieceTo:piece.position];
-////                    [piecePositionsMutable removeObjectAtIndex:0];
-//                }
-
                 for (PiecePosition *piecePosition in piecePositions)
                 {
                     NSLog(@"piece %d x:%ld y:%ld", (int)piecePosition.piece.color, (long)piecePosition.position.x, (long)piecePosition.position.y);
@@ -381,7 +373,7 @@
                                ^(void)
                 {
                     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [self.game processOtherTurnsX:x Y:y]; // x & y represent human player move
+                        [self.game processOtherTurnsX:x Y:y pass:NO]; // x & y represent human player move
                         self.turnProcessing = NO;
                     });
                 });

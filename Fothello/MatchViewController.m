@@ -180,7 +180,7 @@
     if (pieceColor + PieceColorBlack ==  PieceColorWhite)
     {
         if (playerType == PlayerTypeComputer)
-            [game.currentMatch processOtherTurnsX:-1 Y:-1];
+            [game.currentMatch processOtherTurnsX:-1 Y:-1 pass:YES];
         else
             [game.currentMatch nextPlayer];
     }

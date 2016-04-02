@@ -213,12 +213,12 @@
 		D5EECCC5183B4EAB005D5507 /* Mini-Othello */ = {
 			isa = PBXGroup;
 			children = (
-				D5EECCC6183B4EC2005D5507 /* board.cpp */,
 				D5EECCC7183B4EC2005D5507 /* board.hpp */,
-				D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */,
+				D5EECCC6183B4EC2005D5507 /* board.cpp */,
 				D5EECCC9183B4EC2005D5507 /* endgamecx.h */,
-				D5EECCCD183B4EC2005D5507 /* minimax.cpp */,
+				D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */,
 				D5EECCCE183B4EC2005D5507 /* minimax.hpp */,
+				D5EECCCD183B4EC2005D5507 /* minimax.cpp */,
 			);
 			name = "Mini-Othello";
 			sourceTree = "<group>";

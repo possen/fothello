@@ -11,47 +11,6 @@
 #import "board.hpp"
 #import "minimax.hpp"
 
-#define SEARCH_NOVICE             4
-#define SEARCH_BEGINNER           6
-#define SEARCH_AMATEUR            8
-#define SEARCH_EXPERIENCED        10
-
-#define BRUTE_FORCE_NOVICE        12
-#define BRUTE_FORCE_BEGINNER      14
-#define BRUTE_FORCE_AMATEUR       16
-#define BRUTE_FORCE_EXPERIENCED   19
-
-// MPC not yet implemented
-#define MPC_NOVICE        0
-#define MPC_BEGINNER      0
-#define MPC_AMATEUR       0
-#define MPC_EXPERIENCED   0
-
-// Default values
-#define DEF_WIN_LARGE         1
-#define DEF_IS_FLIPPED        0
-#define DEF_RANDOMNESS_LEVEL  2
-
-#define PROGRAM_NAME "Mini-Othello"
-#define VERSION "0.01-alpha-1"
-
-char searchDepth;
-char originalSearchDepth;
-char bruteForceDepth;
-char mpcDepth;
-bool winLarge;
-char randomnessLevel;
-bool useAndersson;
-bool boardFlipped;
-bool showLegalMoves;
-// Non essential vars.
-bool showDots;
-bool showTime;
-char selfPlayLimit;
-char player1, player2;
-#define HUMAN 1
-#define COMPUTER 2
-
 #pragma mark - AIStrategy -
 
 @interface AIStrategy ()
@@ -63,34 +22,9 @@ char player1, player2;
 @synthesize firstPlayer = _firstPlayer;
 @synthesize difficulty = _difficulty;
 
-- (void)setupMini:(BOOL)firstPlayer
+- (void)setupMini
 {
-    char isFlipped  = NO;
-    
-    // globals not good but miniothello uses them.
-    if (firstPlayer)
-    {
-        player1 = COMPUTER;
-        player2 = HUMAN;
-    }
-    else
-    {
-        player1 = HUMAN;
-        player2 = COMPUTER;
-    }
-    
-    searchDepth = SEARCH_BEGINNER;
-    originalSearchDepth = searchDepth;
-    bruteForceDepth = BRUTE_FORCE_BEGINNER;
-    winLarge = DEF_WIN_LARGE;
-    mpcDepth = MPC_NOVICE; // not used.
-    boardFlipped = isFlipped = DEF_IS_FLIPPED;
-    randomnessLevel = DEF_RANDOMNESS_LEVEL;
-    showLegalMoves = false;
-    useAndersson = false;
-    showDots = false;
-    selfPlayLimit = 127;  // big enough.
-    srand((unsigned)time(NULL));
+    startNew(self.difficulty);
 }
 
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer
@@ -101,7 +35,7 @@ char player1, player2;
         _board = makeBoard(NO);
         _firstPlayer = firstPlayer;
         _difficulty = match.difficulty;
-        [self setupMini:firstPlayer];
+        [self setupMini];
     }
     return self;
 }
@@ -113,7 +47,7 @@ char player1, player2;
     {
         _board = makeBoard(NO);
         
-        [self setupMini:self.firstPlayer];
+        [self setupMini];
         
         NSUInteger len =  sizeof(char) * 61 * 64;
         const uint8_t *buffer;
@@ -190,13 +124,11 @@ char player1, player2;
     char ay = nextMove / 8;
     char ax = nextMove % 8;
     
-    //    printBoard(_board, legalMoves);
     printf("placed %d %d\n", ax, ay);
 
     if (legalMove(_board, ax, ay))
     {
         makeMove(_board, ax, ay);
-        //        printBoard(_board, legalMoves);
 
         return [match placePieceForPlayer:player atX:ax Y:ay];
     }
@@ -214,36 +146,7 @@ char player1, player2;
 
 - (void)setupDifficulty:(Difficulty)difficulty
 {
-    switch (difficulty)
-    {
-        case DifficultyEasy:
-        case DifficultyNone:
-            searchDepth = SEARCH_NOVICE;
-            bruteForceDepth = BRUTE_FORCE_NOVICE;
-            break;
-            
-        case DifficultyModerate:
-            searchDepth = SEARCH_BEGINNER;
-            bruteForceDepth = BRUTE_FORCE_BEGINNER;
-            break;
-            
-        case DifficultyHard:
-            searchDepth = SEARCH_AMATEUR;
-            bruteForceDepth = BRUTE_FORCE_AMATEUR;
-            break;
-            
-        case DifficultyHardest:
-            searchDepth = SEARCH_EXPERIENCED;
-            bruteForceDepth = BRUTE_FORCE_EXPERIENCED;
-            useAndersson = YES;
-            break;
-            
-        default:
-            [NSException raise:@"bad index" format:@"%@", self];
-            break;
-    }
-    
-    originalSearchDepth = searchDepth;
+    startNew(difficulty);
 }
 
 - (void)resetWithDifficulty:(Difficulty)difficulty

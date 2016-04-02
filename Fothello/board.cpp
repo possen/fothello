@@ -9,6 +9,7 @@
 
 #include "board.hpp"
 
+bool showLegalMoves = false;
 
 /* calls malloc to allocate memory for board and initialize to start-of-game 
   configurations, a pointer to the board is returned. */

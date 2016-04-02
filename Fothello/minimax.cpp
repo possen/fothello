@@ -8,12 +8,83 @@
   
 #include "minimax.hpp"
 
+#define SEARCH_NOVICE             4
+#define SEARCH_BEGINNER           6
+#define SEARCH_AMATEUR            8
+#define SEARCH_EXPERIENCED        10
+
+#define BRUTE_FORCE_NOVICE        12
+#define BRUTE_FORCE_BEGINNER      14
+#define BRUTE_FORCE_AMATEUR       16
+#define BRUTE_FORCE_EXPERIENCED   19
+
+// Default values
+#define DEF_WIN_LARGE         1
+#define DEF_IS_FLIPPED        0
+#define DEF_RANDOMNESS_LEVEL  2
+
+#define MAX_INT 2147483647
+#define MIN_INT -2147483648
+#define LARGE_FLOAT 1.0e35
+#define SMALL_FLOAT -1.0e35
+#define HUGE_FLOAT 2.0e38
+#define TINY_FLOAT -2.0e38
+
+#define PROGRAM_NAME "Mini-Othello"
+#define VERSION "0.01-alpha-1"
+
+
 static char mmBoard[61][64];
 static char base;
 static unsigned int countPruning;
 static unsigned int countSearching, countEval;
 static unsigned int temp0, temp1;
 static float extra;
+
+static char searchDepth;
+static char originalSearchDepth;
+static char bruteForceDepth;
+static char useAndersson;
+static char randomnessLevel;
+static char winLarge;
+
+float getMin(char lastx, char lasty, char color, char depth, char passes,
+             char prevmaxDOF, char prevminDOF, //DOF found in previous getMax and getMin;
+             char selfPieces, char oppPieces, float alpha, float beta);
+float getMax(char lastx, char lasty, char color, char depth, char passes,
+             char prevmaxDOF, char prevminDOF,
+             char selfPieces, char oppPieces, float alpha, float beta);
+
+void copyBoardArray(char *to, char *from);
+bool legalMove(char *a, char color, char x, char y);
+char findLegalMoves(char *a, char color, unsigned int *mask0, unsigned int *mask1);
+char tryMove(char *a, char color, char x, char y);
+
+float evaluateEndGame(char selfPieces, char oppPieces);
+float evaluateBoard(char *a, char forWhom, char whoseTurn, char prevmaxDOF,
+                    char prevminDOF, char selfPieces, char oppPieces);
+
+void printBoardArray(char *a);
+int strongEndGameSolve(char depth, char color, char selfPieces, char oppPieces,
+                       char prevNotPass, float alpha, float beta);
+
+char lookup[] = {1, 1, 1,
+               SEARCH_BEGINNER, BRUTE_FORCE_BEGINNER, 0,
+               SEARCH_NOVICE, BRUTE_FORCE_NOVICE, 0,
+               SEARCH_AMATEUR, BRUTE_FORCE_AMATEUR, 0,
+               SEARCH_EXPERIENCED, BRUTE_FORCE_EXPERIENCED, 1};
+
+void startNew(char diffculty) {
+    searchDepth = lookup[diffculty * 3];
+    bruteForceDepth = lookup[diffculty * 3 + 1];
+    useAndersson = lookup[diffculty * 3 + 2];
+    
+    originalSearchDepth = searchDepth;
+    bruteForceDepth = diffculty;
+    winLarge = DEF_WIN_LARGE;
+    randomnessLevel = DEF_RANDOMNESS_LEVEL;
+    srand((unsigned)time(NULL));
+}
 
 /* Return a move using minimax search. -- Called only once per move made */
 char getMinimaxMove(Board *board, bool *legalMoves) {
@@ -46,9 +117,7 @@ char getMinimaxMove(Board *board, bool *legalMoves) {
   char *b1 = mmBoard[depth+1];
   copyBoardArray(b, a);
   if(base == 0) {  // don't want to search for the first move.
-    if(boardFlipped)
       return HARD_WIRED_FIRST_MOVE_BOARD_FLIPPED;
-    return HARD_WIRED_FIRST_MOVE;
   }
   char place;
   unsigned int mask0, mask1;
@@ -65,8 +134,6 @@ char getMinimaxMove(Board *board, bool *legalMoves) {
         continue;
       copyBoardArray(b1, b);
       nFlips = tryMove(b1, color, x, y);
-      if(showDots)
-        printf(".");
       if(base + depth + 4 == 63)  // just filled the board.
         currValue = evaluateEndGame(selfPieces+nFlips+1, oppPieces-nFlips);
       else if(useAndersson && (base + 4 + bruteForceDepth >= 64)) {
