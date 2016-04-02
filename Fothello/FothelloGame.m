@@ -882,21 +882,8 @@
 
 
 - (void)endTurn
-{
-    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    [self.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-     {
-         if (piece.color == PieceColorLegal)
-         {
-             [self.board changePiece:piece withColor:PieceColorNone];
-             [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
-         }
-     }];
-    
-    self.board.placeBlock(pieces);
-
-//    [self.currentPlayer.strategy displaylegalMoves:NO forPlayer:self.currentPlayer];
+{    
+    [self.currentPlayer.strategy displaylegalMoves:NO forPlayer:self.currentPlayer];
 
     NSLog(@"%@", self.board);
 }
@@ -1055,7 +1042,7 @@
     __block BOOL foundLegal = NO;
     
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-//    if (display)
+    if (display)
     {
         // Determine moves
         [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
@@ -1080,17 +1067,17 @@
              }
          }];
     }
-//    else
-//    {
-//        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-//         {
-//             if (piece.color == PieceColorLegal)
-//             {
-//                 [board changePiece:piece withColor:PieceColorNone];
-//                 [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
-//             }
-//         }];
-//    }
+    else
+    {
+        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+         {
+             if (piece.color == PieceColorLegal)
+             {
+                 [board changePiece:piece withColor:PieceColorNone];
+                 [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+             }
+         }];
+    }
     
     board.placeBlock(pieces);
 
