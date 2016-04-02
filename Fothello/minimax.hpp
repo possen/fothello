@@ -8,7 +8,18 @@
 
 #include <time.h>
 #include "board.hpp"
-#include "endgamecx.h"
+
+#define EMPTY 0
+#define BLACK 1
+#define WHITE 2
+#define OTHER(x) (3-(x))  // OTHER(BLACK) = WHITE, vice versa.
+
+#define PASS -1
+#define ILLEGAL -2
+
+
+#define CONV_21(x, y) (((y) << 3)+(x))
+#define ON_BOARD(x, y) ((x) >= 0 && (x) < 8 && (y) >= 0 && (y) < 8)
 
 #ifndef uint
 #define uint usigned int
@@ -30,7 +41,7 @@
 #define DEBUG_MINIMAX 0
 #define COUNT_PRUNING 0
 
-void startNew(char searchDepth);
+void startNewMinimax(char searchDepth);
 char getMinimaxMove(Board *board, bool *legalMoves);
 
 #endif

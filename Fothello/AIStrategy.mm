@@ -9,7 +9,6 @@
 #import "AIStrategy.h"
 #import "FothelloGame.h"
 #import "board.hpp"
-#import "minimax.hpp"
 
 #pragma mark - AIStrategy -
 
@@ -22,11 +21,6 @@
 @synthesize firstPlayer = _firstPlayer;
 @synthesize difficulty = _difficulty;
 
-- (void)setupMini
-{
-    startNew(self.difficulty);
-}
-
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer
 {
     self = [super initWithMatch:match firstPlayer:firstPlayer];
@@ -35,7 +29,7 @@
         _board = makeBoard(NO);
         _firstPlayer = firstPlayer;
         _difficulty = match.difficulty;
-        [self setupMini];
+        startNew(self.difficulty);
     }
     return self;
 }
@@ -46,8 +40,6 @@
     if (self)
     {
         _board = makeBoard(NO);
-        
-        [self setupMini];
         
         NSUInteger len =  sizeof(char) * 61 * 64;
         const uint8_t *buffer;
@@ -60,8 +52,9 @@
         _board->m = [aDecoder decodeInt32ForKey:@"m"];
         _board->top = [aDecoder decodeInt32ForKey:@"top"];
         _board->wt = [aDecoder decodeInt32ForKey:@"wt"];
+        
         _difficulty = (Difficulty)[aDecoder decodeIntegerForKey:@"difficulty"];
-        [self setupDifficulty:_difficulty];
+        startNew(self.difficulty);
     }
     return self;
 }
@@ -80,46 +73,24 @@
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
-- (void)convertBoard
-{
-    // todo
-    char *a = _board->a[0];
-
-    FothelloGame *game = [FothelloGame sharedInstance];
-
-    [game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-    {
-        a[y * 8 + x] = [piece isClear] ? EMPTY :
-                        piece.color == PieceColorBlack
-                         ? BLACK
-                         : WHITE;
-        
-    }];
-}
-
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     [super takeTurn:player atX:x Y:y pass:pass];
     bool legalMoves[64];
-    _board->wt = self.firstPlayer ? WHITE : BLACK;
-    
+    setPlayer(_board, self.firstPlayer);
     char humanHasLegalMove = findLegalMoves(_board, legalMoves);
-    //    printBoard(_board, legalMoves);
 
     if (pass) // negative means pass.
         makePass(_board);
     else
         makeMove(_board, x, y);
     
-    //printBoard(_board, legalMoves);
-
-    Match *match = self.match;
-    _board->wt = self.firstPlayer ? BLACK : WHITE;
-
+    setPlayer(_board, !self.firstPlayer);
+    
     char computerHasLegalMove = findLegalMoves(_board, legalMoves);
     if (!humanHasLegalMove && !computerHasLegalMove)
         return NO; // game over
-    char nextMove = getMinimaxMove(_board, legalMoves);
+    char nextMove = getMove(_board, legalMoves);
 
     char ay = nextMove / 8;
     char ax = nextMove % 8;
@@ -129,7 +100,7 @@
     if (legalMove(_board, ax, ay))
     {
         makeMove(_board, ax, ay);
-
+        Match *match = self.match;
         return [match placePieceForPlayer:player atX:ax Y:ay];
     }
     else
@@ -144,16 +115,12 @@
     return YES;
 }
 
-- (void)setupDifficulty:(Difficulty)difficulty
-{
-    startNew(difficulty);
-}
 
 - (void)resetWithDifficulty:(Difficulty)difficulty
 {
     initBoard(_board, NO);
     _difficulty = difficulty;
-    [self setupDifficulty:difficulty];
+    startNew(_difficulty);
 }
 @end
 

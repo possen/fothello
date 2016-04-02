@@ -5,8 +5,12 @@
   Note: Andersson's end-of-game solver is very good at solving end of game 
    -- about 2 steps more than my simple minimax. 
   */
-  
+
+#import <stdio.h>
+#import <stdlib.h>
+
 #include "minimax.hpp"
+#include "endgamecx.h"
 
 #define SEARCH_NOVICE             4
 #define SEARCH_BEGINNER           6
@@ -74,7 +78,7 @@ char lookup[] = {1, 1, 1,
                SEARCH_AMATEUR, BRUTE_FORCE_AMATEUR, 0,
                SEARCH_EXPERIENCED, BRUTE_FORCE_EXPERIENCED, 1};
 
-void startNew(char diffculty) {
+void startNewMinimax(char diffculty) {
     searchDepth = lookup[diffculty * 3];
     bruteForceDepth = lookup[diffculty * 3 + 1];
     useAndersson = lookup[diffculty * 3 + 2];

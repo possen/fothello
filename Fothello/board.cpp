@@ -6,10 +6,22 @@
    method, but instead access the board array directly.
 */
 
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "board.hpp"
+#include "minimax.hpp"
+
 
 bool showLegalMoves = false;
+
+void startNew(char searchDepth) {
+    return startNewMinimax(searchDepth);
+}
+
+char getMove(Board *board, bool *legalMoves) {
+    return getMinimaxMove(board, legalMoves);
+}
 
 /* calls malloc to allocate memory for board and initialize to start-of-game 
   configurations, a pointer to the board is returned. */
@@ -101,6 +113,10 @@ bool legalMove(Board *b, char x, char y) {
     }
   }
   return result;
+}
+
+void setPlayer(Board *b, bool firstPlayer) {
+    b->wt = firstPlayer ? BLACK : WHITE;
 }
 
 /* get all legal moves */
