@@ -119,7 +119,7 @@ bool legalMove(Board *b, char x, char y) {
 }
 
 void setPlayer(Board *b, bool firstPlayer) {
-    b->wt = firstPlayer ? BLACK : WHITE;
+    b->wt = firstPlayer ? WHITE : BLACK;
 }
 
 /* get all legal moves */
