@@ -10,8 +10,4 @@
 
 struct Board;
 @interface AIStrategy : Strategy
-{
-    struct Board *_board;
-}
-
 @end

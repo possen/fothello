@@ -13,6 +13,10 @@
 #pragma mark - AIStrategy -
 
 @interface AIStrategy ()
+{
+    struct Board *_board;
+}
+
 @property (nonatomic) BOOL firstPlayer;
 @property (nonatomic) Difficulty difficulty;
 @end
@@ -72,6 +76,12 @@
     [aCoder encodeInt32:_board->wt forKey:@"wt"];
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
+
+// inputs:  player
+//          board
+//          difficulty
+// outputs: position
+//
 
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {

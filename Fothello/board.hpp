@@ -27,8 +27,8 @@ Board* makeBoard(char isFlipped);
 void initBoard(Board *board, char isFlipped);
 void printBoard(Board *b, bool *legalMoves);
 
-char getMove(Board *board, bool *legalMoves);
 void setPlayer(Board *b, bool firstPlayer);
+char getMove(Board *board, bool *legalMoves);
 
 void setPiece(Board *board, char place, char color);
 char getPiece(Board *board, char place);
