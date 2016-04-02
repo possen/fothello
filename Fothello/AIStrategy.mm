@@ -163,20 +163,21 @@ char player1, player2;
     }];
 }
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
+    [super takeTurn:player atX:x Y:y pass:pass];
     bool legalMoves[64];
     _board->wt = self.firstPlayer ? WHITE : BLACK;
     
     char humanHasLegalMove = findLegalMoves(_board, legalMoves);
     //    printBoard(_board, legalMoves);
 
-    if (x == -1)
+    if (pass) // negative means pass.
         makePass(_board);
     else
         makeMove(_board, x, y);
     
-    printBoard(_board, legalMoves);
+    //printBoard(_board, legalMoves);
 
     Match *match = self.match;
     _board->wt = self.firstPlayer ? BLACK : WHITE;

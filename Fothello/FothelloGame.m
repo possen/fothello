@@ -87,7 +87,7 @@
     Match *match = self.currentMatch;
     [match.currentPlayer.strategy pass];
     [match nextPlayer];
-    [match processOtherTurnsX:-1 Y:-1];
+    [match processOtherTurnsX:-1 Y:-1 pass:YES];
 }
 
 - (void)reset
@@ -140,24 +140,25 @@
     [match ready];
 }
 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     Match *match = self.currentMatch;
     [match endTurn];
     
-    BOOL moved = [match.currentPlayer takeTurnAtX:x Y:y];
+    BOOL moved = [match.currentPlayer takeTurnAtX:x Y:y pass:pass];
 
     // if not moved, put legal moves back.
     if (!moved)
+    {
         [match beginTurn];
-
+    }
     return moved;
 }
 
-- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y
+- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     Match *match = self.currentMatch;
-    [match processOtherTurnsX:x Y:y];
+    [match processOtherTurnsX:x Y:y pass:pass];
 }
 
 - (NSString *)description
@@ -315,13 +316,14 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
-    BOOL moved =  [self.strategy takeTurn:self atX:x Y:y];
+    BOOL moved = [self.strategy takeTurn:self atX:x Y:y pass:pass];
     
     if (moved)
+    {
         [self.strategy.match nextPlayer];
-
+    }
     return moved;
 }
 
@@ -794,9 +796,7 @@
         {
             Piece *piece = [self.board pieceAtPositionX:x Y:y];
             [self.board changePiece:piece withColor:player.color];
-            
             [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
-
             for (TrackInfo *trackItem in trackInfo)
             {
                 piece = trackItem.piece;
@@ -861,15 +861,15 @@
     self.board.placeBlock(pieces);
 
     NSLog(@"%@", self.board);
-
 }
 
 
-- (void)processOtherTurnsX:(NSInteger)humanx Y:(NSInteger)humany
+- (void)processOtherTurnsX:(NSInteger)humanx Y:(NSInteger)humany pass:(BOOL)pass
 {
     while (! self.currentPlayer.strategy.manual)
     {
-        BOOL placed = [self.currentPlayer takeTurnAtX:humanx Y:humany];
+        BOOL placed = [self.currentPlayer takeTurnAtX:humanx Y:humany pass:pass];
+
         if (!placed)
             break;
     }
@@ -999,7 +999,7 @@
     [aCoder encodeBool:self.firstPlayer forKey:@"firstPlayer"];
 }
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     // subclass
     return NO;
@@ -1062,8 +1062,10 @@
 
 @implementation BoxStrategy
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
+    [super takeTurn:player atX:x Y:y pass:pass];
+    
     Match *match = self.match;
     FBoard *board = match.board;
     Position center = board.center;
@@ -1108,8 +1110,10 @@
     return YES;
 }
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
+    [super takeTurn:player atX:x Y:y pass:pass];
+    
     Match *match = self.match;
 
     BOOL placed = [match placePieceForPlayer:player atX:x Y:y];

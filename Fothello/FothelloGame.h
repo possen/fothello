@@ -17,7 +17,7 @@ typedef enum PieceColor : NSInteger
     PieceColorBlue,
     PieceColorGreen,
     PieceColorYellow,
-    PieceColorLegal
+    PieceColorLegal    // show legal moves
 } PieceColor;
 
 typedef enum Direction : NSInteger
@@ -99,8 +99,8 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
           firstPlayerColor:(PieceColor)pieceColor
               opponentType:(PlayerType)playerType;
 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
-- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y;
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 
 @property (nonatomic) Match *currentMatch;
 @property (nonatomic) NSMutableArray *matches;
@@ -120,7 +120,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 @property (nonatomic) BOOL canMove;
 
 - (instancetype)initWithName:(NSString *)name;
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y;
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 @end
 
 #pragma mark - Piece -
@@ -167,7 +167,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 - (void)test;
 - (BOOL)done;
 - (void)nextPlayer;
-- (void)processOtherTurnsX:(NSInteger)humanX Y:(NSInteger)y;
+- (void)processOtherTurnsX:(NSInteger)humanX Y:(NSInteger)y pass:(BOOL)pass;
 - (void)ready;
 - (BOOL)beginTurn;
 - (void)endTurn;
@@ -192,7 +192,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer;
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
+- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (BOOL)findLegalMoves:(Player *)player display:(BOOL)display;
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;

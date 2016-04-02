@@ -44,10 +44,25 @@
     currentMatch.board.placeBlock =
         ^(NSArray *piecePositions)
         {
+            if (piecePositions.count == 0)
+            {
+                return;
+            }
+            
             dispatch_async(dispatch_get_main_queue(),
             ^{
+//                NSMutableArray *piecePositionsMutable = [piecePositions mutableCopy];
+//                PiecePosition *piece = piecePositionsMutable[0];
+//                if (piece.piece.color != PieceColorLegal)
+//                {
+//                    [weakBlockSelf movePieceTo:piece.position];
+////                    [piecePositionsMutable removeObjectAtIndex:0];
+//                }
+
                 for (PiecePosition *piecePosition in piecePositions)
                 {
+                    NSLog(@"piece %d x:%ld y:%ld", (int)piecePosition.piece.color, (long)piecePosition.position.x, (long)piecePosition.position.y);
+
                     [weakBlockSelf placeSpriteAtX:piecePosition.position.x
                                                 Y:piecePosition.position.y
                                         withPiece:piecePosition.piece];
@@ -294,32 +309,37 @@
     }
 }
 
+- (void)movePieceTo:(Position)pos
+{
+    CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
+    SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];
+    SKAction *action = [SKAction sequence:@[actionPos]];
+    [self.currentPlayerSprite runAction:action];
+}
+
 - (void)displayCurrentPlayer:(Player *)player
 {
+//    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
+//    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:0];
     Match *match = self.game.currentMatch;
-    SKAction *action = [SKAction moveToY:-100 duration:.5];
-         
-    [self.currentPlayerSprite runAction:action];
     self.currentPlayerSprite = player.userReference;
     
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
     scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
-  
-    action = [SKAction moveToY:100 duration:.5];
-    [self.currentPlayerSprite runAction:action];
-    
-    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
-    SKAction *fadeOut = [SKAction fadeAlphaTo:.4 duration:1];
+    NSInteger homePos = self.boardDimensions / 2;
+ 
+     SKAction *action = [SKAction moveTo:CGPointMake(homePos, 100) duration:0];
+    [self.currentPlayerSprite runAction:[SKAction sequence:@[action]]];
     
     SKNode *piece = [self.currentPlayerSprite childNodeWithName:@"piece"];
     
-    if (!player.strategy.manual)
-    {
-        [piece runAction:
-             [SKAction repeatActionForever:
-             [SKAction sequence:@[fadeIn, fadeOut]]]];
-    }
-    else
+//    if (!player.strategy.manual)
+//    {
+//        [piece runAction:
+//             [SKAction repeatActionForever:
+//             [SKAction sequence:@[fadeIn, fadeOut]]]];
+//    }
+//    else
     {
         [piece removeAllActions];
         [piece runAction:
@@ -347,7 +367,7 @@
         
         if (x < boardSize && y < boardSize && !self.turnProcessing)
         {
-            BOOL placed = [self.game takeTurnAtX:x Y:y];
+            BOOL placed = [self.game takeTurnAtX:x Y:y pass:NO];
             
             if (placed)
             {
@@ -356,7 +376,6 @@
                 double delayInSeconds = .5;
                 dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
-
 
                 dispatch_after(popTime,dispatch_get_main_queue(),
                                ^(void)
@@ -371,38 +390,46 @@
     }
 }
 
+- (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
+{
+    NSInteger boardSize = self.boardSize;
+    NSInteger spacing = self.boardDimensions / boardSize;
+    CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
+    if (sizeSmall)
+    {
+        spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
+    }
+    return spriteSize;
+}
 
-
-- (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
+- (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall
 {
     CGRect boardRect = self.boardRect;
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / boardSize;
+    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:sizeSmall];
     
-    NSLog(@"piece %d x:%ld y:%ld %@", (int)piece.color, (long)x, (long)y, piece.userReference);
+    return CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
+                  y * spacing + boardRect.origin.y - spriteSize.height / 2 + spacing / 2);
 
+}
+
+- (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
+{
     [piece.userReference removeFromParent];
     piece.userReference = nil;    
     
     if (piece.color != PieceColorNone)
     {
-        CGFloat finalAlpha = 1.0;
-
-        CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
-        if (piece.color == PieceColorLegal)
-        {
-            spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
-            finalAlpha = .3;
-        }
+        BOOL showLegalMoves = piece.color == PieceColorLegal;
+        CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:showLegalMoves];
         
         SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];
+        sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:showLegalMoves];
         sprite.alpha = 0.0;
-     
-        sprite.position
-            = CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
-                          y * spacing + boardRect.origin.y - spriteSize.height / 2 + spacing / 2);
 
         [self addChild:sprite];
+        CGFloat finalAlpha = showLegalMoves ? .3 : 1.0;
         SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];
         
         // All the animations should complete at about the same time but only want one
