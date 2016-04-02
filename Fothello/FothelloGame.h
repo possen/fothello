@@ -147,6 +147,8 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
 - (void)changePiece:(Piece *)piece withColor:(PieceColor)color;
 - (BOOL)boardFull;
+- (NSString *)toString;
+- (NSString *)toStringAscii;
 
 @property (nonatomic) NSMutableArray *grid;
 @property (nonatomic) NSInteger size;
@@ -193,7 +195,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 - (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (BOOL)findLegalMoves:(Player *)player display:(BOOL)display;
+- (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player;
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
 - (void)convertBoard;

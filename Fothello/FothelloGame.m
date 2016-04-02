@@ -397,6 +397,30 @@
     }
 }
 
+- (NSString *)colorStringRepresentationAscii
+{
+    switch (self.color)
+    {
+        case PieceColorNone:
+            return @".";
+        case PieceColorWhite:
+            return @"O";
+        case PieceColorBlack:
+            return @"X";
+        case PieceColorRed:
+            return @"R";
+        case PieceColorGreen:
+            return @"G";
+        case PieceColorYellow:
+            return @"Y";
+        case PieceColorBlue:
+            return @"B";
+        case PieceColorLegal:
+            return @"L";
+    }
+}
+
+
 @end
 
 
@@ -436,7 +460,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"\n%@",[self print]];
+    return [NSString stringWithFormat:@"\n%@",[self toString]];
 }
 
 - (void)updateColor:(Piece *)piece incdec:(NSInteger)incDec
@@ -579,8 +603,7 @@
     [boardString appendString:@"\n"];
 }
 
-
-- (NSString *)print
+- (NSString *)convertToString:(BOOL)ascii
 {
     NSMutableString *boardString = [[NSMutableString alloc] init];
     [self printBanner:boardString];
@@ -592,15 +615,28 @@
         for (NSInteger x = 0; x < self.size; x++)
         {
             Piece *piece = [self pieceAtPositionX:x Y:y];
-            [boardString appendString:piece.colorStringRepresentation];
+            if (ascii)
+                [boardString appendString:piece.colorStringRepresentationAscii];
+            else
+                [boardString appendString:piece.colorStringRepresentation];
+            
         }
         [boardString appendString:@"|"];
         [boardString appendString:@"\n"];
     }
-
+    
     [self printBanner:boardString];
-
     return boardString;
+}
+
+- (NSString *)toString
+{
+    return [self convertToString:NO];
+}
+
+- (NSString *)toStringAscii
+{
+    return [self convertToString:YES];
 }
 
 @end
@@ -840,7 +876,7 @@
 
 - (BOOL)beginTurn
 {
-    BOOL found = [self.currentPlayer.strategy findLegalMoves:self.currentPlayer display:YES];
+    BOOL found = [self.currentPlayer.strategy displaylegalMoves:YES forPlayer:self.currentPlayer];
     return found;
 }
 
@@ -850,15 +886,17 @@
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
     [self.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-    {
-        if (piece.color == PieceColorLegal)
-        {
-            [self.board changePiece:piece withColor:PieceColorNone];
-            [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
-        }
-    }];
+     {
+         if (piece.color == PieceColorLegal)
+         {
+             [self.board changePiece:piece withColor:PieceColorNone];
+             [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+         }
+     }];
     
     self.board.placeBlock(pieces);
+
+//    [self.currentPlayer.strategy displaylegalMoves:NO forPlayer:self.currentPlayer];
 
     NSLog(@"%@", self.board);
 }
@@ -936,7 +974,7 @@
          count++;
      }];
     
-    NSLog(@"\n%@\n", [board print]);
+    NSLog(@"\n%@\n", [board toString]);
 }
 
 - (BOOL)done
@@ -1010,36 +1048,49 @@
     // subclass
 }
 
-- (BOOL)findLegalMoves:(Player *)player display:(BOOL)display
+- (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player
 {
     Match *match = self.match;
     FBoard *board = match.board;
     __block BOOL foundLegal = NO;
     
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-
-    // Determine moves
-    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-     {
-         BOOL foundMove = [match findTracksX:x Y:y
-                                   forPlayer:player
-                                  trackBlock:nil];
-         if (foundMove)
+//    if (display)
+    {
+        // Determine moves
+        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
          {
-             Piece *piece = [board pieceAtPositionX:x Y:y];
-             PieceColor color = display ? PieceColorLegal : PieceColorNone;
-             if (piece.color != color)
+             BOOL foundMove = [match findTracksX:x Y:y
+                                       forPlayer:player
+                                      trackBlock:nil];
+             if (foundMove)
              {
-                 [board changePiece:piece withColor:color];
-
-                 if (self.manual)
+                 Piece *piece = [board pieceAtPositionX:x Y:y];
+                 PieceColor color = display ? PieceColorLegal : PieceColorNone;
+                 if (piece.color != color)
                  {
-                     [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                     [board changePiece:piece withColor:color];
+                     
+                     if (self.manual)
+                     {
+                         [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                     }
                  }
+                 foundLegal = YES;
              }
-             foundLegal = YES;
-         }
-     }];
+         }];
+    }
+//    else
+//    {
+//        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+//         {
+//             if (piece.color == PieceColorLegal)
+//             {
+//                 [board changePiece:piece withColor:PieceColorNone];
+//                 [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+//             }
+//         }];
+//    }
     
     board.placeBlock(pieces);
 
@@ -1083,7 +1134,7 @@
              
              if (placed)
              {
-                 NSLog(@"\n%@ player %@", [board print], player);
+                 NSLog(@"\n%@ player %@", [board toString], player);
                  
                  placedInbox = YES;
                  *stop = YES;

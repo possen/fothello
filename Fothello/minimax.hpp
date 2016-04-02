@@ -17,7 +17,6 @@
 #define PASS -1
 #define ILLEGAL -2
 
-
 #define CONV_21(x, y) (((y) << 3)+(x))
 #define ON_BOARD(x, y) ((x) >= 0 && (x) < 8 && (y) >= 0 && (y) < 8)
 

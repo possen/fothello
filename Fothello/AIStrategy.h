@@ -8,6 +8,5 @@
 
 #import "FothelloGame.h"
 
-struct Board;
 @interface AIStrategy : Strategy
 @end

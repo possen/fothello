@@ -6,9 +6,12 @@
    method, but instead access the board array directly.
 */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
 
+using namespace std;
 #include "board.hpp"
 #include "minimax.hpp"
 
@@ -282,6 +285,40 @@ void printBoard(Board *b, bool *legalMoves) {
   // printf("   A B C D E F G H\n");
   printf("\n");
 }
+
+
+
+vector<string> split(const string &s, char delim) {
+    vector<string> elems;
+    stringstream ss(s);
+    string item;
+    while (getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+bool boardFromString(Board *board, const std::string &boardStr) {
+    vector<string> splitStr = split(boardStr, '\n');
+
+    // drop first and last
+    vector<string> rows(splitStr.begin() + 1, splitStr.end() - 1);
+    if (rows.size() < 8 || rows.size() > 8)
+        return false;
+
+    for (string &row : rows) {
+        string columns(row.begin() + 1, row.end() - 1);
+        if (columns.size() < 8 || columns.size() > 8)
+            return false;
+        
+        for (char &c : columns) {
+            printf("%c", c);
+        }
+        printf("\n");
+    }
+    return true;
+}
+
 
 
 //********************************************//

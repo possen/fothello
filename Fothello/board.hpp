@@ -5,6 +5,8 @@
 #ifndef _BOARD_HPP_
 #define _BOARD_HPP_
 
+#import <string>
+
 extern bool showLegalMoves;
 
 const char DIRECTION[8][2] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
@@ -42,7 +44,17 @@ void makePass(Board *board);
 bool undoMove(Board *board);
 bool redoMove(Board *board);
 
+bool boardFromString(Board *board, const std::string &boardStr);
+
 void countPieces(char *a, char *nb, char *nw, uchar ntotal);
 void countPieces(Board *b, char *nb, char *nw);
+
+// inputs:  player
+//          board
+//          moves
+//          difficulty
+//          moveWithPass
+//          moveWithoutPass
+// outputs: position
 
 #endif

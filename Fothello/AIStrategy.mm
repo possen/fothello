@@ -5,6 +5,7 @@
 //  Created by Paul Ossenbruggen on 11/18/13.
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
+#import <Foundation/Foundation.h>
 
 #import "AIStrategy.h"
 #import "FothelloGame.h"
@@ -79,18 +80,65 @@
 
 // inputs:  player
 //          board
+//          moves
 //          difficulty
+//          moveWithPass
+//          moveWithoutPass
 // outputs: position
-//
+
+//- (Board *)parseBoardString:(NSString *)bstr
+//{
+//    Board *board = makeBoard(NO);
+//    
+//    NSArray *rows = [bstr componentsSeparatedByString:@"\n"];
+//    rows = [rows subarrayWithRange:NSMakeRange(1, rows.count-2)];
+//    for (NSString *row in rows)
+//    {
+//        for (NSInteger pos = 0; pos < row.length - 2; pos++ )
+//        {
+//            NSString *peice = [row substringWithRange:NSMakeRange(pos, 1)];
+//            board->a =
+//            switch (piece)
+//            {
+//                case @"●":
+//        }
+//    }
+//    return nil;
+//}
+
+//- (Position)turn:(Player *)player boardString:(NSString *)boardStr difficulty:(Difficulty)difficulty
+//{
+//    
+//    NSUInteger len =  sizeof(char) * 61 * 64;
+//    
+//    buffer = [aDecoder decodeBytesForKey:@"boarda" returnedLength:&len];
+//    memcpy(board->a, buffer, 61 * 64 * sizeof(char));
+//    memcpy(board->moves, buffer, 128 * sizeof(char));
+//    
+//    board->n = [aDecoder decodeInt32ForKey:@"n"];
+//    board->m = [aDecoder decodeInt32ForKey:@"m"];
+//    board->top = [aDecoder decodeInt32ForKey:@"top"];
+//    board->wt = [aDecoder decodeInt32ForKey:@"wt"];
+//    
+//    difficulty = (Difficulty)[aDecoder decodeIntegerForKey:@"difficulty"];
+//    startNew(self.difficulty);
+//   
+//}
 
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
+//    [self displaylegalMoves:NO forPlayer:player];
+    
+//    NSString *boardStr = [self.match.board toStringAscii];
+//    bool result = boardFromString(_board, [boardStr cStringUsingEncoding:NSASCIIStringEncoding]);
+//    NSAssert(result == true, @"failetoconvert");
+    
     [super takeTurn:player atX:x Y:y pass:pass];
     bool legalMoves[64];
     setPlayer(_board, self.firstPlayer);
     char humanHasLegalMove = findLegalMoves(_board, legalMoves);
 
-    if (pass) // negative means pass.
+    if (pass) 
         makePass(_board);
     else
         makeMove(_board, x, y);
