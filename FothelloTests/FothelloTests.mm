@@ -30,46 +30,34 @@
 - (void)testBasicBoard
 {
     printf("sizeof(Board): %lu\n", sizeof(Board));
-    Board* myB = makeBoard(false);
+    Board* myB = makeBoard();
     bool legal[64];
-    findLegalMoves(myB, legal);
-    printBoard(myB, legal);
+    findLegalMoves(myB, legal, BLACK);
+    printBoard(myB, legal, CONV_21(0, 0));
     
     char nblack, nwhite;
-    countPieces(myB, &nblack, &nwhite);
-    XCTAssert(nblack == 2);
-    XCTAssert(nwhite == 2);
+    countPieces(myB, &nblack, &nwhite, 0);
+    XCTAssert(nblack == 0);
+    XCTAssert(nwhite == 0);
     
-    makeMove(myB, 5, 4);
-    findLegalMoves(myB, legal);
-    printBoard(myB, legal);
+    findLegalMoves(myB, legal, WHITE);
+    printBoard(myB, legal, CONV_21(0, 0));
     
-    countPieces(myB, &nblack, &nwhite);
+    countPieces(myB, &nblack, &nwhite, 0);
     printf("# black: %d, # white: %d\n", nblack, nwhite);
-    XCTAssert(nblack == 4);
-    XCTAssert(nwhite == 1);
+    XCTAssert(nblack == 0);
+    XCTAssert(nwhite == 0);
     
-    bool leg54 = legalMove(myB, 5, 4);
-    bool leg53 = legalMove(myB, 5, 3);
-    bool leg55 = legalMove(myB, 5, 5);
+    bool leg54 = legalMove(myB, 5, 4, BLACK);
+    bool leg53 = legalMove(myB, 5, 3, BLACK);
+    bool leg55 = legalMove(myB, 5, 5, BLACK);
     printf("leg53: %d, leg54: %d, leg55: %d\n", leg53, leg54, leg55);
     XCTAssert(leg54 == 0);
-    XCTAssert(leg53 == 1);
-    XCTAssert(leg55 == 1);
+    XCTAssert(leg53 == 0);
+    XCTAssert(leg55 == 0);
    
-    startNew(BoardDiffcultyBeginner);
-    printBoard(myB, legal);
+    printBoard(myB, legal, CONV_21(0, 0));
     
-    int p1, p2, p3;
-    p1 = getPiece(myB, CONV_21(3, 3));
-    p2 = getPiece(myB, CONV_21(2, 4));
-    p3 = getPiece(myB, CONV_21(3, 4));
-    printf("27: %d, 34: %d, 35: %d\n", p1, p2, p3);
-    printf("COORD_21(3, 5): %d\n", CONV_21(3, 5));
-    
-    XCTAssert(p1 == 2);
-    XCTAssert(p2 == 0);
-    XCTAssert(p3 == 1);
 }
 
 @end

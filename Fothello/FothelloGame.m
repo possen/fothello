@@ -1,4 +1,4 @@
-;///
+//
 //  Fothello.m
 //  Fothello
 //
@@ -144,8 +144,21 @@
 {
     Match *match = self.currentMatch;
     [match endTurn];
-    
+
+    BOOL otherPlayersMoved = NO;
+    for (Player *player in self.players)
+    {
+        if (player != match.currentPlayer)
+        {
+            otherPlayersMoved |= [player otherPlayer:player movedToX:x Y:y pass:pass];
+        }
+    }
+
     BOOL moved = [match.currentPlayer takeTurnAtX:x Y:y pass:pass];
+    if (!otherPlayersMoved && !moved)
+    {
+        return NO; // game over
+    }
 
     // if not moved, put legal moves back.
     if (!moved)
@@ -203,20 +216,20 @@
     {
         if (pieceColor == PieceColorBlack)
         {
-            player1.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:YES];
-            player2.strategy = [[AIStrategy alloc] initWithMatch:match firstPlayer:NO];
+            player1.strategy = [[HumanStrategy alloc] initWithMatch:match];
+            player2.strategy = [[AIStrategy alloc] initWithMatch:match];
         }
         else
         {
             // need to make computer do first move.
-            player1.strategy = [[AIStrategy alloc] initWithMatch:match firstPlayer:YES];
-            player2.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:NO];
+            player1.strategy = [[AIStrategy alloc] initWithMatch:match];
+            player2.strategy = [[HumanStrategy alloc] initWithMatch:match];
         }
     }
     else
     {
-        player1.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:YES];
-        player2.strategy = [[HumanStrategy alloc] initWithMatch:match firstPlayer:NO];
+        player1.strategy = [[HumanStrategy alloc] initWithMatch:match];
+        player2.strategy = [[HumanStrategy alloc] initWithMatch:match];
     }
     
 }
@@ -327,6 +340,11 @@
     return moved;
 }
 
+- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+{
+    return [self.strategy otherPlayer:player movedToX:x Y:y pass:pass];
+}
+
 - (BOOL)isEqual:(id)name
 {
     return [self.name isEqualToString:name];
@@ -416,7 +434,7 @@
         case PieceColorBlue:
             return @"B";
         case PieceColorLegal:
-            return @"L";
+            return @".";
     }
 }
 
@@ -579,7 +597,6 @@
 
 - (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y
 {
-
     Piece *piece = [self pieceAtPositionX:x Y:y];
 
     [self changePiece:piece withColor:player.color];
@@ -996,13 +1013,12 @@
 @implementation Strategy
 
 // Not done and not used yet.
-- (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer
+- (id)initWithMatch:(Match *)match
 {
     self = [super init];
     if (self)
     {
         _match = match;
-        _firstPlayer = firstPlayer;
     }
     return self;
 }
@@ -1013,7 +1029,6 @@
     if (self)
     {
         _match = [coder decodeObjectForKey:@"match"];
-        _firstPlayer = [coder decodeBoolForKey:@"firstPlayer"];
     }
     return self;
 }
@@ -1021,7 +1036,6 @@
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.match forKey:@"match"];
-    [aCoder encodeBool:self.firstPlayer forKey:@"firstPlayer"];
 }
 
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
@@ -1029,6 +1043,13 @@
     // subclass
     return NO;
 }
+
+- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+{
+    // subclass
+    return YES;
+}
+
 
 - (void)convertBoard
 {

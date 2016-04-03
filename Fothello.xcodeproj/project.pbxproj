@@ -159,8 +159,8 @@
 				D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */,
 				D5441B3F1831CB1100B5166A /* MatchViewController.h */,
 				D5441B401831CB1100B5166A /* MatchViewController.m */,
-				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
 				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
+				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
 				D5C0B66718C40E58000DCEB8 /* GameViewController.h */,
 				D5C0B66818C40E58000DCEB8 /* GameViewController.m */,
 				D5F2C15C18418C5B000F089E /* DialogViewController.h */,
@@ -215,10 +215,10 @@
 			children = (
 				D5EECCC7183B4EC2005D5507 /* board.hpp */,
 				D5EECCC6183B4EC2005D5507 /* board.cpp */,
-				D5EECCC9183B4EC2005D5507 /* endgamecx.h */,
-				D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */,
 				D5EECCCE183B4EC2005D5507 /* minimax.hpp */,
 				D5EECCCD183B4EC2005D5507 /* minimax.cpp */,
+				D5EECCC9183B4EC2005D5507 /* endgamecx.h */,
+				D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */,
 			);
 			name = "Mini-Othello";
 			sourceTree = "<group>";

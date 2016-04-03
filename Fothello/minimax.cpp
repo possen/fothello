@@ -91,16 +91,17 @@ void startNewMinimax(char diffculty) {
 }
 
 /* Return a move using minimax search. -- Called only once per move made */
-char getMinimaxMove(Board *board, bool *legalMoves) {
+char getMinimaxMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty) {
+  startNewMinimax(difficulty);
   /* Initialization */
   countPruning = countSearching = countEval = 0;
-  base = board->n;
+  base = moveNum;
   char bestMove = PASS;
   float bestValue = 2* SMALL_FLOAT; // avoid return a PASS while there is still legal moves
   float currValue;
   char depth = 0;
     //  char passes = 0;
-  char color = board->wt;
+  char color = forPlayer;
   float alpha = SMALL_FLOAT;
   float beta = LARGE_FLOAT;
   /* If end of game is within the brute force depth, search all the way to the end. */
@@ -116,7 +117,7 @@ char getMinimaxMove(Board *board, bool *legalMoves) {
     extra = DENOMINATOR_EXTRA_PREV_MIN_DOF * (1 + 0.02 * temprand * randomnessLevel);
   }
   // initialize the arrays to the board configuration.
-  char *a = board->a[base];
+  char *a = board->a;
   char *b = mmBoard[depth];
   char *b1 = mmBoard[depth+1];
   copyBoardArray(b, a);
@@ -128,9 +129,9 @@ char getMinimaxMove(Board *board, bool *legalMoves) {
   char nLegalMoves = findLegalMoves(b, color, &mask0, &mask1);
   char selfPieces, oppPieces, nFlips;
   if(color == BLACK)
-    countPieces(b, &selfPieces, &oppPieces, base+depth+4);
+    countPieces(board, &selfPieces, &oppPieces, base+depth+4);
   else
-    countPieces(b, &oppPieces, &selfPieces, base+depth+4);
+    countPieces(board, &oppPieces, &selfPieces, base+depth+4);
   for(char y=0; y<8; y++) {
     for(char x=0; x<8; x++) {
       place = CONV_21(x, y);

@@ -100,6 +100,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
               opponentType:(PlayerType)playerType;
 
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+
 - (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 
 @property (nonatomic) Match *currentMatch;
@@ -121,6 +122,8 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 - (instancetype)initWithName:(NSString *)name;
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+
 @end
 
 #pragma mark - Piece -
@@ -190,11 +193,10 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 @property (nonatomic) Match *match;
 @property (nonatomic, readonly) BOOL manual;
-@property (nonatomic) BOOL firstPlayer;
 
-
-- (id)initWithMatch:(Match *)match firstPlayer:(BOOL)firstPlayer;
+- (id)initWithMatch:(Match *)match ;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player;
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;

@@ -7,6 +7,10 @@
 
 #import <string>
 
+#define EMPTY 0
+#define BLACK 1
+#define WHITE 2
+
 enum BoardDiffculty {
     BoardDiffcultyBeginner = 1,
     BoardDiffcultyNovice,
@@ -20,49 +24,26 @@ extern bool showLegalMoves;
 const char DIRECTION[8][2] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
 struct Board {
-  char a[61][64];  // stack of board array
-  char moves[128];  // sequence of moves include PASS until this point.
-  char n;  // number of actual moves made (NOT incl. PASS).
-  char m;  // number of moves incl. PASSes made so far.
-  char top;  // redo possible if m < top.
-  char wt;  // whose turn it is to move.
+  char a[64];
 };
 
 #define uchar unsigned char
 
+Board* makeBoard();
+void printBoard(Board *b, bool *legalMoves, char lastMove);
 
-void startNew(char difficulty);
+char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty);
 
-Board* makeBoard(char isFlipped);
-void initBoard(Board *board, char isFlipped);
-void printBoard(Board *b, bool *legalMoves);
+bool legalMove(Board *board, char x, char y, char forPlayer);
+bool findLegalMoves(Board *board, bool *legalMoves, char forPlayer);
 
-void setPlayer(Board *b, bool firstPlayer);
-char getMove(Board *board, bool *legalMoves);
+bool setBoardFromString(Board *board, const std::string &boardStr);
 
-void setPiece(Board *board, char place, char color);
-char getPiece(Board *board, char place);
-void flipPiece(Board *board, char place);
-
-bool legalMove(Board *board, char x, char y);
-bool findLegalMoves(Board *board, bool *legalMoves);
-
-void makeMove(Board *board, char x, char y);
-void makePass(Board *board);
-bool undoMove(Board *board);
-bool redoMove(Board *board);
-
-bool boardFromString(Board *board, const std::string &boardStr);
-
-void countPieces(char *a, char *nb, char *nw, uchar ntotal);
-void countPieces(Board *b, char *nb, char *nw);
+void countPieces(Board *board, char *nb, char *nw, uchar ntotal);
 
 // inputs:  player
 //          board
-//          moves
 //          difficulty
-//          moveWithPass
-//          moveWithoutPass
 // outputs: position
 
 #endif
