@@ -167,35 +167,9 @@
 			children = (
 				D5441B361831CB1100B5166A /* AppDelegate.h */,
 				D5441B371831CB1100B5166A /* AppDelegate.m */,
-				D5441B391831CB1100B5166A /* Main_iPhone.storyboard */,
-				D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */,
-				D5441B3F1831CB1100B5166A /* MatchViewController.h */,
-				D5441B401831CB1100B5166A /* MatchViewController.m */,
-				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
-				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
-				D5C0B66718C40E58000DCEB8 /* GameViewController.h */,
-				D5C0B66818C40E58000DCEB8 /* GameViewController.m */,
-				D5F2C15C18418C5B000F089E /* DialogViewController.h */,
-				D5F2C15D18418C5B000F089E /* DialogViewController.m */,
-				D5441B421831CB1100B5166A /* BoardScene.h */,
-				D5441B431831CB1100B5166A /* BoardScene.m */,
-				D5441B641831CB2800B5166A /* FothelloGame.h */,
-				D5441B651831CB2800B5166A /* FothelloGame.m */,
-				D562F4AB1CB0E9E2009A6273 /* GameBoard.h */,
-				D562F4AC1CB0E9E2009A6273 /* GameBoard.m */,
-				D562F4A21CB0E905009A6273 /* Player.h */,
-				D562F4A31CB0E905009A6273 /* Player.m */,
-				D562F4A81CB0E935009A6273 /* Match.h */,
-				D562F4A91CB0E935009A6273 /* Match.m */,
-				D562F49F1CB0E576009A6273 /* Strategy.h */,
-				D562F4A01CB0E576009A6273 /* Strategy.m */,
-				D5EECCD7183B5152005D5507 /* AIStrategy.h */,
-				D5EECCD8183B5152005D5507 /* AIStrategy.mm */,
-				D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */,
-				D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */,
-				D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */,
-				D5EECCC5183B4EAB005D5507 /* Mini-Othello */,
-				D5441B471831CB1100B5166A /* Images.xcassets */,
+				D562F4AF1CB0F040009A6273 /* UI */,
+				D562F4AE1CB0F02B009A6273 /* Model */,
+				D562F4B01CB0F08F009A6273 /* Utility */,
 				D5441B2E1831CB1100B5166A /* Supporting Files */,
 			);
 			path = Fothello;
@@ -228,6 +202,56 @@
 				D5441B571831CB1100B5166A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D562F4AE1CB0F02B009A6273 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5441B641831CB2800B5166A /* FothelloGame.h */,
+				D5441B651831CB2800B5166A /* FothelloGame.m */,
+				D562F4AB1CB0E9E2009A6273 /* GameBoard.h */,
+				D562F4AC1CB0E9E2009A6273 /* GameBoard.m */,
+				D562F4A21CB0E905009A6273 /* Player.h */,
+				D562F4A31CB0E905009A6273 /* Player.m */,
+				D562F4A81CB0E935009A6273 /* Match.h */,
+				D562F4A91CB0E935009A6273 /* Match.m */,
+				D562F49F1CB0E576009A6273 /* Strategy.h */,
+				D562F4A01CB0E576009A6273 /* Strategy.m */,
+				D5EECCD7183B5152005D5507 /* AIStrategy.h */,
+				D5EECCD8183B5152005D5507 /* AIStrategy.mm */,
+				D5EECCC5183B4EAB005D5507 /* Mini-Othello */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D562F4AF1CB0F040009A6273 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D5441B471831CB1100B5166A /* Images.xcassets */,
+				D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */,
+				D5441B391831CB1100B5166A /* Main_iPhone.storyboard */,
+				D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */,
+				D5441B3F1831CB1100B5166A /* MatchViewController.h */,
+				D5441B401831CB1100B5166A /* MatchViewController.m */,
+				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
+				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
+				D5C0B66718C40E58000DCEB8 /* GameViewController.h */,
+				D5C0B66818C40E58000DCEB8 /* GameViewController.m */,
+				D5F2C15C18418C5B000F089E /* DialogViewController.h */,
+				D5F2C15D18418C5B000F089E /* DialogViewController.m */,
+				D5441B421831CB1100B5166A /* BoardScene.h */,
+				D5441B431831CB1100B5166A /* BoardScene.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		D562F4B01CB0F08F009A6273 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */,
+				D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		D5EECCC5183B4EAB005D5507 /* Mini-Othello */ = {
