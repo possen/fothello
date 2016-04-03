@@ -61,7 +61,7 @@
 - (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player
 {
     Match *match = self.match;
-    FBoard *board = match.board;
+    GameBoard *board = match.board;
     __block BOOL foundLegal = NO;
     
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
@@ -83,7 +83,7 @@
                      
                      if (self.manual)
                      {
-                         [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                         [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
                      }
                  }
                  foundLegal = YES;
@@ -97,7 +97,7 @@
              if (piece.color == PieceColorLegal)
              {
                  [board changePiece:piece withColor:PieceColorNone];
-                 [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                 [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
              }
          }];
     }

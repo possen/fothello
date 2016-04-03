@@ -11,6 +11,10 @@
 #import "Match.h"
 #import "Player.h"
 
+@implementation Position
+
+@end
+
 #pragma mark - FothelloGame -
 
 @implementation FothelloGame

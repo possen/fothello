@@ -12,6 +12,7 @@
 #import "board.hpp"
 #import "Match.h"
 #import "Player.h"
+#import "GameBoard.h"
 
 
 
@@ -81,7 +82,7 @@
         [game pass];
         return NO;
     }
-    char nextMove = getMove(_board, legalMoves, playerColor, 1, (BoardDiffculty)_difficulty); // todo: boardnum
+    char nextMove = getMove(_board, legalMoves, playerColor, self.match.board.piecesPlayed.count, (BoardDiffculty)_difficulty); // todo: boardnum
 
     char ay = nextMove / 8;
     char ax = nextMove % 8;

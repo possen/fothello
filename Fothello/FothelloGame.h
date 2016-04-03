@@ -40,11 +40,6 @@ typedef struct Delta
     NSInteger dy;
 } Delta;
 
-typedef struct Position
-{
-    NSInteger x;
-    NSInteger y;
-} Position;
 
 typedef enum PlayerType : NSInteger
 {
@@ -64,10 +59,15 @@ typedef enum Difficulty : NSInteger
 
 
 @class Match;
-@class FBoard;
+@class GameBoard;
 @class Piece;
 @class Player;
 @class Strategy;
+
+@interface Position : NSObject 
+@property (nonatomic) NSInteger x;
+@property (nonatomic) NSInteger y;
+@end
 
 #pragma mark - Fothello -
 

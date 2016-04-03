@@ -6,11 +6,11 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "BoardScene.h"
 #import "FothelloGame.h"
 #import "GameBoard.h"
 #import "Player.h"
 #import "Match.h"
+#import "BoardScene.h"
 
 
 @implementation BoardScene
@@ -55,7 +55,7 @@
             
             dispatch_async(dispatch_get_main_queue(),
             ^{
-                for (PiecePosition *piecePosition in piecePositions)
+                for (PlayerMove *piecePosition in piecePositions)
                 {
                     NSLog(@"piece %d x:%ld y:%ld", (int)piecePosition.piece.color, (long)piecePosition.position.x, (long)piecePosition.position.y);
 
@@ -102,7 +102,7 @@
 
 - (void)syncronizeBoardStateWithModel
 {
-    FBoard *board = self.game.currentMatch.board;
+    GameBoard *board = self.game.currentMatch.board;
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
          [self placeSpriteAtX:x Y:y withPiece:piece];
@@ -305,7 +305,7 @@
     }
 }
 
-- (void)movePieceTo:(Position)pos
+- (void)movePieceTo:(Position *)pos
 {
     CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
     SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];

@@ -17,14 +17,13 @@
 @end
 
 
+#pragma mark - PlayerMove -
 
-
-#pragma mark - PiecePosition -
-
-@interface PiecePosition : NSObject
+@interface PlayerMove : NSObject
 @property (nonatomic) Piece *piece;
-@property (nonatomic) Position position;
-+ (PiecePosition *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece;
+@property (nonatomic) Position *position;
+@property (nonatomic) BOOL pass;
++ (PlayerMove *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass;
 @end
 
 typedef void (^PlaceBlock)(NSArray *pieces);
@@ -43,7 +42,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 #pragma mark - Board -
 
-@interface FBoard : NSObject <NSCoding>
+@interface GameBoard : NSObject <NSCoding>
 
 - (id)initWithBoardSize:(NSInteger)size;
 - (id)initWithBoardSize:(NSInteger)size
@@ -51,7 +50,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
-- (Position)center;
+- (Position *)center;
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
 - (void)changePiece:(Piece *)piece withColor:(PieceColor)color;
 - (BOOL)boardFull;

@@ -13,17 +13,18 @@
 @implementation TrackInfo
 @end
 
-#pragma mark - PiecePosition -
+#pragma mark - PlayerMove -
 
-@implementation PiecePosition
-+ (PiecePosition *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece
+@implementation PlayerMove
++ (PlayerMove *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass
 {
-    Position pos;
+    Position *pos = [Position new];
     pos.x = x;
     pos.y = y;
-    PiecePosition *piecePosition = [[PiecePosition alloc] init];
+    PlayerMove *piecePosition = [[PlayerMove alloc] init];
     piecePosition.position = pos;
     piecePosition.piece = piece;
+    piecePosition.pass = pass;
     return piecePosition;
 }
 @end
@@ -114,9 +115,9 @@
 @end
 
 
-#pragma mark - Board -
+#pragma mark - GameBoard -
 
-@implementation FBoard
+@implementation GameBoard
 
 - (instancetype)initWithBoardSize:(NSInteger)size
 {
@@ -212,9 +213,9 @@
     [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
 }
 
-- (Position)center
+- (Position *)center
 {
-    Position pos;
+    Position *pos = [Position new];
     pos.x = self.size / 2 - 1; // zero based counting
     pos.y = self.size / 2 - 1;
     return pos;
@@ -222,6 +223,7 @@
 
 - (void)reset
 {
+    // erase board.
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
     [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
@@ -229,7 +231,7 @@
          [piece clear];
          if (self.placeBlock)
          {
-             [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+             [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
          }
      }];
     
@@ -237,6 +239,7 @@
         self.placeBlock(pieces);
     
     [self.piecesPlayed removeAllObjects];
+   
 }
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
@@ -274,7 +277,7 @@
     [self changePiece:piece withColor:player.color];
     
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+    [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
     
     if (self.placeBlock)
     {

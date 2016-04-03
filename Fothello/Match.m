@@ -33,8 +33,9 @@
         _players = [players copy];
         _difficulty = difficulty;
         _currentPlayer = players[0];
+        _moves = [[NSMutableArray alloc] initWithCapacity:64];
         [self setupPlayersColors];
-        _board = [[FBoard alloc] initWithBoardSize:8];
+        _board = [[GameBoard alloc] initWithBoardSize:8];
         [self reset];
     }
     return self;
@@ -205,7 +206,7 @@
                    {
                        Piece *piece = [self.board pieceAtPositionX:x Y:y];
                        [self.board changePiece:piece withColor:player.color];
-                       [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                       [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
                        for (TrackInfo *trackItem in trackInfo)
                        {
                            piece = trackItem.piece;
@@ -213,7 +214,7 @@
                            NSInteger y = trackItem.y;
                            [self.board changePiece:piece withColor:player.color];
                            
-                           [pieces addObject:[PiecePosition makePiecePositionX:x Y:y piece:piece]];
+                           [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
                        }
                    }];
     
@@ -285,14 +286,14 @@
 
 
 - (void)boxCoord:(NSInteger)dist block:
-(void (^)(Position position, BOOL isCorner, NSInteger count, BOOL *stop))block
+(void (^)(Position *position, BOOL isCorner, NSInteger count, BOOL *stop))block
 {
     // calculates the positions of the pieces in a box dist from center.
     
     dist = (dist - 1) * 2 + 1; // skip even rings
     
     // calculate start position
-    Position position;
+    Position *position = [Position new];
     position.x = dist - dist / 2;
     position.y = dist - dist / 2;
     
@@ -314,16 +315,24 @@
     }
 }
 
+- (void)addMoveAtX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass
+{
+    PlayerMove *move = [PlayerMove makePiecePositionX:x Y:y piece:piece pass:pass];
+    
+    [self.moves addObject:move];
+}
+
 - (void)reset
 {
-    FBoard *board = self.board;
-    
+    GameBoard *board = self.board;
+        
     [board reset];
     
     NSArray *players = self.players;
-    Position center = board.center;
-    
-    [self boxCoord:1 block:^(Position position, BOOL isCorner, NSInteger count, BOOL *stop)
+    Position *center = board.center;
+
+    [self boxCoord:1 block:
+     ^(Position *position, BOOL isCorner, NSInteger count, BOOL *stop)
      {
          NSInteger playerCount = (count) % self.players.count;
          

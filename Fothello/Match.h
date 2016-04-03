@@ -34,12 +34,13 @@
          trackBlock:(void (^)(NSArray *pieces))trackBlock;
 
 @property (nonatomic) NSString *name;
-@property (nonatomic) FBoard *board;
+@property (nonatomic) GameBoard *board;
 @property (nonatomic) NSArray *players;
 @property (nonatomic) Player *currentPlayer;
 @property (nonatomic) Difficulty difficulty; // only used by AIStrategy
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
+@property (nonatomic) NSMutableArray *moves;
 @end
 
 
