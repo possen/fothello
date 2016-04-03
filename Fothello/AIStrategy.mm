@@ -10,6 +10,10 @@
 #import "AIStrategy.h"
 #import "FothelloGame.h"
 #import "board.hpp"
+#import "Match.h"
+#import "Player.h"
+
+
 
 #pragma mark - AIStrategy -
 

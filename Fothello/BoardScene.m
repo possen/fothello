@@ -8,6 +8,10 @@
 
 #import "BoardScene.h"
 #import "FothelloGame.h"
+#import "GameBoard.h"
+#import "Player.h"
+#import "Match.h"
+
 
 @implementation BoardScene
 

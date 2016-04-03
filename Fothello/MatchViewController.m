@@ -11,6 +11,7 @@
 #import "FothelloGame.h"
 #import <iAd/iAd.h>
 #import "DialogViewController.h"
+#import "Match.h"
 
 @interface MatchViewController ()
 
