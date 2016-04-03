@@ -19,8 +19,6 @@ enum BoardDiffculty {
 };
 #define CONV_21(x, y) (((y) << 3)+(x))
 
-extern bool showLegalMoves;
-
 const char DIRECTION[8][2] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
 struct Board {
@@ -32,12 +30,15 @@ struct Board {
 Board* makeBoard();
 void printBoard(Board *b, bool *legalMoves, char lastMove);
 
+char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty);
+
 char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty);
 
 bool legalMove(Board *board, char x, char y, char forPlayer);
 bool findLegalMoves(Board *board, bool *legalMoves, char forPlayer);
 
 bool setBoardFromString(Board *board, const std::string &boardStr);
+bool setBoardFromJSON(Board *board, const std::string &boardStr);
 
 void countPieces(Board *board, char *nb, char *nw, uchar ntotal);
 

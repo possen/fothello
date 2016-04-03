@@ -295,23 +295,22 @@
     [boardString appendString:@"\n"];
 }
 
-- (NSString *)convertToString:(BOOL)ascii
+- (NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse
 {
     NSMutableString *boardString = [[NSMutableString alloc] init];
     [self printBanner:boardString];
     
     NSInteger size = self.size;
-    for (NSInteger y = size -1; y >= 0; --y)
+    NSInteger reverseOffset = reverse  ? size - 1: 0;
+    for (NSInteger y = 0; y < size; ++y)
     {
         [boardString appendString:@"|"];
         for (NSInteger x = 0; x < self.size; x++)
         {
-            Piece *piece = [self pieceAtPositionX:x Y:y];
-            if (ascii)
-                [boardString appendString:piece.colorStringRepresentationAscii];
-            else
-                [boardString appendString:piece.colorStringRepresentation];
-            
+            Piece *piece = [self pieceAtPositionX:x Y:labs(reverseOffset - y)];
+            [boardString appendString:ascii
+                ? piece.colorStringRepresentationAscii
+                : piece.colorStringRepresentation];
         }
         [boardString appendString:@"|"];
         [boardString appendString:@"\n"];
@@ -323,12 +322,12 @@
 
 - (NSString *)toString
 {
-    return [self convertToString:NO];
+    return [self convertToString:NO reverse:YES];
 }
 
 - (NSString *)toStringAscii
 {
-    return [self convertToString:YES];
+    return [self convertToString:YES reverse:NO];
 }
 
 @end

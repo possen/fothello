@@ -86,6 +86,7 @@
 		D562F4A91CB0E935009A6273 /* Match.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Match.m; sourceTree = "<group>"; };
 		D562F4AB1CB0E9E2009A6273 /* GameBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoard.h; sourceTree = "<group>"; };
 		D562F4AC1CB0E9E2009A6273 /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoard.m; sourceTree = "<group>"; };
+		D562F4B11CB1A320009A6273 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launchscreen.storyboard; sourceTree = "<group>"; };
 		D5C0B66718C40E58000DCEB8 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		D5C0B66818C40E58000DCEB8 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
@@ -248,6 +249,7 @@
 		D562F4B01CB0F08F009A6273 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				D562F4B11CB1A320009A6273 /* json.hpp */,
 				D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */,
 				D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */,
 			);
@@ -524,6 +526,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
@@ -543,6 +546,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";

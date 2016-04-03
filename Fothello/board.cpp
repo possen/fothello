@@ -11,9 +11,24 @@
 #include <sstream>
 #include <vector>
 
-using namespace std;
+#include "json.hpp"
 #include "board.hpp"
 #include "minimax.hpp"
+
+using namespace std;
+using json = nlohmann::json;
+
+
+char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty) {
+    bool legalMoves[64];
+    char computerHasLegalMove = findLegalMoves(board, legalMoves, color);
+    if (!computerHasLegalMove)
+    {
+        return -1;
+    }
+    char nextMove = getMove(board, legalMoves, color, moveNum, (BoardDiffculty)difficulty);
+    return nextMove;
+}
 
 char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty) {
     return getMinimaxMove(board, legalMoves, forPlayer, moveNum, difficulty);
@@ -189,6 +204,17 @@ bool setBoardFromString(Board *board, const std::string &boardStr) {
     }
     return true;
 }
+
+string testString("{ \"happy\": true, \"pi\": 3.141 }");
+                  
+
+bool setBoardFromJSON(Board *board, const std::string &boardStr) {
+    auto json = json::parse(boardStr);
+    bool result = false;
+    
+    return result;
+}
+
 
 
 
