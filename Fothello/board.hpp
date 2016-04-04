@@ -5,58 +5,48 @@
 #ifndef _BOARD_HPP_
 #define _BOARD_HPP_
 
-#include <stdlib.h>
-#include <stdio.h>
+#import <string>
 
 #define EMPTY 0
 #define BLACK 1
 #define WHITE 2
-#define OTHER(x) (3-(x))  // OTHER(BLACK) = WHITE, vice versa.
 
-#define PASS -1
-#define ILLEGAL -2
-
-#define uchar unsigned char
-
+enum BoardDiffculty {
+    BoardDiffcultyBeginner = 1,
+    BoardDiffcultyNovice,
+    BoardDiffcultyAmateure,
+    BoardDiffcultyExperienced
+};
 #define CONV_21(x, y) (((y) << 3)+(x))
-#define ON_BOARD(x, y) ((x) >= 0 && (x) < 8 && (y) >= 0 && (y) < 8)
-
-extern bool showLegalMoves;
 
 const char DIRECTION[8][2] = {{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
 struct Board {
-  char a[61][64];  // stack of board array
-  char moves[128];  // sequence of moves include PASS until this point.
-  char n;  // number of actual moves made (NOT incl. PASS).
-  char m;  // number of moves incl. PASSes made so far.
-  char top;  // redo possible if m < top.
-  char wt;  // whose turn it is to move.
+  char a[64];
 };
 
-/*
-struct HistElem {
-  uchar move;  // the place where a new piece is dropped
-  uchar flips[18];  // places where a stone waas flipped
-} */
+#define uchar unsigned char
 
-Board* makeBoard(char isFlipped);
-void initBoard(Board *board, char isFlipped);
-void printBoard(Board *b, bool *legalMoves);
+Board* makeBoard();
+void printBoard(Board *b, bool *legalMoves, char lastMove);
 
-void setPiece(Board *board, char place, char color);
-char getPiece(Board *board, char place);
-void flipPiece(Board *board, char place);
+const std::string getMoveFromJSON(const std::string &boardStr);
 
-bool legalMove(Board *board, char x, char y);
-bool findLegalMoves(Board *board, bool *legalMoves);
+char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty);
 
-void makeMove(Board *board, char x, char y);
-void makePass(Board *board);
-bool undoMove(Board *board);
-bool redoMove(Board *board);
+char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty);
 
-void countPieces(char *a, char *nb, char *nw, uchar ntotal);
-void countPieces(Board *b, char *nb, char *nw);
+bool legalMove(Board *board, char x, char y, char forPlayer);
+bool findLegalMoves(Board *board, bool *legalMoves, char forPlayer);
+
+bool setBoardFromString(Board *board, const std::string &boardStr);
+bool setBoardFromJSON(Board *board, const std::string &boardStr);
+
+void countPieces(Board *board, char *nb, char *nw, uchar ntotal);
+
+// inputs:  player
+//          board
+//          difficulty
+// outputs: position
 
 #endif

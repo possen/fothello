@@ -11,6 +11,7 @@
 #import "FothelloGame.h"
 #import <iAd/iAd.h>
 #import "DialogViewController.h"
+#import "Match.h"
 
 @interface MatchViewController ()
 
@@ -180,7 +181,7 @@
     if (pieceColor + PieceColorBlack ==  PieceColorWhite)
     {
         if (playerType == PlayerTypeComputer)
-            [game.currentMatch processOtherTurnsX:-1 Y:-1];
+            [game.currentMatch processOtherTurnsX:-1 Y:-1 pass:YES];
         else
             [game.currentMatch nextPlayer];
     }

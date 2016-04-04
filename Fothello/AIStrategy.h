@@ -5,13 +5,9 @@
 //  Created by Paul Ossenbruggen on 11/18/13.
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
+#import <Foundation/Foundation.h>
 
-#import "FothelloGame.h"
+#import "Strategy.h"
 
-struct Board;
 @interface AIStrategy : Strategy
-{
-    struct Board *_board;
-}
-
 @end
