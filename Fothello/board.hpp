@@ -30,6 +30,8 @@ struct Board {
 Board* makeBoard();
 void printBoard(Board *b, bool *legalMoves, char lastMove);
 
+const std::string getMoveFromJSON(const std::string &boardStr);
+
 char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty);
 
 char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty);

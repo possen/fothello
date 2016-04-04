@@ -19,6 +19,26 @@ using namespace std;
 using json = nlohmann::json;
 
 
+const string getMoveFromJSON(const std::string &move) {
+    Board *board = makeBoard();
+    auto requestJson = json::parse(move);
+    auto color = requestJson["color"].get<int>();
+    auto difficulty = requestJson["difficulty"].get<int>();
+    auto moveNum = requestJson["moveNum"].get<int>();
+    auto boardStr = requestJson["board"].get<string>();
+    char result = -1;
+    if (setBoardFromString(board, boardStr)) {
+        result = getMove(board, color, moveNum, (BoardDiffculty)difficulty);
+    }
+    json response;
+    response["pass"] = result == -1;
+    if (result != -1) {
+        response["movex"] = (int)result % 8;
+        response["movey"] = (int)result / 8;
+    }
+    return response.dump();
+}
+
 char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty) {
     bool legalMoves[64];
     char computerHasLegalMove = findLegalMoves(board, legalMoves, color);
@@ -205,15 +225,6 @@ bool setBoardFromString(Board *board, const std::string &boardStr) {
     return true;
 }
 
-string testString("{ \"happy\": true, \"pi\": 3.141 }");
-                  
-
-bool setBoardFromJSON(Board *board, const std::string &boardStr) {
-    auto json = json::parse(boardStr);
-    bool result = false;
-    
-    return result;
-}
 
 
 

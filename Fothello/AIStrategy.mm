@@ -14,7 +14,9 @@
 #import "Player.h"
 #import "GameBoard.h"
 
+#import "json.hpp"
 
+using json = nlohmann::json;
 
 #pragma mark - AIStrategy -
 
@@ -52,26 +54,58 @@
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
+std::string testString(
+                       "\"{"
+                       "\"board\":"
+                       "\"----------\\n"
+                         "|........|\\n"
+                         "|........|\\n"
+                         "|........|\\n"
+                         "|..XXX...|\\n"
+                         "|...XO...|\\n"
+                         "|........|\\n"
+                         "|........|\\n"
+                         "|........|\\n"
+                         "----------\\n\","
+                       "\"color\": 2,"
+                       "\"difficulty\": 1,"
+                       "\"moveNum\": 2"
+                       "}");
+
+
+
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     Board *board = makeBoard();
-
-    NSString *boardStr = [self.match.board toStringAscii];
-    bool result = setBoardFromString(board, [boardStr cStringUsingEncoding:NSASCIIStringEncoding]);
-    NSAssert(result == true, @"failetoconvert");
-
+    int moveNum = (int)self.match.board.piecesPlayed.count;
     char playerColor = player.color == PieceColorBlack ? BLACK : WHITE;
     
-    char nextMove = getMove(board, playerColor, self.match.board.piecesPlayed.count, (BoardDiffculty)_difficulty);
-    if (nextMove == -1) {
+    NSString *boardStr = [self.match.board toStringAscii];
+    std::string boardResult = [boardStr cStringUsingEncoding:NSASCIIStringEncoding];
+    bool result = setBoardFromString(board, boardResult);
+    NSAssert(result == true, @"failetoconvert");
+    
+    json j;
+    j["difficulty"] = (int)_difficulty;
+    j["moveNum"] = moveNum;
+    j["board"] = boardResult;
+    j["color"] = (int)playerColor;
+    std::string s = j.dump(4);    // {\"happy\":true,\"pi\":3.141}
+    printf("%s",s.c_str());
+    
+    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    json r = json::parse(jsonResp);
+    
+    if (r["pass"].get<bool>() == true) {
         FothelloGame *game = [FothelloGame sharedInstance];
         [game pass];
         return NO;
     }
-    char ay = nextMove / 8;
-    char ax = nextMove % 8;
     
-    printf("placed %d %d\n", ax, ay);
+    NSInteger ay = r["movey"].get<int>();
+    NSInteger ax = r["movex"].get<int>();
+    
+    printf("placed %ld %ld\n", (long)ax, (long)ay);
 
     Match *match = self.match;
     return [match placePieceForPlayer:player atX:ax Y:ay];
