@@ -128,7 +128,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=
 CMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=FothelloServe
+CMAKE_PROJECT_NAME:STATIC=fothellows.fcgi
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
@@ -184,6 +184,12 @@ FothelloServe_BINARY_DIR:STATIC=/Users/possen/Projects/Fothello/Fothello
 
 //Value Computed by CMake
 FothelloServe_SOURCE_DIR:STATIC=/Users/possen/Projects/Fothello/Fothello
+
+//Value Computed by CMake
+fothellows.fcgi_BINARY_DIR:STATIC=/home/ubuntu/fothello/Fothello
+
+//Value Computed by CMake
+fothellows.fcgi_SOURCE_DIR:STATIC=/home/ubuntu/fothello/Fothello
 
 
 ########################
