@@ -195,18 +195,18 @@
     return found;
 }
 
-- (BOOL)placePieceForPlayer:(Player *)player atX:(NSInteger)x Y:(NSInteger)y
+- (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position
 {
     NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
-    BOOL result = [self findTracksX:x Y:y
+    BOOL result = [self findTracksX:position.x Y:position.y
                           forPlayer:player
                          trackBlock:
                    ^(NSArray *trackInfo)
                    {
-                       Piece *piece = [self.board pieceAtPositionX:x Y:y];
+                       Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
                        [self.board changePiece:piece withColor:player.color];
-                       [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+                       [pieces addObject:[PlayerMove makePiecePositionX:position.x Y:position.y piece:piece pass:position.pass]];
                        for (TrackInfo *trackItem in trackInfo)
                        {
                            piece = trackItem.piece;
@@ -224,6 +224,11 @@
     }
     
     return result;
+}
+
+- (BOOL)showHintForPlayer:(Player *)player position:(Move *)position
+{
+    return NO;
 }
 
 - (void)nextPlayer
@@ -286,14 +291,14 @@
 
 
 - (void)boxCoord:(NSInteger)dist block:
-(void (^)(Position *position, BOOL isCorner, NSInteger count, BOOL *stop))block
+(void (^)(Move *position, BOOL isCorner, NSInteger count, BOOL *stop))block
 {
     // calculates the positions of the pieces in a box dist from center.
     
     dist = (dist - 1) * 2 + 1; // skip even rings
     
     // calculate start position
-    Position *position = [Position new];
+    Move *position = [Move new];
     position.x = dist - dist / 2;
     position.y = dist - dist / 2;
     
@@ -329,10 +334,10 @@
     [board reset];
     
     NSArray *players = self.players;
-    Position *center = board.center;
+    Move *center = board.center;
 
     [self boxCoord:1 block:
-     ^(Position *position, BOOL isCorner, NSInteger count, BOOL *stop)
+     ^(Move *position, BOOL isCorner, NSInteger count, BOOL *stop)
      {
          NSInteger playerCount = (count) % self.players.count;
          

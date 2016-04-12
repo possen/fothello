@@ -26,7 +26,6 @@
 		D5441B511831CB1100B5166A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B291831CB1100B5166A /* UIKit.framework */; };
 		D5441B591831CB1100B5166A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5441B571831CB1100B5166A /* InfoPlist.strings */; };
 		D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.mm */; };
-		D562F4A11CB0E576009A6273 /* Strategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A01CB0E576009A6273 /* Strategy.m */; };
 		D562F4A41CB0E905009A6273 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
 		D562F4AA1CB0E935009A6273 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
 		D562F4AD1CB0E9E2009A6273 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
@@ -40,7 +39,7 @@
 		D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
 		D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
-		D5EECCD9183B5152005D5507 /* AIStrategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* AIStrategy.mm */; };
+		D5EECCD9183B5152005D5507 /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
 		D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F2C15D18418C5B000F089E /* DialogViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -81,8 +80,6 @@
 		D5441B5A1831CB1100B5166A /* FothelloTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FothelloTests.mm; sourceTree = "<group>"; };
 		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FothelloGame.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D562F49F1CB0E576009A6273 /* Strategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Strategy.h; sourceTree = "<group>"; };
-		D562F4A01CB0E576009A6273 /* Strategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Strategy.m; sourceTree = "<group>"; };
 		D562F4A21CB0E905009A6273 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		D562F4A31CB0E905009A6273 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		D562F4A81CB0E935009A6273 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
@@ -109,8 +106,8 @@
 		D5EECCC9183B4EC2005D5507 /* endgamecx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = endgamecx.h; sourceTree = "<group>"; };
 		D5EECCCD183B4EC2005D5507 /* minimax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minimax.cpp; sourceTree = "<group>"; };
 		D5EECCCE183B4EC2005D5507 /* minimax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minimax.hpp; sourceTree = "<group>"; };
-		D5EECCD7183B5152005D5507 /* AIStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIStrategy.h; sourceTree = "<group>"; };
-		D5EECCD8183B5152005D5507 /* AIStrategy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AIStrategy.mm; sourceTree = "<group>"; };
+		D5EECCD7183B5152005D5507 /* Strategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Strategy.h; sourceTree = "<group>"; };
+		D5EECCD8183B5152005D5507 /* Strategy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Strategy.mm; sourceTree = "<group>"; };
 		D5F2C15C18418C5B000F089E /* DialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewController.h; sourceTree = "<group>"; };
 		D5F2C15D18418C5B000F089E /* DialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,10 +224,8 @@
 				D562F4A31CB0E905009A6273 /* Player.m */,
 				D562F4A81CB0E935009A6273 /* Match.h */,
 				D562F4A91CB0E935009A6273 /* Match.m */,
-				D562F49F1CB0E576009A6273 /* Strategy.h */,
-				D562F4A01CB0E576009A6273 /* Strategy.m */,
-				D5EECCD7183B5152005D5507 /* AIStrategy.h */,
-				D5EECCD8183B5152005D5507 /* AIStrategy.mm */,
+				D5EECCD7183B5152005D5507 /* Strategy.h */,
+				D5EECCD8183B5152005D5507 /* Strategy.mm */,
 				D5EECCC5183B4EAB005D5507 /* Mini-Othello */,
 			);
 			name = Model;
@@ -405,10 +400,9 @@
 			files = (
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
 				D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */,
-				D562F4A11CB0E576009A6273 /* Strategy.m in Sources */,
 				D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */,
 				D562F4A41CB0E905009A6273 /* Player.m in Sources */,
-				D5EECCD9183B5152005D5507 /* AIStrategy.mm in Sources */,
+				D5EECCD9183B5152005D5507 /* Strategy.mm in Sources */,
 				D5C0B66F18C43701000DCEB8 /* NSArray+Holes.m in Sources */,
 				D562F4AA1CB0E935009A6273 /* Match.m in Sources */,
 				D5441B411831CB1100B5166A /* MatchViewController.m in Sources */,

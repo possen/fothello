@@ -64,11 +64,6 @@ typedef enum Difficulty : NSInteger
 @class Player;
 @class Strategy;
 
-@interface Position : NSObject 
-@property (nonatomic) NSInteger x;
-@property (nonatomic) NSInteger y;
-@end
-
 #pragma mark - Fothello -
 
 @interface FothelloGame : NSObject <NSCoding>

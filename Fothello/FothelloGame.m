@@ -7,13 +7,9 @@
 //
 
 #import "FothelloGame.h"
-#import "AIStrategy.h"
+#import "Strategy.h"
 #import "Match.h"
 #import "Player.h"
-
-@implementation Position
-
-@end
 
 #pragma mark - FothelloGame -
 

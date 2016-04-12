@@ -18,7 +18,9 @@
                      players:(NSArray *)players
                   difficulty:(Difficulty)difficulty;
 
-- (BOOL)placePieceForPlayer:(Player *)player atX:(NSInteger)x Y:(NSInteger)y;
+- (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position;
+- (BOOL)showHintForPlayer:(Player *)player position:(Move *)position;
+
 - (void)reset;
 - (void)test;
 - (BOOL)done;

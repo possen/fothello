@@ -1,15 +1,17 @@
 //
-//  Strategy.h
+//  AIStrategy.h
 //  Fothello
 //
-//  Created by Paul Ossenbruggen on 4/2/16.
-//  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
+//  Created by Paul Ossenbruggen on 11/18/13.
+//  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
+#import <Foundation/Foundation.h>
 
-#import "FothelloGame.h"
+#import "Strategy.h"
 
 @class Match;
 @class Player;
+@class Move;
 
 #pragma mark - Strategy -
 
@@ -25,6 +27,8 @@
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
 - (void)convertBoard;
+- (Move *)calculateMoveForPlayer:(Player *)player;
+
 
 @end
 
@@ -34,3 +38,5 @@
 @interface HumanStrategy : Strategy <NSCoding>
 @end
 
+@interface AIStrategy : Strategy
+@end

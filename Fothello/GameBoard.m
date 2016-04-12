@@ -13,18 +13,60 @@
 @implementation TrackInfo
 @end
 
+#pragma mark - Move -
+
+@implementation Move
+
++ (instancetype)positionWithPass
+{
+    return [[Move alloc] initWithPass];
+}
+
++ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass
+{
+    Move *position = pass ? [Move positionWithPass] : [[Move alloc] initWithX:x Y:y];
+    return position;
+}
+
+- (BOOL)pass
+{
+    return self.x < 0 || self.y < 0;
+}
+
+- (instancetype)initWithPass
+{
+    self = [super init];
+    if (self)
+    {
+        _x = -1;
+        _y = -1;
+    }
+    return self;
+}
+
+- (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y
+{
+    self = [super init];
+    if (self)
+    {
+        _x = x;
+        _y = y;
+    }
+    return self;
+}
+@end
+
 #pragma mark - PlayerMove -
 
 @implementation PlayerMove
 + (PlayerMove *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass
 {
-    Position *pos = [Position new];
+    Move *pos = [Move new];
     pos.x = x;
     pos.y = y;
     PlayerMove *piecePosition = [[PlayerMove alloc] init];
     piecePosition.position = pos;
     piecePosition.piece = piece;
-    piecePosition.pass = pass;
     return piecePosition;
 }
 @end
@@ -213,9 +255,9 @@
     [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
 }
 
-- (Position *)center
+- (Move *)center
 {
-    Position *pos = [Position new];
+    Move *pos = [Move new];
     pos.x = self.size / 2 - 1; // zero based counting
     pos.y = self.size / 2 - 1;
     return pos;
