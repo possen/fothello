@@ -16,8 +16,7 @@
 		D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5441B301831CB1100B5166A /* InfoPlist.strings */; };
 		D5441B341831CB1100B5166A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B331831CB1100B5166A /* main.m */; };
 		D5441B381831CB1100B5166A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B371831CB1100B5166A /* AppDelegate.m */; };
-		D5441B3B1831CB1100B5166A /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5441B391831CB1100B5166A /* Main_iPhone.storyboard */; };
-		D5441B3E1831CB1100B5166A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */; };
+		D5441B3B1831CB1100B5166A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5441B391831CB1100B5166A /* Main.storyboard */; };
 		D5441B411831CB1100B5166A /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* MatchViewController.m */; };
 		D5441B441831CB1100B5166A /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
 		D5441B481831CB1100B5166A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5441B471831CB1100B5166A /* Images.xcassets */; };
@@ -66,8 +65,7 @@
 		D5441B351831CB1100B5166A /* Fothello-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fothello-Prefix.pch"; sourceTree = "<group>"; };
 		D5441B361831CB1100B5166A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D5441B371831CB1100B5166A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D5441B3A1831CB1100B5166A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		D5441B3D1831CB1100B5166A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		D5441B3A1831CB1100B5166A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5441B3F1831CB1100B5166A /* MatchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchViewController.h; sourceTree = "<group>"; };
 		D5441B401831CB1100B5166A /* MatchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchViewController.m; sourceTree = "<group>"; };
 		D5441B421831CB1100B5166A /* BoardScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoardScene.h; sourceTree = "<group>"; };
@@ -269,8 +267,7 @@
 			children = (
 				D5441B471831CB1100B5166A /* Images.xcassets */,
 				D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */,
-				D5441B391831CB1100B5166A /* Main_iPhone.storyboard */,
-				D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */,
+				D5441B391831CB1100B5166A /* Main.storyboard */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -375,8 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5441B481831CB1100B5166A /* Images.xcassets in Resources */,
-				D5441B3E1831CB1100B5166A /* Main_iPad.storyboard in Resources */,
-				D5441B3B1831CB1100B5166A /* Main_iPhone.storyboard in Resources */,
+				D5441B3B1831CB1100B5166A /* Main.storyboard in Resources */,
 				D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */,
 				D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */,
 				D517EA3618385AC2009C54E8 /* README.md in Resources */,
@@ -447,20 +443,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		D5441B391831CB1100B5166A /* Main_iPhone.storyboard */ = {
+		D5441B391831CB1100B5166A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				D5441B3A1831CB1100B5166A /* Base */,
 			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		D5441B3C1831CB1100B5166A /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D5441B3D1831CB1100B5166A /* Base */,
-			);
-			name = Main_iPad.storyboard;
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		D5441B571831CB1100B5166A /* InfoPlist.strings */ = {
@@ -558,11 +546,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -578,10 +568,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

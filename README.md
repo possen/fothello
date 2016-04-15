@@ -32,6 +32,7 @@ To Do
 * Add gamekit.
 * UI for managing users, selecting competitors and selecting multiple manual players. 
 * more than 2 players?
+* add hints
 
 Classes
 =======

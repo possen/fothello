@@ -28,8 +28,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGx-fN-Uti" userLabel="SKView" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-Lj-41B">
-                                        <rect key="frame" x="11" y="518" width="76" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-Lj-41B">
+                                        <rect key="frame" x="11" y="518" width="75" height="30"/>
                                         <state key="normal" title="New Game">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -37,8 +37,8 @@
                                             <segue destination="Ki6-IX-gBB" kind="modal" id="YFE-Qo-OKg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-4k-byF">
-                                        <rect key="frame" x="266" y="518" width="34" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-4k-byF">
+                                        <rect key="frame" x="267" y="518" width="33" height="30"/>
                                         <state key="normal" title="Pass">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -46,11 +46,29 @@
                                             <action selector="pass:" destination="LVB-YS-i5n" eventType="touchUpInside" id="hIS-Q5-3ew"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QV-C2-gqK">
+                                        <rect key="frame" x="11" y="480" width="30" height="30"/>
+                                        <state key="normal" title="Hint"/>
+                                        <connections>
+                                            <action selector="hint:" destination="LVB-YS-i5n" eventType="touchUpInside" id="IPD-dQ-eXk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qU5-x4-CNl">
+                                        <rect key="frame" x="262" y="480" width="38" height="30"/>
+                                        <state key="normal" title="Undo"/>
+                                        <connections>
+                                            <action selector="undo:" destination="LVB-YS-i5n" eventType="touchUpInside" id="VrF-Nv-DgX"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.30196078430000001" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
+                                    <constraint firstItem="7QV-C2-gqK" firstAttribute="leading" secondItem="iRN-Lj-41B" secondAttribute="leading" id="COc-a9-42Z"/>
+                                    <constraint firstItem="qU5-x4-CNl" firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" id="MfP-sF-qic"/>
+                                    <constraint firstItem="7QV-C2-gqK" firstAttribute="baseline" secondItem="qU5-x4-CNl" secondAttribute="baseline" id="U2c-L4-zMC"/>
                                     <constraint firstAttribute="bottom" secondItem="iRN-Lj-41B" secondAttribute="bottom" constant="20" symbolic="YES" id="UVd-40-NkG"/>
                                     <constraint firstItem="iRN-Lj-41B" firstAttribute="leading" secondItem="eGx-fN-Uti" secondAttribute="leading" constant="11" id="V9U-Lc-vE1"/>
+                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="top" secondItem="7QV-C2-gqK" secondAttribute="bottom" constant="8" symbolic="YES" id="aU8-iM-Buk"/>
                                     <constraint firstItem="iRN-Lj-41B" firstAttribute="baseline" secondItem="GVI-4k-byF" secondAttribute="baseline" id="cR8-SA-NJf"/>
                                     <constraint firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" constant="20" symbolic="YES" id="kDe-ti-iDe"/>
                                 </constraints>

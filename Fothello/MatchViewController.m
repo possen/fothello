@@ -222,4 +222,15 @@
     //   FothelloGame *game = [FothelloGame sharedInstance];
     //    [game reset];
 }
+
+- (IBAction)hint:(UIButton *)sender
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game pass];
+}
+
+
+- (IBAction)undo:(UIButton *)sender
+{
+}
 @end
