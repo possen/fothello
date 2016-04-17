@@ -840,7 +840,7 @@ EndSolve (uchar *board, double alpha, double beta,
 
 
 int main_endgame( void ){ // rename to main for testing
-   int tries,val,emp,wc,bc,i,j,k,x,y;
+   int tries,val = 0,emp,wc,bc,i,j,k,x,y;
    char bds[112][65] = {
 "..wwwww.b.wwbw..bbwbbwwwbwbbbwwwbbwbbwwwbbbwbwww..bbwbw....bbbbw",
 "wbbw.b...wwbwww.wwwwbwwwwwwbwbbbwwwwbwb.wwwwwbbb..wwbbb..wwwww..",

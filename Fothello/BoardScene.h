@@ -26,5 +26,6 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 
 - (void)setupCurrentMatch;
 - (void)teardownCurrentMatch;
+- (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
 
 @end

@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>FothelloMac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -18,6 +23,21 @@
 			<true/>
 		</dict>
 		<key>D5441B4C1831CB1100B5166A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5F5E41D1CC128E000A5A023</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5F5E4341CC128E000A5A023</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5F5E43F1CC128E000A5A023</key>
 		<dict>
 			<key>primary</key>
 			<true/>

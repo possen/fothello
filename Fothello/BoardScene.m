@@ -12,7 +12,6 @@
 #import "Match.h"
 #import "BoardScene.h"
 
-
 @implementation BoardScene
 
 - (id)initWithSize:(CGSize)size
@@ -107,6 +106,44 @@
      {
          [self placeSpriteAtX:x Y:y withPiece:piece];
      }];
+}
+
+- (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy
+{
+    // ignore clicks if turn still processing.
+    if (self.turnProcessing && self.gameOverNode)
+        return;
+    
+    /* Called when a touch begins */
+    CGRect boardRect = self.boardRect;
+    NSInteger boardSize = self.boardSize;
+    NSInteger spacing = self.boardDimensions / self.boardSize;
+    
+    NSInteger x = (rawx - boardRect.origin.x) / spacing;
+    NSInteger y = (rawy - boardRect.origin.y) / spacing;
+    
+    if (x < boardSize && y < boardSize && !self.turnProcessing)
+    {
+        BOOL placed = [self.game takeTurnAtX:x Y:y pass:NO];
+        
+        if (placed)
+        {
+            self.turnProcessing = YES;
+            
+            double delayInSeconds = .5;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
+                                                    (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            
+            dispatch_after(popTime,dispatch_get_main_queue(),
+                           ^(void)
+                           {
+                               dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                   [self.game processOtherTurnsX:x Y:y pass:NO]; // x & y represent human player move
+                                   self.turnProcessing = NO;
+                               });
+                           });
+        }
+    }
 }
 
 - (void)displayGameOver
@@ -235,7 +272,7 @@
     }
     
     boardUI.path = pathToDraw;
-    [boardUI setStrokeColor:[UIColor whiteColor]];
+    [boardUI setStrokeColor:[SKColor whiteColor]];
     CFRelease(pathToDraw);
     [self addChild:boardUI];
     self.boardUI = boardUI;
@@ -342,50 +379,6 @@
          [SKAction fadeAlphaTo:1 duration:0]];
     }
 }
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // ignore clicks if turn still processing. 
-    if (self.turnProcessing && self.gameOverNode)
-        return;
-    
-    /* Called when a touch begins */
-    CGRect boardRect = self.boardRect;
-    NSInteger boardSize = self.boardSize;
-    NSInteger spacing = self.boardDimensions / self.boardSize;
-    
-    for (UITouch *touch in touches)
-    {
-        CGPoint location = [touch locationInNode:self];
-        
-        NSInteger x = (location.x - boardRect.origin.x) / spacing;
-        NSInteger y = (location.y - boardRect.origin.y) / spacing;
-        
-        if (x < boardSize && y < boardSize && !self.turnProcessing)
-        {
-            BOOL placed = [self.game takeTurnAtX:x Y:y pass:NO];
-            
-            if (placed)
-            {
-                self.turnProcessing = YES;
-
-                double delayInSeconds = .5;
-                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
-                                            (int64_t)(delayInSeconds * NSEC_PER_SEC));
-
-                dispatch_after(popTime,dispatch_get_main_queue(),
-                               ^(void)
-                {
-                    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        [self.game processOtherTurnsX:x Y:y pass:NO]; // x & y represent human player move
-                        self.turnProcessing = NO;
-                    });
-                });
-            }
-        }
-    }
-}
-
 - (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
 {
     NSInteger boardSize = self.boardSize;
