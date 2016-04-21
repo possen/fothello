@@ -2,22 +2,24 @@
 //  AppDelegate.m
 //  FothelloMac
 //
-//  Created by Paul Ossenbruggen on 4/15/16.
-//  Copyright (c) 2016 Paul Ossenbruggen. All rights reserved.
+//  Created by Paul Ossenbruggen on 4/20/16.
+//  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
 //
 
 #import "AppDelegate.h"
-#import "BoardScene.h"
+
+@interface AppDelegate ()
+
+@end
 
 @implementation AppDelegate
 
-@synthesize window = _window;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    // Insert code here to initialize your application
 }
 
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
-    return YES;
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
+    // Insert code here to tear down your application
 }
 
 @end

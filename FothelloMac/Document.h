@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  Document.h
 //  FothelloMac
 //
 //  Created by Paul Ossenbruggen on 4/20/16.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface Document : NSDocument
 
 
 @end

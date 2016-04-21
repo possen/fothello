@@ -2,7 +2,7 @@
 //  main.m
 //  FothelloMac
 //
-//  Created by Paul Ossenbruggen on 4/15/16.
+//  Created by Paul Ossenbruggen on 4/20/16.
 //  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
 //
 

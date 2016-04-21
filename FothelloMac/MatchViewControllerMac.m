@@ -7,23 +7,21 @@
 //
 
 #import "MatchViewControllerMac.h"
-#import <SpriteKit/SpriteKit.h>
 #import "BoardScene.h"
 #import "Match.h"
 
 @interface MatchViewControllerMac ()
-@property (nonatomic) IBOutlet SKView *mainScene;
 @property (strong, nonatomic) BoardScene *boardScene;
 @property (nonatomic) NSInteger pageIndex;
 @property (nonatomic) Match *match;
-
+@property (nonatomic) IBOutlet SKView *mainView;
 @end
 
 @implementation MatchViewControllerMac
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SKView *skView = (SKView *)self.mainScene;
+    SKView *skView = self.mainView;
     self.boardScene.game.currentMatch = self.match;
 //    /* Set the scale mode to scale to fit the window */
     self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
@@ -48,6 +46,33 @@
     
     [self.boardScene.game ready];
 
+}
+
+- (IBAction)newGame :(id)sender
+{
+    
+}
+
+- (IBAction)pass:(id )sender
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game pass];
+}
+
+- (IBAction)resetGame:(id)sender
+{
+    //   FothelloGame *game = [FothelloGame sharedInstance];
+    //    [game reset];
+}
+
+- (IBAction)hint:(id)sender
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game pass];
+}
+
+- (IBAction)undo:(id)sender
+{
 }
 
 @end

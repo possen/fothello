@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <SpriteKit/SpriteKit.h>
 
 @interface MatchViewControllerMac : NSViewController
 
