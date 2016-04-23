@@ -16,7 +16,6 @@
 		D509D6351CC8A9FA0028C082 /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
 		D509D6361CC8A9FA0028C082 /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
 		D509D6371CC8A9FA0028C082 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
-		D509D6381CC8A9FA0028C082 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
 		D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */; };
 		D509D63A1CC8A9FA0028C082 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D509D63B1CC8A9FA0028C082 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
@@ -30,6 +29,7 @@
 		D509D6431CC8AF060028C082 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
+		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
 		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
 		D5441B281831CB1100B5166A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B271831CB1100B5166A /* CoreGraphics.framework */; };
@@ -573,13 +573,13 @@
 				D509D6341CC8A9FA0028C082 /* BoardScene.m in Sources */,
 				D509D6431CC8AF060028C082 /* endgamecx.cpp in Sources */,
 				D509D6411CC8AEFB0028C082 /* board.cpp in Sources */,
-				D509D6381CC8A9FA0028C082 /* MatchViewControllerMac.m in Sources */,
 				D509D6361CC8A9FA0028C082 /* FothelloNetworkRequest.m in Sources */,
 				D509D63C1CC8A9FA0028C082 /* Player.m in Sources */,
 				D509D6291CC8A7AF0028C082 /* Document.m in Sources */,
 				D509D63B1CC8A9FA0028C082 /* GameBoard.m in Sources */,
 				D509D63A1CC8A9FA0028C082 /* FothelloGame.m in Sources */,
 				D509D6421CC8AF000028C082 /* minimax.cpp in Sources */,
+				D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */,
 				D509D63E1CC8A9FA0028C082 /* Strategy.mm in Sources */,
 				D509D6371CC8A9FA0028C082 /* NetworkController.m in Sources */,
 				D509D63D1CC8A9FA0028C082 /* Match.m in Sources */,
@@ -883,6 +883,7 @@
 				D509D6321CC8A7AF0028C082 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D5441B1D1831CB1100B5166A /* Build configuration list for PBXProject "Fothello" */ = {
 			isa = XCConfigurationList;

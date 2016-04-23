@@ -15,11 +15,18 @@
 @property (nonatomic) NSInteger pageIndex;
 @property (nonatomic) Match *match;
 @property (nonatomic) IBOutlet SKView *mainView;
+@property (nonatomic) BOOL canMove;
 @end
 
 @implementation MatchViewControllerMac
 
-- (void)viewDidLoad {
+- (BOOL)acceptsFirstResponder
+{
+    return YES;
+}
+
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     SKView *skView = self.mainView;
     self.boardScene.game.currentMatch = self.match;
@@ -35,18 +42,23 @@
     __weak MatchViewControllerMac *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
- //       [weakBlockSelf updateMove:canMove];
+        [weakBlockSelf updateMove:canMove];
     };
     
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
     [skView presentScene:scene];
-//    [self addAd];
     
     [self.boardScene.game ready];
 
 }
+
+- (void)updateMove:(BOOL)canMove
+{
+    self.canMove = canMove;
+}
+
 
 - (IBAction)newGame :(id)sender
 {
@@ -61,8 +73,8 @@
 
 - (IBAction)resetGame:(id)sender
 {
-    //   FothelloGame *game = [FothelloGame sharedInstance];
-    //    [game reset];
+    FothelloGame *game = [FothelloGame sharedInstance];
+    [game reset];
 }
 
 - (IBAction)hint:(id)sender
@@ -73,6 +85,22 @@
 
 - (IBAction)undo:(id)sender
 {
+}
+
+- (IBAction)redo:(id)sender
+{
+}
+
+- (BOOL)validateUserInterfaceItem:(NSMenuItem *)menuItem
+{
+    SEL theAction = [menuItem action];
+
+    if (theAction == @selector(pass:))
+    {
+        return !self.canMove;
+    }
+
+    return TRUE;
 }
 
 @end
