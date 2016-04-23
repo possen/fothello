@@ -7,26 +7,41 @@
 //
 
 #import "Document.h"
+#import "Match.h"
+#import "FothelloGame.h"
 
 @interface Document ()
-
+@property (nonatomic) Match *match;
 @end
 
 @implementation Document
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
-    if (self) {
-        // Add your subclass-specific initialization here.
+    
+    if (self)
+    {
+        FothelloGame *game = [FothelloGame sharedInstance];
+        if (game.matches.count == 0)
+        {
+            [[FothelloGame sharedInstance] matchWithDifficulty:DifficultyEasy firstPlayerColor:PieceColorBlack opponentType:PlayerTypeComputer];
+        }
+        
+        NSAssert(game.matches.count != 0, @"matches empty");
+        _match = game.matches[0];
     }
+    
     return self;
 }
 
-+ (BOOL)autosavesInPlace {
++ (BOOL)autosavesInPlace
+{
     return YES;
 }
 
-- (void)makeWindowControllers {
+- (void)makeWindowControllers
+{
     // Override to return the Storyboard file name of the document.
     [self addWindowController:[[NSStoryboard storyboardWithName:@"Main" bundle:nil] instantiateControllerWithIdentifier:@"Document Window Controller"]];
 }

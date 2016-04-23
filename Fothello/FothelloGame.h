@@ -40,7 +40,6 @@ typedef struct Delta
     NSInteger dy;
 } Delta;
 
-
 typedef enum PlayerType : NSInteger
 {
     PlayerTypeNone = 0,
@@ -71,25 +70,17 @@ typedef enum Difficulty : NSInteger
 + (id)sharedInstance;
 
 - (Match *)matchWithName:(NSString *)name       // name can be nil for automatic name
-                 players:(NSArray *)players
+                 players:(NSArray<Player *>*)players
               difficulty:(Difficulty)difficulty;
 
 - (void)saveGameState;
-- (void)ready;
-- (void)pass;
-- (void)reset;
 
-- (void)matchWithDifficulty:(Difficulty)difficulty
-          firstPlayerColor:(PieceColor)pieceColor
-              opponentType:(PlayerType)playerType;
+- (Match *)matchWithDifficulty:(Difficulty)difficulty
+              firstPlayerColor:(PieceColor)pieceColor
+                  opponentType:(PlayerType)playerType;
 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-
-- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-
-@property (nonatomic) Match *currentMatch;
-@property (nonatomic) NSMutableArray *matches;
-@property (nonatomic) NSMutableArray *players;
+@property (nonatomic) NSMutableArray <Match *> *matches;
+@property (nonatomic) NSMutableArray <Player *> *players;
 @end
 
 

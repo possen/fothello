@@ -29,7 +29,7 @@
 {
     [super viewDidLoad];
     SKView *skView = self.mainView;
-    self.boardScene.game.currentMatch = self.match;
+    self.boardScene.match = self.match;
 //    /* Set the scale mode to scale to fit the window */
     self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
 
@@ -50,8 +50,7 @@
     // Present the scene.
     [skView presentScene:scene];
     
-    [self.boardScene.game ready];
-
+    [self.match ready];
 }
 
 - (void)updateMove:(BOOL)canMove
@@ -59,36 +58,29 @@
     self.canMove = canMove;
 }
 
-
-- (IBAction)newGame :(id)sender
-{
-    
-}
-
 - (IBAction)pass:(id )sender
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game pass];
+    [self.match pass];
 }
 
 - (IBAction)resetGame:(id)sender
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game reset];
+    [self.match reset];
 }
 
 - (IBAction)hint:(id)sender
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game pass];
+    [self.match pass];
 }
 
 - (IBAction)undo:(id)sender
 {
+    [self.match undo];
 }
 
 - (IBAction)redo:(id)sender
 {
+    [self.match redo];
 }
 
 - (BOOL)validateUserInterfaceItem:(NSMenuItem *)menuItem

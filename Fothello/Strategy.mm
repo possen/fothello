@@ -88,7 +88,7 @@ using json = nlohmann::json;
     GameBoard *board = match.board;
     __block BOOL foundLegal = NO;
     
-    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<PlayerMove *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
     if (display)
     {
         // Determine moves
@@ -107,7 +107,7 @@ using json = nlohmann::json;
                      
                      if (self.manual)
                      {
-                         [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+                         [moves addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
                      }
                  }
                  foundLegal = YES;
@@ -121,12 +121,12 @@ using json = nlohmann::json;
              if (piece.color == PieceColorLegal)
              {
                  [board changePiece:piece withColor:PieceColorNone];
-                 [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+                 [moves addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
              }
          }];
     }
     
-    board.placeBlock(pieces);
+    board.placeBlock(moves);
     
     return foundLegal;
 }
@@ -219,8 +219,7 @@ std::string testString(
     
     if (r["pass"].get<bool>())
     {
-        FothelloGame *game = [FothelloGame sharedInstance];
-        [game pass];
+        [self.match pass];
         return [Move positionWithPass];
     }
     

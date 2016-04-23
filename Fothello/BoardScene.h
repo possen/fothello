@@ -8,13 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@class FothelloGame;
+@class Match;
 
 typedef void (^UpdatePlayerMove)(BOOL canMove);
 
 @interface BoardScene : SKScene
 
-@property (nonatomic) FothelloGame *game;
+@property (nonatomic) Match *match;
 @property (nonatomic,readonly) NSInteger boardDimensions;
 @property (nonatomic,readonly) CGRect boardRect;
 @property (nonatomic,readonly) NSInteger boardSize;
@@ -24,8 +24,9 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 @property (nonatomic) SKNode *gameOverNode;
 @property (nonatomic) SKShapeNode *boardUI;
 
-- (void)setupCurrentMatch;
-- (void)teardownCurrentMatch;
+- (instancetype)initWithSize:(CGSize)size match:(Match *)match;
+- (void)setupMatch;
+- (void)teardownMatch;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
 
 @end

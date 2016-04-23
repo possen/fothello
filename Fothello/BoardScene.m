@@ -14,19 +14,17 @@
 
 @implementation BoardScene
 
-- (id)initWithSize:(CGSize)size
+- (instancetype)initWithSize:(CGSize)size match:(Match *)match
 {
     self = [super initWithSize:size];
     
     if (self)
     {
+        _match = match;
         _boardDimensions = MIN(size.width, size.height) - 40;
         _boardRect = CGRectMake(20, size.height / 2 - _boardDimensions / 2,
                                     _boardDimensions, _boardDimensions);
-        
-        _game = [FothelloGame sharedInstance];
-
-        [self setupCurrentMatch];
+        [self setupMatch];
         
         /* Setup your scene here */
         [self drawBoard];
@@ -35,16 +33,15 @@
     return self;
 }
 
-- (void)setupCurrentMatch
+- (void)setupMatch
 {
-    Match *currentMatch = self.game.currentMatch;
-    
-    _boardSize = currentMatch.board.size;
+    Match *match = self.match;
+    _boardSize = match.board.size;
     
     __weak BoardScene *weakBlockSelf = self;
 
     // whenever a piece is placed on board calls back to here.
-    currentMatch.board.placeBlock =
+    match.board.placeBlock =
         ^(NSArray *piecePositions)
         {
             if (piecePositions.count == 0)
@@ -65,7 +62,7 @@
             });
         };
     
-    currentMatch.currentPlayerBlock =
+    match.currentPlayerBlock =
         ^(Player *player, BOOL canMove)
         {
             dispatch_async(dispatch_get_main_queue(),
@@ -76,7 +73,7 @@
             });
         };
 
-    currentMatch.matchStatusBlock = ^(BOOL gameOver)
+    match.matchStatusBlock = ^(BOOL gameOver)
         {
             dispatch_async(dispatch_get_main_queue(),
             ^{
@@ -87,21 +84,21 @@
     
     [self syncronizeBoardStateWithModel];
     
-    self.currentPlayerSprite = currentMatch.currentPlayer.userReference;
+    self.currentPlayerSprite = match.currentPlayer.userReference;
 }
 
-- (void)teardownCurrentMatch
+- (void)teardownMatch
 {    
-    Match *currentMatch = self.game.currentMatch;
-    currentMatch.board.placeBlock = nil;
-    currentMatch.currentPlayerBlock = nil;
+    Match *match = self.match;
+    match.board.placeBlock = nil;
+    match.currentPlayerBlock = nil;
     self.currentPlayerSprite = nil;;
     [self removeGameOver];
 }
 
 - (void)syncronizeBoardStateWithModel
 {
-    GameBoard *board = self.game.currentMatch.board;
+    GameBoard *board = self.match.board;
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
          [self placeSpriteAtX:x Y:y withPiece:piece];
@@ -124,7 +121,7 @@
     
     if (x < boardSize && y < boardSize && !self.turnProcessing)
     {
-        BOOL placed = [self.game takeTurnAtX:x Y:y pass:NO];
+        BOOL placed = [self.match takeTurnAtX:x Y:y pass:NO];
         
         if (placed)
         {
@@ -138,7 +135,7 @@
                            ^(void)
                            {
                                dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                   [self.game processOtherTurnsX:x Y:y pass:NO]; // x & y represent human player move
+                                   [self.match processOtherTurnsX:x Y:y pass:NO]; // x & y represent human player move
                                    self.turnProcessing = NO;
                                });
                            });
@@ -151,7 +148,7 @@
     if (self.gameOverNode)
         return;
     
-    Match *match = self.game.currentMatch;
+    Match *match = self.match;
     Player *player1 = match.players[0];
     Player *player2 = match.players[1];
     NSInteger score1 = [match calculateScore:player1];
@@ -173,7 +170,7 @@
     ^{
         [self.boardUI runAction:[SKAction fadeAlphaTo:1 duration:.5]];
         
-        [self.game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+        [self.match.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
          {
              SKNode *node = piece.userReference;
              [node runAction:[SKAction fadeAlphaTo:1 duration:.5]];
@@ -189,7 +186,7 @@
     
     [self.boardUI runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
     
-    [self.game.currentMatch.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    [self.match.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
     {
         SKNode *node = piece.userReference;
         [node runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
@@ -223,7 +220,7 @@
 {
     [self.gameOverNode removeFromParent];
     self.gameOverNode = nil;
-    Match *match = self.game.currentMatch;
+    Match *match = self.match;
     
     for (Player *player in match.players)
     {
@@ -310,7 +307,7 @@
 
 - (void)addPlayerSprites
 {
-    Match *match = self.game.currentMatch;
+    Match *match = self.match;
     
     for (Player *player in match.players)
     {
@@ -354,7 +351,7 @@
 {
 //    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
 //    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:0];
-    Match *match = self.game.currentMatch;
+    Match *match = self.match;
     self.currentPlayerSprite = player.userReference;
     
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];

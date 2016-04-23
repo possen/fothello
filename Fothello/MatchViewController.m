@@ -32,12 +32,10 @@
     //    skView.showsFPS = YES;
     //skView.showsNodeCount = YES;
     
-    self.boardScene.game.currentMatch = self.match;
-    
     self.pass.hidden = YES;
     
     // Create and configure the scene.
-    BoardScene *scene = [BoardScene sceneWithSize:skView.bounds.size];
+    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
     self.boardScene = scene;
  
     __weak MatchViewController *weakBlockSelf = self;
@@ -52,7 +50,7 @@
     [skView presentScene:scene];
     [self addAd];
 
-    [self.boardScene.game ready];
+    [self.match ready];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -166,24 +164,24 @@
 
     FothelloGame *game = [FothelloGame sharedInstance];
 
-    [game.currentMatch reset]; // clear the board only. 
-    [self.boardScene teardownCurrentMatch];
+    [self.match reset]; // clear the board only.
+    [self.boardScene teardownMatch];
 
     [game matchWithDifficulty:difficulty
              firstPlayerColor:pieceColor
                  opponentType:playerType];
     
-    [self.boardScene setupCurrentMatch];
+    [self.boardScene setupMatch];
     
-    [game reset];
+    [self.match reset];
 
     // segment control is zero based add start piece color to map it correctly.
     if (pieceColor + PieceColorBlack ==  PieceColorWhite)
     {
         if (playerType == PlayerTypeComputer)
-            [game.currentMatch processOtherTurnsX:-1 Y:-1 pass:YES];
+            [self.match processOtherTurnsX:-1 Y:-1 pass:YES];
         else
-            [game.currentMatch nextPlayer];
+            [self.match nextPlayer];
     }
 }
 
@@ -206,86 +204,6 @@
     }
 }
 
-- (void)viewDidLayoutSubviews
-{
-    if (self.notFirstTime)
-    {
-        [self layoutAnimated:[UIView areAnimationsEnabled]];
-    }
-    self.notFirstTime = YES;
-}
-
-- (void)addAd
-{
-    ADBannerView *adView = [[ADBannerView alloc] initWithAdType:ADAdTypeBanner];
-    adView.delegate = self;
-    _bannerView = adView;
-    adView.frame = CGRectOffset(adView.frame, 0, -adView.frame.size.height);
-    [adView sizeThatFits:[self.mainScene frame].size];
-    [self.view addSubview:adView];
-}
-
-- (void)layoutAnimated:(BOOL)animated
-{
-    CGRect contentFrame = self.view.bounds;
-    
-    // all we need to do is ask the banner for a size that fits into the layout area we are using
-    CGSize sizeForBanner = [self.bannerView sizeThatFits:contentFrame.size];
-    
-    // compute the ad banner frame
-    CGRect bannerFrame = self.bannerView.frame;
-    if (self.bannerView.bannerLoaded)
-    {
-        // bring the ad into view
-        contentFrame.size.height -= sizeForBanner.height;   // shrink down content frame to fit the banner above it
-        contentFrame.origin.y += sizeForBanner.height;
-        bannerFrame.origin.y = 0;
-        bannerFrame.size.height = sizeForBanner.height;
-        bannerFrame.size.width = sizeForBanner.width;
-        [self.view layoutSubviews];
-    }
-    else
-    {
-        // hide the banner off screen further off the top
-        bannerFrame = CGRectOffset(bannerFrame, 0, -bannerFrame.size.height);
-    }
-    //    self.mainScene.frame = contentFrame;
-    
-    [UIView animateWithDuration:animated ? 0.25 : 0.0 animations:
-     ^{
-         [self.mainScene layoutIfNeeded];
-         self.bannerView.frame = bannerFrame;
-     }];
-}
-
-
-- (void)updateMove:(BOOL)canMove
-{
-    self.pass.hidden = canMove;
-}
-
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-    return YES;
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-    if (self.bannerIsVisible)
-    {
-        [UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-        // Assumes the banner view is placed at the bottom of the screen.
-        banner.frame = CGRectOffset(banner.frame, 0, banner.frame.size.height);
-        [UIView commitAnimations];
-        self.bannerIsVisible = NO;
-    }
-}
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    [self layoutAnimated:YES];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -294,23 +212,27 @@
 
 - (IBAction)pass:(UIButton *)sender
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game pass];
+    [self.match pass];
 }
 
-- (IBAction)resetGame:(UIButton *)sender {
-    //   FothelloGame *game = [FothelloGame sharedInstance];
-    //    [game reset];
+- (IBAction)resetGame:(UIButton *)sender
+{
+    [self.match reset];
 }
 
 - (IBAction)hint:(UIButton *)sender
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game pass];
+    [self.match pass];
 }
-
 
 - (IBAction)undo:(UIButton *)sender
 {
+    [self.match undo];
 }
+
+- (IBAction)redo:(UIButton *)sender
+{
+    [self.match redo];
+}
+
 @end

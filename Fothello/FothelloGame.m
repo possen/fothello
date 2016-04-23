@@ -58,26 +58,6 @@
     [NSKeyedArchiver archiveRootObject:game toFile:filename];
 }
 
-- (void)pass
-{
-    Match *match = self.currentMatch;
-    [match.currentPlayer.strategy pass];
-    [match nextPlayer];
-    [match processOtherTurnsX:-1 Y:-1 pass:YES];
-}
-
-- (void)reset
-{
-    Match *match = self.currentMatch;
-    [match endTurn];
-    match.currentPlayer = match.players[0];
-    for (Player *player in match.players)
-        [player.strategy resetWithDifficulty:match.difficulty];
-    [match reset];
-    [match beginTurn];
-}
-
-
 - (id)init
 {
     self = [super init];
@@ -105,65 +85,18 @@
     {
         _players = [coder decodeObjectForKey:@"players"];
         _matches = [coder decodeObjectForKey:@"matches"];
-        _currentMatch = [coder decodeObjectForKey:@"currentMatch"];
     }
     return self;
-}
-
-- (void)ready
-{
-    Match *match = self.currentMatch;
-    [match ready];
-}
-
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    Match *match = self.currentMatch;
-    [match endTurn];
-
-    BOOL otherPlayersMoved = NO;
-    for (Player *player in self.players)
-    {
-        if (player != match.currentPlayer)
-        {
-            otherPlayersMoved |= [player otherPlayer:player movedToX:x Y:y pass:pass];
-        }
-    }
-
-    BOOL moved = [match.currentPlayer takeTurnAtX:x Y:y pass:pass];
-    if (!otherPlayersMoved && !moved)
-    {
-        return NO; // game over
-    }
-
-    // if not moved, put legal moves back.
-    if (!moved)
-    {
-        [match beginTurn];
-    }
-    return moved;
-}
-
-- (void)processOtherTurnsX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    Match *match = self.currentMatch;
-    [match processOtherTurnsX:x Y:y pass:pass];
-}
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"currentMatch %@",self.currentMatch];
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:self.players forKey:@"players"];
     [encoder encodeObject:self.matches  forKey:@"matches"];
-    [encoder encodeObject:self.currentMatch forKey:@"currentMatch"];
 }
 
 - (Match *)createMatch:(NSString *)name
-               players:(NSArray *)players
+               players:(NSArray<Player *> *)players
             difficulty:(Difficulty)difficulty
 {
     Match *match = [[Match alloc] initWithName:name players:players difficulty:difficulty];
@@ -176,17 +109,15 @@
     return nil; // not able to create with that name.
 }
 
-- (void)matchWithDifficulty:(Difficulty)difficulty
-           firstPlayerColor:(PieceColor)pieceColor
-               opponentType:(PlayerType)opposingPlayerType
+- (Match *)matchWithDifficulty:(Difficulty)difficulty
+              firstPlayerColor:(PieceColor)pieceColor
+                  opponentType:(PlayerType)opposingPlayerType
 {
     Player *player1 = self.players[0];
     Player *player2 = self.players[1];
     
-    NSArray *players = @[player1, player2];
+    NSArray<Player *> *players = @[player1, player2];
     Match *match = [self matchWithName:nil players:players difficulty:difficulty];
-
-    self.currentMatch = match;
 
     if (opposingPlayerType == PlayerTypeComputer)
     {
@@ -208,10 +139,11 @@
         player2.strategy = [[HumanStrategy alloc] initWithMatch:match];
     }
     
+    return match;
 }
 
 - (Match *)matchWithName:(NSString *)name
-                 players:(NSArray *)players
+                 players:(NSArray<Player *> *)players
               difficulty:(Difficulty)difficulty
 {
     Match *match = nil;

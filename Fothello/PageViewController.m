@@ -13,7 +13,7 @@
 
 @interface PageViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property (nonatomic) NSMutableArray *activeControllers;
+@property (nonatomic) NSMutableArray<MatchViewController *> *activeControllers;
 
 @end
 
@@ -34,7 +34,7 @@
         return vc;
     }
 
-    NSArray *matches = [[FothelloGame sharedInstance] matches];
+    NSArray<Match *> *matches = [[FothelloGame sharedInstance] matches];
 
     BOOL inRange = index >= 0 && index < [matches count];
     if (inRange)

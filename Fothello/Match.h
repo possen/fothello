@@ -15,7 +15,7 @@
 @interface Match : NSObject <NSCoding>
 
 - (instancetype)initWithName:(NSString *)name
-                     players:(NSArray *)players
+                     players:(NSArray<Player *> *)players
                   difficulty:(Difficulty)difficulty;
 
 - (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position;
@@ -23,8 +23,13 @@
 
 - (void)reset;
 - (void)test;
+- (void)pass;
+- (void)hint;
+- (void)undo;
+- (void)redo;
 - (BOOL)done;
 - (void)nextPlayer;
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (void)processOtherTurnsX:(NSInteger)humanX Y:(NSInteger)y pass:(BOOL)pass;
 - (void)ready;
 - (BOOL)beginTurn;
@@ -33,16 +38,16 @@
 - (BOOL)findTracksX:(NSInteger)x
                   Y:(NSInteger)y
           forPlayer:(Player *)player
-         trackBlock:(void (^)(NSArray *pieces))trackBlock;
+         trackBlock:(void (^)(NSArray<TrackInfo *> *pieces))trackBlock;
 
 @property (nonatomic) NSString *name;
 @property (nonatomic) GameBoard *board;
-@property (nonatomic) NSArray *players;
+@property (nonatomic) NSArray<Player *>*players;
 @property (nonatomic) Player *currentPlayer;
 @property (nonatomic) Difficulty difficulty; // only used by AIStrategy
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
-@property (nonatomic) NSMutableArray *moves;
+@property (nonatomic) NSMutableArray<PlayerMove *> *moves;
 @end
 
 

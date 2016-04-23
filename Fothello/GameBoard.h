@@ -39,7 +39,7 @@
 + (PlayerMove *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass;
 @end
 
-typedef void (^PlaceBlock)(NSArray *pieces);
+typedef void (^PlaceBlock)(NSArray<PlayerMove *> *pieces);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 
@@ -74,8 +74,8 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 - (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 
 
-@property (nonatomic) NSMutableArray *grid;
+@property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy) PlaceBlock placeBlock;
-@property (nonatomic) NSMutableDictionary *piecesPlayed;
+@property (nonatomic) NSMutableDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @end

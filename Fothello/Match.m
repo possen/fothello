@@ -19,7 +19,7 @@
 @implementation Match
 
 - (instancetype)initWithName:(NSString *)name
-                     players:(NSArray *)players
+                     players:(NSArray<Player *> *)players
                   difficulty:(Difficulty)difficulty
 {
     self = [super init];
@@ -87,7 +87,62 @@
 {
     BOOL canMove = [self beginTurn];
     if (self.currentPlayerBlock)
+    {
         self.currentPlayerBlock(self.currentPlayer, canMove);
+    }
+}
+
+- (void)pass
+{
+    [self.currentPlayer.strategy pass];
+    [self nextPlayer];
+    [self processOtherTurnsX:-1 Y:-1 pass:YES];
+}
+
+- (void)hint
+{
+    
+}
+
+- (void)undo
+{
+    
+}
+
+- (void)redo
+{
+    
+}
+
+- (void)reset
+{
+    [self endTurn];
+    self.currentPlayer = self.players[0];
+    for (Player *player in self.players) {
+        [player.strategy resetWithDifficulty:self.difficulty];
+    }
+    
+    GameBoard *board = self.board;
+    [board reset];
+    
+    NSArray<Player *> *players = self.players;
+    Move *center = board.center;
+    
+    [self boxCoord:1 block:
+     ^(Move *position, BOOL isCorner, NSInteger count, BOOL *stop)
+     {
+         NSInteger playerCount = (count) % self.players.count;
+         
+         [board player:players[playerCount]
+      pieceAtPositionX:center.x + position.x
+                     Y:center.y + position.y];
+         
+         count++;
+     }];
+    
+    NSLog(@"\n%@\n", [board toString]);
+
+    [self beginTurn];
 }
 
 - (Delta)determineDirection:(Direction)direction
@@ -140,7 +195,7 @@
 - (BOOL)findTracksX:(NSInteger)x
                   Y:(NSInteger)y
           forPlayer:(Player *)player
-         trackBlock:(void (^)(NSArray *pieces))trackBlock
+         trackBlock:(void (^)(NSArray<TrackInfo *> *pieces))trackBlock
 {
     // calls block for each direction that has a successful track
     // does not call for invalid tracks. Will call back for each complete track.
@@ -162,7 +217,7 @@
         
         NSInteger offsetx = x; NSInteger offsety = y;
         
-        NSMutableArray *track = [[NSMutableArray alloc] initWithCapacity:10];
+        NSMutableArray<TrackInfo *> *track = [[NSMutableArray alloc] initWithCapacity:10];
         
         // keep adding pieces until we hit a piece of the same color, edge of board or
         // clear space.
@@ -197,12 +252,12 @@
 
 - (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position
 {
-    NSMutableArray *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
     BOOL result = [self findTracksX:position.x Y:position.y
                           forPlayer:player
                          trackBlock:
-                   ^(NSArray *trackInfo)
+                   ^(NSArray<Piece *> *trackInfo)
                    {
                        Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
                        [self.board changePiece:piece withColor:player.color];
@@ -231,9 +286,37 @@
     return NO;
 }
 
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+{
+    [self endTurn];
+
+    BOOL otherPlayersMoved = NO;
+    for (Player *player in self.players)
+    {
+        if (player != self.currentPlayer)
+        {
+            otherPlayersMoved |= [player otherPlayer:player movedToX:x Y:y pass:pass];
+        }
+    }
+
+    BOOL moved = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
+    if (!otherPlayersMoved && !moved)
+    {
+        return NO; // game over
+    }
+
+    // if not moved, put legal moves back.
+    if (!moved)
+    {
+        [self beginTurn];
+    }
+    return moved;
+}
+
+
 - (void)nextPlayer
 {
-    NSArray *players = self.players;
+    NSArray<Player *> *players = self.players;
     
     [self endTurn];
     BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
@@ -327,29 +410,6 @@
     [self.moves addObject:move];
 }
 
-- (void)reset
-{
-    GameBoard *board = self.board;
-        
-    [board reset];
-    
-    NSArray *players = self.players;
-    Move *center = board.center;
-
-    [self boxCoord:1 block:
-     ^(Move *position, BOOL isCorner, NSInteger count, BOOL *stop)
-     {
-         NSInteger playerCount = (count) % self.players.count;
-         
-         [board player:players[playerCount]
-      pieceAtPositionX:center.x + position.x
-                     Y:center.y + position.y];
-         
-         count++;
-     }];
-    
-    NSLog(@"\n%@\n", [board toString]);
-}
 
 - (BOOL)done
 {
