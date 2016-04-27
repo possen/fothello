@@ -12,6 +12,24 @@
 
 #pragma mark - Match -
 
+
+typedef enum PlayerType : NSInteger
+{
+    PlayerTypeNone = 0,
+    PlayerTypeHuman,
+    PlayerTypeComputer
+} PlayerType;
+
+typedef enum Difficulty : NSInteger
+{
+    DifficultyNone = 0,
+    DifficultyEasy,
+    DifficultyModerate,
+    DifficultyHard,
+    DifficultyHardest
+} Difficulty;
+
+
 @interface Match : NSObject <NSCoding>
 
 - (instancetype)initWithName:(NSString *)name
@@ -40,7 +58,7 @@
           forPlayer:(Player *)player
          trackBlock:(void (^)(NSArray<TrackInfo *> *pieces))trackBlock;
 
-@property (nonatomic) NSString *name;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic) GameBoard *board;
 @property (nonatomic) NSArray<Player *>*players;
 @property (nonatomic) Player *currentPlayer;

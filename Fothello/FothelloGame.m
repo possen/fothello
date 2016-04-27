@@ -63,7 +63,7 @@
     self = [super init];
     if (self)
     {
-        _matches = [[NSMutableArray alloc] initWithCapacity:10];
+        _matches = [[NSMutableDictionary alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
         // create default players.
@@ -101,9 +101,9 @@
 {
     Match *match = [[Match alloc] initWithName:name players:players difficulty:difficulty];
     
-    if ([self.matches indexOfObject:match] == NSNotFound)
+    if ([self.matches objectForKey:name] == nil)
     {
-        [self.matches addObject:match];
+        self.matches[name] = match;
         return match;
     }
     return nil; // not able to create with that name.
@@ -161,9 +161,9 @@
     return match;
 }
 
-- (void)deleteMatch:(Match *)match
+- (void)deleteMatch:(NSString *)name
 {
-    [self.matches removeObject:match];
+    [self.matches removeObjectForKey:name];
 }
 
 - (Player *)newPlayerWithName:(NSString *)name

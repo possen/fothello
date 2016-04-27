@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class Match;
+
 @interface Document : NSDocument
-
-
+@property (nonatomic) Match *match;
 @end
 

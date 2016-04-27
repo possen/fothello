@@ -7,9 +7,9 @@
 //
 #import <Foundation/Foundation.h>
 
+#import "Match.h"
 #import "Strategy.h"
 
-@class Match;
 @class Player;
 @class Move;
 
@@ -20,7 +20,7 @@
 @property (nonatomic) Match *match;
 @property (nonatomic, readonly) BOOL manual;
 
-- (id)initWithMatch:(Match *)match ;
+- (id)initWithMatch:(Match *)match;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player;

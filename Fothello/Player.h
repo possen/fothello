@@ -9,11 +9,25 @@
 #import <Foundation/Foundation.h>
 #import "FothelloGame.h"
 
+@class Strategy;
+
+typedef enum PieceColor : NSInteger
+{
+    PieceColorNone,
+    PieceColorBlack,
+    PieceColorWhite,
+    PieceColorRed,     // for 3 or more players
+    PieceColorBlue,
+    PieceColorGreen,
+    PieceColorYellow,
+    PieceColorLegal    // show legal moves
+} PieceColor;
+
 #pragma mark - Player -
 
 @interface Player : NSObject <NSCoding>
 
-@property (nonatomic) NSString *name;
+@property (nonatomic, copy) NSString *name;
 @property (nonatomic) PieceColor preferredPieceColor;
 @property (nonatomic) PieceColor color;
 @property (nonatomic) Strategy *strategy;

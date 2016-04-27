@@ -9,6 +9,7 @@
 #import "MatchViewControllerMac.h"
 #import "BoardScene.h"
 #import "Match.h"
+#import "FothelloGame.h"
 
 @interface MatchViewControllerMac ()
 @property (strong, nonatomic) BoardScene *boardScene;
@@ -28,6 +29,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    FothelloGame *game = [FothelloGame sharedInstance];
+    
+    NSAssert(game.matches.count != 0, @"matches empty");
+    self.match = game.matches.allValues[0];
+
     SKView *skView = self.mainView;
     self.boardScene.match = self.match;
 //    /* Set the scale mode to scale to fit the window */
@@ -36,7 +43,7 @@
 //    self.pass.hidden = YES;
     
     // Create and configure the scene.
-    BoardScene *scene = [BoardScene sceneWithSize:skView.bounds.size];
+    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
     self.boardScene = scene;
     
     __weak MatchViewControllerMac *weakBlockSelf = self;
@@ -53,9 +60,24 @@
     [self.match ready];
 }
 
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder
+{
+    
+}
+
 - (void)updateMove:(BOOL)canMove
 {
     self.canMove = canMove;
+}
+
+- (IBAction)newDocument:(id)sender
+{
+    [self performSegueWithIdentifier:@"NewDocument" sender:self];
 }
 
 - (IBAction)pass:(id )sender

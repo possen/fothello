@@ -9,9 +9,9 @@
 #import "RESTNetworkRequest.h"
 
 @interface RESTNetworkRequest ()
-@property (nonatomic) NSURL *baseUrl;
-@property (nonatomic) NSString *command;
-@property (nonatomic) NSString *query;
+@property (nonatomic, copy) NSURL *baseUrl;
+@property (nonatomic, copy) NSString *command;
+@property (nonatomic, copy) NSString *query;
 @end
 
 @implementation RESTNetworkRequest

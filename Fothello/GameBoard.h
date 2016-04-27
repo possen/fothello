@@ -8,6 +8,30 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Player.h"
+
+typedef enum Direction : NSInteger
+{
+    DirectionNone = 0,
+    DirectionUp = 1,     DirectionFirst = 1,
+    DirectionUpLeft,
+    DirectionLeft,
+    DirectionDownLeft,
+    DirectionDown,
+    DirectionDownRight,
+    DirectionRight,
+    DirectionUpRight,
+    DirectionLast
+} Direction;
+
+typedef struct Delta
+{
+    NSInteger dx;
+    NSInteger dy;
+} Delta;
+
+@class Piece;
+
 #pragma mark - Move -
 
 @interface Move : NSObject
@@ -43,7 +67,6 @@ typedef void (^PlaceBlock)(NSArray<PlayerMove *> *pieces);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 
-
 #pragma mark - Piece -
 
 @interface Piece : NSObject <NSCoding>
@@ -72,7 +95,6 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 - (NSString *)toStringAscii;
 - (NSInteger)playerScore:(Player *)player;
 - (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
-
 
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
