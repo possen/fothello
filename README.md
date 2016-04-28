@@ -20,11 +20,6 @@ Capabilities
 * legal move display
 * challenging play with Mini Othello for AI Strategy.
 
-Limitations
------------
-* The game model is in one file, when getting started on a project I find it is easier to deal with just one
-  file then break out later.
-
 To Do
 -----
 * Undo
