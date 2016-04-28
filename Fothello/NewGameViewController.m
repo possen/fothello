@@ -55,8 +55,8 @@ typedef NS_ENUM(NSInteger, PlayerKindSelection)
 
     FothelloGame *game = [FothelloGame sharedInstance];
 
-    Player *player1;
-    Player *player2;
+    Player *player1 = nil;
+    Player *player2 = nil;
     
     Class player1StrategyClass;
     Class player2StrategyClass;
@@ -88,11 +88,15 @@ typedef NS_ENUM(NSInteger, PlayerKindSelection)
             player2StrategyClass = [AIStrategy class];
             break;
         case PlayerKindSelectionHumanVGameCenter:
+            NSAssert(false, @"not implemented");
             break;
         default:
             NSAssert(false, @"cant find kind");
     }
-    
+    if (player1 == nil || player2 == nil)
+    {
+        return;
+    }
     Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2] difficulty:self.difficultyButton.selectedItem.tag];
     player1.strategy = [[player1StrategyClass alloc] initWithMatch:match];
     player2.strategy = [[player2StrategyClass alloc] initWithMatch:match];

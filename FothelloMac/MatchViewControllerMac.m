@@ -80,12 +80,12 @@
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
 {
-    
+    [super encodeRestorableStateWithCoder:coder];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder
 {
-    
+    [super restoreStateWithCoder:coder];
 }
 
 - (void)updateMove:(BOOL)canMove

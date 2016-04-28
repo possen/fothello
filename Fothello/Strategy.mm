@@ -171,7 +171,10 @@ std::string testString(
     std::string boardResult = [boardStr cStringUsingEncoding:NSASCIIStringEncoding];
     bool result = setBoardFromString(board, boardResult);
     NSAssert(result == true, @"failetoconvert");
-    
+    if (result == false)
+    {
+        return nil;
+    }
     json j;
     j["difficulty"] = (int)_difficulty;
     j["moveNum"] = moveNum;

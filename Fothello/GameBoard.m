@@ -107,7 +107,7 @@
     self.color = PieceColorNone;
 }
 
-- (NSString *)colorStringRepresentation
+- (nonnull NSString *)colorStringRepresentation
 {
     switch (self.color)
     {
@@ -130,7 +130,7 @@
     }
 }
 
-- (NSString *)colorStringRepresentationAscii
+- (nonnull NSString *)colorStringRepresentationAscii
 {
     switch (self.color)
     {
@@ -350,6 +350,9 @@
         for (NSInteger x = 0; x < self.size; x++)
         {
             Piece *piece = [self pieceAtPositionX:x Y:labs(reverseOffset - y)];
+            if (piece == nil) {
+                continue;
+            }
             [boardString appendString:ascii
                 ? piece.colorStringRepresentationAscii
                 : piece.colorStringRepresentation];
