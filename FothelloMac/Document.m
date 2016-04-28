@@ -26,7 +26,7 @@
     
     if (self)
     {
-        NSArray *players = @[];
+//        NSArray *players = @[];
 //        _match = [[Match alloc] initWithName:@"untitled" players:players difficulty:DifficultyEasy];
     }
     return self;

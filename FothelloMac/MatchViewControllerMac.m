@@ -7,14 +7,14 @@
 //
 
 #import "MatchViewControllerMac.h"
+#import "NewGameViewController.h"
 #import "BoardScene.h"
 #import "Match.h"
 #import "FothelloGame.h"
 
-@interface MatchViewControllerMac ()
+@interface MatchViewControllerMac () <DismissDelegate>
 @property (strong, nonatomic) BoardScene *boardScene;
 @property (nonatomic) NSInteger pageIndex;
-@property (nonatomic) Match *match;
 @property (nonatomic) IBOutlet SKView *mainView;
 @property (nonatomic) BOOL canMove;
 @end
@@ -29,19 +29,36 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     FothelloGame *game = [FothelloGame sharedInstance];
     
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
 
+    [self resetGame];
+}
+
+- (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"NewDocument"])
+    {
+        NewGameViewController *newGameVC = segue.destinationController;
+        newGameVC.delegate = self;
+    }
+}
+
+- (void)dismissed
+{
+    [self resetGame];
+}
+
+- (void)resetGame
+{
     SKView *skView = self.mainView;
     self.boardScene.match = self.match;
-//    /* Set the scale mode to scale to fit the window */
+    
+    // Set the scale mode to scale to fit the window
     self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
 
-//    self.pass.hidden = YES;
-    
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
     self.boardScene = scene;
@@ -58,6 +75,7 @@
     [skView presentScene:scene];
     
     [self.match ready];
+    [self.match reset];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder

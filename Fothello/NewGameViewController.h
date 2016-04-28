@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface NewGameViewController : NSViewController
+@protocol DismissDelegate <NSObject>
+- (void)dismissed;
+@end
 
+@interface NewGameViewController : NSViewController
+@property (nonatomic, weak) id<DismissDelegate> delegate;
 @end

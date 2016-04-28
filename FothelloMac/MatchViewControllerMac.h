@@ -9,7 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <SpriteKit/SpriteKit.h>
 
+@class Match;
+
 @interface MatchViewControllerMac : NSViewController
-
-
+@property (nonatomic) Match *match;
+- (void)resetGame;
 @end

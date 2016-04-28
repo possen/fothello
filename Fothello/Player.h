@@ -11,18 +11,6 @@
 
 @class Strategy;
 
-typedef enum PieceColor : NSInteger
-{
-    PieceColorNone,
-    PieceColorBlack,
-    PieceColorWhite,
-    PieceColorRed,     // for 3 or more players
-    PieceColorBlue,
-    PieceColorGreen,
-    PieceColorYellow,
-    PieceColorLegal    // show legal moves
-} PieceColor;
-
 #pragma mark - Player -
 
 @interface Player : NSObject <NSCoding>
