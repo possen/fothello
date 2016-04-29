@@ -58,7 +58,7 @@
 		D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66818C40E58000DCEB8 /* GameViewController.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C0B66F18C43701000DCEB8 /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
-		D5D9BCB51CD31BC500B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB41CD31BC500B41864 /* GameKit.framework */; };
+		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
 		D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
 		D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
@@ -137,7 +137,7 @@
 		D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Holes.h"; sourceTree = "<group>"; };
 		D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Holes.m"; sourceTree = "<group>"; };
 		D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FothelloMac.entitlements; sourceTree = "<group>"; };
-		D5D9BCB41CD31BC500B41864 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		D5D9BCB81CD330D700B41864 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5EECCC6183B4EC2005D5507 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cpp; sourceTree = "<group>"; };
 		D5EECCC7183B4EC2005D5507 /* board.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board.hpp; sourceTree = "<group>"; };
 		D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = endgamecx.cpp; sourceTree = "<group>"; };
@@ -168,7 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */,
-				D5D9BCB51CD31BC500B41864 /* GameKit.framework in Frameworks */,
+				D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +248,7 @@
 		D5441B241831CB1100B5166A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D5D9BCB41CD31BC500B41864 /* GameKit.framework */,
+				D5D9BCB81CD330D700B41864 /* GameKit.framework */,
 				D5F5E4541CC129FB00A5A023 /* CoreGraphics.framework */,
 				D5F5E4521CC129E800A5A023 /* AppKit.framework */,
 				D5F5E4501CC129A200A5A023 /* SpriteKit.framework */,
