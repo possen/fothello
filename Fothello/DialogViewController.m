@@ -43,16 +43,21 @@
     [super viewDidLoad];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    PlayerKindSelection playerKind = [prefs integerForKey:@"playerType"];
+    PlayerKindSelection playerKind = [prefs integerForKey:@"playerKind"];
     Difficulty difficulty = [prefs integerForKey:@"difficulty"];
 
     [self playerKindToSelections:playerKind];
     [self.difficulty setSelectedSegmentIndex:difficulty - 1];
+    [self updateControls];
 }
 
-- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion
+- (void)viewWillDisappear:(BOOL)animated
 {
-    [self.delegate dismissed];
+    [super viewWillDisappear:animated];
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setInteger:[self playerKindFromSelections] forKey:@"playerKind"];
+    [prefs setInteger:self.difficulty.selectedSegmentIndex + 1 forKey:@"difficulty"];
+    [prefs synchronize];
 }
 
 - (PlayerKindSelection)playerKindFromSelections
@@ -64,8 +69,8 @@
 
 - (void)playerKindToSelections:(PlayerKindSelection)kind
 {
-    NSInteger youSelection = kind & 0x1;
-    NSInteger opponentSelection = kind & 0x6 >> 1;
+    NSInteger youSelection = kind & 1;
+    NSInteger opponentSelection = (kind & 6) >> 1;
     
     self.youPlayerType.selectedSegmentIndex = youSelection;
     self.opponentPlayerType.selectedSegmentIndex = opponentSelection;
