@@ -217,6 +217,8 @@
 		D509D6331CC8A9270028C082 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				D5F5E45F1CC12E5100A5A023 /* BoardScene+BoardScene_Mac.h */,
+				D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */,
 				D509D62C1CC8A7AF0028C082 /* Main.storyboard */,
 				D509D62A1CC8A7AF0028C082 /* Assets.xcassets */,
 			);
@@ -265,7 +267,6 @@
 			isa = PBXGroup;
 			children = (
 				D5F56A841CC3F188000700D8 /* Mac */,
-				D5F56A821CC37087000700D8 /* Shared */,
 				D5F56A831CC3F174000700D8 /* iOS */,
 				D5A97A111CB4033D00DE26FB /* UI */,
 				D562F4AF1CB0F040009A6273 /* Controllers */,
@@ -326,6 +327,7 @@
 		D562F4AF1CB0F040009A6273 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D5F56A821CC37087000700D8 /* Shared */,
 				D5F56A811CC3705C000700D8 /* Mac */,
 				D5F56A801CC3703C000700D8 /* IOS */,
 			);
@@ -370,8 +372,6 @@
 			children = (
 				D5441B3F1831CB1100B5166A /* MatchViewController.h */,
 				D5441B401831CB1100B5166A /* MatchViewController.m */,
-				D5F5E45C1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.h */,
-				D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */,
 				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
 				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
 				D5C0B66718C40E58000DCEB8 /* GameViewController.h */,
@@ -391,8 +391,6 @@
 				D5F4B7F91CCF489D001BCD21 /* MatchWindowController.m */,
 				D5F56A7C1CC36074000700D8 /* MatchViewControllerMac.h */,
 				D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */,
-				D5F5E45F1CC12E5100A5A023 /* BoardScene+BoardScene_Mac.h */,
-				D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */,
 				D53D351A1CD0928400C67EEF /* NewGameViewController.h */,
 				D53D351B1CD0928400C67EEF /* NewGameViewController.m */,
 			);
@@ -433,6 +431,8 @@
 		D5F56A851CC3F1EE000700D8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D5F5E45C1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.h */,
+				D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */,
 				D5441B471831CB1100B5166A /* Images.xcassets */,
 				D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */,
 				D5441B391831CB1100B5166A /* Main.storyboard */,

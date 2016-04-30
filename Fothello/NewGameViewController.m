@@ -41,7 +41,6 @@
     self.difficultyButton.hidden = notComputerMatch;
 }
 
-
 - (IBAction)dismissController:(id)sender
 {
     [super dismissController:sender];
