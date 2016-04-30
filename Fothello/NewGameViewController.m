@@ -19,15 +19,6 @@
 @property (weak) IBOutlet NSPopUpButton *playerKinds;
 @end
 
-typedef NS_ENUM(NSInteger, PlayerKindSelection)
-{
-    PlayerKindSelectionHumanVHuman,
-    PlayerKindSelectionHumanVComputer,
-    PlayerKindSelectionComputerVHuman,
-    PlayerKindSelectionComputerVComputer,
-    PlayerKindSelectionHumanVGameCenter
-};
-
 @implementation NewGameViewController
 
 - (void)viewDidLoad
@@ -44,65 +35,21 @@ typedef NS_ENUM(NSInteger, PlayerKindSelection)
 
 - (void)updateMenu:(NSMenuItem *)item
 {
-    BOOL computerMatch = (item.tag ==  PlayerKindSelectionHumanVHuman || item.tag == PlayerKindSelectionHumanVGameCenter);
+    BOOL notComputerMatch = (item.tag ==  PlayerKindSelectionHumanVHuman || item.tag == PlayerKindSelectionHumanVGameCenter);
     
-    self.difficultyLabel.hidden = computerMatch;
-    self.difficultyButton.hidden = computerMatch;
+    self.difficultyLabel.hidden = notComputerMatch;
+    self.difficultyButton.hidden = notComputerMatch;
 }
+
+
 - (IBAction)dismissController:(id)sender
 {
     [super dismissController:sender];
-
-    FothelloGame *game = [FothelloGame sharedInstance];
-
-    Player *player1 = nil;
-    Player *player2 = nil;
-    
-    Class player1StrategyClass;
-    Class player2StrategyClass;
-    
-    switch (self.playerKinds.selectedItem.tag)
-    {
-        case PlayerKindSelectionHumanVHuman:
-            player1 = [game newPlayerWithName:@"Human 1" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Human 2" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [HumanStrategy class];
-            player2StrategyClass = [HumanStrategy class];
-            break;
-        case PlayerKindSelectionHumanVComputer:
-            player1 = [game newPlayerWithName:@"Human" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Computer" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [HumanStrategy class];
-            player2StrategyClass = [AIStrategy class];
-            break;
-        case PlayerKindSelectionComputerVHuman:
-            player1 = [game newPlayerWithName:@"Computer" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Human" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [AIStrategy class];
-            player2StrategyClass = [HumanStrategy class];
-            break;
-        case PlayerKindSelectionComputerVComputer:
-            player1 = [game newPlayerWithName:@"Computer 1" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Computer 2" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [AIStrategy class];
-            player2StrategyClass = [AIStrategy class];
-            break;
-        case PlayerKindSelectionHumanVGameCenter:
-            NSAssert(false, @"not implemented");
-            break;
-        default:
-            NSAssert(false, @"cant find kind");
-    }
-    if (player1 == nil || player2 == nil)
-    {
-        return;
-    }
-    Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2] difficulty:self.difficultyButton.selectedItem.tag];
-    player1.strategy = [[player1StrategyClass alloc] initWithMatch:match];
-    player2.strategy = [[player2StrategyClass alloc] initWithMatch:match];
     MatchViewControllerMac *parent = (MatchViewControllerMac *)self.presentingViewController;
-    parent.match = match;
-    [parent resetGame];
+
+    parent.match = [[FothelloGame sharedInstance] createMatchFromKind:self.playerKinds.selectedTag difficulty:self.difficultyButton.selectedTag];
+    
     [self.delegate dismissed];
+    [parent resetGame];
 }
 @end

@@ -34,15 +34,18 @@
         return vc;
     }
 
-    NSArray<Match *> *matches = [[FothelloGame sharedInstance] matches];
+    NSArray<NSString *> *matchOrder = [[FothelloGame sharedInstance] matchOrder];
+    NSDictionary<NSString *, Match *> *matches = [[FothelloGame sharedInstance] matches];
 
     BOOL inRange = index >= 0 && index < [matches count];
+    
     if (inRange)
     {
         MatchViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"boardViewController"];
  
         [self.activeControllers setObject:vc atCheckedIndex:index +  1];
-        vc.match = matches[index];
+        NSString *matchName = matchOrder[index];
+        vc.match = matches[matchName];
         return vc;
     }
     return nil;

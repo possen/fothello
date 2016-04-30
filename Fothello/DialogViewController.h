@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FothelloGame.h"
 
+@protocol DismissDelegate <NSObject>
+- (void)dismissed;
+@end
 
 @interface DialogViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *playerType;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *humanPlayerColor;
+@property (nonatomic, weak) id<DismissDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *difficulty;
-@property (weak, nonatomic) IBOutlet UILabel *difficultyLabel;
+- (PlayerKindSelection)playerKindFromSelections;
+- (void)playerKindToSelections:(PlayerKindSelection)kind;
 
-- (IBAction)againstAction:(UISegmentedControl *)sender;
-- (IBAction)humanPlayerColorAction:(UISegmentedControl *)sender;
-- (IBAction)difficultyAction:(UISegmentedControl *)sender;
 
 @end

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
@@ -130,45 +131,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Against" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T8-pB-KWU">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T8-pB-KWU">
                                 <rect key="frame" x="131" y="89" width="58" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="58" id="7Ll-JP-ZCm"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="Against" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-7u-fjR">
-                                <rect key="frame" x="86" y="118" width="149" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="You" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-7u-fjR">
+                                <rect key="frame" x="86" y="113" width="149" height="29"/>
                                 <segments>
                                     <segment title="Human"/>
                                     <segment title="Computer"/>
                                 </segments>
                                 <connections>
-                                    <action selector="againstAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="OtH-te-iIG"/>
+                                    <action selector="youAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="BOe-79-F0M"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="Color" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LsH-Uh-uwa">
-                                <rect key="frame" x="111" y="201" width="99" height="29"/>
-                                <segments>
-                                    <segment title="Black"/>
-                                    <segment title="White"/>
-                                </segments>
-                                <connections>
-                                    <action selector="humanPlayerColorAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="07l-gy-inR"/>
-                                </connections>
-                            </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" restorationIdentifier="Difficulty" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uSL-Kx-Cnj">
-                                <rect key="frame" x="15" y="281" width="291" height="29"/>
-                                <segments>
-                                    <segment title="Easy"/>
-                                    <segment title="Moderate"/>
-                                    <segment title="Hard"/>
-                                    <segment title="Hardest"/>
-                                </segments>
-                                <connections>
-                                    <action selector="difficultyAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="ByY-NE-0Rm"/>
-                                </connections>
-                            </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Difficulty" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRT-zv-tuw">
-                                <rect key="frame" x="127" y="252" width="67" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b73-oF-Xoc">
+                                <rect key="frame" x="94" y="149" width="132" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Difficulty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRT-zv-tuw">
+                                <rect key="frame" x="86" y="214" width="140" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -181,12 +168,6 @@
                                     <segue destination="qHj-bB-c6V" kind="unwind" unwindAction="unwindFromConfirmationForm:" id="gTu-3N-caY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Color" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHD-yr-GLL">
-                                <rect key="frame" x="120" y="172" width="81" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVj-2s-0mx">
                                 <rect key="frame" x="15" y="518" width="48" height="30"/>
                                 <state key="normal" title="Cancel">
@@ -196,33 +177,61 @@
                                     <segue destination="qHj-bB-c6V" kind="unwind" unwindAction="unwindFromCancelForm:" id="HB4-HZ-BNP"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Against" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PWG-WD-pah">
+                                <rect key="frame" x="20" y="178" width="280" height="29"/>
+                                <segments>
+                                    <segment title="Human"/>
+                                    <segment title="Computer"/>
+                                    <segment title="Game Canter"/>
+                                </segments>
+                                <connections>
+                                    <action selector="againstAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="ZCT-Qe-gkS"/>
+                                </connections>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Difficulty" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uSL-Kx-Cnj">
+                                <rect key="frame" x="15" y="243" width="291" height="29"/>
+                                <segments>
+                                    <segment title="Easy"/>
+                                    <segment title="Moderate"/>
+                                    <segment title="Hard"/>
+                                    <segment title="Hardest"/>
+                                </segments>
+                                <connections>
+                                    <action selector="difficultyAction:" destination="Ki6-IX-gBB" eventType="valueChanged" id="ByY-NE-0Rm"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LsH-Uh-uwa" firstAttribute="centerX" secondItem="XHD-yr-GLL" secondAttribute="centerX" id="2ED-kH-BAE"/>
-                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="top" secondItem="5T8-pB-KWU" secondAttribute="bottom" constant="8" symbolic="YES" id="2rL-kD-VuC"/>
-                            <constraint firstItem="jVj-2s-0mx" firstAttribute="baseline" secondItem="FCr-CF-NYD" secondAttribute="baseline" id="71W-Hg-lfB"/>
-                            <constraint firstItem="jVj-2s-0mx" firstAttribute="leading" secondItem="WtA-6R-oKr" secondAttribute="leading" constant="15" id="7pQ-j2-YKM"/>
-                            <constraint firstItem="CRT-zv-tuw" firstAttribute="centerX" secondItem="uSL-Kx-Cnj" secondAttribute="centerX" id="8qy-xf-NpL"/>
-                            <constraint firstItem="uSL-Kx-Cnj" firstAttribute="top" secondItem="CRT-zv-tuw" secondAttribute="bottom" constant="8" symbolic="YES" id="B2r-MS-DrX"/>
-                            <constraint firstItem="LsH-Uh-uwa" firstAttribute="top" secondItem="XHD-yr-GLL" secondAttribute="bottom" constant="8" symbolic="YES" id="EI6-Gh-x0f"/>
-                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="centerX" secondItem="WtA-6R-oKr" secondAttribute="centerX" id="FjJ-hO-pGu"/>
-                            <constraint firstAttribute="trailing" secondItem="FCr-CF-NYD" secondAttribute="trailing" constant="14" id="GCe-10-Mix"/>
-                            <constraint firstItem="CRT-zv-tuw" firstAttribute="centerX" secondItem="LsH-Uh-uwa" secondAttribute="centerX" id="PXc-Nb-2ny"/>
-                            <constraint firstItem="5T8-pB-KWU" firstAttribute="top" secondItem="Syf-kF-hZQ" secondAttribute="bottom" constant="89" id="VEP-Fg-bLe"/>
-                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="centerX" secondItem="5T8-pB-KWU" secondAttribute="centerX" id="asc-t2-dAf"/>
-                            <constraint firstItem="CRT-zv-tuw" firstAttribute="top" secondItem="LsH-Uh-uwa" secondAttribute="bottom" constant="23" id="c54-2f-ZaQ"/>
-                            <constraint firstAttribute="bottom" secondItem="FCr-CF-NYD" secondAttribute="bottom" constant="20" symbolic="YES" id="dMR-7G-eHm"/>
-                            <constraint firstItem="XHD-yr-GLL" firstAttribute="top" secondItem="Sc2-7u-fjR" secondAttribute="bottom" constant="26" id="gmQ-vI-t2V"/>
-                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="centerX" secondItem="XHD-yr-GLL" secondAttribute="centerX" id="rjN-zb-ao1"/>
+                            <constraint firstAttribute="bottom" secondItem="jVj-2s-0mx" secondAttribute="bottom" constant="20" symbolic="YES" id="3fh-JP-To8"/>
+                            <constraint firstItem="jVj-2s-0mx" firstAttribute="baseline" secondItem="FCr-CF-NYD" secondAttribute="baseline" id="Af0-Ve-vz0"/>
+                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="leading" secondItem="CRT-zv-tuw" secondAttribute="leading" id="MxR-jd-j0I"/>
+                            <constraint firstItem="b73-oF-Xoc" firstAttribute="top" secondItem="Sc2-7u-fjR" secondAttribute="bottom" constant="8" symbolic="YES" id="O4K-Fa-QHv"/>
+                            <constraint firstItem="b73-oF-Xoc" firstAttribute="centerX" secondItem="PWG-WD-pah" secondAttribute="centerX" id="PPV-Vl-buf"/>
+                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="top" secondItem="5T8-pB-KWU" secondAttribute="bottom" constant="3" id="Pdn-gt-A7z"/>
+                            <constraint firstItem="PWG-WD-pah" firstAttribute="leading" secondItem="WtA-6R-oKr" secondAttribute="leadingMargin" constant="4" id="Rej-0L-Kp8"/>
+                            <constraint firstItem="uSL-Kx-Cnj" firstAttribute="leading" secondItem="WtA-6R-oKr" secondAttribute="leadingMargin" constant="-1" id="Udk-yB-IYr"/>
+                            <constraint firstItem="PWG-WD-pah" firstAttribute="centerX" secondItem="uSL-Kx-Cnj" secondAttribute="centerX" id="a5Y-45-9Ju"/>
+                            <constraint firstItem="uSL-Kx-Cnj" firstAttribute="trailing" secondItem="FCr-CF-NYD" secondAttribute="trailing" id="cJl-Ba-okf"/>
+                            <constraint firstItem="5T8-pB-KWU" firstAttribute="top" secondItem="Syf-kF-hZQ" secondAttribute="bottom" constant="89" id="cOj-Yh-3PV"/>
+                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="centerX" secondItem="b73-oF-Xoc" secondAttribute="centerX" id="caF-cH-ORr"/>
+                            <constraint firstItem="uSL-Kx-Cnj" firstAttribute="top" secondItem="CRT-zv-tuw" secondAttribute="bottom" constant="8" symbolic="YES" id="daw-42-vKF"/>
+                            <constraint firstItem="PWG-WD-pah" firstAttribute="top" secondItem="b73-oF-Xoc" secondAttribute="bottom" constant="8" symbolic="YES" id="gHP-eI-9PW"/>
+                            <constraint firstItem="CRT-zv-tuw" firstAttribute="top" secondItem="PWG-WD-pah" secondAttribute="bottom" constant="8" symbolic="YES" id="lzs-Oh-AJu"/>
+                            <constraint firstItem="Sc2-7u-fjR" firstAttribute="leading" secondItem="WtA-6R-oKr" secondAttribute="leadingMargin" constant="70" id="nBs-On-fFH"/>
+                            <constraint firstItem="5T8-pB-KWU" firstAttribute="centerX" secondItem="WtA-6R-oKr" secondAttribute="centerX" id="nRV-FG-sLP"/>
+                            <constraint firstItem="b73-oF-Xoc" firstAttribute="trailing" secondItem="CRT-zv-tuw" secondAttribute="trailing" id="qWl-Kr-WFe"/>
+                            <constraint firstItem="uSL-Kx-Cnj" firstAttribute="leading" secondItem="jVj-2s-0mx" secondAttribute="leading" id="uMx-9g-lVY"/>
+                            <constraint firstItem="b73-oF-Xoc" firstAttribute="leading" secondItem="WtA-6R-oKr" secondAttribute="leadingMargin" constant="78" id="uTE-9O-Qqa"/>
+                            <constraint firstItem="5T8-pB-KWU" firstAttribute="centerX" secondItem="Sc2-7u-fjR" secondAttribute="centerX" id="xFQ-RM-QKQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rNj-5i-R4l"/>
                     <connections>
                         <outlet property="difficulty" destination="uSL-Kx-Cnj" id="ESx-79-Qua"/>
                         <outlet property="difficultyLabel" destination="CRT-zv-tuw" id="vYH-dL-Scx"/>
-                        <outlet property="humanPlayerColor" destination="LsH-Uh-uwa" id="rG8-VC-tbH"/>
-                        <outlet property="playerType" destination="Sc2-7u-fjR" id="hZc-Dr-OlS"/>
+                        <outlet property="opponentPlayerType" destination="PWG-WD-pah" id="nNJ-tb-DNZ"/>
+                        <outlet property="youPlayerType" destination="Sc2-7u-fjR" id="tG3-Ax-iaB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0zR-s7-ILV" userLabel="First Responder" sceneMemberID="firstResponder"/>

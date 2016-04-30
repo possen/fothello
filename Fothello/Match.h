@@ -20,14 +20,6 @@ typedef enum PlayerType : NSInteger
     PlayerTypeComputer
 } PlayerType;
 
-typedef enum Difficulty : NSInteger
-{
-    DifficultyNone = 0,
-    DifficultyEasy,
-    DifficultyModerate,
-    DifficultyHard,
-    DifficultyHardest
-} Difficulty;
 
 
 @interface Match : NSObject <NSCoding>

@@ -63,6 +63,7 @@
     self = [super init];
     if (self)
     {
+        _matchOrder = [[NSMutableArray alloc] initWithCapacity:10];
         _matches = [[NSMutableDictionary alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
@@ -83,6 +84,7 @@
     
     if (self)
     {
+        _matchOrder = [coder decodeObjectForKey:@"matchOrder"];
         _players = [coder decodeObjectForKey:@"players"];
         _matches = [coder decodeObjectForKey:@"matches"];
     }
@@ -91,6 +93,7 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
+    [encoder encodeObject:self.matchOrder forKey:@"matchOrder"];
     [encoder encodeObject:self.players forKey:@"players"];
     [encoder encodeObject:self.matches  forKey:@"matches"];
 }
@@ -103,6 +106,7 @@
     
     if ([self.matches objectForKey:name] == nil)
     {
+        [self.matchOrder addObject:name];
         self.matches[name] = match;
         return match;
     }
@@ -163,6 +167,7 @@
 
 - (void)deleteMatch:(NSString *)name
 {
+    [self.matchOrder removeObject:name];
     [self.matches removeObjectForKey:name];
 }
 
@@ -190,6 +195,61 @@
 {
     [self.players removeObject:player];
 }
+
+- (Match *)createMatchFromKind:(NSInteger)kind difficulty:(Difficulty)difficulty
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    
+    Player *player1 = nil;
+    Player *player2 = nil;
+    
+    Class player1StrategyClass;
+    Class player2StrategyClass;
+    
+    switch (kind)
+    {
+        case PlayerKindSelectionHumanVHuman:
+            player1 = [game newPlayerWithName:@"Human 1" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Human 2" preferredPieceColor:PieceColorBlack];
+            player1StrategyClass = [HumanStrategy class];
+            player2StrategyClass = [HumanStrategy class];
+            break;
+        case PlayerKindSelectionHumanVComputer:
+            player1 = [game newPlayerWithName:@"Human" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Computer" preferredPieceColor:PieceColorBlack];
+            player1StrategyClass = [HumanStrategy class];
+            player2StrategyClass = [AIStrategy class];
+            break;
+        case PlayerKindSelectionComputerVHuman:
+            player1 = [game newPlayerWithName:@"Computer" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Human" preferredPieceColor:PieceColorBlack];
+            player1StrategyClass = [AIStrategy class];
+            player2StrategyClass = [HumanStrategy class];
+            break;
+        case PlayerKindSelectionComputerVComputer:
+            player1 = [game newPlayerWithName:@"Computer 1" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Computer 2" preferredPieceColor:PieceColorBlack];
+            player1StrategyClass = [AIStrategy class];
+            player2StrategyClass = [AIStrategy class];
+            break;
+        case PlayerKindSelectionHumanVGameCenter:
+            NSAssert(false, @"not implemented");
+            break;
+        default:
+            NSAssert(false, @"cant find kind");
+    }
+    
+    if (player1 == nil || player2 == nil)
+    {
+        return nil;
+    }
+    
+    Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2] difficulty:difficulty];
+    player1.strategy = [[player1StrategyClass alloc] initWithMatch:match];
+    player2.strategy = [[player2StrategyClass alloc] initWithMatch:match];
+    return match;
+}
+
 
 @end
 

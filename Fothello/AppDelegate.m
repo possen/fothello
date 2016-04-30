@@ -31,8 +31,6 @@
 
 - (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    [game saveGameState];
 }
 
 - (void)application:(UIApplication *)application didDecodeRestorableStateWithCoder:(NSCoder *)coder

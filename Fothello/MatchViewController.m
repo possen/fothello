@@ -147,18 +147,13 @@
 {
     DialogViewController *dvc = segue.sourceViewController;
     
-    UISegmentedControl *playerTypeControl = dvc.playerType;
-    PlayerType playerType = [playerTypeControl selectedSegmentIndex] + 1;
+    PlayerKindSelection kind = [dvc playerKindFromSelections];
     
-    UISegmentedControl *humanControl = dvc.humanPlayerColor;
-    PieceColor pieceColor = [humanControl selectedSegmentIndex] + 1;
-
     UISegmentedControl *difficultyControl = dvc.difficulty;
     Difficulty difficulty = [difficultyControl selectedSegmentIndex] + 1;
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:playerType forKey:@"playerType"];
-    [prefs setInteger:pieceColor forKey:@"humanColor"];
+    [prefs setInteger:kind forKey:@"playerKind"];
     [prefs setInteger:difficulty forKey:@"difficulty"];
     [prefs synchronize];
 
@@ -167,22 +162,13 @@
     [self.match reset]; // clear the board only.
     [self.boardScene teardownMatch];
 
-    [game matchWithDifficulty:difficulty
-             firstPlayerColor:pieceColor
-                 opponentType:playerType];
+    Match *match = [game createMatchFromKind:kind difficulty:difficulty];
+    self.match = match;
+    self.boardScene.match = match;
     
     [self.boardScene setupMatch];
     
     [self.match reset];
-
-    // segment control is zero based add start piece color to map it correctly.
-    if (pieceColor + PieceColorBlack ==  PieceColorWhite)
-    {
-        if (playerType == PlayerTypeComputer)
-            [self.match processOtherTurnsX:-1 Y:-1 pass:YES];
-        else
-            [self.match nextPlayer];
-    }
 }
 
 - (BOOL)allowActionToRun
