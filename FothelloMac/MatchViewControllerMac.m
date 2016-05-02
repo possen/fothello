@@ -37,6 +37,13 @@
     [self resetGame];
 }
 
+- (void)viewDidAppear
+{
+    [super viewDidAppear];
+    
+    [self.boardScene    startVsComputerGameIfSelected];
+}
+
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"NewDocument"])

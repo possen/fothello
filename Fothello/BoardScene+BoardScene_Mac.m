@@ -17,16 +17,4 @@
     [self locationX:positionInScene.x Y:positionInScene.y];
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
-{
-//    CGPoint positionInScene = [theEvent locationInNode:self];
-//    [self screenInteractionEndedAtLocation:positionInScene];
-}
-
-- (void)mouseExited:(NSEvent *)theEvent
-{
-//    CGPoint positionInScene = [theEvent locationInNode:self];
-//    [self screenInteractionEndedAtLocation:positionInScene];
-}
-
 @end

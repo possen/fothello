@@ -28,5 +28,5 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 - (void)setupMatch;
 - (void)teardownMatch;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
-
+- (void)startVsComputerGameIfSelected;
 @end

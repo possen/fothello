@@ -96,7 +96,7 @@
 {
     [self.currentPlayer.strategy pass];
     [self nextPlayer];
-    [self processOtherTurnsX:-1 Y:-1 pass:YES];
+    [self processOtherTurns];
 }
 
 - (void)hint
@@ -314,15 +314,15 @@
 }
 
 
-- (void)nextPlayer
+- (BOOL)nextPlayer
 {
     NSArray<Player *> *players = self.players;
     
     [self endTurn];
     BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
-    self.currentPlayer = self.currentPlayer == players[0]
-    ? players[1]
-    : players[0];
+    self.currentPlayer = (self.currentPlayer == players[0]
+                          ? players[1]
+                          : players[0]);
     
     NSLog(@"current player %@", self.currentPlayer);
     BOOL boardFull = [self.board boardFull];
@@ -330,10 +330,16 @@
     self.currentPlayer.canMove = canMove;
     
     if ((!prevPlayerCouldMove  && !canMove) || boardFull)
+    {
         self.matchStatusBlock(YES);
+        return NO;
+    }
     
     if (self.currentPlayerBlock)
+    {
         self.currentPlayerBlock(self.currentPlayer, canMove);
+    }
+    return YES;
 }
 
 - (BOOL)beginTurn
@@ -350,16 +356,32 @@
     NSLog(@"%@", self.board);
 }
 
-
-- (void)processOtherTurnsX:(NSInteger)humanx Y:(NSInteger)humany pass:(BOOL)pass
+- (void)processOtherTurns
 {
-    while (! self.currentPlayer.strategy.manual)
-    {
-        BOOL placed = [self.currentPlayer takeTurnAtX:humanx Y:humany pass:pass];
-        
-        if (!placed)
-            break;
-    }
+    self.turnProcessing = YES;
+    __block BOOL placed = NO;
+    
+    double delayInSeconds = .5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
+                                            (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    
+    dispatch_after(popTime, dispatch_get_main_queue(),
+       ^(void)
+       {
+           dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+             ^{
+                 placed = [self.currentPlayer takeTurn];
+                 
+                 if (! self.currentPlayer.strategy.manual && placed)
+                 {
+                     [self processOtherTurns];
+                 }
+                 
+                 self.turnProcessing = NO;
+             });
+       });
+    
+    
 }
 
 - (NSInteger)calculateScore:(Player *)player

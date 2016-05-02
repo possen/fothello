@@ -276,6 +276,11 @@ std::string testString(
 
 @implementation AIStrategy
 
+- (BOOL)manual
+{
+    return NO;
+}
+
 - (id)initWithMatch:(Match *)match
 {
     self = [super initWithMatch:match];

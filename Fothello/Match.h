@@ -38,9 +38,9 @@ typedef enum PlayerType : NSInteger
 - (void)undo;
 - (void)redo;
 - (BOOL)done;
-- (void)nextPlayer;
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (void)processOtherTurnsX:(NSInteger)humanX Y:(NSInteger)y pass:(BOOL)pass;
+- (BOOL)nextPlayer;
+- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass; 
+- (void)processOtherTurns;
 - (void)ready;
 - (BOOL)beginTurn;
 - (void)endTurn;
@@ -58,6 +58,7 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
 @property (nonatomic) NSMutableArray<PlayerMove *> *moves;
+@property (nonatomic) BOOL turnProcessing;
 @end
 
 

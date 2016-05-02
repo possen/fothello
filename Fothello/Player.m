@@ -54,6 +54,17 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
+- (BOOL)takeTurn // automatic players
+{
+    BOOL moved = [self.strategy takeTurn:self atX:-1 Y:-1 pass:NO];
+    
+    if (moved)
+    {
+        moved = [self.strategy.match nextPlayer];
+    }
+    return moved;
+}
+
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     BOOL moved = [self.strategy takeTurn:self atX:x Y:y pass:pass];

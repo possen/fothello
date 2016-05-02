@@ -56,7 +56,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    //    [self layoutAnimated:NO];
+    [self.boardScene startComputerVsComputerGameIfSelected];
+
 }
 
 - (void)viewDidLayoutSubviews
@@ -152,11 +153,6 @@
     UISegmentedControl *difficultyControl = dvc.difficulty;
     Difficulty difficulty = [difficultyControl selectedSegmentIndex] + 1;
     
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setInteger:kind forKey:@"playerKind"];
-    [prefs setInteger:difficulty forKey:@"difficulty"];
-    [prefs synchronize];
-
     FothelloGame *game = [FothelloGame sharedInstance];
 
     [self.match reset]; // clear the board only.

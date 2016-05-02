@@ -24,6 +24,7 @@
 @property (nonatomic) BOOL canMove;
 
 - (instancetype)initWithName:(NSString *)name;
+- (BOOL)takeTurn; // automated players don't pass position here. 
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 

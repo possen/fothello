@@ -11,6 +11,7 @@
 #import "Player.h"
 #import "Match.h"
 #import "BoardScene.h"
+#import "Strategy.h"
 
 @implementation BoardScene
 
@@ -84,7 +85,19 @@
     
     [self syncronizeBoardStateWithModel];
     
-    self.currentPlayerSprite = match.currentPlayer.userReference;
+    self.currentPlayerSprite = match.currentPlayer.userReference;    
+}
+
+- (void)startVsComputerGameIfSelected
+{
+    NSArray <Player *> *players = self.match.players;
+    Player *player1 = players[0];
+    Player *player2 = players[1];
+    
+    if (!player1.strategy.manual || !player2.strategy.manual)
+    {
+        [self.match processOtherTurns];
+    }
 }
 
 - (void)teardownMatch
@@ -108,7 +121,7 @@
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy
 {
     // ignore clicks if turn still processing.
-    if (self.turnProcessing && self.gameOverNode)
+    if (self.match.turnProcessing || self.gameOverNode)
         return;
     
     /* Called when a touch begins */
@@ -125,20 +138,7 @@
         
         if (placed)
         {
-            self.turnProcessing = YES;
-            
-            double delayInSeconds = .5;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
-                                                    (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            
-            dispatch_after(popTime,dispatch_get_main_queue(),
-                           ^(void)
-                           {
-                               dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                   [self.match processOtherTurnsX:x Y:y pass:NO]; // x & y represent human player move
-                                   self.turnProcessing = NO;
-                               });
-                           });
+            [self.match processOtherTurns];
         }
     }
 }
