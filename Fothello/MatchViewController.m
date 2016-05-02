@@ -56,7 +56,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.boardScene startComputerVsComputerGameIfSelected];
+    [self.boardScene startVsComputerGameIfSelected];
 
 }
 
