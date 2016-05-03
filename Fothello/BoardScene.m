@@ -310,7 +310,7 @@
                @(PieceColorBlue)    : [SKColor blueColor],
                @(PieceColorGreen)   : [SKColor greenColor],
                @(PieceColorYellow)  : [SKColor yellowColor],
-               @(PieceColorLegal)   : [SKColor darkGrayColor]};
+               @(PieceColorLegal)   : [SKColor blackColor]};
     
     return colors[@(color)];
 }

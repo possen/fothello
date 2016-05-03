@@ -256,7 +256,7 @@
     NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
 
     // briefly highlight position
-    self.highlightBlock(position.x, position.y, PieceColorRed);
+    self.highlightBlock(position.x, position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
     
     BOOL result = [self findTracksX:position.x Y:position.y
                           forPlayer:player
