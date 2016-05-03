@@ -253,6 +253,9 @@
 - (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position
 {
     NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+
+    // briefly highlight position
+    self.highlightBlock(position.x, position.y, PieceColorRed);
     
     BOOL result = [self findTracksX:position.x Y:position.y
                           forPlayer:player
@@ -395,8 +398,8 @@
 }
 
 
-- (void)boxCoord:(NSInteger)dist block:
-(void (^)(Move *position, BOOL isCorner, NSInteger count, BOOL *stop))block
+- (void)boxCoord:(NSInteger)dist
+           block:(void (^)(Move *position, BOOL isCorner, NSInteger count, BOOL *stop))block
 {
     // calculates the positions of the pieces in a box dist from center.
     

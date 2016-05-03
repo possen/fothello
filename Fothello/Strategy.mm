@@ -182,40 +182,45 @@ std::string testString(
     j["color"] = (int)playerColor;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
-    
-    __block NSError *respError = nil;
+   
     __block json r;
-#define NETWORK
-#ifdef NETWORK
-    NSCondition *condition = [[NSCondition alloc] init];
-    NSData *data = [[NSString stringWithCString:s.c_str()
-                                       encoding:[NSString defaultCStringEncoding]
-                     ] dataUsingEncoding:NSUTF8StringEncoding ];
-    
-    __block NSString *respString = nil;
-    FothelloNetworkRequest *request = [[FothelloNetworkRequest alloc] initWithQuery:nil];
-    [self.network sendRequest:request sendData:data completion:
-     ^(NSData *receiveData, NSError *error)
-     {
-         if (error != nil)
-         {
-             NSLog(@"Error %@", error);
-             respError = error;
-         }
-         else
-         {
-             respString = [[NSString alloc] initWithData:receiveData encoding:NSUTF8StringEncoding];
-             r = json::parse([respString cStringUsingEncoding:NSASCIIStringEncoding]);
-         }
-         [condition signal];
-         [condition unlock];
-     }];
-    [condition lock];
-    [condition wait];
-    NSLog(@"Netrequest Complete");
-    if (respError != nil)
-#endif
+    __block NSError *respError = nil;
+
+    bool network = false;
+    if (network)
     {
+        NSCondition *condition = [[NSCondition alloc] init];
+        NSData *data = [[NSString stringWithCString:s.c_str()
+                                           encoding:[NSString defaultCStringEncoding]
+                         ] dataUsingEncoding:NSUTF8StringEncoding ];
+        
+        __block NSString *respString = nil;
+        FothelloNetworkRequest *request = [[FothelloNetworkRequest alloc] initWithQuery:nil];
+        [self.network sendRequest:request sendData:data completion:
+         ^(NSData *receiveData, NSError *error)
+         {
+             if (error != nil)
+             {
+                 NSLog(@"Error %@", error);
+                 respError = error;
+             }
+             else
+             {
+                 respString = [[NSString alloc] initWithData:receiveData encoding:NSUTF8StringEncoding];
+                 r = json::parse([respString cStringUsingEncoding:NSASCIIStringEncoding]);
+             }
+             [condition signal];
+             [condition unlock];
+         }];
+        [condition lock];
+        [condition wait];
+        
+        NSLog(@"Netrequest Complete");
+    }
+
+    if (respError != nil || !network)
+    {
+        // error or network disabled, do processing locally.
         std::string jsonResp = getMoveFromJSON(j.dump(4));
         r = json::parse(jsonResp);
     }

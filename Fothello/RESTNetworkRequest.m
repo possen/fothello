@@ -12,6 +12,7 @@
 @property (nonatomic, copy) NSURL *baseUrl;
 @property (nonatomic, copy) NSString *command;
 @property (nonatomic, copy) NSString *query;
+@property (nonatomic) NSURLSession *session;
 @end
 
 @implementation RESTNetworkRequest
@@ -25,6 +26,9 @@
         _baseUrl = [NSURL URLWithString:baseUrlStr];
         _command = command;
         _query = query ? [NSString stringWithFormat:@"?%@", query] : nil;
+        _session = [NSURLSession sharedSession];
+        _session.configuration.timeoutIntervalForResource = 10;
+
     }
     return self;
 }
@@ -40,9 +44,8 @@
     urlRequest.HTTPBody = postData;
     urlRequest.HTTPMethod = @"POST";
 
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionTask *task = [session dataTaskWithRequest:urlRequest
-                                        completionHandler:
+    NSURLSessionTask *task = [self.session dataTaskWithRequest:urlRequest
+                                             completionHandler:
     ^(NSData *data, NSURLResponse *response, NSError *error) {
         completion(data, error);
     }];

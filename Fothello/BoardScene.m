@@ -83,6 +83,11 @@
              });
         };
     
+    match.highlightBlock = ^(NSInteger x, NSInteger y, PieceColor color)
+    {
+        [self higlightAtX:x y:y color:color];
+    };
+    
     [self syncronizeBoardStateWithModel];
     
     self.currentPlayerSprite = match.currentPlayer.userReference;    
@@ -122,17 +127,20 @@
 {
     // ignore clicks if turn still processing.
     if (self.match.turnProcessing || self.gameOverNode)
+    {
         return;
+    }
     
     /* Called when a touch begins */
     CGRect boardRect = self.boardRect;
     NSInteger boardSize = self.boardSize;
     NSInteger spacing = self.boardDimensions / self.boardSize;
     
-    NSInteger x = (rawx - boardRect.origin.x) / spacing;
-    NSInteger y = (rawy - boardRect.origin.y) / spacing;
+    CGFloat x = (rawx - boardRect.origin.x) / spacing;
+    CGFloat y = (rawy - boardRect.origin.y) / spacing;
     
-    if (x < boardSize && y < boardSize && !self.turnProcessing)
+    if (x >= 0 && x < boardSize && y >= 0 && y < boardSize &&
+        !self.turnProcessing)
     {
         BOOL placed = [self.match takeTurnAtX:x Y:y pass:NO];
         
@@ -146,7 +154,9 @@
 - (void)displayGameOver
 {
     if (self.gameOverNode)
+    {
         return;
+    }
     
     Match *match = self.match;
     Player *player1 = match.players[0];
@@ -201,6 +211,7 @@
     SKNode *node1 = player1.userReference;
     SKNode *playerName1 = [playerNode1 childNodeWithName:@"playerName"];
     [playerName1 runAction:[SKAction fadeAlphaTo:0 duration:1]];
+    
     [node1 runAction:
      [SKAction group:
         @[[SKAction moveToX:self.frame.size.width / 4 - playerNode1.frame.size.width/2 duration:1],
@@ -288,6 +299,22 @@
     [self addChild:myLabel];
 }
 
+- (SKColor *)skColorFromPieceColor:(PieceColor)color
+{
+    static NSDictionary *colors = nil;
+    
+    colors = @{@(PieceColorNone)    : [SKColor clearColor],
+               @(PieceColorWhite)   : [SKColor whiteColor],
+               @(PieceColorBlack)   : [SKColor blackColor],
+               @(PieceColorRed)     : [SKColor redColor],
+               @(PieceColorBlue)    : [SKColor blueColor],
+               @(PieceColorGreen)   : [SKColor greenColor],
+               @(PieceColorYellow)  : [SKColor yellowColor],
+               @(PieceColorLegal)   : [SKColor darkGrayColor]};
+    
+    return colors[@(color)];
+}
+
 - (SKNode *)makePieceWithColor:(PieceColor)color size:(CGSize)size
 {
     SKShapeNode *pieceSprite = [[SKShapeNode alloc] init];
@@ -299,7 +326,7 @@
     CFRelease(myPath);
     
     pieceSprite.lineWidth = 1.0;
-    pieceSprite.fillColor = color == PieceColorWhite ? [SKColor whiteColor] : [SKColor blackColor];
+    pieceSprite.fillColor = [self skColorFromPieceColor:color];
     pieceSprite.strokeColor = [SKColor lightGrayColor];
     pieceSprite.glowWidth = 0.5;
     return pieceSprite;
@@ -349,8 +376,8 @@
 
 - (void)displayCurrentPlayer:(Player *)player
 {
-//    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
-//    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:0];
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:0];
     Match *match = self.match;
     self.currentPlayerSprite = player.userReference;
     
@@ -363,19 +390,20 @@
     
     SKNode *piece = [self.currentPlayerSprite childNodeWithName:@"piece"];
     
-//    if (!player.strategy.manual)
-//    {
-//        [piece runAction:
-//             [SKAction repeatActionForever:
-//             [SKAction sequence:@[fadeIn, fadeOut]]]];
-//    }
-//    else
+    if (!player.strategy.manual)
+    {
+        [piece runAction:
+             [SKAction repeatActionForever:
+             [SKAction sequence:@[fadeIn, fadeOut]]]];
+    }
+    else
     {
         [piece removeAllActions];
         [piece runAction:
          [SKAction fadeAlphaTo:1 duration:0]];
     }
 }
+
 - (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
 {
     NSInteger boardSize = self.boardSize;
@@ -425,10 +453,26 @@
     }
 }
 
-
-- (void)update:(CFTimeInterval)currentTime
+- (void)higlightAtX:(NSInteger)x y:(NSInteger)y color:(PieceColor)color
 {
-    /* Called before each frame is rendered */
+    if (x < 0 || y < 0)
+    {
+        return;
+    }
+    
+    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:NO];
+    SKNode *sprite = [self makePieceWithColor:color size:spriteSize];
+    sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:NO];
+    sprite.alpha = 1.0;
+    
+    SKAction *action = [SKAction fadeAlphaTo:0 duration:.5];
+ 
+    [self addChild:sprite];
+    
+    [sprite runAction:action completion:
+     ^{
+        [sprite removeFromParent];
+    }];
 }
 
 @end

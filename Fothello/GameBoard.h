@@ -65,6 +65,7 @@ typedef struct Delta
 
 typedef void (^PlaceBlock)(NSArray<PlayerMove *> *pieces);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
+typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 #pragma mark - Piece -

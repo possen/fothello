@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, PieceColor)
     PieceColorNone,
     PieceColorBlack,
     PieceColorWhite,
-    PieceColorRed,     // for 3 or more players
+    PieceColorRed,     
     PieceColorBlue,
     PieceColorGreen,
     PieceColorYellow,

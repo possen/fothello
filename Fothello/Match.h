@@ -57,6 +57,7 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic) Difficulty difficulty; // only used by AIStrategy
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
+@property (nonatomic, copy) HighlightBlock highlightBlock;
 @property (nonatomic) NSMutableArray<PlayerMove *> *moves;
 @property (nonatomic) BOOL turnProcessing;
 @end
