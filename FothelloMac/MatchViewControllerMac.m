@@ -53,9 +53,14 @@
     }
 }
 
-- (void)dismissed
+- (void)dismissed:(BOOL)cancel playerKind:(PlayerKindSelection)playerKind difficulty:(Difficulty)difficulty
 {
-    [self resetGame];
+    if (!cancel)
+    {
+        self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
+                                                               difficulty:difficulty];
+        [self resetGame];
+    }
 }
 
 - (void)resetGame
@@ -117,7 +122,7 @@
 
 - (IBAction)hint:(id)sender
 {
-    [self.match pass];
+    [self.match hint];
 }
 
 - (IBAction)undo:(id)sender

@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FothelloGame.h"
 
 @protocol DismissDelegate <NSObject>
-- (void)dismissed;
+- (void)dismissed:(BOOL)cancel playerKind:(PlayerKindSelection)playerKind difficulty:(Difficulty)difficulty;
 @end
 
 @interface NewGameViewController : NSViewController

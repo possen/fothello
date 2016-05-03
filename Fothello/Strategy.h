@@ -28,7 +28,7 @@
 - (void)pass;
 - (void)convertBoard;
 - (Move *)calculateMoveForPlayer:(Player *)player;
-
+- (void)hintForPlayer:(Player *)player;
 
 @end
 

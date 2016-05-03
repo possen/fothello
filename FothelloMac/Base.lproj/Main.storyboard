@@ -333,6 +333,9 @@
                                 <buttonCell key="cell" type="push" title="Start" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" focusRingType="exterior" imageScaling="proportionallyDown" inset="2" id="913-OF-Hgx">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                     <connections>
                                         <action selector="dismissController:" target="44d-nH-sKd" id="XxL-hs-5pX"/>
                                     </connections>
@@ -354,8 +357,10 @@ Gw
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="noz-NA-inJ" id="qsl-bw-9zl"/>
                         <outlet property="difficultyButton" destination="dva-hb-2wS" id="hc4-EJ-mAJ"/>
                         <outlet property="difficultyLabel" destination="DGy-Go-7JQ" id="Ico-bW-2kY"/>
+                        <outlet property="okButton" destination="5fE-pA-t8G" id="DpQ-rX-E6t"/>
                         <outlet property="playerKinds" destination="Ujy-PH-R26" id="Dyl-Iv-MWK"/>
                     </connections>
                 </viewController>

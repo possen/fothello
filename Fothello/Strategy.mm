@@ -241,6 +241,9 @@ std::string testString(
     return [Move positionWithX:ax y:ay pass:NO];
 }
 
+- (void)hintForPlayer:(Player *)player
+{
+}
 
 @end
 
@@ -265,11 +268,11 @@ std::string testString(
     return placed;
 }
 
-- (BOOL)hintForPlayer:(Player *)player
+- (void)hintForPlayer:(Player *)player
 {
     Move *position = [self calculateMoveForPlayer:player];
     
-    return [self.match showHintForPlayer:player position:position];
+    [self.match showHintForPlayer:player position:position];
 }
 @end
 
@@ -291,6 +294,7 @@ std::string testString(
     self = [super initWithMatch:match];
     if (self)
     {
+        self.difficulty = DifficultyEasy;
     }
     return self;
 }
@@ -300,6 +304,7 @@ std::string testString(
     self = [super initWithCoder:aDecoder];
     if (self)
     {
+        self.difficulty = (Difficulty)[aDecoder decodeIntegerForKey:@"difficulty"];
     }
     return self;
 }
@@ -319,6 +324,7 @@ std::string testString(
     Match *match = self.match;
     return [match placePieceForPlayer:player position:position];
 }
+
 
 @end
 

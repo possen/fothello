@@ -17,6 +17,8 @@
 @property (weak) IBOutlet NSPopUpButton *difficultyButton;
 @property (weak) IBOutlet NSTextField *difficultyLabel;
 @property (weak) IBOutlet NSPopUpButton *playerKinds;
+@property (weak) IBOutlet NSButton *cancelButton;
+@property (weak) IBOutlet NSButton *okButton;
 @end
 
 @implementation NewGameViewController
@@ -43,12 +45,10 @@
 
 - (IBAction)dismissController:(id)sender
 {
-    [super dismissController:sender];
-    MatchViewControllerMac *parent = (MatchViewControllerMac *)self.presentingViewController;
+    [super dismissController:sender];    
 
-    parent.match = [[FothelloGame sharedInstance] createMatchFromKind:self.playerKinds.selectedTag difficulty:self.difficultyButton.selectedTag];
-    
-    [self.delegate dismissed];
-    [parent resetGame];
+    [self.delegate dismissed:sender == self.cancelButton
+                  playerKind:self.playerKinds.selectedTag
+                  difficulty:self.difficultyButton.selectedTag];
 }
 @end

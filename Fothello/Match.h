@@ -29,7 +29,7 @@ typedef enum PlayerType : NSInteger
                   difficulty:(Difficulty)difficulty;
 
 - (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position;
-- (BOOL)showHintForPlayer:(Player *)player position:(Move *)position;
+- (void)showHintForPlayer:(Player *)player position:(Move *)position;
 
 - (void)reset;
 - (void)test;

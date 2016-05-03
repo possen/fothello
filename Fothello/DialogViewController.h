@@ -10,7 +10,7 @@
 #import "FothelloGame.h"
 
 @protocol DismissDelegate <NSObject>
-- (void)dismissed;
+- (void)dismissed:(BOOL)cancelled;
 @end
 
 @interface DialogViewController : UIViewController

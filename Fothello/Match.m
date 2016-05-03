@@ -99,10 +99,6 @@
     [self processOtherTurns];
 }
 
-- (void)hint
-{
-    
-}
 
 - (void)undo
 {
@@ -112,6 +108,11 @@
 - (void)redo
 {
     
+}
+
+- (void)hint
+{
+    [self.currentPlayer.strategy hintForPlayer:self.currentPlayer];
 }
 
 - (void)reset
@@ -284,9 +285,9 @@
     return result;
 }
 
-- (BOOL)showHintForPlayer:(Player *)player position:(Move *)position
+- (void)showHintForPlayer:(Player *)player position:(Move *)position
 {
-    return NO;
+    self.highlightBlock(position.x, position.y, player.color);
 }
 
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
