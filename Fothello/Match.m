@@ -214,7 +214,7 @@
         Delta diff = [self determineDirection:direction];
         
         NSInteger offsetx = move.position.x; NSInteger offsety = move.position.y;
-        Piece *piece = move.piece;
+        Piece *piece;
         
         NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
         
@@ -224,7 +224,7 @@
         
         do {
             offsetx += diff.dx; offsety += diff.dy;
-            Piece *piece = [self.board pieceAtPositionX:offsetx Y:offsety];
+            piece = [self.board pieceAtPositionX:offsetx Y:offsety];
             valid = piece && ![piece isClear]; // make sure it is on board and not clear.
             
             if (valid)
@@ -392,8 +392,6 @@
                  self.turnProcessing = NO;
              });
        });
-    
-    
 }
 
 - (NSInteger)calculateScore:(Player *)player
@@ -456,7 +454,6 @@
     return NO;
 }
 
-
 - (void)test
 {
     NSLog(@"player %@ score %ld", self.players[0],
@@ -465,7 +462,6 @@
     NSLog(@"player %@ score %ld", self.players[1],
           (long)[self calculateScore:self.players[1]]);
 }
-
 
 - (BOOL)isEqual:(id)name
 {
