@@ -76,10 +76,10 @@
 
 + (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)pos
 {
-    BoardPiece *move = [[BoardPiece alloc] init];
-    move.piece = piece;
-    move.position = pos;
-    return move;
+    BoardPiece *boardPiece = [[BoardPiece alloc] init];
+    boardPiece.piece = piece;
+    boardPiece.position = pos;
+    return boardPiece;
 }
 
 - (NSUInteger)hash
@@ -312,10 +312,11 @@
      }];
     
     if (self.placeBlock)
+    {
         self.placeBlock(moves);
+    }
     
     [self.piecesPlayed removeAllObjects];
-   
 }
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block

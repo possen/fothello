@@ -239,7 +239,9 @@
         if (valid && piece.color == player.color && track.count > 1)
         {
             if (trackBlock)
+            {
                 trackBlock(track);
+            }
             found = YES;
         }
     }
@@ -257,7 +259,9 @@
     // check that piece is on board and we are placing on clear space
     Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
     if (piece == nil || ![piece isClear])
+    {
         return NO;
+    }
     
     // add the piece to the list of moves.
     PlayerMove *move = [self addMovePiece:piece position:position];
@@ -354,10 +358,8 @@
 
 - (BOOL)beginTurn
 {
-    BOOL found = [self.currentPlayer.strategy displaylegalMoves:YES forPlayer:self.currentPlayer];
-    return found;
+    return [self.currentPlayer.strategy displaylegalMoves:YES forPlayer:self.currentPlayer];
 }
-
 
 - (void)endTurn
 {
