@@ -70,7 +70,9 @@
             ^{
                 [weakBlockSelf displayCurrentPlayer:player];
                 if (weakBlockSelf.updatePlayerMove)
+                {
                     weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
+                }
             });
         };
 
@@ -79,7 +81,9 @@
             dispatch_async(dispatch_get_main_queue(),
             ^{
                 if (gameOver)
+                {
                     [weakBlockSelf displayGameOver];
+                }
              });
         };
     

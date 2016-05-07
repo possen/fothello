@@ -224,7 +224,7 @@
         
         do {
             offsetx += diff.dx; offsety += diff.dy;
-            piece = [self.board pieceAtPositionX:offsetx Y:offsety];
+            Piece *piece = [self.board pieceAtPositionX:offsetx Y:offsety];
             valid = piece && ![piece isClear]; // make sure it is on board and not clear.
             
             if (valid)
