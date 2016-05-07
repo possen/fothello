@@ -94,6 +94,9 @@
 
 - (void)pass
 {
+    Piece *piece = [[Piece alloc] initWithColor:self.currentPlayer.color];    
+    BoardPosition *pos = [BoardPosition positionWithPass];
+    [self addMovePiece:piece position:pos];
     [self.currentPlayer.strategy pass];
     [self nextPlayer];
     [self processOtherTurns];
@@ -127,10 +130,10 @@
     [board reset];
     
     NSArray<Player *> *players = self.players;
-    Move *center = board.center;
+    BoardPosition *center = board.center;
     
     [self boxCoord:1 block:
-     ^(Move *position, BOOL isCorner, NSInteger count, BOOL *stop)
+     ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
      {
          NSInteger playerCount = (count) % self.players.count;
          
@@ -193,10 +196,9 @@
 }
 
 
-- (BOOL)findTracksX:(NSInteger)x
-                  Y:(NSInteger)y
-          forPlayer:(Player *)player
-         trackBlock:(void (^)(NSArray<TrackInfo *> *pieces))trackBlock
+- (BOOL)findTracksForMove:(PlayerMove *)move
+                forPlayer:(Player *)player
+               trackBlock:(void (^)(NSArray<PlayerMove *> *pieces))trackBlock
 {
     // calls block for each direction that has a successful track
     // does not call for invalid tracks. Will call back for each complete track.
@@ -206,19 +208,15 @@
     
     BOOL found = NO;
     
-    // check that piece is on board and we are placing on clear space
-    Piece *piece = [self.board pieceAtPositionX:x Y:y];
-    if (piece == nil || ![piece isClear])
-        return NO;
-    
     // try each direction, to see if there is a track
     for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
     {
         Delta diff = [self determineDirection:direction];
         
-        NSInteger offsetx = x; NSInteger offsety = y;
+        NSInteger offsetx = move.position.x; NSInteger offsety = move.position.y;
+        Piece *piece = move.piece;
         
-        NSMutableArray<TrackInfo *> *track = [[NSMutableArray alloc] initWithCapacity:10];
+        NSMutableArray<PlayerMove *> *track = [[NSMutableArray alloc] initWithCapacity:10];
         
         // keep adding pieces until we hit a piece of the same color, edge of board or
         // clear space.
@@ -231,10 +229,8 @@
             
             if (valid)
             {
-                TrackInfo *trackInfo = [[TrackInfo alloc] init];
-                trackInfo.x = offsetx;
-                trackInfo.y = offsety;
-                trackInfo.piece = piece;
+                BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
+                PlayerMove *trackInfo = [PlayerMove makeMoveWithPiece:piece position:offset];
                 [track addObject:trackInfo];
             }
         } while (valid && piece.color != player.color);
@@ -251,29 +247,39 @@
     return found;
 }
 
-- (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position
+- (BOOL)placePieceForPlayer:(Player *)player position:(BoardPosition *)position
 {
     NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
 
     // briefly highlight position
     self.highlightBlock(position.x, position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+
+    // check that piece is on board and we are placing on clear space
+    Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
+    if (piece == nil || ![piece isClear])
+        return NO;
     
-    BOOL result = [self findTracksX:position.x Y:position.y
+    // add the piece to the list of moves.
+    PlayerMove *move = [self addMovePiece:piece position:position];
+
+    BOOL result = [self findTracksForMove:move
                           forPlayer:player
                          trackBlock:
                    ^(NSArray<Piece *> *trackInfo)
                    {
                        Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
                        [self.board changePiece:piece withColor:player.color];
-                       [pieces addObject:[PlayerMove makePiecePositionX:position.x Y:position.y piece:piece pass:position.pass]];
-                       for (TrackInfo *trackItem in trackInfo)
+                       PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
+                       [pieces addObject:move];
+                       
+                       for (PlayerMove *trackItem in trackInfo)
                        {
                            piece = trackItem.piece;
-                           NSInteger x = trackItem.x;
-                           NSInteger y = trackItem.y;
+                           NSInteger x = trackItem.position.x;
+                           NSInteger y = trackItem.position.y;
                            [self.board changePiece:piece withColor:player.color];
-                           
-                           [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+                           BoardPosition *position = [BoardPosition positionWithX:x y:y];
+                           [pieces addObject:[PlayerMove makeMoveWithPiece:piece position:position]];
                        }
                    }];
     
@@ -285,7 +291,7 @@
     return result;
 }
 
-- (void)showHintForPlayer:(Player *)player position:(Move *)position
+- (void)showHintForPlayer:(Player *)player position:(BoardPosition *)position
 {
     self.highlightBlock(position.x, position.y, player.color);
 }
@@ -400,14 +406,14 @@
 
 
 - (void)boxCoord:(NSInteger)dist
-           block:(void (^)(Move *position, BOOL isCorner, NSInteger count, BOOL *stop))block
+           block:(void (^)(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop))block
 {
     // calculates the positions of the pieces in a box dist from center.
     
     dist = (dist - 1) * 2 + 1; // skip even rings
     
     // calculate start position
-    Move *position = [Move new];
+    BoardPosition *position = [BoardPosition new];
     position.x = dist - dist / 2;
     position.y = dist - dist / 2;
     
@@ -429,13 +435,19 @@
     }
 }
 
-- (void)addMoveAtX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass
+- (PlayerMove *)addMovePiece:(Piece *)piece position:(BoardPosition *)position
 {
-    PlayerMove *move = [PlayerMove makePiecePositionX:x Y:y piece:piece pass:pass];
-    
+    PlayerMove *move = [PlayerMove makeMoveWithPiece:
+                        piece position:position];
     [self.moves addObject:move];
+    return move;
 }
 
+- (void)removeMovePiece:(Piece *)piece position:(BoardPosition *)position
+{
+    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
+    [self.moves removeObject:move];
+}
 
 - (BOOL)done
 {

@@ -366,7 +366,7 @@
     }
 }
 
-- (void)movePieceTo:(Move *)pos
+- (void)movePieceTo:(BoardPosition *)pos
 {
     CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
     SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];

@@ -94,9 +94,11 @@ using json = nlohmann::json;
         // Determine moves
         [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
          {
-             BOOL foundMove = [match findTracksX:x Y:y
-                                       forPlayer:player
-                                      trackBlock:nil];
+             BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+             PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
+             BOOL foundMove = [match findTracksForMove:move
+                                             forPlayer:player
+                                            trackBlock:nil];
              if (foundMove)
              {
                  Piece *piece = [board pieceAtPositionX:x Y:y];
@@ -107,7 +109,7 @@ using json = nlohmann::json;
                      
                      if (self.manual)
                      {
-                         [moves addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+                         [moves addObject:[PlayerMove makeMoveWithPiece:piece position:boardPosition]];
                      }
                  }
                  foundLegal = YES;
@@ -121,7 +123,9 @@ using json = nlohmann::json;
              if (piece.color == PieceColorLegal)
              {
                  [board changePiece:piece withColor:PieceColorNone];
-                 [moves addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+                 BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+
+                 [moves addObject:[PlayerMove makeMoveWithPiece:piece position:boardPosition]];
              }
          }];
     }
@@ -161,7 +165,7 @@ std::string testString(
                        "\"moveNum\": 2"
                        "}");
 
-- (Move *)calculateMoveForPlayer:(Player *)player
+- (PlayerMove *)calculateMoveForPlayer:(Player *)player
 {
     Board *board = makeBoard();
     int moveNum = (int)self.match.board.piecesPlayed.count;
@@ -225,20 +229,21 @@ std::string testString(
         r = json::parse(jsonResp);
     }
     
+    Piece *piece = [[Piece alloc] initWithColor:player.color];
+    
     if (r["pass"].get<bool>())
     {
         [self.match pass];
-        return [Move positionWithPass];
+        BoardPosition *boardPosition = [BoardPosition positionWithPass];
+        return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
     }
     
     NSInteger ay = r["movey"].get<int>();
     NSInteger ax = r["movex"].get<int>();
     
-    Move *point = [[Move alloc] init];
-    point.x = ax;
-    point.y = ay;
-    
-    return [Move positionWithX:ax y:ay pass:NO];
+    BoardPosition *boardPosition = [BoardPosition positionWithX:ax y:ay];
+
+    return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
 }
 
 - (void)hintForPlayer:(Player *)player
@@ -260,19 +265,19 @@ std::string testString(
 {
     [super takeTurn:player atX:x Y:y pass:pass];
     
-    Move *position = [Move positionWithX:x y:y pass:pass];
+    Piece *piece = [[Piece alloc] initWithColor:player.color];
+    BoardPosition *position = [BoardPosition positionWithX:x y:y pass:pass];
+    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
     
     Match *match = self.match;
-    
-    BOOL placed = [match placePieceForPlayer:player position:position];
-    return placed;
+    return [match placePieceForPlayer:player position:move.position];;
 }
 
 - (void)hintForPlayer:(Player *)player
 {
-    Move *position = [self calculateMoveForPlayer:player];
+    PlayerMove *move = [self calculateMoveForPlayer:player];
     
-    [self.match showHintForPlayer:player position:position];
+    [self.match showHintForPlayer:player position:move.position];
 }
 @end
 
@@ -319,10 +324,10 @@ std::string testString(
 
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
-    Move *position = [self calculateMoveForPlayer:player];
+    PlayerMove *move = [self calculateMoveForPlayer:player];
 
     Match *match = self.match;
-    return [match placePieceForPlayer:player position:position];
+    return [match placePieceForPlayer:player position:move.position];
 }
 
 

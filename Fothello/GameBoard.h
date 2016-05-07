@@ -34,7 +34,7 @@ typedef struct Delta
 
 #pragma mark - Move -
 
-@interface Move : NSObject
+@interface BoardPosition : NSObject
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 @property (nonatomic, readonly) BOOL pass;
@@ -43,24 +43,18 @@ typedef struct Delta
 - (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;
 
 + (instancetype)positionWithPass;
++ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y;
 + (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass;
+
 @end
-
-#pragma mark - TrackInfo -
-
-@interface TrackInfo : NSObject
-@property (nonatomic) Piece *piece;
-@property (nonatomic) NSInteger x;
-@property (nonatomic) NSInteger y;
-@end
-
 
 #pragma mark - PlayerMove -
 
 @interface PlayerMove : NSObject
 @property (nonatomic) Piece *piece;
-@property (nonatomic) Move *position;
-+ (PlayerMove *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass;
+@property (nonatomic) BoardPosition *position;
+
++ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
 @end
 
 typedef void (^PlaceBlock)(NSArray<PlayerMove *> *pieces);
@@ -73,6 +67,8 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 @interface Piece : NSObject <NSCoding>
 @property (nonatomic) PieceColor color;
 @property (nonatomic) id userReference; // Store reference to UI object
+
+- (instancetype)initWithColor:(PieceColor)color;
 
 - (BOOL)isClear;
 - (void)clear;
@@ -88,7 +84,7 @@ typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)reset;
-- (Move *)center;
+- (BoardPosition *)center;
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
 - (void)changePiece:(Piece *)piece withColor:(PieceColor)color;
 - (BOOL)boardFull;

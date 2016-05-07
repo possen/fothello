@@ -11,7 +11,7 @@
 #import "Strategy.h"
 
 @class Player;
-@class Move;
+@class BoardPosition;
 
 #pragma mark - Strategy -
 
@@ -27,7 +27,7 @@
 - (void)resetWithDifficulty:(Difficulty)difficulty;
 - (void)pass;
 - (void)convertBoard;
-- (Move *)calculateMoveForPlayer:(Player *)player;
+- (PlayerMove *)calculateMoveForPlayer:(Player *)player;
 - (void)hintForPlayer:(Player *)player;
 
 @end

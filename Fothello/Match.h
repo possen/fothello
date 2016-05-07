@@ -28,8 +28,8 @@ typedef enum PlayerType : NSInteger
                      players:(NSArray<Player *> *)players
                   difficulty:(Difficulty)difficulty;
 
-- (BOOL)placePieceForPlayer:(Player *)player position:(Move *)position;
-- (void)showHintForPlayer:(Player *)player position:(Move *)position;
+- (BOOL)placePieceForPlayer:(Player *)player position:(BoardPosition *)position;
+- (void)showHintForPlayer:(Player *)player position:(BoardPosition *)position;
 
 - (void)reset;
 - (void)test;
@@ -45,10 +45,9 @@ typedef enum PlayerType : NSInteger
 - (BOOL)beginTurn;
 - (void)endTurn;
 - (NSInteger)calculateScore:(Player *)player;
-- (BOOL)findTracksX:(NSInteger)x
-                  Y:(NSInteger)y
-          forPlayer:(Player *)player
-         trackBlock:(void (^)(NSArray<TrackInfo *> *pieces))trackBlock;
+- (BOOL)findTracksForMove:(PlayerMove *)move
+                forPlayer:(Player *)player
+               trackBlock:(void (^)(NSArray<PlayerMove *> *positions))trackBlock;
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic) GameBoard *board;

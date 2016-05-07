@@ -10,23 +10,27 @@
 #import "GameBoard.h"
 #import "Player.h"
 
-@implementation TrackInfo
-@end
 
 #pragma mark - Move -
 
-@implementation Move
+@implementation BoardPosition
 
 + (instancetype)positionWithPass
 {
-    return [[Move alloc] initWithPass];
+    return [[BoardPosition alloc] initWithPass];
 }
 
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass
++ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y
 {
-    Move *position = pass ? [Move positionWithPass] : [[Move alloc] initWithX:x Y:y];
+    BoardPosition *position = [[BoardPosition alloc] initWithX:x Y:y];
     return position;
 }
++ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass
+{
+    BoardPosition *position = pass ? [[BoardPosition alloc] initWithPass] : [[BoardPosition alloc] initWithX:x Y:y];
+    return position;
+}
+
 
 - (BOOL)pass
 {
@@ -54,27 +58,57 @@
     }
     return self;
 }
+
+- (NSUInteger)hash
+{
+    return self.x ^ self.y;
+}
+
+- (BOOL)isEqual:(BoardPosition *)object
+{
+    return self.x == object.x && self.y == object.y;
+}
 @end
 
 #pragma mark - PlayerMove -
 
 @implementation PlayerMove
-+ (PlayerMove *)makePiecePositionX:(NSInteger)x Y:(NSInteger)y piece:(Piece *)piece pass:(BOOL)pass
+
++ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)pos
 {
-    Move *pos = [Move new];
-    pos.x = x;
-    pos.y = y;
-    PlayerMove *piecePosition = [[PlayerMove alloc] init];
-    piecePosition.position = pos;
-    piecePosition.piece = piece;
-    return piecePosition;
+    PlayerMove *move = [[PlayerMove alloc] init];
+    move.piece = piece;
+    move.position = pos;
+    return move;
 }
+
+- (NSUInteger)hash
+{
+    return self.position.hash ^ self.piece.color;
+}
+
+- (BOOL)isEqual:(PlayerMove *)other
+{
+    return [self.position isEqual:other.position]
+        && self.piece.color == other.piece.color;
+}
+
 @end
 
 
 #pragma mark - Piece -
 
 @implementation Piece
+
+- (instancetype)initWithColor:(PieceColor)color
+{
+    self = [super init];
+    if (self)
+    {
+        _color = color;
+    }
+    return self;
+}
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -255,9 +289,9 @@
     [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
 }
 
-- (Move *)center
+- (BoardPosition *)center
 {
-    Move *pos = [Move new];
+    BoardPosition *pos = [BoardPosition new];
     pos.x = self.size / 2 - 1; // zero based counting
     pos.y = self.size / 2 - 1;
     return pos;
@@ -273,7 +307,8 @@
          [piece clear];
          if (self.placeBlock)
          {
-             [moves addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+             [moves addObject:[PlayerMove makeMoveWithPiece:piece position:pos]];
          }
      }];
     
@@ -319,7 +354,8 @@
     [self changePiece:piece withColor:player.color];
     
     NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    [pieces addObject:[PlayerMove makePiecePositionX:x Y:y piece:piece pass:NO]];
+    BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+    [pieces addObject:[PlayerMove makeMoveWithPiece:piece position:pos]];
     
     if (self.placeBlock)
     {

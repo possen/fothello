@@ -260,7 +260,7 @@
                             </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ujy-PH-R26">
                                 <rect key="frame" x="105" y="77" width="253" height="26"/>
-                                <popUpButtonCell key="cell" type="push" title="Human vs. Computer" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="5CS-P6-sJ1" id="BO1-K9-gbw">
+                                <popUpButtonCell key="cell" type="push" title="Game Center Match" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="4" imageScaling="proportionallyDown" inset="2" selectedItem="gYR-Fs-LhG" id="BO1-K9-gbw">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
                                     <menu key="menu" id="yGN-Os-ktY">
@@ -269,7 +269,7 @@
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <accessibility identifier="HvH"/>
                                             </menuItem>
-                                            <menuItem title="Human vs. Computer" state="on" tag="1" id="5CS-P6-sJ1">
+                                            <menuItem title="Human vs. Computer" tag="1" id="5CS-P6-sJ1">
                                                 <accessibility identifier="HvC"/>
                                             </menuItem>
                                             <menuItem title="Computer vs. Human" tag="2" id="J6J-UC-o7X">
@@ -280,7 +280,7 @@
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <accessibility identifier="CvC"/>
                                             </menuItem>
-                                            <menuItem title="Game Center Match" tag="4" id="gYR-Fs-LhG">
+                                            <menuItem title="Game Center Match" state="on" tag="4" id="gYR-Fs-LhG">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                                 <accessibility identifier="HvG"/>
                                             </menuItem>
