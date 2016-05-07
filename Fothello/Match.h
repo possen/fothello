@@ -20,6 +20,10 @@ typedef enum PlayerType : NSInteger
     PlayerTypeComputer
 } PlayerType;
 
+// specifically a move that can be replayed.
+@interface PlayerMove : BoardPiece
++ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
+@end
 
 
 @interface Match : NSObject <NSCoding>
@@ -47,7 +51,7 @@ typedef enum PlayerType : NSInteger
 - (NSInteger)calculateScore:(Player *)player;
 - (BOOL)findTracksForMove:(PlayerMove *)move
                 forPlayer:(Player *)player
-               trackBlock:(void (^)(NSArray<PlayerMove *> *positions))trackBlock;
+               trackBlock:(void (^)(NSArray<BoardPiece *> *positions))trackBlock;
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic) GameBoard *board;

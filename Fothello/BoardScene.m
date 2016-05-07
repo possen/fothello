@@ -52,7 +52,7 @@
             
             dispatch_async(dispatch_get_main_queue(),
             ^{
-                for (PlayerMove *piecePosition in piecePositions)
+                for (BoardPiece *piecePosition in piecePositions)
                 {
                     NSLog(@"piece %d x:%ld y:%ld", (int)piecePosition.piece.color, (long)piecePosition.position.x, (long)piecePosition.position.y);
 

@@ -88,7 +88,7 @@ using json = nlohmann::json;
     GameBoard *board = match.board;
     __block BOOL foundLegal = NO;
     
-    NSMutableArray<PlayerMove *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<BoardPiece *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
     if (display)
     {
         // Determine moves
@@ -109,7 +109,7 @@ using json = nlohmann::json;
                      
                      if (self.manual)
                      {
-                         [moves addObject:[PlayerMove makeMoveWithPiece:piece position:boardPosition]];
+                         [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
                      }
                  }
                  foundLegal = YES;
@@ -125,7 +125,7 @@ using json = nlohmann::json;
                  [board changePiece:piece withColor:PieceColorNone];
                  BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
 
-                 [moves addObject:[PlayerMove makeMoveWithPiece:piece position:boardPosition]];
+                 [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
              }
          }];
     }

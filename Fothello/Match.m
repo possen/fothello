@@ -198,7 +198,7 @@
 
 - (BOOL)findTracksForMove:(PlayerMove *)move
                 forPlayer:(Player *)player
-               trackBlock:(void (^)(NSArray<PlayerMove *> *pieces))trackBlock
+               trackBlock:(void (^)(NSArray<BoardPiece *> *pieces))trackBlock
 {
     // calls block for each direction that has a successful track
     // does not call for invalid tracks. Will call back for each complete track.
@@ -216,7 +216,7 @@
         NSInteger offsetx = move.position.x; NSInteger offsety = move.position.y;
         Piece *piece = move.piece;
         
-        NSMutableArray<PlayerMove *> *track = [[NSMutableArray alloc] initWithCapacity:10];
+        NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
         
         // keep adding pieces until we hit a piece of the same color, edge of board or
         // clear space.
@@ -230,7 +230,7 @@
             if (valid)
             {
                 BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
-                PlayerMove *trackInfo = [PlayerMove makeMoveWithPiece:piece position:offset];
+                BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset];
                 [track addObject:trackInfo];
             }
         } while (valid && piece.color != player.color);
@@ -249,7 +249,7 @@
 
 - (BOOL)placePieceForPlayer:(Player *)player position:(BoardPosition *)position
 {
-    NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
 
     // briefly highlight position
     self.highlightBlock(position.x, position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
@@ -269,17 +269,17 @@
                    {
                        Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
                        [self.board changePiece:piece withColor:player.color];
-                       PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
+                       BoardPiece *move = [BoardPiece makeBoardPieceWithPiece:piece position:position];
                        [pieces addObject:move];
                        
-                       for (PlayerMove *trackItem in trackInfo)
+                       for (BoardPiece *trackItem in trackInfo)
                        {
                            piece = trackItem.piece;
                            NSInteger x = trackItem.position.x;
                            NSInteger y = trackItem.position.y;
                            [self.board changePiece:piece withColor:player.color];
                            BoardPosition *position = [BoardPosition positionWithX:x y:y];
-                           [pieces addObject:[PlayerMove makeMoveWithPiece:piece position:position]];
+                           [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:position]];
                        }
                    }];
     
@@ -475,3 +475,18 @@
     return self.name.hash;
 }
 @end
+
+#pragma mark - PlayerMove -
+
+@implementation PlayerMove
+
++ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)pos
+{
+    PlayerMove *move = [[PlayerMove alloc] init];
+    move.piece = piece;
+    move.position = pos;
+    return move;
+}
+
+@end
+

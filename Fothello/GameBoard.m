@@ -70,13 +70,13 @@
 }
 @end
 
-#pragma mark - PlayerMove -
+#pragma mark - BoardPiece -
 
-@implementation PlayerMove
+@implementation BoardPiece
 
-+ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)pos
++ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)pos
 {
-    PlayerMove *move = [[PlayerMove alloc] init];
+    BoardPiece *move = [[BoardPiece alloc] init];
     move.piece = piece;
     move.position = pos;
     return move;
@@ -87,14 +87,13 @@
     return self.position.hash ^ self.piece.color;
 }
 
-- (BOOL)isEqual:(PlayerMove *)other
+- (BOOL)isEqual:(BoardPiece *)other
 {
     return [self.position isEqual:other.position]
         && self.piece.color == other.piece.color;
 }
 
 @end
-
 
 #pragma mark - Piece -
 
@@ -300,7 +299,7 @@
 - (void)reset
 {
     // erase board.
-    NSMutableArray<PlayerMove *> *moves = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<BoardPiece *> *moves = [[NSMutableArray alloc] initWithCapacity:10];
     
     [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
@@ -308,7 +307,7 @@
          if (self.placeBlock)
          {
              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             [moves addObject:[PlayerMove makeMoveWithPiece:piece position:pos]];
+             [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
          }
      }];
     
@@ -353,9 +352,9 @@
     
     [self changePiece:piece withColor:player.color];
     
-    NSMutableArray<PlayerMove *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-    [pieces addObject:[PlayerMove makeMoveWithPiece:piece position:pos]];
+    [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
     
     if (self.placeBlock)
     {

@@ -48,16 +48,17 @@ typedef struct Delta
 
 @end
 
-#pragma mark - PlayerMove -
+#pragma mark - BoardPiece -
 
-@interface PlayerMove : NSObject
+// used more generically for any color and position on the board.
+@interface BoardPiece : NSObject
 @property (nonatomic) Piece *piece;
 @property (nonatomic) BoardPosition *position;
-
-+ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
++ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)position;
 @end
 
-typedef void (^PlaceBlock)(NSArray<PlayerMove *> *pieces);
+
+typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
 typedef void (^MatchStatusBlock)(BOOL gameOver);
