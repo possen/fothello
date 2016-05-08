@@ -36,6 +36,7 @@ typedef enum PlayerType : NSInteger
 - (BOOL)placeMove:(PlayerMove *)move forPlayer:(Player *)player;
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player;
 
+- (void)fullReset;
 - (void)reset;
 - (void)test;
 - (void)pass;
@@ -62,8 +63,11 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
 @property (nonatomic, copy) HighlightBlock highlightBlock;
-@property (nonatomic) NSMutableArray<PlayerMove *> *moves;
 @property (nonatomic) BOOL turnProcessing;
+@property (nonatomic) NSMutableArray *redos;
+@property (nonatomic) NSMutableArray<PlayerMove *> *moves;
+@property (nonatomic, readonly) BOOL areAllPlayersComputers;
+@property (nonatomic, readonly) BOOL isAnyPlayerAComputer;
 @end
 
 

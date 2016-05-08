@@ -98,12 +98,8 @@
 }
 
 - (void)startVsComputerGameIfSelected
-{
-    NSArray <Player *> *players = self.match.players;
-    Player *player1 = players[0];
-    Player *player2 = players[1];
-    
-    if (!player1.strategy.manual || !player2.strategy.manual)
+{    
+    if ([self.match isAnyPlayerAComputer])
     {
         [self.match processOtherTurns];
     }

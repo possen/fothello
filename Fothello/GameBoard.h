@@ -37,7 +37,7 @@ typedef struct Delta
 @interface BoardPosition : NSObject
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
-@property (nonatomic, readonly) BOOL pass;
+@property (nonatomic, readonly, getter=isPass) BOOL pass;
 
 - (instancetype)initWithPass;
 - (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;

@@ -16,6 +16,9 @@
 
 #pragma mark - Match -
 
+@interface Match ()
+@end
+
 @implementation Match
 
 - (instancetype)initWithName:(NSString *)name
@@ -34,6 +37,7 @@
         _difficulty = difficulty;
         _currentPlayer = players[0];
         _moves = [[NSMutableArray alloc] initWithCapacity:64];
+        _redos = [[NSMutableArray alloc] initWithCapacity:64];
         [self setupPlayersColors];
         _board = [[GameBoard alloc] initWithBoardSize:8];
         [self reset];
@@ -102,15 +106,45 @@
     [self processOtherTurns];
 }
 
+- (void)replayMoves
+{
+    [self reset];
+    
+    for (PlayerMove *move in [self.moves copy])
+    {
+        [self takeTurnAtX:move.position.x Y:move.position.y pass:move.position.isPass];
+    }
+}
 
 - (void)undo
 {
+    [self removeMove];
     
+    if ([self isAnyPlayerAComputer])
+    {
+        [self removeMove];
+    }
+
+    [self reset];
+    [self replayMoves];
 }
 
 - (void)redo
 {
+    if (self.redos.count == 0)
+    {
+        return;
+    }
     
+    for (Player *player in self.players)
+    {
+        if (!player.strategy.manual)
+        {
+            PlayerMove *move = [self.redos lastObject];
+            [self.redos removeLastObject];
+            [self takeTurnAtX:move.position.x Y:move.position.y pass:move.position.isPass];
+        }
+    }
 }
 
 - (void)hint
@@ -118,11 +152,21 @@
     [self.currentPlayer.strategy hintForPlayer:self.currentPlayer];
 }
 
+- (void)fullReset
+{
+    self.currentPlayer = self.players[0];
+    [self.redos removeAllObjects];
+    [self.moves removeAllObjects];
+    [self reset];
+    [self ready];
+}
+
 - (void)reset
 {
     [self endTurn];
-    self.currentPlayer = self.players[0];
-    for (Player *player in self.players) {
+    
+    for (Player *player in self.players)
+    {
         [player.strategy resetWithDifficulty:self.difficulty];
     }
     
@@ -140,8 +184,6 @@
          [board player:players[playerCount]
       pieceAtPositionX:center.x + position.x
                      Y:center.y + position.y];
-         
-         count++;
      }];
     
     NSLog(@"\n%@\n", [board toString]);
@@ -436,15 +478,24 @@
     }
 }
 
+- (void)resetRedos
+{
+    [self.redos removeAllObjects];
+}
+
 - (PlayerMove *)addMove:(PlayerMove *)move
 {
     [self.moves addObject:move];
+    [self resetRedos];
     return move;
 }
 
-- (void)removeMove:(PlayerMove *)move
+- (PlayerMove *)removeMove
 {
-    [self.moves removeObject:move];
+    PlayerMove *move = [self.moves lastObject];
+    [self.redos addObject:move];
+    [self.moves removeLastObject];
+    return move;
 }
 
 - (BOOL)done
@@ -470,6 +521,32 @@
 {
     return self.name.hash;
 }
+
+- (BOOL)isAnyPlayerAComputer
+{
+    return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop)
+    {
+        if (!player.strategy.manual)
+        {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }].count != 0;
+}
+
+- (BOOL)areAllPlayersComputers
+{
+    return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop)
+            {
+                if (!player.strategy.manual)
+                {
+                    return YES;
+                }
+                return NO;
+            }].count == self.players.count;
+}
+
 @end
 
 #pragma mark - PlayerMove -
@@ -490,6 +567,11 @@
     move.piece = piece;
     move.position = [BoardPosition positionWithPass];
     return move;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%ld %ld %@", (long)self.position.x, (long)self.position.y, self.piece];
 }
 @end
 

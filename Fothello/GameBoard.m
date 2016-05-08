@@ -299,7 +299,7 @@
 - (void)reset
 {
     // erase board.
-    NSMutableArray<BoardPiece *> *moves = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
     [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
@@ -307,13 +307,13 @@
          if (self.placeBlock)
          {
              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
+             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
          }
      }];
     
     if (self.placeBlock)
     {
-        self.placeBlock(moves);
+        self.placeBlock(pieces);
     }
     
     [self.piecesPlayed removeAllObjects];

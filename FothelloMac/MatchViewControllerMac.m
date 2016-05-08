@@ -41,7 +41,7 @@
 {
     [super viewDidAppear];
     
-    [self.boardScene    startVsComputerGameIfSelected];
+    [self.boardScene startVsComputerGameIfSelected];
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
@@ -58,7 +58,7 @@
     if (!cancel)
     {
         self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
-                                                               difficulty:difficulty];
+                                                             difficulty:difficulty];
         [self resetGame];
     }
 }
@@ -86,8 +86,7 @@
     // Present the scene.
     [skView presentScene:scene];
     
-    [self.match ready];
-    [self.match reset];
+    [self.match fullReset];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
@@ -117,7 +116,7 @@
 
 - (IBAction)resetGame:(id)sender
 {
-    [self.match reset];
+    [self.match fullReset];
 }
 
 - (IBAction)hint:(id)sender
@@ -143,8 +142,19 @@
     {
         return !self.canMove;
     }
+    
+    BOOL computersOnly = [self.match areAllPlayersComputers];
+    if (theAction == @selector(redo:))
+    {
+        return self.match.redos.count != 0 && !computersOnly;
+    }
 
-    return TRUE;
+    if (theAction == @selector(undo:))
+    {
+        return self.match.moves.count != 0 && !computersOnly;
+    }
+
+    return YES;
 }
 
 @end

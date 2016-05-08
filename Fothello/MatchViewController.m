@@ -164,7 +164,7 @@
     
     [self.boardScene setupMatch];
     
-    [self.match reset];
+    [self.match fullReset];
 }
 
 - (BOOL)allowActionToRun
@@ -179,7 +179,7 @@
 
 - (IBAction)resetGame:(UIButton *)sender
 {
-    [self.match reset];
+    [self.match fullReset];
 }
 
 - (IBAction)hint:(UIButton *)sender
