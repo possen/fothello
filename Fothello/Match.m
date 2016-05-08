@@ -101,7 +101,6 @@
     Piece *piece = [[Piece alloc] initWithColor:self.currentPlayer.color];    
     PlayerMove *move = [PlayerMove makePassMoveWithPiece:piece];
     [self addMove:move];
-    [self.currentPlayer.strategy pass];
     [self nextPlayer];
     [self processOtherTurns];
 }
@@ -155,6 +154,7 @@
 - (void)fullReset
 {
     self.currentPlayer = self.players[0];
+
     [self.redos removeAllObjects];
     [self.moves removeAllObjects];
     [self reset];
@@ -164,11 +164,6 @@
 - (void)reset
 {
     [self endTurn];
-    
-    for (Player *player in self.players)
-    {
-        [player.strategy resetWithDifficulty:self.difficulty];
-    }
     
     GameBoard *board = self.board;
     [board reset];
@@ -348,17 +343,9 @@
 {
     [self endTurn];
 
-    BOOL otherPlayersMoved = NO;
-    for (Player *player in self.players)
-    {
-        if (player != self.currentPlayer)
-        {
-            otherPlayersMoved |= [player otherPlayer:player movedToX:x Y:y pass:pass];
-        }
-    }
 
     BOOL moved = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
-    if (!otherPlayersMoved && !moved)
+    if (!moved)
     {
         return NO; // game over
     }

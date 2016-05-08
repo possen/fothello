@@ -76,11 +76,6 @@
     return moved;
 }
 
-- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    return [self.strategy otherPlayer:player movedToX:x Y:y pass:pass];
-}
-
 - (BOOL)isEqual:(id)name
 {
     return [self.name isEqualToString:name];

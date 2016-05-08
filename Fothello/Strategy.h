@@ -22,11 +22,7 @@
 
 - (id)initWithMatch:(Match *)match;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player;
-- (void)resetWithDifficulty:(Difficulty)difficulty;
-- (void)pass;
-- (void)convertBoard;
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player;
 - (void)hintForPlayer:(Player *)player;
 

@@ -70,18 +70,6 @@ using json = nlohmann::json;
     return NO;
 }
 
-- (BOOL)otherPlayer:(Player *)player movedToX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    // subclass
-    return YES;
-}
-
-
-- (void)convertBoard
-{
-    // subclass
-}
-
 - (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player
 {
     Match *match = self.match;
@@ -134,16 +122,6 @@ using json = nlohmann::json;
     board.placeBlock(moves);
     
     return foundLegal;
-}
-
-- (void)resetWithDifficulty:(Difficulty)difficulty
-{
-    // subclass
-}
-
-- (void)pass
-{
-    // subclass
 }
 
 
