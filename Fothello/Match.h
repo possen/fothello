@@ -23,6 +23,7 @@ typedef enum PlayerType : NSInteger
 // specifically a move that can be replayed.
 @interface PlayerMove : BoardPiece
 + (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
++ (PlayerMove *)makePassMoveWithPiece:(Piece *)piece;
 @end
 
 
@@ -32,8 +33,8 @@ typedef enum PlayerType : NSInteger
                      players:(NSArray<Player *> *)players
                   difficulty:(Difficulty)difficulty;
 
-- (BOOL)placePieceForPlayer:(Player *)player position:(BoardPosition *)position;
-- (void)showHintForPlayer:(Player *)player position:(BoardPosition *)position;
+- (BOOL)placeMove:(PlayerMove *)move forPlayer:(Player *)player;
+- (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player;
 
 - (void)reset;
 - (void)test;

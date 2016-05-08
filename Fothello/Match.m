@@ -95,8 +95,8 @@
 - (void)pass
 {
     Piece *piece = [[Piece alloc] initWithColor:self.currentPlayer.color];    
-    BoardPosition *pos = [BoardPosition positionWithPass];
-    [self addMovePiece:piece position:pos];
+    PlayerMove *move = [PlayerMove makePassMoveWithPiece:piece];
+    [self addMove:move];
     [self.currentPlayer.strategy pass];
     [self nextPlayer];
     [self processOtherTurns];
@@ -208,6 +208,13 @@
     
     BOOL found = NO;
     
+    // check that piece is on board and we are placing on clear space
+    Piece *piece = [self.board pieceAtPositionX:move.position.x Y:move.position.y];
+    if (piece == nil || ![piece isClear])
+    {
+        return NO;
+    }
+   
     // try each direction, to see if there is a track
     for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
     {
@@ -249,23 +256,15 @@
     return found;
 }
 
-- (BOOL)placePieceForPlayer:(Player *)player position:(BoardPosition *)position
+- (BOOL)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    BoardPosition *position = move.position;
 
     // briefly highlight position
-    self.highlightBlock(position.x, position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+    self.highlightBlock(position.x, move.position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
 
-    // check that piece is on board and we are placing on clear space
-    Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
-    if (piece == nil || ![piece isClear])
-    {
-        return NO;
-    }
     
-    // add the piece to the list of moves.
-    PlayerMove *move = [self addMovePiece:piece position:position];
-
     BOOL result = [self findTracksForMove:move
                           forPlayer:player
                          trackBlock:
@@ -273,7 +272,10 @@
                    {
                        Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
                        [self.board changePiece:piece withColor:player.color];
-                       BoardPiece *move = [BoardPiece makeBoardPieceWithPiece:piece position:position];
+                       
+                       // add the piece to the list of moves.
+                       [self addMove:move];
+                       
                        [pieces addObject:move];
                        
                        for (BoardPiece *trackItem in trackInfo)
@@ -295,9 +297,9 @@
     return result;
 }
 
-- (void)showHintForPlayer:(Player *)player position:(BoardPosition *)position
+- (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    self.highlightBlock(position.x, position.y, player.color);
+    self.highlightBlock(move.position.x, move.position.y, player.color);
 }
 
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
@@ -413,9 +415,8 @@
     dist = (dist - 1) * 2 + 1; // skip even rings
     
     // calculate start position
-    BoardPosition *position = [BoardPosition new];
-    position.x = dist - dist / 2;
-    position.y = dist - dist / 2;
+    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2
+                                                         y:dist - dist / 2];
     
     // calculate how many pieces to place.
     // Four times dist for the number of directions
@@ -435,17 +436,14 @@
     }
 }
 
-- (PlayerMove *)addMovePiece:(Piece *)piece position:(BoardPosition *)position
+- (PlayerMove *)addMove:(PlayerMove *)move
 {
-    PlayerMove *move = [PlayerMove makeMoveWithPiece:
-                        piece position:position];
     [self.moves addObject:move];
     return move;
 }
 
-- (void)removeMovePiece:(Piece *)piece position:(BoardPosition *)position
+- (void)removeMove:(PlayerMove *)move
 {
-    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
     [self.moves removeObject:move];
 }
 
@@ -486,5 +484,12 @@
     return move;
 }
 
++ (PlayerMove *)makePassMoveWithPiece:(Piece *)piece
+{
+    PlayerMove *move = [[PlayerMove alloc] init];
+    move.piece = piece;
+    move.position = [BoardPosition positionWithPass];
+    return move;
+}
 @end
 

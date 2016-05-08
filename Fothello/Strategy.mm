@@ -89,6 +89,7 @@ using json = nlohmann::json;
     __block BOOL foundLegal = NO;
     
     NSMutableArray<BoardPiece *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
+    
     if (display)
     {
         // Determine moves
@@ -270,14 +271,13 @@ std::string testString(
     PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
     
     Match *match = self.match;
-    return [match placePieceForPlayer:player position:move.position];;
+    return [match placeMove:move forPlayer:player];
 }
 
 - (void)hintForPlayer:(Player *)player
 {
     PlayerMove *move = [self calculateMoveForPlayer:player];
-    
-    [self.match showHintForPlayer:player position:move.position];
+    [self.match showHintMove:move forPlayer:player];
 }
 @end
 
@@ -327,7 +327,7 @@ std::string testString(
     PlayerMove *move = [self calculateMoveForPlayer:player];
 
     Match *match = self.match;
-    return [match placePieceForPlayer:player position:move.position];
+    return [match placeMove:move forPlayer:player];
 }
 
 
