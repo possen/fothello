@@ -57,11 +57,7 @@ typedef struct Delta
 + (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)position;
 @end
 
-
 typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
-typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
-typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
-typedef void (^MatchStatusBlock)(BOOL gameOver);
 
 #pragma mark - Piece -
 

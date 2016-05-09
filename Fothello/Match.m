@@ -157,6 +157,9 @@
 
     [self.redos removeAllObjects];
     [self.moves removeAllObjects];
+    if (self.movesUpdateBlock) {
+        self.movesUpdateBlock();
+    }
     [self reset];
     [self ready];
 }
@@ -474,6 +477,9 @@
 {
     [self.moves addObject:move];
     [self resetRedos];
+    if (self.movesUpdateBlock) {
+        self.movesUpdateBlock();
+    }
     return move;
 }
 
@@ -482,6 +488,9 @@
     PlayerMove *move = [self.moves lastObject];
     [self.redos addObject:move];
     [self.moves removeLastObject];
+    if (self.movesUpdateBlock) {
+        self.movesUpdateBlock();
+    }
     return move;
 }
 

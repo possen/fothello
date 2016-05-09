@@ -20,6 +20,11 @@ typedef enum PlayerType : NSInteger
     PlayerTypeComputer
 } PlayerType;
 
+typedef void (^MatchStatusBlock)(BOOL gameOver);
+typedef void (^MovesUpdateBlock)();
+typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
+typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
+
 // specifically a move that can be replayed.
 @interface PlayerMove : BoardPiece
 + (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
@@ -63,9 +68,11 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
 @property (nonatomic, copy) HighlightBlock highlightBlock;
+@property (nonatomic, copy) MovesUpdateBlock movesUpdateBlock;
+@property (nonatomic) NSMutableArray<PlayerMove *> *moves;
+
 @property (nonatomic) BOOL turnProcessing;
 @property (nonatomic) NSMutableArray *redos;
-@property (nonatomic) NSMutableArray<PlayerMove *> *moves;
 @property (nonatomic, readonly) BOOL areAllPlayersComputers;
 @property (nonatomic, readonly) BOOL isAnyPlayerAComputer;
 @end
