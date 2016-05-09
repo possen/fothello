@@ -56,7 +56,8 @@
 
 - (BOOL)takeTurn // automatic players
 {
-    BOOL moved = [self.strategy takeTurn:self atX:-1 Y:-1 pass:NO];
+    // -2 just means to ignore the passed values. Only used from human players.
+    BOOL moved = [self.strategy takeTurn:self atX:-2 Y:-2 pass:NO];
     
     if (moved)
     {

@@ -25,12 +25,12 @@
     BoardPosition *position = [[BoardPosition alloc] initWithX:x Y:y];
     return position;
 }
+
 + (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass
 {
     BoardPosition *position = pass ? [[BoardPosition alloc] initWithPass] : [[BoardPosition alloc] initWithX:x Y:y];
     return position;
 }
-
 
 - (BOOL)pass
 {
@@ -127,7 +127,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"pieceColor %@",self.colorStringRepresentation];
+    return [NSString stringWithFormat:@"%@",self.colorStringRepresentation];
 }
 
 - (BOOL)isClear
@@ -186,7 +186,6 @@
     }
 }
 
-
 @end
 
 
@@ -231,8 +230,9 @@
 
 - (void)updateColor:(Piece *)piece incdec:(NSInteger)incDec
 {
-    if ([piece isClear])
+    if ([piece isClear]) {
         return;
+    }
     
     NSNumber *key = @(piece.color);
     NSNumber *count = self.piecesPlayed[key];
@@ -251,11 +251,14 @@
 - (BOOL)boardFull
 {
     NSInteger total = 0;
+    
     for (NSNumber *key in self.piecesPlayed)
     {
         NSInteger score = [self.piecesPlayed[key] integerValue];
         if (score == 0)
+        {
             return YES; // all white or all black.
+        }
         
         total += score;
     }
@@ -272,6 +275,7 @@
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
+    
     if (self)
     {
         self.grid = [coder decodeObjectForKey:@"grid"];

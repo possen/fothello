@@ -20,6 +20,25 @@
 
 using json = nlohmann::json;
 
+// This shows the json format of the data to send to the calc engine.
+std::string testString(
+                       "\"{"
+                       "\"board\":"
+                       "\"----------\\n"
+                       "|........|\\n"
+                       "|........|\\n"
+                       "|........|\\n"
+                       "|..XXX...|\\n"
+                       "|...XO...|\\n"
+                       "|........|\\n"
+                       "|........|\\n"
+                       "|........|\\n"
+                       "----------\\n\","
+                       "\"color\": 2,"
+                       "\"difficulty\": 1,"
+                       "\"moveNum\": 2"
+                       "}");
+
 #pragma mark - Strategy -
 
 @interface Strategy ()
@@ -124,26 +143,6 @@ using json = nlohmann::json;
     return foundLegal;
 }
 
-
-// This shows the json format of the data to send to the calc engine.
-std::string testString(
-                       "\"{"
-                       "\"board\":"
-                       "\"----------\\n"
-                       "|........|\\n"
-                       "|........|\\n"
-                       "|........|\\n"
-                       "|..XXX...|\\n"
-                       "|...XO...|\\n"
-                       "|........|\\n"
-                       "|........|\\n"
-                       "|........|\\n"
-                       "----------\\n\","
-                       "\"color\": 2,"
-                       "\"difficulty\": 1,"
-                       "\"moveNum\": 2"
-                       "}");
-
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player
 {
     Board *board = makeBoard();
@@ -221,7 +220,6 @@ std::string testString(
     NSInteger ax = r["movex"].get<int>();
     
     BoardPosition *boardPosition = [BoardPosition positionWithX:ax y:ay];
-
     return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
 }
 

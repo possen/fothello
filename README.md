@@ -10,24 +10,24 @@ SpriteKit and eventually GameKit.
 Capabilities
 ------------
 * Model handles persisting games and related information.
-* Model supports boards of larger than 8x8.
-* Model handles the naming conflicts and preferred piece colors for a player
-* Model lets you store a game for later play.
-* Model has a callback mechanism to get tracks of what pieces will be flipped by a move.
 * It is designed to support more than two players at once (thus the multiple colors other than black and white). 
 * It reports correct or bad moves. 
 * Allows different strategies for each player. 
 * legal move display
 * challenging play with Mini Othello for AI Strategy.
+* hints
+* Undo
+* Redo
+* Mac and iOS
+* Move display (mac only right now)
+
 
 To Do
 -----
-* Undo
 * Allow users to enter their names
 * Add gamekit.
 * UI for managing users, selecting competitors and selecting multiple manual players. 
 * more than 2 players?
-* add hints
 
 Classes
 =======

@@ -304,17 +304,17 @@
     // briefly highlight position
     self.highlightBlock(position.x, move.position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
 
-    
     BOOL result = [self findTracksForMove:move
                           forPlayer:player
                          trackBlock:
                    ^(NSArray<Piece *> *trackInfo)
                    {
+                       // add the piece to the list of moves.
+                       if ([self addMove:move] == nil)
+                           return;
+
                        Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
                        [self.board changePiece:piece withColor:player.color];
-                       
-                       // add the piece to the list of moves.
-                       [self addMove:move];
                        
                        [pieces addObject:move];
                        
@@ -475,6 +475,8 @@
 
 - (PlayerMove *)addMove:(PlayerMove *)move
 {
+    if ([self.moves containsObject:move])
+        return nil; // dont add twice
     [self.moves addObject:move];
     [self resetRedos];
     if (self.movesUpdateBlock) {
@@ -567,7 +569,9 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%ld %ld %@", (long)self.position.x, (long)self.position.y, self.piece];
+    return (self.position.x != -1)
+            ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, self.piece]
+            : [NSString stringWithFormat:@"Pass %@", self.piece];
 }
 @end
 
