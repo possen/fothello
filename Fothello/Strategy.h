@@ -22,7 +22,7 @@
 
 - (id)initWithMatch:(Match *)match;
 - (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player;
+- (BOOL)displayLegalMoves:(BOOL)display forPlayer:(Player *)player;
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player;
 - (void)hintForPlayer:(Player *)player;
 

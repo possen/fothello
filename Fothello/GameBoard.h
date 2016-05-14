@@ -75,8 +75,9 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 
 @interface GameBoard : NSObject <NSCoding>
 
-- (id)initWithBoardSize:(NSInteger)size;
+- (id)initWithBoardSize:(NSInteger)size queue:(dispatch_queue_t)queue;
 - (id)initWithBoardSize:(NSInteger)size
+                  queue:(dispatch_queue_t)queue
        piecePlacedBlock:(PlaceBlock)block;
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
@@ -89,6 +90,8 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 - (NSString *)toStringAscii;
 - (NSInteger)playerScore:(Player *)player;
 - (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
+- (void)updateBoardWithMoves:(NSArray <BoardPiece *> *)moves;
+- (void)updateBoardWithFunction:(NSArray<BoardPiece *> *(^)())updateFunction;
 
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;

@@ -89,59 +89,62 @@ std::string testString(
     return NO;
 }
 
-- (BOOL)displaylegalMoves:(BOOL)display forPlayer:(Player *)player
+- (BOOL)displayLegalMoves:(BOOL)display forPlayer:(Player *)player
 {
     Match *match = self.match;
     GameBoard *board = match.board;
     __block BOOL foundLegal = NO;
-    
-    NSMutableArray<BoardPiece *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    if (display)
-    {
-        // Determine moves
-        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-         {
-             BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-             PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
-             BOOL foundMove = [match findTracksForMove:move
-                                             forPlayer:player
-                                            trackBlock:nil];
-             if (foundMove)
-             {
-                 Piece *piece = [board pieceAtPositionX:x Y:y];
-                 PieceColor color = display ? PieceColorLegal : PieceColorNone;
-                 if (piece.color != color)
-                 {
-                     [board changePiece:piece withColor:color];
-                     
-                     if (self.manual)
-                     {
-                         [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
-                     }
-                 }
-                 foundLegal = YES;
-             }
-         }];
-    }
-    else
-    {
-        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-         {
-             if (piece.color == PieceColorLegal)
-             {
-                 [board changePiece:piece withColor:PieceColorNone];
-                 BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
 
-                 [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
-             }
-         }];
-    }
-    
-    board.placeBlock(moves);
+    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    {
+        NSMutableArray<BoardPiece *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
+        
+        if (display)
+        {
+            // Determine moves
+            [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+             {
+                 BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+                 PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
+                 BOOL foundMove = [match findTracksForMove:move
+                                                 forPlayer:player
+                                                trackBlock:nil];
+                 if (foundMove)
+                 {
+                     Piece *piece = [board pieceAtPositionX:x Y:y];
+                     PieceColor color = display ? PieceColorLegal : PieceColorNone;
+                     if (piece.color != color)
+                     {
+                         [board changePiece:piece withColor:color];
+                         
+                         if (self.manual)
+                         {
+                             [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
+                         }
+                     }
+                     foundLegal = YES;
+                 }
+             }];
+        }
+        else
+        {
+            [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+             {
+                 if (piece.color == PieceColorLegal)
+                 {
+                     [board changePiece:piece withColor:PieceColorNone];
+                     BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+                     
+                     [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
+                 }
+             }];
+        }
+        return moves;
+    }];
     
     return foundLegal;
 }
+
 
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player
 {
@@ -225,6 +228,7 @@ std::string testString(
 
 - (void)hintForPlayer:(Player *)player
 {
+    // subclass 
 }
 
 @end

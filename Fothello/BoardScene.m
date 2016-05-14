@@ -1,4 +1,4 @@
-//
+ //
 //  MyScene.m
 //  Fothello
 //
@@ -42,50 +42,49 @@
     __weak BoardScene *weakBlockSelf = self;
 
     // whenever a piece is placed on board calls back to here.
-    match.board.placeBlock =
-        ^(NSArray *piecePositions)
+    match.board.placeBlock = ^(NSArray<BoardPiece *> *piecePositions)
+    {
+        if (piecePositions.count == 0)
         {
-            if (piecePositions.count == 0)
-            {
-                return;
-            }
-            
-            dispatch_async(dispatch_get_main_queue(),
-            ^{
-                for (BoardPiece *piecePosition in piecePositions)
-                {
-                    NSLog(@"piece %d x:%ld y:%ld", (int)piecePosition.piece.color, (long)piecePosition.position.x, (long)piecePosition.position.y);
-
-                    [weakBlockSelf placeSpriteAtX:piecePosition.position.x
-                                                Y:piecePosition.position.y
-                                        withPiece:piecePosition.piece];
-                }
-            });
-        };
+            return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           [self printMoves:piecePositions];
+                       
+                           for (BoardPiece *piecePosition in piecePositions)
+                           {
+                               [weakBlockSelf placeSpriteAtX:piecePosition.position.x
+                                                           Y:piecePosition.position.y
+                                                   withPiece:piecePosition.piece];
+                           }
+                       });
+    };
     
-    match.currentPlayerBlock =
-        ^(Player *player, BOOL canMove)
-        {
-            dispatch_async(dispatch_get_main_queue(),
-            ^{
-                [weakBlockSelf displayCurrentPlayer:player];
-                if (weakBlockSelf.updatePlayerMove)
-                {
-                    weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
-                }
-            });
-        };
+    match.currentPlayerBlock = ^(Player *player, BOOL canMove)
+    {
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           [weakBlockSelf displayCurrentPlayer:player];
+                           
+                           if (weakBlockSelf.updatePlayerMove)
+                           {
+                               weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
+                           }
+                       });
+    };
 
     match.matchStatusBlock = ^(BOOL gameOver)
-        {
-            dispatch_async(dispatch_get_main_queue(),
-            ^{
-                if (gameOver)
-                {
-                    [weakBlockSelf displayGameOver];
-                }
-             });
-        };
+    {
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           if (gameOver)
+                           {
+                               [weakBlockSelf displayGameOver];
+                           }
+                       });
+    };
     
     match.highlightBlock = ^(NSInteger x, NSInteger y, PieceColor color)
     {
@@ -97,8 +96,18 @@
     self.currentPlayerSprite = match.currentPlayer.userReference;    
 }
 
+- (void)printMoves:(NSArray<BoardPiece *> *)piecePositions
+{
+    NSLog(@"(%ld){", piecePositions.count);
+    for (BoardPiece *piece in piecePositions)
+    {
+        NSLog(@"%@", piece);
+    }
+    NSLog(@"}");
+}
+
 - (void)startVsComputerGameIfSelected
-{    
+{
     if ([self.match isAnyPlayerAComputer])
     {
         [self.match processOtherTurns];

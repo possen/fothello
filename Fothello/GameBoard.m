@@ -93,6 +93,13 @@
         && self.piece.color == other.piece.color;
 }
 
+- (NSString *)description
+{
+    return (self.position.x != -1)
+    ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, self.piece.description]
+    : [NSString stringWithFormat:@"Pass %@", self.piece.description];
+}
+
 @end
 
 #pragma mark - Piece -
@@ -191,14 +198,18 @@
 
 #pragma mark - GameBoard -
 
+@interface GameBoard ()
+@property (nonatomic) dispatch_queue_t queue;
+@end
+
 @implementation GameBoard
 
-- (instancetype)initWithBoardSize:(NSInteger)size
+- (instancetype)initWithBoardSize:(NSInteger)size queue:(dispatch_queue_t)queue
 {
-    return [self initWithBoardSize:size piecePlacedBlock:nil];
+    return [self initWithBoardSize:size queue:queue piecePlacedBlock:nil ];
 }
 
-- (instancetype)initWithBoardSize:(NSInteger)size piecePlacedBlock:(PlaceBlock)block
+- (instancetype)initWithBoardSize:(NSInteger)size queue:(dispatch_queue_t)queue piecePlacedBlock:(PlaceBlock)block
 {
     self = [super init];
     
@@ -219,6 +230,7 @@
         }
         
         _size = size;
+        _queue = queue;
     }
     return self;
 }
@@ -302,23 +314,23 @@
 
 - (void)reset
 {
-    // erase board.
-    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-     {
-         [piece clear];
-         if (self.placeBlock)
-         {
-             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
-         }
-     }];
-    
-    if (self.placeBlock)
+    [self updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
-        self.placeBlock(pieces);
-    }
+        // erase board.
+        NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+        
+        [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+         {
+             [piece clear];
+             
+             if (self.placeBlock)
+             {
+                 BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
+             }
+         }];
+        return pieces;
+    }];
     
     [self.piecesPlayed removeAllObjects];
 }
@@ -335,6 +347,25 @@
             
             block(x, y, piece);
         }
+    }
+}
+
+// lets the work for the update occur in the processing queue rather than the queue
+// is is being called from.
+- (void)updateBoardWithFunction:(NSArray<BoardPiece *> *(^)())updateFunction
+{
+    NSArray<BoardPiece *> *moves = updateFunction();
+    [self updateBoardWithMoves:moves];
+}
+
+- (void)updateBoardWithMoves:(NSArray <BoardPiece *> *)moves
+{
+    if (self.placeBlock != nil)
+    {
+        dispatch_async(self.queue,
+        ^{
+           self.placeBlock(moves);
+        });
     }
 }
 
@@ -356,15 +387,7 @@
     Piece *piece = [self pieceAtPositionX:x Y:y];
     
     [self changePiece:piece withColor:player.color];
-    
-    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-    [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
-    
-    if (self.placeBlock)
-    {
-        self.placeBlock(pieces);
-    }
+        
     return YES;
 }
 

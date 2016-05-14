@@ -17,6 +17,7 @@
 #pragma mark - Match -
 
 @interface Match ()
+@property (nonatomic) dispatch_queue_t queue;
 @end
 
 @implementation Match
@@ -39,7 +40,8 @@
         _moves = [[NSMutableArray alloc] initWithCapacity:64];
         _redos = [[NSMutableArray alloc] initWithCapacity:64];
         [self setupPlayersColors];
-        _board = [[GameBoard alloc] initWithBoardSize:8];
+        _queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
+        _board = [[GameBoard alloc] initWithBoardSize:8 queue:_queue];
         [self reset];
     }
     return self;
@@ -65,7 +67,6 @@
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.currentPlayer forKey:@"currentPlayer"];
 }
-
 
 - (void)setupPlayersColors
 {
@@ -170,21 +171,27 @@
     
     GameBoard *board = self.board;
     [board reset];
-    
-    NSArray<Player *> *players = self.players;
-    BoardPosition *center = board.center;
-    
-    [self boxCoord:1 block:
-     ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
-     {
-         NSInteger playerCount = (count) % self.players.count;
-         
-         [board player:players[playerCount]
-      pieceAtPositionX:center.x + position.x
-                     Y:center.y + position.y];
-     }];
-    
-    NSLog(@"\n%@\n", [board toString]);
+
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    {
+        NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+        NSArray<Player *> *players = self.players;
+        BoardPosition *center = board.center;
+        
+        [self boxCoord:1 block:
+         ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
+         {
+             NSInteger playerCount = count % self.players.count;
+             Player *player = players[playerCount];
+             NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
+             [board player:player pieceAtPositionX:x Y:y];
+             
+             Piece *piece = [[Piece alloc] initWithColor:player.color];
+             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
+         }];
+        return pieces;
+    }];
 
     [self beginTurn];
 }
@@ -305,8 +312,8 @@
     self.highlightBlock(position.x, move.position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
 
     BOOL result = [self findTracksForMove:move
-                          forPlayer:player
-                         trackBlock:
+                                forPlayer:player
+                               trackBlock:
                    ^(NSArray<Piece *> *trackInfo)
                    {
                        // add the piece to the list of moves.
@@ -329,11 +336,6 @@
                        }
                    }];
     
-    if (self.board.placeBlock)
-    {
-        self.board.placeBlock(pieces);
-    }
-    
     return result;
 }
 
@@ -345,7 +347,6 @@
 - (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     [self endTurn];
-
 
     BOOL moved = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
     if (!moved)
@@ -392,12 +393,12 @@
 
 - (BOOL)beginTurn
 {
-    return [self.currentPlayer.strategy displaylegalMoves:YES forPlayer:self.currentPlayer];
+    return [self.currentPlayer.strategy displayLegalMoves:YES forPlayer:self.currentPlayer];
 }
 
 - (void)endTurn
 {
-    [self.currentPlayer.strategy displaylegalMoves:NO forPlayer:self.currentPlayer];
+    [self.currentPlayer.strategy displayLegalMoves:NO forPlayer:self.currentPlayer];
     
     NSLog(@"%@", self.board);
 }
@@ -411,10 +412,9 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
     
-    dispatch_after(popTime, dispatch_get_main_queue(),
-       ^(void)
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
        {
-           dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+           dispatch_async(self.queue,
              ^{
                  placed = [self.currentPlayer takeTurn];
                  
@@ -569,9 +569,10 @@
 
 - (NSString *)description
 {
+    NSString  *pieceStr = self.piece.description;
     return (self.position.x != -1)
-            ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, self.piece]
-            : [NSString stringWithFormat:@"Pass %@", self.piece];
+            ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, pieceStr]
+            : [NSString stringWithFormat:@"Pass %@", pieceStr];
 }
 @end
 

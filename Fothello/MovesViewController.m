@@ -32,7 +32,10 @@
     __weak typeof(self) weakSelf = self;
     
     self.match.movesUpdateBlock = ^{
-        [weakSelf.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(),
+        ^{
+            [weakSelf.tableView reloadData];
+        });
     };
 }
 
