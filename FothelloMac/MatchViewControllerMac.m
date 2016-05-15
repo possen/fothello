@@ -37,13 +37,6 @@
     [self resetGame];
 }
 
-- (void)viewDidAppear
-{
-    [super viewDidAppear];
-    
-    [self.boardScene startVsComputerGameIfSelected];
-}
-
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"NewDocument"])
@@ -86,7 +79,8 @@
     // Present the scene.
     [skView presentScene:scene];
     
-    [self.match fullReset];
+    [self.match restart];
+    [self.match ready];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
@@ -116,7 +110,7 @@
 
 - (IBAction)resetGame:(id)sender
 {
-    [self.match fullReset];
+    [self.match restart];
 }
 
 - (IBAction)hint:(id)sender

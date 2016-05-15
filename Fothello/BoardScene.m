@@ -49,46 +49,49 @@
             return;
         }
         
-        dispatch_async(dispatch_get_main_queue(),
-                       ^{
-                           [self printMoves:piecePositions];
-                       
-                           for (BoardPiece *piecePosition in piecePositions)
-                           {
-                               [weakBlockSelf placeSpriteAtX:piecePosition.position.x
-                                                           Y:piecePosition.position.y
-                                                   withPiece:piecePosition.piece];
-                           }
-                       });
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [self printMoves:piecePositions];
+            
+            for (BoardPiece *piecePosition in piecePositions)
+            {
+                [weakBlockSelf placeSpriteAtX:piecePosition.position.x
+                                            Y:piecePosition.position.y
+                                    withPiece:piecePosition.piece];
+            }
+        });
     };
     
     match.currentPlayerBlock = ^(Player *player, BOOL canMove)
     {
-        dispatch_async(dispatch_get_main_queue(),
-                       ^{
-                           [weakBlockSelf displayCurrentPlayer:player];
-                           
-                           if (weakBlockSelf.updatePlayerMove)
-                           {
-                               weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
-                           }
-                       });
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [weakBlockSelf displayCurrentPlayer:player];
+            
+            if (weakBlockSelf.updatePlayerMove)
+            {
+                weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
+            }
+        });
     };
 
     match.matchStatusBlock = ^(BOOL gameOver)
     {
-        dispatch_async(dispatch_get_main_queue(),
-                       ^{
-                           if (gameOver)
-                           {
-                               [weakBlockSelf displayGameOver];
-                           }
-                       });
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            if (gameOver)
+            {
+                [weakBlockSelf displayGameOver];
+            }
+        });
     };
     
     match.highlightBlock = ^(NSInteger x, NSInteger y, PieceColor color)
     {
-        [self higlightAtX:x y:y color:color];
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [weakBlockSelf higlightAtX:x y:y color:color];
+        });
     };
     
     [self syncronizeBoardStateWithModel];
@@ -104,14 +107,6 @@
         NSLog(@"%@", piece);
     }
     NSLog(@"}");
-}
-
-- (void)startVsComputerGameIfSelected
-{
-    if ([self.match isAnyPlayerAComputer])
-    {
-        [self.match processOtherTurns];
-    }
 }
 
 - (void)teardownMatch
@@ -149,14 +144,9 @@
     CGFloat y = (rawy - boardRect.origin.y) / spacing;
     
     if (x >= 0 && x < boardSize && y >= 0 && y < boardSize &&
-        !self.turnProcessing)
+        !self.match.turnProcessing)
     {
-        BOOL placed = [self.match takeTurnAtX:x Y:y pass:NO];
-        
-        if (placed)
-        {
-            [self.match processOtherTurns];
-        }
+        [self.match takeTurnAtX:x Y:y pass:NO];        
     }
 }
 

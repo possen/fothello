@@ -312,27 +312,23 @@
     return pos;
 }
 
-- (void)reset
+- (NSArray<BoardPiece *> *)erase
 {
-    [self updateBoardWithFunction:^NSArray<BoardPiece *> *
-    {
-        // erase board.
-        NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-        
-        [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+     {
+         [piece clear];
+         
+         if (self.placeBlock)
          {
-             [piece clear];
-             
-             if (self.placeBlock)
-             {
-                 BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
-             }
-         }];
-        return pieces;
-    }];
+             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
+         }
+     }];
     
     [self.piecesPlayed removeAllObjects];
+    return pieces;
 }
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
@@ -354,18 +350,18 @@
 // is is being called from.
 - (void)updateBoardWithFunction:(NSArray<BoardPiece *> *(^)())updateFunction
 {
-    NSArray<BoardPiece *> *moves = updateFunction();
-    [self updateBoardWithMoves:moves];
+    dispatch_async(self.queue,^
+    {
+       NSArray<BoardPiece *> *moves = updateFunction();
+       [self updateBoardWithMoves:moves];
+    });
 }
 
 - (void)updateBoardWithMoves:(NSArray <BoardPiece *> *)moves
 {
-    if (self.placeBlock != nil)
+    if (self.placeBlock != nil && moves != nil)
     {
-        dispatch_async(self.queue,
-        ^{
-           self.placeBlock(moves);
-        });
+        self.placeBlock(moves);
     }
 }
 
@@ -436,6 +432,142 @@
 - (NSString *)toStringAscii
 {
     return [self convertToString:YES reverse:NO];
+}
+
+- (BOOL)findTracksForMove:(BoardPiece *)move
+                forPlayer:(Player *)player
+               trackBlock:(void (^)(NSArray<BoardPiece *> *pieces))trackBlock
+{
+    // calls block for each direction that has a successful track
+    // does not call for invalid tracks. Will call back for each complete track.
+    // a track does not include start position, one or more
+    // pieces of different color than the player's color, terminated by a piece of
+    // the same color as the player.
+    
+    BOOL found = NO;
+    
+    // check that piece is on board and we are placing on clear space
+    Piece *piece = [self pieceAtPositionX:move.position.x Y:move.position.y];
+    if (piece == nil || ![piece isClear])
+    {
+        return NO;
+    }
+    
+    // try each direction, to see if there is a track
+    for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
+    {
+        Delta diff = [self determineDirection:direction];
+        
+        NSInteger offsetx = move.position.x;
+        NSInteger offsety = move.position.y;
+        Piece *piece;
+        
+        NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
+        
+        // keep adding pieces until we hit a piece of the same color, edge of board or
+        // clear space.
+        BOOL valid;
+        
+        do {
+            offsetx += diff.dx; offsety += diff.dy;
+            piece = [self pieceAtPositionX:offsetx Y:offsety];
+            valid = piece && ![piece isClear]; // make sure it is on board and not clear.
+            
+            if (valid)
+            {
+                BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
+                BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset];
+                [track addObject:trackInfo];
+            }
+        } while (valid && piece.color != player.color);
+        
+        // found piece of same color, end track and call back.
+        if (valid && piece.color == player.color && track.count > 1)
+        {
+            if (trackBlock)
+            {
+                trackBlock(track);
+            }
+            found = YES;
+        }
+    }
+    
+    return found;
+}
+
+- (Delta)determineDirection:(Direction)direction
+{
+    NSInteger x = 0; NSInteger y = 0;
+    
+    switch (direction)
+    {
+        case DirectionUp:
+        case DirectionUpLeft:
+        case DirectionUpRight:
+            y = -1;
+            break;
+        case DirectionDown:
+        case DirectionDownRight:
+        case DirectionDownLeft:
+            y = 1;
+            break;
+        case DirectionNone:
+        case DirectionLeft:
+        case DirectionRight:
+        case DirectionLast:
+            break;
+    }
+    
+    switch (direction)
+    {
+        case DirectionRight:
+        case DirectionDownRight:
+        case DirectionUpRight:
+            x = 1;
+            break;
+        case DirectionLeft:
+        case DirectionDownLeft:
+        case DirectionUpLeft:
+            x = -1;
+            break;
+        case DirectionNone: 
+        case DirectionUp:
+        case DirectionDown:
+        case DirectionLast:
+            break;
+    }
+    
+    Delta delta; delta.dx = x; delta.dy = y;
+    return delta;
+}
+
+- (void)boxCoord:(NSInteger)dist
+           block:(void (^)(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop))block
+{
+    // calculates the positions of the pieces in a box dist from center.
+    
+    dist = (dist - 1) * 2 + 1; // skip even rings
+    
+    // calculate start position
+    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2
+                                                         y:dist - dist / 2];
+    
+    // calculate how many pieces to place.
+    // Four times dist for the number of directions
+    for (NSInteger moveDist = 0; moveDist < dist * 4; moveDist ++)
+    {
+        // times two so we get only UP, RIGHT, DOWN, LEFT
+        Direction dir = moveDist / dist * 2 + DirectionFirst;
+        Delta diff = [self determineDirection:dir];
+        
+        position.x += diff.dx;
+        position.y += diff.dy;
+        
+        BOOL stop = NO;
+        block(position, ABS(position.x) == ABS(position.y), moveDist, &stop);
+        if (stop)
+            break;
+    }
 }
 
 @end

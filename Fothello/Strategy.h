@@ -21,8 +21,9 @@
 @property (nonatomic, readonly) BOOL manual;
 
 - (id)initWithMatch:(Match *)match;
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (BOOL)displayLegalMoves:(BOOL)display forPlayer:(Player *)player;
+- (NSArray <BoardPiece *> *)takeTurn:(Player *)player;
+- (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(Player *)player;
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player;
 - (void)hintForPlayer:(Player *)player;
 

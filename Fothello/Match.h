@@ -12,14 +12,6 @@
 
 #pragma mark - Match -
 
-
-typedef enum PlayerType : NSInteger
-{
-    PlayerTypeNone = 0,
-    PlayerTypeHuman,
-    PlayerTypeComputer
-} PlayerType;
-
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 typedef void (^MovesUpdateBlock)();
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
@@ -29,6 +21,8 @@ typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
 @interface PlayerMove : BoardPiece
 + (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
 + (PlayerMove *)makePassMoveWithPiece:(Piece *)piece;
+
+@property (nonatomic, readonly) BOOL isPass;
 @end
 
 
@@ -38,10 +32,10 @@ typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
                      players:(NSArray<Player *> *)players
                   difficulty:(Difficulty)difficulty;
 
-- (BOOL)placeMove:(PlayerMove *)move forPlayer:(Player *)player;
+- (NSArray <BoardPiece *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player;
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player;
 
-- (void)fullReset;
+- (void)restart;
 - (void)reset;
 - (void)test;
 - (void)pass;
@@ -49,21 +43,18 @@ typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
 - (void)undo;
 - (void)redo;
 - (BOOL)done;
-- (BOOL)nextPlayer;
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass; 
-- (void)processOtherTurns;
+- (void)nextPlayer;
+- (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (void)takeTurn;
 - (void)ready;
-- (BOOL)beginTurn;
-- (void)endTurn;
+- (NSArray <BoardPiece *> *)beginTurn;
+- (NSArray <BoardPiece *> *)endTurn;
 - (NSInteger)calculateScore:(Player *)player;
-- (BOOL)findTracksForMove:(PlayerMove *)move
-                forPlayer:(Player *)player
-               trackBlock:(void (^)(NSArray<BoardPiece *> *positions))trackBlock;
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic) GameBoard *board;
-@property (nonatomic) NSArray<Player *>*players;
-@property (nonatomic) Player *currentPlayer;
+@property (nonatomic, readonly) GameBoard *board;
+@property (nonatomic, readonly) NSArray<Player *>*players;
+@property (nonatomic, readonly) Player *currentPlayer;
 @property (nonatomic) Difficulty difficulty; // only used by AIStrategy
 @property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
@@ -71,10 +62,9 @@ typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
 @property (nonatomic, copy) MovesUpdateBlock movesUpdateBlock;
 @property (nonatomic) NSMutableArray<PlayerMove *> *moves;
 
-@property (nonatomic) BOOL turnProcessing;
-@property (nonatomic) NSMutableArray *redos;
+@property (nonatomic, readonly) BOOL turnProcessing;
+@property (nonatomic, readonly) NSMutableArray *redos;
 @property (nonatomic, readonly) BOOL areAllPlayersComputers;
-@property (nonatomic, readonly) BOOL isAnyPlayerAComputer;
 @end
 
 

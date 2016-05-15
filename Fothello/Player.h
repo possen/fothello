@@ -10,6 +10,14 @@
 #import "FothelloGame.h"
 
 @class Strategy;
+@class BoardPiece;
+
+typedef enum PlayerType : NSInteger
+{
+    PlayerTypeNone = 0,
+    PlayerTypeHuman,
+    PlayerTypeComputer
+} PlayerType;
 
 #pragma mark - Player -
 
@@ -21,11 +29,11 @@
 @property (nonatomic) Strategy *strategy;
 @property (nonatomic) NSInteger score;
 @property (nonatomic) id userReference;
-@property (nonatomic) BOOL canMove;
+@property (nonatomic, readonly) BOOL canMove;
 
 - (instancetype)initWithName:(NSString *)name;
-- (BOOL)takeTurn; // automated players don't pass position here. 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (NSArray <BoardPiece *> *)takeTurn; // automated players don't pass position here.
+- (NSArray <BoardPiece *> *)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 
 @end
 

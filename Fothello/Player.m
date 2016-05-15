@@ -21,7 +21,6 @@
     if (self)
     {
         _name = name;
-        _canMove = YES;
     }
     return self;
 }
@@ -35,7 +34,6 @@
         _preferredPieceColor = [aDecoder decodeIntegerForKey:@"prefereredPieceColor"];
         _color = [aDecoder decodeIntegerForKey:@"currentPieceColor"];
         _strategy = [aDecoder decodeObjectForKey:@"strategy"];
-        _canMove = [aDecoder decodeBoolForKey:@"canMove"];
     }
     return self;
 }
@@ -46,7 +44,6 @@
     [aCoder encodeInteger:self.preferredPieceColor forKey:@"prefereredPieceColor"];
     [aCoder encodeInteger:self.color forKey:@"currentPieceColor"];
     [aCoder encodeObject:self.strategy forKey:@"strategy"];
-    [aCoder encodeBool:self.canMove forKey:@"canMove"];
 }
 
 - (NSString *)description
@@ -54,27 +51,22 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (BOOL)takeTurn // automatic players
+- (BOOL)canMove
 {
-    // -2 just means to ignore the passed values. Only used from human players.
-    BOOL moved = [self.strategy takeTurn:self atX:-2 Y:-2 pass:NO];
-    
-    if (moved)
-    {
-        moved = [self.strategy.match nextPlayer];
-    }
-    return moved;
+    NSArray <BoardPiece *> *moves = [self.strategy legalMoves:YES forPlayer:self];
+    return moves != nil;
 }
 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (NSArray <BoardPiece *> *)takeTurn // automatic players
 {
-    BOOL moved = [self.strategy takeTurn:self atX:x Y:y pass:pass];
-    
-    if (moved)
-    {
-        [self.strategy.match nextPlayer];
-    }
-    return moved;
+    NSArray <BoardPiece *> * pieces = [self.strategy takeTurn:self];
+    return pieces;
+}
+
+- (NSArray <BoardPiece *> *)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+{
+    NSArray <BoardPiece *> * pieces = [self.strategy takeTurn:self atX:x Y:y pass:pass];
+    return pieces;
 }
 
 - (BOOL)isEqual:(id)name

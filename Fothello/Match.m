@@ -18,6 +18,9 @@
 
 @interface Match ()
 @property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic, readwrite) Player *currentPlayer;
+@property (nonatomic, readwrite) BOOL turnProcessing;
+@property (nonatomic, readwrite) NSMutableArray *redos;
 @end
 
 @implementation Match
@@ -72,7 +75,6 @@
 {
     // if the player's prefered colors are the same, pick one for each.
     
-    //TODO: For now twoplayer only. Future support more
     Player *player0 = self.players[0];
     Player *player1 = self.players[1];
     
@@ -90,10 +92,9 @@
 
 - (void)ready
 {
-    BOOL canMove = [self beginTurn];
-    if (self.currentPlayerBlock)
+    if ([self isAnyPlayerAComputer])
     {
-        self.currentPlayerBlock(self.currentPlayer, canMove);
+        [self takeTurn];
     }
 }
 
@@ -103,7 +104,7 @@
     PlayerMove *move = [PlayerMove makePassMoveWithPiece:piece];
     [self addMove:move];
     [self nextPlayer];
-    [self processOtherTurns];
+    [self takeTurn];
 }
 
 - (void)replayMoves
@@ -152,7 +153,7 @@
     [self.currentPlayer.strategy hintForPlayer:self.currentPlayer];
 }
 
-- (void)fullReset
+- (void)restart
 {
     self.currentPlayer = self.players[0];
 
@@ -170,15 +171,20 @@
     [self endTurn];
     
     GameBoard *board = self.board;
-    [board reset];
-
+    
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         return [board erase];
+     }];
+    
+    // place initial pieces.
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
         NSArray<Player *> *players = self.players;
         BoardPosition *center = board.center;
         
-        [self boxCoord:1 block:
+        [self.board boxCoord:1 block:
          ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
          {
              NSInteger playerCount = count % self.players.count;
@@ -192,118 +198,14 @@
          }];
         return pieces;
     }];
-
-    [self beginTurn];
+    
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    {
+        return [self beginTurn];
+    }];
 }
 
-- (Delta)determineDirection:(Direction)direction
-{
-    NSInteger x = 0; NSInteger y = 0;
-    
-    switch (direction)
-    {
-        case DirectionUp:
-        case DirectionUpLeft:
-        case DirectionUpRight:
-            y = -1;
-            break;
-        case DirectionDown:
-        case DirectionDownRight:
-        case DirectionDownLeft:
-            y = 1;
-            break;
-        case DirectionNone: // keeps warnings away, could use default
-        case DirectionLeft:
-        case DirectionRight:
-        case DirectionLast:
-            break;
-    }
-    
-    switch (direction)
-    {
-        case DirectionRight:
-        case DirectionDownRight:
-        case DirectionUpRight:
-            x = 1;
-            break;
-        case DirectionLeft:
-        case DirectionDownLeft:
-        case DirectionUpLeft:
-            x = -1;
-            break;
-        case DirectionNone: // keeps warnings away, could use default
-        case DirectionUp:
-        case DirectionDown:
-        case DirectionLast:
-            break;
-    }
-    
-    Delta delta; delta.dx = x; delta.dy = y;
-    return delta;
-}
-
-
-- (BOOL)findTracksForMove:(PlayerMove *)move
-                forPlayer:(Player *)player
-               trackBlock:(void (^)(NSArray<BoardPiece *> *pieces))trackBlock
-{
-    // calls block for each direction that has a successful track
-    // does not call for invalid tracks. Will call back for each complete track.
-    // a track does not include start position, one or more
-    // pieces of different color than the player's color, terminated by a piece of
-    // the same color as the player.
-    
-    BOOL found = NO;
-    
-    // check that piece is on board and we are placing on clear space
-    Piece *piece = [self.board pieceAtPositionX:move.position.x Y:move.position.y];
-    if (piece == nil || ![piece isClear])
-    {
-        return NO;
-    }
-   
-    // try each direction, to see if there is a track
-    for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
-    {
-        Delta diff = [self determineDirection:direction];
-        
-        NSInteger offsetx = move.position.x; NSInteger offsety = move.position.y;
-        Piece *piece;
-        
-        NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
-        
-        // keep adding pieces until we hit a piece of the same color, edge of board or
-        // clear space.
-        BOOL valid;
-        
-        do {
-            offsetx += diff.dx; offsety += diff.dy;
-            piece = [self.board pieceAtPositionX:offsetx Y:offsety];
-            valid = piece && ![piece isClear]; // make sure it is on board and not clear.
-            
-            if (valid)
-            {
-                BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
-                BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset];
-                [track addObject:trackInfo];
-            }
-        } while (valid && piece.color != player.color);
-        
-        // found piece of same color, end track and call back.
-        if (valid && piece.color == player.color && track.count > 1)
-        {
-            if (trackBlock)
-            {
-                trackBlock(track);
-            }
-            found = YES;
-        }
-    }
-    
-    return found;
-}
-
-- (BOOL)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (NSArray <BoardPiece *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     BoardPosition *position = move.position;
@@ -311,9 +213,9 @@
     // briefly highlight position
     self.highlightBlock(position.x, move.position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
 
-    BOOL result = [self findTracksForMove:move
-                                forPlayer:player
-                               trackBlock:
+    BOOL result = [self.board findTracksForMove:move
+                                      forPlayer:player
+                                     trackBlock:
                    ^(NSArray<Piece *> *trackInfo)
                    {
                        // add the piece to the list of moves.
@@ -336,7 +238,7 @@
                        }
                    }];
     
-    return result;
+    return result ? pieces : nil;
 }
 
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
@@ -344,88 +246,120 @@
     self.highlightBlock(move.position.x, move.position.y, player.color);
 }
 
-- (BOOL)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
-    [self endTurn];
-
-    BOOL moved = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
-    if (!moved)
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
-        return NO; // game over
-    }
-
-    // if not moved, put legal moves back.
-    if (!moved)
+        return [self endTurn];
+    }];
+    
+    NSArray <BoardPiece *> * pieces = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
+    if (pieces == nil && pass)
     {
-        [self beginTurn];
-    }
-    return moved;
-}
-
-
-- (BOOL)nextPlayer
-{
-    NSArray<Player *> *players = self.players;
-    
-    [self endTurn];
-    BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
-    self.currentPlayer = (self.currentPlayer == players[0]
-                          ? players[1]
-                          : players[0]);
-    
-    NSLog(@"current player %@", self.currentPlayer);
-    BOOL boardFull = [self.board boardFull];
-    BOOL canMove = [self beginTurn];
-    self.currentPlayer.canMove = canMove;
-    
-    if ((!prevPlayerCouldMove  && !canMove) || boardFull)
-    {
-        self.matchStatusBlock(YES);
-        return NO;
+        return; // game over
     }
     
-    if (self.currentPlayerBlock)
+    // if not valid move, put legal moves back.
+    if (pieces == nil)
     {
-        self.currentPlayerBlock(self.currentPlayer, canMove);
+        [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+         {
+             return [self beginTurn];
+         }];
     }
-    return YES;
+    else
+    {
+        [self nextPlayer];
+        [self takeTurn];
+    }
 }
 
-- (BOOL)beginTurn
-{
-    return [self.currentPlayer.strategy displayLegalMoves:YES forPlayer:self.currentPlayer];
-}
-
-- (void)endTurn
-{
-    [self.currentPlayer.strategy displayLegalMoves:NO forPlayer:self.currentPlayer];
-    
-    NSLog(@"%@", self.board);
-}
-
-- (void)processOtherTurns
+- (void)takeTurn
 {
     self.turnProcessing = YES;
-    __block BOOL placed = NO;
     
     double delayInSeconds = .5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
     
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
-       {
-           dispatch_async(self.queue,
-             ^{
-                 placed = [self.currentPlayer takeTurn];
-                 
-                 if (! self.currentPlayer.strategy.manual && placed)
-                 {
-                     [self processOtherTurns];
-                 }
-                 
-                 self.turnProcessing = NO;
-             });
-       });
+    {
+       [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+        {
+            NSArray <BoardPiece *> *pieces = [self.currentPlayer takeTurn];
+        
+            [self nextPlayer];
+        
+            if (!self.currentPlayer.strategy.manual)
+            {
+                [self takeTurn];
+            }
+            else
+            {
+                self.turnProcessing = NO; // enable UI.
+            }
+         
+            return pieces;
+        }];
+    });
+}
+
+- (void)nextPlayer
+{
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    {
+       return [self endTurn];
+    }];
+
+    NSArray<Player *> *players = self.players;
+    BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
+    self.currentPlayer = (self.currentPlayer == players[0]
+                          ? players[1]
+                          : players[0]);
+
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         NSLog(@"current player %@", self.currentPlayer);
+         BOOL boardFull = [self.board boardFull];
+         
+         NSArray <BoardPiece *> * pieces = [self beginTurn];
+         BOOL currentPlayerCanMove = self.currentPlayer.canMove;
+         
+         if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || boardFull)
+         {
+             self.matchStatusBlock(YES);
+         }
+         
+         if (self.currentPlayerBlock)
+         {
+             self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
+         }
+         return pieces;
+    }];
+}
+
+- (NSArray <BoardPiece *> *)beginTurn
+{
+    // don't display legal moves for AI players.
+    if (!self.currentPlayer.strategy)
+    {
+        return nil;
+    }
+
+    return [self.currentPlayer.strategy legalMoves:YES forPlayer:self.currentPlayer];
+}
+
+- (NSArray <BoardPiece *> *)endTurn
+{
+    if (!self.currentPlayer.strategy)
+    {
+        return nil;
+    }
+    
+    NSArray <BoardPiece *> *pieces = [self.currentPlayer.strategy legalMoves:NO forPlayer:self.currentPlayer];
+    
+    NSLog(@"%@", self.board);
+    return pieces;
 }
 
 - (NSInteger)calculateScore:(Player *)player
@@ -436,36 +370,6 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"match %@",self.name];
-}
-
-
-- (void)boxCoord:(NSInteger)dist
-           block:(void (^)(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop))block
-{
-    // calculates the positions of the pieces in a box dist from center.
-    
-    dist = (dist - 1) * 2 + 1; // skip even rings
-    
-    // calculate start position
-    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2
-                                                         y:dist - dist / 2];
-    
-    // calculate how many pieces to place.
-    // Four times dist for the number of directions
-    for (NSInteger moveDist = 0; moveDist < dist * 4; moveDist ++)
-    {
-        // times two so we get only UP, RIGHT, DOWN, LEFT
-        Direction dir = moveDist / dist * 2 + DirectionFirst;
-        Delta diff = [self determineDirection:dir];
-        
-        position.x += diff.dx;
-        position.y += diff.dy;
-        
-        BOOL stop = NO;
-        block(position, ABS(position.x) == ABS(position.y), moveDist, &stop);
-        if (stop)
-            break;
-    }
 }
 
 - (void)resetRedos
@@ -570,9 +474,15 @@
 - (NSString *)description
 {
     NSString  *pieceStr = self.piece.description;
-    return (self.position.x != -1)
+    return (!self.isPass)
             ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, pieceStr]
             : [NSString stringWithFormat:@"Pass %@", pieceStr];
 }
+
+- (BOOL)isPass
+{
+    return self.position.x == -1;
+}
+
 @end
 

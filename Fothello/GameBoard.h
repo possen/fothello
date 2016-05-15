@@ -81,7 +81,7 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
        piecePlacedBlock:(PlaceBlock)block;
 
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
-- (void)reset;
+- (NSArray<BoardPiece *> *)erase;
 - (BoardPosition *)center;
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
 - (void)changePiece:(Piece *)piece withColor:(PieceColor)color;
@@ -92,6 +92,11 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 - (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)updateBoardWithMoves:(NSArray <BoardPiece *> *)moves;
 - (void)updateBoardWithFunction:(NSArray<BoardPiece *> *(^)())updateFunction;
+- (BOOL)findTracksForMove:(BoardPiece *)move
+                forPlayer:(Player *)player
+               trackBlock:(void (^)(NSArray<BoardPiece *> *positions))trackBlock;
+- (void)boxCoord:(NSInteger)dist
+           block:(void (^)(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop))block;
 
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;

@@ -212,7 +212,7 @@ bool setBoardFromString(Board *board, const std::string &boardStr) {
             return false;
         
         for (char &c : columns) {
-            printf("%c", c);
+//            printf("%c", c);
             a[i++] = (c == 'O')
                 ? WHITE
                 : (c == 'X')
@@ -220,7 +220,7 @@ bool setBoardFromString(Board *board, const std::string &boardStr) {
                     : EMPTY;
         
         }
-        printf("\n");
+//        printf("\n");
     }
     return true;
 }

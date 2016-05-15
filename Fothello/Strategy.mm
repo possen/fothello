@@ -83,66 +83,64 @@ std::string testString(
 
 }
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (NSArray <BoardPiece *> *)takeTurn:(Player *)player
 {
     // subclass
-    return NO;
+    return nil;
 }
 
-- (BOOL)displayLegalMoves:(BOOL)display forPlayer:(Player *)player
+- (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
+    // subclass
+    return nil;
+}
+
+- (NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(Player *)player
+{    
     Match *match = self.match;
     GameBoard *board = match.board;
     __block BOOL foundLegal = NO;
-
-    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
-    {
-        NSMutableArray<BoardPiece *>*moves = [[NSMutableArray alloc] initWithCapacity:10];
-        
-        if (display)
-        {
-            // Determine moves
-            [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-             {
-                 BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-                 PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
-                 BOOL foundMove = [match findTracksForMove:move
-                                                 forPlayer:player
-                                                trackBlock:nil];
-                 if (foundMove)
-                 {
-                     Piece *piece = [board pieceAtPositionX:x Y:y];
-                     PieceColor color = display ? PieceColorLegal : PieceColorNone;
-                     if (piece.color != color)
-                     {
-                         [board changePiece:piece withColor:color];
-                         
-                         if (self.manual)
-                         {
-                             [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
-                         }
-                     }
-                     foundLegal = YES;
-                 }
-             }];
-        }
-        else
-        {
-            [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-             {
-                 if (piece.color == PieceColorLegal)
-                 {
-                     [board changePiece:piece withColor:PieceColorNone];
-                     BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-                     
-                     [moves addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
-                 }
-             }];
-        }
-        return moves;
-    }];
     
-    return foundLegal;
+    NSMutableArray<BoardPiece *>*pieces = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    if (display)
+    {
+        // Determine moves
+        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+         {
+             BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+             PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
+             BOOL foundMove = [match.board findTracksForMove:move
+                                                   forPlayer:player
+                                                  trackBlock:nil];
+             if (foundMove)
+             {
+                 Piece *piece = [board pieceAtPositionX:x Y:y];
+                 PieceColor color = display ? PieceColorLegal : PieceColorNone;
+                 if (piece.color != color)
+                 {
+                     [board changePiece:piece withColor:color];
+                     [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
+                 }
+                 foundLegal = YES;
+             }
+         }];
+    }
+    else
+    {
+        [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+         {
+             if (piece.color == PieceColorLegal)
+             {
+                 [board changePiece:piece withColor:PieceColorNone];
+                 BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+                 
+                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
+             }
+         }];
+    }
+    
+    return foundLegal ? pieces : nil;
 }
 
 
@@ -166,7 +164,7 @@ std::string testString(
     j["board"] = boardResult;
     j["color"] = (int)playerColor;
     std::string s = j.dump(4);
-    printf("%s", s.c_str());
+//    printf("%s", s.c_str());
    
     __block json r;
     __block NSError *respError = nil;
@@ -242,7 +240,7 @@ std::string testString(
     return YES;
 }
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     [super takeTurn:player atX:x Y:y pass:pass];
     
@@ -297,12 +295,11 @@ std::string testString(
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [super encodeWithCoder:aCoder];
-    
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
 
-- (BOOL)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (NSArray <BoardPiece *> *)takeTurn:(Player *)player
 {
     PlayerMove *move = [self calculateMoveForPlayer:player];
 

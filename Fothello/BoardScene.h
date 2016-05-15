@@ -19,7 +19,6 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 @property (nonatomic,readonly) CGRect boardRect;
 @property (nonatomic,readonly) NSInteger boardSize;
 @property (nonatomic) SKSpriteNode *currentPlayerSprite;
-@property (nonatomic) BOOL turnProcessing;
 @property (nonatomic, copy) UpdatePlayerMove updatePlayerMove;
 @property (nonatomic) SKNode *gameOverNode;
 @property (nonatomic) SKShapeNode *boardUI;
@@ -28,5 +27,4 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 - (void)setupMatch;
 - (void)teardownMatch;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
-- (void)startVsComputerGameIfSelected;
 @end

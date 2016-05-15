@@ -53,12 +53,6 @@
     [self.match ready];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.boardScene startVsComputerGameIfSelected];
-
-}
 
 - (void)viewDidLayoutSubviews
 {
@@ -112,7 +106,6 @@
     }];
 }
 
-
 - (void)updateMove:(BOOL)canMove
 {
     self.pass.hidden = canMove;
@@ -164,7 +157,7 @@
     
     [self.boardScene setupMatch];
     
-    [self.match fullReset];
+    [self.match restart];
 }
 
 - (BOOL)allowActionToRun
@@ -179,7 +172,7 @@
 
 - (IBAction)resetGame:(UIButton *)sender
 {
-    [self.match fullReset];
+    [self.match restart];
 }
 
 - (IBAction)hint:(UIButton *)sender
