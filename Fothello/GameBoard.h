@@ -54,7 +54,10 @@ typedef struct Delta
 @interface BoardPiece : NSObject
 @property (nonatomic) Piece *piece;
 @property (nonatomic) BoardPosition *position;
-+ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)position;
+@property (nonatomic) PieceColor color;
+
++ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)position color:(PieceColor)color;
+
 @end
 
 typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
@@ -62,10 +65,11 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 #pragma mark - Piece -
 
 @interface Piece : NSObject <NSCoding>
-@property (nonatomic) PieceColor color;
+@property (nonatomic, readonly) PieceColor color;
 @property (nonatomic) id userReference; // Store reference to UI object
 
 - (instancetype)initWithColor:(PieceColor)color;
++ (NSString *)stringFromColor:(PieceColor)color;
 
 - (BOOL)isClear;
 - (void)clear;
@@ -84,19 +88,17 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 - (NSArray<BoardPiece *> *)erase;
 - (BoardPosition *)center;
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
-- (void)changePiece:(Piece *)piece withColor:(PieceColor)color;
 - (BOOL)boardFull;
 - (NSString *)toString;
 - (NSString *)toStringAscii;
 - (NSInteger)playerScore:(Player *)player;
-- (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
-- (void)updateBoardWithMoves:(NSArray <BoardPiece *> *)moves;
 - (void)updateBoardWithFunction:(NSArray<BoardPiece *> *(^)())updateFunction;
 - (BOOL)findTracksForMove:(BoardPiece *)move
                 forPlayer:(Player *)player
                trackBlock:(void (^)(NSArray<BoardPiece *> *positions))trackBlock;
 - (void)boxCoord:(NSInteger)dist
            block:(void (^)(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop))block;
+- (NSArray<BoardPiece *>*)updateWithTrack:(NSArray<Piece *>*)trackInfo position:(BoardPosition *)position player:(Player *)player;
 
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;

@@ -159,9 +159,12 @@
 
     [self.redos removeAllObjects];
     [self.moves removeAllObjects];
-    if (self.movesUpdateBlock) {
+    
+    if (self.movesUpdateBlock)
+    {
         self.movesUpdateBlock();
     }
+    
     [self reset];
     [self ready];
 }
@@ -172,34 +175,33 @@
     
     GameBoard *board = self.board;
     
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
          return [board erase];
      }];
     
     // place initial pieces.
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
         NSArray<Player *> *players = self.players;
         BoardPosition *center = board.center;
         
-        [self.board boxCoord:1 block:
+        [board boxCoord:1 block:
          ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
          {
              NSInteger playerCount = count % self.players.count;
              Player *player = players[playerCount];
-             NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
-             [board player:player pieceAtPositionX:x Y:y];
-             
-             Piece *piece = [[Piece alloc] initWithColor:player.color];
+             NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;             
+             Piece *piece = [board pieceAtPositionX:x Y:y];
              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
+             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:player.color]];
          }];
-        return pieces;
+        
+        return [pieces copy];
     }];
     
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
         return [self beginTurn];
     }];
@@ -216,34 +218,32 @@
     BOOL result = [self.board findTracksForMove:move
                                       forPlayer:player
                                      trackBlock:
-                   ^(NSArray<Piece *> *trackInfo)
-                   {
-                       // add the piece to the list of moves.
-                       if ([self addMove:move] == nil)
-                           return;
-
-                       Piece *piece = [self.board pieceAtPositionX:position.x Y:position.y];
-                       [self.board changePiece:piece withColor:player.color];
-                       
-                       [pieces addObject:move];
-                       
-                       for (BoardPiece *trackItem in trackInfo)
-                       {
-                           piece = trackItem.piece;
-                           NSInteger x = trackItem.position.x;
-                           NSInteger y = trackItem.position.y;
-                           [self.board changePiece:piece withColor:player.color];
-                           BoardPosition *position = [BoardPosition positionWithX:x y:y];
-                           [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:position]];
-                       }
-                   }];
+    ^(NSArray<Piece *> *trackInfo)
+    {
+        // add the piece to the list of moves.
+        if ([self addMove:move] == nil)
+        {
+            return;
+        }
+        
+        NSLog(@"move %@", move);
+        Piece *movePiece = [self.board pieceAtPositionX:move.position.x Y:move.position.y];
+        BoardPiece *moveBoardPiece = [BoardPiece makeBoardPieceWithPiece:movePiece position:move.position color:player.color];
+        [pieces addObject:moveBoardPiece];
+        NSArray <BoardPiece *> *morePieces = [self.board updateWithTrack:trackInfo position:position player:player];
+        [pieces addObjectsFromArray:morePieces];
+    }];
     
-    return result ? pieces : nil;
+    return result ? [pieces copy] : nil;
 }
 
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    self.highlightBlock(move.position.x, move.position.y, player.color);
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         self.highlightBlock(move.position.x, move.position.y, player.color);
+         return nil;
+     }];
 }
 
 - (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
@@ -254,13 +254,8 @@
     }];
     
     NSArray <BoardPiece *> * pieces = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
-    if (pieces == nil && pass)
-    {
-        return; // game over
-    }
     
-    // if not valid move, put legal moves back.
-    if (pieces == nil)
+    if (pieces.count == 0 && !pass) // invalid move, restart turn.
     {
         [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
          {
@@ -269,6 +264,11 @@
     }
     else
     {
+        [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+        {
+            return pieces;
+        }];
+        
         [self nextPlayer];
         [self takeTurn];
     }
@@ -288,10 +288,9 @@
         {
             NSArray <BoardPiece *> *pieces = [self.currentPlayer takeTurn];
         
-            [self nextPlayer];
-        
-            if (!self.currentPlayer.strategy.manual)
+            if (pieces != nil) // it was a AI player if non null
             {
+                [self nextPlayer];
                 [self takeTurn];
             }
             else
@@ -311,14 +310,14 @@
        return [self endTurn];
     }];
 
-    NSArray<Player *> *players = self.players;
-    BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
-    self.currentPlayer = (self.currentPlayer == players[0]
-                          ? players[1]
-                          : players[0]);
-
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
+         NSArray<Player *> *players = self.players;
+         BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
+         self.currentPlayer = (self.currentPlayer == players[0]
+                               ? players[1]
+                               : players[0]);
+         
          NSLog(@"current player %@", self.currentPlayer);
          BOOL boardFull = [self.board boardFull];
          
@@ -380,12 +379,18 @@
 - (PlayerMove *)addMove:(PlayerMove *)move
 {
     if ([self.moves containsObject:move])
+    {
         return nil; // dont add twice
+    }
+    
     [self.moves addObject:move];
     [self resetRedos];
-    if (self.movesUpdateBlock) {
+    
+    if (self.movesUpdateBlock)
+    {
         self.movesUpdateBlock();
     }
+    
     return move;
 }
 
@@ -394,9 +399,12 @@
     PlayerMove *move = [self.moves lastObject];
     [self.redos addObject:move];
     [self.moves removeLastObject];
-    if (self.movesUpdateBlock) {
+    
+    if (self.movesUpdateBlock)
+    {
         self.movesUpdateBlock();
     }
+    
     return move;
 }
 

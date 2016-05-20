@@ -245,7 +245,7 @@
         <!--New Game-->
         <scene sceneID="fKk-Iy-Afz">
             <objects>
-                <viewController title="New Game" id="44d-nH-sKd" customClass="NewGameViewController" sceneMemberID="viewController">
+                <viewController title="New Game" storyboardIdentifier="NewGameScene" id="44d-nH-sKd" customClass="NewGameViewController" sceneMemberID="viewController">
                     <view key="view" id="OGz-fn-pf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="153"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -508,19 +508,6 @@ Gw
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24" y="955"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="vFy-F0-yqe">
-            <objects>
-                <viewController id="F84-pP-AdM" sceneMemberID="viewController">
-                    <view key="view" id="M6x-Tb-TIz">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </viewController>
-                <customObject id="qfM-wM-87x" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="502" y="111"/>
         </scene>
     </scenes>
 </document>

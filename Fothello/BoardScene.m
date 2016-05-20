@@ -43,15 +43,10 @@
 
     // whenever a piece is placed on board calls back to here.
     match.board.placeBlock = ^(NSArray<BoardPiece *> *piecePositions)
-    {
-        if (piecePositions.count == 0)
-        {
-            return;
-        }
-        
+    {        
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [self printMoves:piecePositions];
+            [self printBoardUpdates:piecePositions];
             
             for (BoardPiece *piecePosition in piecePositions)
             {
@@ -99,7 +94,7 @@
     self.currentPlayerSprite = match.currentPlayer.userReference;    
 }
 
-- (void)printMoves:(NSArray<BoardPiece *> *)piecePositions
+- (void)printBoardUpdates:(NSArray<BoardPiece *> *)piecePositions
 {
     NSLog(@"(%ld){", piecePositions.count);
     for (BoardPiece *piece in piecePositions)
@@ -429,6 +424,7 @@
 
 - (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
 {
+    // remove the piece
     [piece.userReference removeFromParent];
     piece.userReference = nil;    
     

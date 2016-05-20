@@ -99,12 +99,13 @@ std::string testString(
 {    
     Match *match = self.match;
     GameBoard *board = match.board;
-    __block BOOL foundLegal = NO;
     
     NSMutableArray<BoardPiece *>*pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
     if (display)
     {
+        __block BOOL foundLegal = NO;
+        
         // Determine moves
         [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
          {
@@ -119,12 +120,12 @@ std::string testString(
                  PieceColor color = display ? PieceColorLegal : PieceColorNone;
                  if (piece.color != color)
                  {
-                     [board changePiece:piece withColor:color];
-                     [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
+                     [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:color]];
                  }
                  foundLegal = YES;
              }
          }];
+        return foundLegal ? [pieces copy] : nil;
     }
     else
     {
@@ -132,15 +133,12 @@ std::string testString(
          {
              if (piece.color == PieceColorLegal)
              {
-                 [board changePiece:piece withColor:PieceColorNone];
                  BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-                 
-                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition]];
+                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:PieceColorNone]];
              }
          }];
+        return [pieces copy];
     }
-    
-    return foundLegal ? pieces : nil;
 }
 
 
@@ -208,11 +206,11 @@ std::string testString(
         r = json::parse(jsonResp);
     }
     
-    Piece *piece = [[Piece alloc] initWithColor:player.color];
     
     if (r["pass"].get<bool>())
     {
         [self.match pass];
+        Piece *piece = [[Piece alloc] initWithColor:player.color];
         BoardPosition *boardPosition = [BoardPosition positionWithPass];
         return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
     }
@@ -221,6 +219,7 @@ std::string testString(
     NSInteger ax = r["movex"].get<int>();
     
     BoardPosition *boardPosition = [BoardPosition positionWithX:ax y:ay];
+    Piece *piece = [self.match.board pieceAtPositionX:ax Y:ay];
     return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
 }
 
@@ -243,12 +242,13 @@ std::string testString(
 - (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     [super takeTurn:player atX:x Y:y pass:pass];
+  
+    Match *match = self.match;
+    Piece *piece = [match.board pieceAtPositionX:x Y:y];
     
-    Piece *piece = [[Piece alloc] initWithColor:player.color];
     BoardPosition *position = [BoardPosition positionWithX:x y:y pass:pass];
     PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
     
-    Match *match = self.match;
     return [match placeMove:move forPlayer:player];
 }
 

@@ -5,22 +5,6 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5F5E41D1CC128E000A5A023"
-               BuildableName = "FothelloMac2.app"
-               BlueprintName = "FothelloMac2"
-               ReferencedContainer = "container:Fothello.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -32,57 +16,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5F5E4341CC128E000A5A023"
-               BuildableName = "FothelloMacTests2.xctest"
-               BlueprintName = "FothelloMacTests2"
-               ReferencedContainer = "container:Fothello.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D5F5E43F1CC128E000A5A023"
-               BuildableName = "FothelloMacUITests2.xctest"
-               BlueprintName = "FothelloMacUITests2"
-               ReferencedContainer = "container:Fothello.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D509D5A91CC89EC90028C082"
-               BuildableName = "FothelloMacTests.xctest"
-               BlueprintName = "FothelloMacTests"
-               ReferencedContainer = "container:FothelloMac/FothelloMac.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D509D5B41CC89EC90028C082"
-               BuildableName = "FothelloMacUITests.xctest"
-               BlueprintName = "FothelloMacUITests"
-               ReferencedContainer = "container:FothelloMac/FothelloMac.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D509D5F81CC89F8C0028C082"
-               BuildableName = "FothelloMacUITests.xctest"
-               BlueprintName = "FothelloMacUITests"
-               ReferencedContainer = "container:Fothello.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D509D5ED1CC89F8C0028C082"
+               BlueprintIdentifier = "D5ED04801CE985FE0099A01A"
                BuildableName = "FothelloMacTests.xctest"
                BlueprintName = "FothelloMacTests"
                ReferencedContainer = "container:Fothello.xcodeproj">
@@ -130,16 +64,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D5F5E41D1CC128E000A5A023"
-            BuildableName = "FothelloMac2.app"
-            BlueprintName = "FothelloMac2"
-            ReferencedContainer = "container:Fothello.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

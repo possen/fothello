@@ -68,12 +68,13 @@
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
         // create default players.
-        [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorBlack];
-        [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorWhite];
+        [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorWhite];
+        [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorBlack];
   
-        [self matchWithDifficulty:DifficultyEasy
-                 firstPlayerColor:PieceColorBlack
-                     opponentType:PlayerTypeComputer];
+        Match *match = [self matchWithName:nil players:self.players difficulty:DifficultyEasy];
+        
+        match.players[0].strategy = [[HumanStrategy alloc] initWithMatch:match];
+        match.players[1].strategy = [[AIStrategy alloc] initWithMatch:match];
     }
     return self;
 }
@@ -111,39 +112,6 @@
         return match;
     }
     return nil; // not able to create with that name.
-}
-
-- (Match *)matchWithDifficulty:(Difficulty)difficulty
-              firstPlayerColor:(PieceColor)pieceColor
-                  opponentType:(PlayerType)opposingPlayerType
-{
-    Player *player1 = self.players[0];
-    Player *player2 = self.players[1];
-    
-    NSArray<Player *> *players = @[player1, player2];
-    Match *match = [self matchWithName:nil players:players difficulty:difficulty];
-
-    if (opposingPlayerType == PlayerTypeComputer)
-    {
-        if (pieceColor == PieceColorBlack)
-        {
-            player1.strategy = [[HumanStrategy alloc] initWithMatch:match];
-            player2.strategy = [[AIStrategy alloc] initWithMatch:match];
-        }
-        else
-        {
-            // need to make computer do first move.
-            player1.strategy = [[AIStrategy alloc] initWithMatch:match];
-            player2.strategy = [[HumanStrategy alloc] initWithMatch:match];
-        }
-    }
-    else
-    {
-        player1.strategy = [[HumanStrategy alloc] initWithMatch:match];
-        player2.strategy = [[HumanStrategy alloc] initWithMatch:match];
-    }
-    
-    return match;
 }
 
 - (Match *)matchWithName:(NSString *)name
@@ -209,26 +177,26 @@
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
-            player1 = [game newPlayerWithName:@"Human 1" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Human 2" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player1StrategyClass = [HumanStrategy class];
             player2StrategyClass = [HumanStrategy class];
             break;
         case PlayerKindSelectionHumanVComputer:
-            player1 = [game newPlayerWithName:@"Human" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Computer" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player1StrategyClass = [HumanStrategy class];
             player2StrategyClass = [AIStrategy class];
             break;
         case PlayerKindSelectionComputerVHuman:
-            player1 = [game newPlayerWithName:@"Computer" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Human" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player1StrategyClass = [AIStrategy class];
             player2StrategyClass = [HumanStrategy class];
             break;
         case PlayerKindSelectionComputerVComputer:
-            player1 = [game newPlayerWithName:@"Computer 1" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Computer 2" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player1StrategyClass = [AIStrategy class];
             player2StrategyClass = [AIStrategy class];
             break;

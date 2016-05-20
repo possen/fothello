@@ -74,11 +74,12 @@
 
 @implementation BoardPiece
 
-+ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)pos
++ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)pos color:(PieceColor)color
 {
     BoardPiece *boardPiece = [[BoardPiece alloc] init];
     boardPiece.piece = piece;
     boardPiece.position = pos;
+    boardPiece.color = color;
     return boardPiece;
 }
 
@@ -96,13 +97,19 @@
 - (NSString *)description
 {
     return (self.position.x != -1)
-    ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, self.piece.description]
+    ? [NSString stringWithFormat:@"%ld - %ld %@ -> %@", (long)self.position.x + 1,
+                                                  (long)self.position.y + 1, self.piece.description,
+                                                  [Piece stringFromColor:self.color]]
     : [NSString stringWithFormat:@"Pass %@", self.piece.description];
 }
 
 @end
 
 #pragma mark - Piece -
+
+@interface Piece ()
+@property (nonatomic, readwrite) PieceColor color;
+@end
 
 @implementation Piece
 
@@ -134,7 +141,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@",self.colorStringRepresentation];
+    return [NSString stringWithFormat:@"%@", self.colorStringRepresentation];
 }
 
 - (BOOL)isClear
@@ -147,9 +154,9 @@
     self.color = PieceColorNone;
 }
 
-- (nonnull NSString *)colorStringRepresentation
++ (NSString *)stringFromColor:(PieceColor)color
 {
-    switch (self.color)
+    switch (color)
     {
         case PieceColorNone:
             return @".";
@@ -168,6 +175,11 @@
         case PieceColorLegal:
             return @"•";
     }
+}
+
+- (nonnull NSString *)colorStringRepresentation
+{
+    return [Piece stringFromColor:self.color];
 }
 
 - (nonnull NSString *)colorStringRepresentationAscii
@@ -235,12 +247,32 @@
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    
+    if (self)
+    {
+        self.grid = [coder decodeObjectForKey:@"grid"];
+        self.size = [coder decodeIntegerForKey:@"size"];
+        self.piecesPlayed = [coder decodeObjectForKey:@"piecesPlayed"];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.grid forKey:@"grid"];
+    [aCoder encodeInteger:self.size forKey:@"size"];
+    [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"\n%@",[self toString]];
 }
 
-- (void)updateColor:(Piece *)piece incdec:(NSInteger)incDec
+- (void)updateColorCount:(Piece *)piece incdec:(NSInteger)incDec
 {
     if ([piece isClear]) {
         return;
@@ -253,11 +285,22 @@
     self.piecesPlayed[key] = @(newCount);
 }
 
+- (void)changePieces:(NSArray <BoardPiece *> *)boardPieces
+{
+    for (BoardPiece *boardPiece in boardPieces)
+    {
+        [self changePiece:boardPiece.piece withColor:boardPiece.color];
+    }
+}
+
 - (void)changePiece:(Piece *)piece withColor:(PieceColor)color
 {
-    [self updateColor:piece incdec:-1];
-    piece.color = color;
-    [self updateColor:piece incdec:1];
+    if (piece.color != color)
+    {
+        [self updateColorCount:piece incdec:-1]; // take away one for current piece color
+        piece.color = color;                     // now change the piece color
+        [self updateColorCount:piece incdec:1];  // add one for that color.
+    }
 }
 
 - (BOOL)boardFull
@@ -284,25 +327,6 @@
     return [self.piecesPlayed[key] integerValue];
 }
 
-- (id)initWithCoder:(NSCoder *)coder
-{
-    self = [super init];
-    
-    if (self)
-    {
-        self.grid = [coder decodeObjectForKey:@"grid"];
-        self.size = [coder decodeIntegerForKey:@"size"];
-        self.piecesPlayed = [coder decodeObjectForKey:@"piecesPlayed"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject:self.grid forKey:@"grid"];
-    [aCoder encodeInteger:self.size forKey:@"size"];
-    [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
-}
 
 - (BoardPosition *)center
 {
@@ -318,32 +342,24 @@
     
     [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
-         [piece clear];
+         [piece clear]; // must use this to bypass isClear check
          
-         if (self.placeBlock)
-         {
-             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos]];
-         }
+         BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+         [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:PieceColorNone]];
      }];
     
     [self.piecesPlayed removeAllObjects];
-    return pieces;
+    return [pieces copy];
 }
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
 {
     NSInteger size = self.size;
-    
-    for (NSInteger y = 0; y < size; y++)
-    {
-        for (NSInteger x = 0; x < size; x++)
-        {
-            Piece *piece = [self pieceAtPositionX:x Y:y];
-            
-            block(x, y, piece);
-        }
-    }
+  
+    [self.grid enumerateObjectsUsingBlock:^(Piece * piece, NSUInteger index, BOOL * stop)
+     {
+         block(index % size, index / size, piece);
+    }];
 }
 
 // lets the work for the update occur in the processing queue rather than the queue
@@ -352,16 +368,21 @@
 {
     dispatch_async(self.queue,^
     {
-       NSArray<BoardPiece *> *moves = updateFunction();
-       [self updateBoardWithMoves:moves];
+       NSArray<BoardPiece *> *pieces = updateFunction();
+       [self updateBoardWithPieces:pieces];
     });
 }
 
-- (void)updateBoardWithMoves:(NSArray <BoardPiece *> *)moves
+- (void)updateBoardWithPieces:(NSArray <BoardPiece *> *)boardPieces
 {
-    if (self.placeBlock != nil && moves != nil)
+    if (boardPieces != nil)
     {
-        self.placeBlock(moves);
+        [self changePieces:boardPieces];
+
+        if (self.placeBlock != nil)
+        {
+            self.placeBlock(boardPieces);
+        }
     }
 }
 
@@ -376,15 +397,6 @@
         return nil;
     
     return [self.grid objectAtIndex:[self calculateIndexX:x Y:y]];
-}
-
-- (BOOL)player:(Player *)player pieceAtPositionX:(NSInteger)x Y:(NSInteger)y
-{
-    Piece *piece = [self pieceAtPositionX:x Y:y];
-    
-    [self changePiece:piece withColor:player.color];
-        
-    return YES;
 }
 
 - (void)printBanner:(NSMutableString *)boardString
@@ -421,7 +433,11 @@
     }
     
     [self printBanner:boardString];
-    return boardString;
+    if (!ascii)
+    {
+        [boardString appendFormat:@"%@", self.piecesPlayed];
+    }
+    return [boardString copy];
 }
 
 - (NSString *)toString
@@ -476,7 +492,7 @@
             if (valid)
             {
                 BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
-                BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset];
+                BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset color:player.color];
                 [track addObject:trackInfo];
             }
         } while (valid && piece.color != player.color);
@@ -486,13 +502,30 @@
         {
             if (trackBlock)
             {
-                trackBlock(track);
+                trackBlock([track copy]);
             }
             found = YES;
         }
     }
     
     return found;
+}
+
+
+- (NSArray<BoardPiece *>*)updateWithTrack:(NSArray<Piece *>*)trackInfo position:(BoardPosition *)position player:(Player *)player
+{
+    NSMutableArray<BoardPiece *> *pieces = [NSMutableArray new];
+    Piece *piece = [self pieceAtPositionX:position.x Y:position.y];
+    
+    for (BoardPiece *trackItem in trackInfo)
+    {
+        piece = trackItem.piece;
+        NSInteger x = trackItem.position.x;
+        NSInteger y = trackItem.position.y;
+        BoardPosition *position = [BoardPosition positionWithX:x y:y];
+        [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:position color:player.color]];
+    }
+    return [pieces copy];
 }
 
 - (Delta)determineDirection:(Direction)direction

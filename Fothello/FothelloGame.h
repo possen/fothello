@@ -12,14 +12,14 @@
 @class Player;
 @class Strategy;
 
-typedef enum Difficulty : NSInteger
+typedef NS_ENUM(NSInteger, Difficulty)
 {
     DifficultyNone = 0,
     DifficultyEasy,
     DifficultyModerate,
     DifficultyHard,
     DifficultyHardest
-} Difficulty;
+};
 
 typedef NS_ENUM(NSInteger, PlayerKindSelection)
 {

@@ -51,6 +51,7 @@
 		D562F4A41CB0E905009A6273 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
 		D562F4AA1CB0E935009A6273 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
 		D562F4AD1CB0E9E2009A6273 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
+		D5985C241CE98CC00084E01E /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D5A97A141CB4039400DE26FB /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
 		D5A97A171CB4062B00DE26FB /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
 		D5A97A1A1CB4C86500DE26FB /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
@@ -61,6 +62,7 @@
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C0B66F18C43701000DCEB8 /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
+		D5ED04841CE985FF0099A01A /* FothelloMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED04831CE985FF0099A01A /* FothelloMacTests.m */; };
 		D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
 		D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
@@ -78,6 +80,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D5441B211831CB1100B5166A;
 			remoteInfo = Fothello;
+		};
+		D5ED04861CE985FF0099A01A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D509D61B1CC8A7AE0028C082;
+			remoteInfo = FothelloMac;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -144,6 +153,10 @@
 		D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Holes.m"; sourceTree = "<group>"; };
 		D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FothelloMac.entitlements; sourceTree = "<group>"; };
 		D5D9BCB81CD330D700B41864 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		D5ED047B1CE983B50099A01A /* TestBoardOps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestBoardOps.m; path = ../FothelloMac/TestBoardOps.m; sourceTree = "<group>"; };
+		D5ED04811CE985FE0099A01A /* FothelloMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5ED04831CE985FF0099A01A /* FothelloMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloMacTests.m; sourceTree = "<group>"; };
+		D5ED04851CE985FF0099A01A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5EECCC6183B4EC2005D5507 /* board.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cpp; sourceTree = "<group>"; };
 		D5EECCC7183B4EC2005D5507 /* board.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = board.hpp; sourceTree = "<group>"; };
 		D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = endgamecx.cpp; sourceTree = "<group>"; };
@@ -199,6 +212,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D5ED047E1CE985FE0099A01A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -238,6 +258,7 @@
 				D5441B2D1831CB1100B5166A /* Fothello */,
 				D5441B541831CB1100B5166A /* FothelloTests */,
 				D509D61D1CC8A7AF0028C082 /* FothelloMac */,
+				D5ED04821CE985FF0099A01A /* FothelloMacTests */,
 				D5441B241831CB1100B5166A /* Frameworks */,
 				D5441B231831CB1100B5166A /* Products */,
 			);
@@ -249,6 +270,7 @@
 				D5441B221831CB1100B5166A /* Fothello.app */,
 				D5441B4D1831CB1100B5166A /* FothelloTests.xctest */,
 				D509D61C1CC8A7AE0028C082 /* FothelloMac.app */,
+				D5ED04811CE985FE0099A01A /* FothelloMacTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -358,6 +380,16 @@
 				D5F56A851CC3F1EE000700D8 /* iOS */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		D5ED04821CE985FF0099A01A /* FothelloMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				D5ED047B1CE983B50099A01A /* TestBoardOps.m */,
+				D5ED04831CE985FF0099A01A /* FothelloMacTests.m */,
+				D5ED04851CE985FF0099A01A /* Info.plist */,
+			);
+			path = FothelloMacTests;
 			sourceTree = "<group>";
 		};
 		D5EECCC5183B4EAB005D5507 /* Mini-Othello */ = {
@@ -515,6 +547,24 @@
 			productReference = D5441B4D1831CB1100B5166A /* FothelloTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D5ED04801CE985FE0099A01A /* FothelloMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5ED04881CE985FF0099A01A /* Build configuration list for PBXNativeTarget "FothelloMacTests" */;
+			buildPhases = (
+				D5ED047D1CE985FE0099A01A /* Sources */,
+				D5ED047E1CE985FE0099A01A /* Frameworks */,
+				D5ED047F1CE985FE0099A01A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D5ED04871CE985FF0099A01A /* PBXTargetDependency */,
+			);
+			name = FothelloMacTests;
+			productName = FothelloMacTests;
+			productReference = D5ED04811CE985FE0099A01A /* FothelloMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -548,6 +598,10 @@
 					D5441B4C1831CB1100B5166A = {
 						TestTargetID = D5441B211831CB1100B5166A;
 					};
+					D5ED04801CE985FE0099A01A = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = D509D61B1CC8A7AE0028C082;
+					};
 				};
 			};
 			buildConfigurationList = D5441B1D1831CB1100B5166A /* Build configuration list for PBXProject "Fothello" */;
@@ -566,6 +620,7 @@
 				D5441B211831CB1100B5166A /* Fothello */,
 				D5441B4C1831CB1100B5166A /* FothelloTests */,
 				D509D61B1CC8A7AE0028C082 /* FothelloMac */,
+				D5ED04801CE985FE0099A01A /* FothelloMacTests */,
 			);
 		};
 /* End PBXProject section */
@@ -599,6 +654,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5441B591831CB1100B5166A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5ED047F1CE985FE0099A01A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +731,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D5ED047D1CE985FE0099A01A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5ED04841CE985FF0099A01A /* FothelloMacTests.m in Sources */,
+				D5985C241CE98CC00084E01E /* TestBoardOps.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -676,6 +747,11 @@
 			isa = PBXTargetDependency;
 			target = D5441B211831CB1100B5166A /* Fothello */;
 			targetProxy = D5441B521831CB1100B5166A /* PBXContainerItemProxy */;
+		};
+		D5ED04871CE985FF0099A01A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D509D61B1CC8A7AE0028C082 /* FothelloMac */;
+			targetProxy = D5ED04861CE985FF0099A01A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -922,6 +998,53 @@
 			};
 			name = Release;
 		};
+		D5ED04891CE985FF0099A01A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FothelloMac.app/Contents/MacOS/FothelloMac";
+			};
+			name = Debug;
+		};
+		D5ED048A1CE985FF0099A01A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloMacTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FothelloMac.app/Contents/MacOS/FothelloMac";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -957,6 +1080,15 @@
 			buildConfigurations = (
 				D5441B621831CB1100B5166A /* Debug */,
 				D5441B631831CB1100B5166A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5ED04881CE985FF0099A01A /* Build configuration list for PBXNativeTarget "FothelloMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5ED04891CE985FF0099A01A /* Debug */,
+				D5ED048A1CE985FF0099A01A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
