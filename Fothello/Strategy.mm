@@ -244,10 +244,10 @@ std::string testString(
     [super takeTurn:player atX:x Y:y pass:pass];
   
     Match *match = self.match;
-    Piece *piece = [match.board pieceAtPositionX:x Y:y];
     
-    BoardPosition *position = [BoardPosition positionWithX:x y:y pass:pass];
-    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:position];
+    Piece *piece = [[Piece alloc] initWithColor:player.color];
+    BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
     
     return [match placeMove:move forPlayer:player];
 }

@@ -34,7 +34,7 @@ typedef struct Delta
 
 #pragma mark - Move -
 
-@interface BoardPosition : NSObject
+@interface BoardPosition : NSObject <NSCopying>
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 @property (nonatomic, readonly, getter=isPass) BOOL pass;
@@ -51,7 +51,7 @@ typedef struct Delta
 #pragma mark - BoardPiece -
 
 // used more generically for any color and position on the board.
-@interface BoardPiece : NSObject
+@interface BoardPiece : NSObject <NSCopying>
 @property (nonatomic) Piece *piece;
 @property (nonatomic) BoardPosition *position;
 @property (nonatomic) PieceColor color;
@@ -64,7 +64,7 @@ typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
 
 #pragma mark - Piece -
 
-@interface Piece : NSObject <NSCoding>
+@interface Piece : NSObject <NSCoding, NSCopying>
 @property (nonatomic, readonly) PieceColor color;
 @property (nonatomic) id userReference; // Store reference to UI object
 

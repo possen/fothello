@@ -15,6 +15,14 @@
 
 @implementation BoardPosition
 
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    BoardPosition *position = [[self class] allocWithZone:zone];
+    position.x = self.x;
+    position.y = self.y;
+    return position;
+}
+
 + (instancetype)positionWithPass
 {
     return [[BoardPosition alloc] initWithPass];
@@ -74,6 +82,15 @@
 
 @implementation BoardPiece
 
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    BoardPiece *boardPiece = [[self class] allocWithZone:zone];
+    boardPiece.piece = [self.piece copy];
+    boardPiece.position = [self.position copy];
+    boardPiece.color = self.color;
+    return boardPiece;
+}
+
 + (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)pos color:(PieceColor)color
 {
     BoardPiece *boardPiece = [[BoardPiece alloc] init];
@@ -112,6 +129,14 @@
 @end
 
 @implementation Piece
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    Piece *piece = [[self class] allocWithZone:zone];
+    piece.color = self.color;
+    piece.userReference = self.userReference;
+    return piece;
+}
 
 - (instancetype)initWithColor:(PieceColor)color
 {

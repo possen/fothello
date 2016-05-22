@@ -387,7 +387,7 @@
         return nil; // dont add twice
     }
     
-    [self.moves addObject:move];
+    [self.moves addObject:[move copy]];
     [self resetRedos];
     
     if (self.movesUpdateBlock)
@@ -466,6 +466,14 @@
 #pragma mark - PlayerMove -
 
 @implementation PlayerMove
+
+- (instancetype)copyWithZone:(NSZone *)zone
+{
+    PlayerMove *move = [[self class] allocWithZone:zone];
+    move.piece = [self.piece copy];
+    move.position = [self.position copy];
+    return move;
+}
 
 + (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)pos
 {

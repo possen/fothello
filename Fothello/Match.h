@@ -20,7 +20,7 @@ typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
 typedef void (^HighlightBlock)(PlayerMove *move, PieceColor color);
 
 // specifically a move that can be replayed.
-@interface PlayerMove : BoardPiece
+@interface PlayerMove : BoardPiece <NSCopying>
 + (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
 + (PlayerMove *)makePassMoveWithPiece:(Piece *)piece;
 
