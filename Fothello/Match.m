@@ -175,6 +175,10 @@
     
     GameBoard *board = self.board;
     
+    if (self.matchStatusBlock) {
+        self.matchStatusBlock(NO);
+    }
+
     [board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
          return [board erase];
@@ -213,7 +217,7 @@
     BoardPosition *position = move.position;
 
     // briefly highlight position
-    self.highlightBlock(position.x, move.position.y, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+    self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
 
     BOOL result = [self.board findTracksForMove:move
                                       forPlayer:player
@@ -241,7 +245,7 @@
 {
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
-         self.highlightBlock(move.position.x, move.position.y, player.color);
+         self.highlightBlock(move, player.color);
          return nil;
      }];
 }
@@ -305,6 +309,12 @@
 
 - (void)nextPlayer
 {
+    NSArray<Player *> *players = self.players;
+    BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
+    self.currentPlayer = (self.currentPlayer == players[0]
+                          ? players[1]
+                          : players[0]);
+
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
        return [self endTurn];
@@ -312,12 +322,6 @@
 
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
-         NSArray<Player *> *players = self.players;
-         BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
-         self.currentPlayer = (self.currentPlayer == players[0]
-                               ? players[1]
-                               : players[0]);
-         
          NSLog(@"current player %@", self.currentPlayer);
          BOOL boardFull = [self.board boardFull];
          
@@ -340,7 +344,7 @@
 - (NSArray <BoardPiece *> *)beginTurn
 {
     // don't display legal moves for AI players.
-    if (!self.currentPlayer.strategy)
+    if (!self.currentPlayer.strategy.manual)
     {
         return nil;
     }
@@ -350,7 +354,7 @@
 
 - (NSArray <BoardPiece *> *)endTurn
 {
-    if (!self.currentPlayer.strategy)
+    if (!self.currentPlayer.strategy.manual)
     {
         return nil;
     }

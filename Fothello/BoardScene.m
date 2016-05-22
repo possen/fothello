@@ -13,6 +13,8 @@
 #import "BoardScene.h"
 #import "Strategy.h"
 
+static NSString *kMainFont = @"AvenirNext-Medium";
+
 @implementation BoardScene
 
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match
@@ -78,14 +80,18 @@
             {
                 [weakBlockSelf displayGameOver];
             }
+            else // no means we are restarting.
+            {
+                [weakBlockSelf removeGameOver];
+            }
         });
     };
     
-    match.highlightBlock = ^(NSInteger x, NSInteger y, PieceColor color)
+    match.highlightBlock = ^(PlayerMove *move, PieceColor color)
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [weakBlockSelf higlightAtX:x y:y color:color];
+            [weakBlockSelf higlightAtX:move.position.x y:move.position.y color:color];
         });
     };
     
@@ -105,7 +111,7 @@
 }
 
 - (void)teardownMatch
-{    
+{
     Match *match = self.match;
     match.board.placeBlock = nil;
     match.currentPlayerBlock = nil;
@@ -159,7 +165,7 @@
     NSInteger score2 = [match calculateScore:player2];
 
     Player *winner = score1 > score2 ? player1 : player2;
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
     myLabel.text = score1 == score2
                  ? @"Tie"
                  : [NSString stringWithFormat:NSLocalizedString(@"%@ Wins", @"user name"), winner.name];
@@ -275,11 +281,13 @@
     
     boardUI.path = pathToDraw;
     [boardUI setStrokeColor:[SKColor whiteColor]];
-    CFRelease(pathToDraw);
+    
     [self addChild:boardUI];
+    CFRelease(pathToDraw);
+    
     self.boardUI = boardUI;
     
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
     
     myLabel.text = @"Fothello";
     myLabel.fontSize = 30;
@@ -287,10 +295,23 @@
                                    boardRect.origin.y
                                    + boardRect.size.height + 20 );
 
+    [self addChild:myLabel];
+
     SKAction *action = [SKAction fadeAlphaTo:0 duration:2];
     [myLabel runAction:action];
+    
+    SKNode *dot1 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 2), boardRect.origin.y + (spacing * 2))];
+    [self addChild:dot1];
 
-    [self addChild:myLabel];
+    SKNode *dot2 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 2), boardRect.origin.y + (spacing * 6))];
+    [self addChild:dot2];
+
+    SKNode *dot3 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 2))];
+    [self addChild:dot3];
+
+    SKNode *dot4 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 6))];
+    [self addChild:dot4];
+
 }
 
 - (SKColor *)skColorFromPieceColor:(PieceColor)color
@@ -326,6 +347,23 @@
     return pieceSprite;
 }
 
+- (SKNode *)makeDotAtPosition:(CGPoint)position
+{
+    SKShapeNode *dotSprite = [[SKShapeNode alloc] init];
+    NSInteger size = 5;
+    CGMutablePathRef myPath = CGPathCreateMutable();
+    CGRect rect = CGRectMake(0, 0, size, size);
+    CGPathAddEllipseInRect(myPath, NULL, rect);
+    dotSprite.path = myPath;
+    CFRelease(myPath);
+    
+    dotSprite.lineWidth = 1.0;
+    dotSprite.fillColor = [SKColor blackColor];
+    dotSprite.strokeColor = [SKColor whiteColor];
+    dotSprite.position = CGPointMake(position.x - (size / 2) - .5, position.y - (size / 2) -.5);
+    return dotSprite;
+}
+
 - (void)addPlayerSprites
 {
     Match *match = self.match;
@@ -341,14 +379,14 @@
         pieceSprite.name = @"piece";
         [playerSprite addChild:pieceSprite];
         
-        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
         scoreLabel.name = @"score";
         scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
         scoreLabel.fontSize = 14;
         scoreLabel.position = CGPointMake(15, -20);
         [playerSprite addChild:scoreLabel];
 
-        SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+        SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
         playerLabel.name = @"playerName";
         playerLabel.text = player.name;
         playerLabel.fontSize = 14;

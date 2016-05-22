@@ -10,12 +10,14 @@
 #import "FothelloGame.h"
 #import "GameBoard.h"
 
+@class PlayerMove;
+
 #pragma mark - Match -
 
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 typedef void (^MovesUpdateBlock)();
 typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
-typedef void (^HighlightBlock)(NSInteger x, NSInteger y, PieceColor color);
+typedef void (^HighlightBlock)(PlayerMove *move, PieceColor color);
 
 // specifically a move that can be replayed.
 @interface PlayerMove : BoardPiece

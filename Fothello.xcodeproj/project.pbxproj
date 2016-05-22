@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC4931CDFCD0B009308C5 /* MovesViewController.m */; };
 		D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D61F1CC8A7AF0028C082 /* AppDelegate.m */; };
 		D509D6231CC8A7AF0028C082 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6221CC8A7AF0028C082 /* main.m */; };
 		D509D6291CC8A7AF0028C082 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
@@ -56,7 +57,6 @@
 		D5A97A171CB4062B00DE26FB /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
 		D5A97A1A1CB4C86500DE26FB /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
-		D5ADC4971CDFCD42009308C5 /* MovesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC4931CDFCD0B009308C5 /* MovesViewController.m */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
 		D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66818C40E58000DCEB8 /* GameViewController.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
@@ -676,7 +676,6 @@
 				D509D6431CC8AF060028C082 /* endgamecx.cpp in Sources */,
 				D509D6411CC8AEFB0028C082 /* board.cpp in Sources */,
 				D509D6361CC8A9FA0028C082 /* FothelloNetworkRequest.m in Sources */,
-				D5ADC4971CDFCD42009308C5 /* MovesViewController.m in Sources */,
 				D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */,
 				D509D63C1CC8A9FA0028C082 /* Player.m in Sources */,
 				D509D6291CC8A7AF0028C082 /* Document.m in Sources */,
@@ -691,6 +690,7 @@
 				D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */,
 				D509D6231CC8A7AF0028C082 /* main.m in Sources */,
 				D509D6351CC8A9FA0028C082 /* RESTNetworkRequest.m in Sources */,
+				D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */,
 				D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */,
 				D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */,
 			);

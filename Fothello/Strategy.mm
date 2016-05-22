@@ -219,7 +219,7 @@ std::string testString(
     NSInteger ax = r["movex"].get<int>();
     
     BoardPosition *boardPosition = [BoardPosition positionWithX:ax y:ay];
-    Piece *piece = [self.match.board pieceAtPositionX:ax Y:ay];
+    Piece *piece = [[Piece alloc] initWithColor:player.color];
     return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
 }
 

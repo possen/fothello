@@ -8,6 +8,7 @@
 
 #import "MatchViewControllerMac.h"
 #import "NewGameViewController.h"
+#import "MovesViewController.h"
 #import "BoardScene.h"
 #import "Match.h"
 #import "FothelloGame.h"
@@ -16,6 +17,7 @@
 @property (strong, nonatomic) BoardScene *boardScene;
 @property (nonatomic) NSInteger pageIndex;
 @property (nonatomic) IBOutlet SKView *mainView;
+@property (nonatomic) IBOutlet MovesViewController *movesController;
 @property (nonatomic) BOOL canMove;
 @end
 
@@ -44,6 +46,11 @@
         NewGameViewController *newGameVC = segue.destinationController;
         newGameVC.delegate = self;
     }
+    else if ([segue.identifier isEqualToString:@"Moves"])
+    {
+        self.movesController = segue.destinationController;
+        [self.movesController resetGame:self.match];
+    }
 }
 
 - (void)dismissed:(BOOL)cancel playerKind:(PlayerKindSelection)playerKind difficulty:(Difficulty)difficulty
@@ -52,6 +59,7 @@
     {
         self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
                                                              difficulty:difficulty];
+        
         [self resetGame];
     }
 }
@@ -68,10 +76,11 @@
     BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
     self.boardScene = scene;
     
-    __weak MatchViewControllerMac *weakBlockSelf = self;
+    __weak typeof(self) weakSelf = self;
+      
     scene.updatePlayerMove = ^(BOOL canMove)
     {
-        [weakBlockSelf updateMove:canMove];
+        [weakSelf updateMove:canMove];
     };
     
     scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -81,6 +90,7 @@
     
     [self.match restart];
     [self.match ready];
+    [self.movesController resetGame:self.match];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder

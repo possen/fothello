@@ -29,15 +29,21 @@
     self.adapter = [[MovesViewAdapter alloc] initWithMatch:self.match];
     self.tableView.delegate = self.adapter;
     self.tableView.dataSource = self.adapter;
-    __weak typeof(self) weakSelf = self;
-    
-    self.match.movesUpdateBlock = ^{
-        dispatch_async(dispatch_get_main_queue(),
-        ^{
-            [weakSelf.tableView reloadData];
-        });
-    };
 }
 
+- (void)resetGame:(Match *)match
+{
+    self.match = match;
+    self.adapter.match = match;
+    
+    __weak typeof(self) weakSelf = self;
+    
+    match.movesUpdateBlock = ^{
+        dispatch_async(dispatch_get_main_queue(),
+                       ^{
+                           [weakSelf.tableView reloadData];
+                       });
+    };
+}
 
 @end

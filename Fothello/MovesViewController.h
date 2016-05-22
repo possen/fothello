@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface MovesViewController : NSViewController
+@class Match;
 
+@interface MovesViewController : NSViewController
+- (void)resetGame:(Match *)match;
 @end
