@@ -295,7 +295,7 @@
             if (pieces != nil) // it was a AI player if non null
             {
                 [self nextPlayer];
-                [self takeTurn];
+                [self takeTurn];                
             }
             else
             {
@@ -314,7 +314,7 @@
     self.currentPlayer = (self.currentPlayer == players[0]
                           ? players[1]
                           : players[0]);
-
+    
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
        return [self endTurn];
@@ -323,22 +323,23 @@
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
          NSLog(@"current player %@", self.currentPlayer);
-         BOOL boardFull = [self.board boardFull];
          
          NSArray <BoardPiece *> * pieces = [self beginTurn];
+         
          BOOL currentPlayerCanMove = self.currentPlayer.canMove;
+         BOOL boardFull = [self.board boardFull];
          
          if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || boardFull)
          {
              self.matchStatusBlock(YES);
          }
-         
+
          if (self.currentPlayerBlock)
          {
              self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
          }
          return pieces;
-    }];
+    }];    
 }
 
 - (NSArray <BoardPiece *> *)beginTurn
@@ -495,8 +496,8 @@
 {
     NSString  *pieceStr = self.piece.description;
     return (!self.isPass)
-            ? [NSString stringWithFormat:@"%ld - %ld %@", (long)self.position.x + 1, (long)self.position.y + 1, pieceStr]
-            : [NSString stringWithFormat:@"Pass %@", pieceStr];
+            ? [NSString stringWithFormat:@"%@ %ld - %ld ", pieceStr, (long)self.position.x + 1, (long)self.position.y + 1]
+            : [NSString stringWithFormat:@"%@ Pass", pieceStr];
 }
 
 - (BOOL)isPass
