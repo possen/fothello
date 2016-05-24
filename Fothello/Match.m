@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite) Player *currentPlayer;
 @property (nonatomic, readwrite) BOOL turnProcessing;
 @property (nonatomic, readwrite) NSMutableArray *redos;
+@property (nonatomic) BOOL noMoves;
 @end
 
 @implementation Match
@@ -178,7 +179,8 @@
     if (self.matchStatusBlock) {
         self.matchStatusBlock(NO);
     }
-
+    self.noMoves = NO;
+    
     [board updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
          return [board erase];
@@ -225,12 +227,11 @@
     ^(NSArray<Piece *> *trackInfo)
     {
         // add the piece to the list of moves.
-        if ([self addMove:move] == nil)
+        if ([self addMove:move] != nil)
         {
-            return;
+            NSLog(@"move %@", move);
         }
         
-        NSLog(@"move %@", move);
         Piece *movePiece = [self.board pieceAtPositionX:move.position.x Y:move.position.y];
         BoardPiece *moveBoardPiece = [BoardPiece makeBoardPieceWithPiece:movePiece position:move.position color:player.color];
         [pieces addObject:moveBoardPiece];
@@ -282,6 +283,9 @@
 {
     self.turnProcessing = YES;
     
+    if (self.noMoves)
+        return;
+    
     double delayInSeconds = .5;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
                                             (int64_t)(delayInSeconds * NSEC_PER_SEC));
@@ -332,6 +336,7 @@
          if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || boardFull)
          {
              self.matchStatusBlock(YES);
+             self.noMoves = YES;
          }
 
          if (self.currentPlayerBlock)
