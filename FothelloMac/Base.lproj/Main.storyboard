@@ -60,25 +60,13 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="TsA-TB-fg0">
                                     <items>
-                                        <menuItem title="New" keyEquivalent="n" id="itn-kg-7Tu">
+                                        <menuItem title="New Game..." keyEquivalent="n" id="itn-kg-7Tu">
                                             <connections>
                                                 <action selector="newDocument:" target="Ady-hI-5gd" id="cvP-oA-MR3"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Open…" id="2ky-zo-fQP">
-                                            <menu key="submenu" id="b8u-z5-3FV">
-                                                <items>
-                                                    <menuItem title="Item 1" id="7rG-0T-cJj">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Item 2" id="F99-TY-eDA">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Item 3" id="tud-1O-tvz">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
+                                            <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="XW2-4c-gaA"/>
                                             </connections>

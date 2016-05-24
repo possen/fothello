@@ -113,7 +113,7 @@
     [self performSegueWithIdentifier:@"NewDocument" sender:self];
 }
 
-- (IBAction)pass:(id )sender
+- (IBAction)pass:(id)sender
 {
     [self.match pass];
 }
@@ -158,6 +158,10 @@
         return self.match.moves.count != 0 && !computersOnly;
     }
 
+    if (theAction == @selector(hint:))
+    {
+        return !self.match.noMoves;
+    }
     return YES;
 }
 

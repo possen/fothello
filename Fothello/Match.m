@@ -21,7 +21,6 @@
 @property (nonatomic, readwrite) Player *currentPlayer;
 @property (nonatomic, readwrite) BOOL turnProcessing;
 @property (nonatomic, readwrite) NSMutableArray *redos;
-@property (nonatomic) BOOL noMoves;
 @end
 
 @implementation Match

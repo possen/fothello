@@ -63,6 +63,7 @@ typedef void (^HighlightBlock)(PlayerMove *move, PieceColor color);
 @property (nonatomic, copy) HighlightBlock highlightBlock;
 @property (nonatomic, copy) MovesUpdateBlock movesUpdateBlock;
 @property (nonatomic) NSMutableArray<PlayerMove *> *moves;
+@property (nonatomic) BOOL noMoves;
 
 @property (nonatomic, readonly) BOOL turnProcessing;
 @property (nonatomic, readonly) NSMutableArray *redos;
