@@ -540,11 +540,10 @@
 - (NSArray<BoardPiece *>*)updateWithTrack:(NSArray<Piece *>*)trackInfo position:(BoardPosition *)position player:(Player *)player
 {
     NSMutableArray<BoardPiece *> *pieces = [NSMutableArray new];
-    Piece *piece = [self pieceAtPositionX:position.x Y:position.y];
     
     for (BoardPiece *trackItem in trackInfo)
     {
-        piece = trackItem.piece;
+        Piece *piece = trackItem.piece;
         NSInteger x = trackItem.position.x;
         NSInteger y = trackItem.position.y;
         BoardPosition *position = [BoardPosition positionWithX:x y:y];
