@@ -5,103 +5,46 @@
 //  Created by Paul Ossenbruggen on 4/2/16.
 //  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
 //
+//  Manages the game pieces in a 8x8 grid.
+//  Finds legal moves and determines what pieces should be flipped for a move.
+//  Keeps track of what pieces were played.
+
 
 #import <Foundation/Foundation.h>
 
 #import "Player.h"
 
-typedef enum Direction : NSInteger
-{
-    DirectionNone = 0,
-    DirectionUp = 1,     DirectionFirst = 1,
-    DirectionUpLeft,
-    DirectionLeft,
-    DirectionDownLeft,
-    DirectionDown,
-    DirectionDownRight,
-    DirectionRight,
-    DirectionUpRight,
-    DirectionLast
-} Direction;
-
-typedef struct Delta
-{
-    NSInteger dx;
-    NSInteger dy;
-} Delta;
-
 @class Piece;
+@class BoardPosition;
 
-#pragma mark - Move -
+typedef void (^PlaceBlock)(NSArray<BoardPiece *> * _Nullable pieces);
 
-@interface BoardPosition : NSObject <NSCopying>
-@property (nonatomic) NSInteger x;
-@property (nonatomic) NSInteger y;
-@property (nonatomic, readonly, getter=isPass) BOOL pass;
-
-- (instancetype)initWithPass;
-- (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;
-
-+ (instancetype)positionWithPass;
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y;
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass;
-
-@end
-
-#pragma mark - BoardPiece -
-
-// used more generically for any color and position on the board.
-@interface BoardPiece : NSObject <NSCopying>
-@property (nonatomic) Piece *piece;
-@property (nonatomic) BoardPosition *position;
-@property (nonatomic) PieceColor color;
-
-+ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)position color:(PieceColor)color;
-
-@end
-
-typedef void (^PlaceBlock)(NSArray<BoardPiece *> *pieces);
-
-#pragma mark - Piece -
-
-@interface Piece : NSObject <NSCoding, NSCopying>
-@property (nonatomic, readonly) PieceColor color;
-@property (nonatomic) id userReference; // Store reference to UI object
-
-- (instancetype)initWithColor:(PieceColor)color;
-+ (NSString *)stringFromColor:(PieceColor)color;
-
-- (BOOL)isClear;
-- (void)clear;
-@end
-
-#pragma mark - Board -
+#pragma mark - GameBoard -
 
 @interface GameBoard : NSObject <NSCoding>
 
-- (id)initWithBoardSize:(NSInteger)size queue:(dispatch_queue_t)queue;
-- (id)initWithBoardSize:(NSInteger)size
-                  queue:(dispatch_queue_t)queue
-       piecePlacedBlock:(PlaceBlock)block;
+- (nonnull id)initWithBoardSize:(NSInteger)size queue:(nonnull dispatch_queue_t)queue;
+- (nonnull id)initWithBoardSize:(NSInteger)size
+                  queue:(nonnull dispatch_queue_t)queue
+       piecePlacedBlock:(nullable PlaceBlock)block;
 
-- (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
-- (NSArray<BoardPiece *> *)erase;
-- (BoardPosition *)center;
-- (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
+- (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
+- (nonnull NSArray<BoardPiece *> *)erase;
+- (nonnull BoardPosition *)center;
+- (void)visitAll:(nonnull void (^)(NSInteger x, NSInteger y, Piece * _Nullable piece))block;
 - (BOOL)boardFull;
-- (NSString *)toString;
-- (NSString *)toStringAscii;
-- (NSInteger)playerScore:(Player *)player;
-- (void)updateBoardWithFunction:(NSArray<BoardPiece *> *(^)())updateFunction;
-- (BOOL)findTracksForMove:(BoardPiece *)move
-                forPlayer:(Player *)player
-               trackBlock:(void (^)(NSArray<BoardPiece *> *positions))trackBlock;
+- (nonnull NSString *)toString;
+- (nonnull NSString *)toStringAscii;
+- (NSInteger)playerScore:(nonnull Player *)player;
+- (void)updateBoardWithFunction:(nonnull NSArray<BoardPiece *> * _Nonnull (^)())updateFunction;
+- (BOOL)findTracksForMove:(nonnull BoardPiece *)move
+                forPlayer:(nonnull Player *)player
+               trackBlock:(nullable void (^)(NSArray<BoardPiece *> * _Nonnull positions))trackBlock;
 - (void)boxCoord:(NSInteger)dist
-           block:(void (^)(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop))block;
-- (NSArray<BoardPiece *>*)updateWithTrack:(NSArray<Piece *>*)trackInfo position:(BoardPosition *)position player:(Player *)player;
+           block:(nonnull void (^)(BoardPosition * _Nonnull position, BOOL isCorner, NSInteger count, BOOL * _Nullable stop))block;
+- (nonnull NSArray<BoardPiece *>*)updateWithTrack:(nonnull NSArray<Piece *>*)trackInfo position:(nonnull BoardPosition *)position player:(nonnull Player *)player;
 
-@property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
-@property (nonatomic, copy) PlaceBlock placeBlock;
-@property (nonatomic) NSMutableDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@property (nonatomic, copy, nullable)  PlaceBlock placeBlock;
+@property (nonatomic, nonnull) NSMutableDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @end

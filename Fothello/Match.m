@@ -1,4 +1,4 @@
-//
+    //
 //  Match.m
 //  Fothello
 //
@@ -13,6 +13,9 @@
 #import "FothelloGame.h"
 #import "GameBoard.h"
 #import "Strategy.h"
+#import "PlayerMove.h"
+#import "Piece.h"
+#import "BoardPosition.h"
 
 #pragma mark - Match -
 
@@ -98,36 +101,50 @@
     }
 }
 
-- (void)pass
-{
-    Piece *piece = [[Piece alloc] initWithColor:self.currentPlayer.color];    
-    PlayerMove *move = [PlayerMove makePassMoveWithPiece:piece];
-    [self addMove:move];
-    [self nextPlayer];
-    [self takeTurn];
-}
-
 - (void)replayMoves
 {
+    GameBoard *board = self.board;
     [self reset];
+ 
+    NSArray<PlayerMove *> *moves = [self.moves copy];
     
-    for (PlayerMove *move in [self.moves copy])
-    {
-        [self takeTurnAtX:move.position.x Y:move.position.y pass:move.position.isPass];
-    }
+    [self.moves removeAllObjects]; // replaying them, so need to clear this out to avoid readd check.
+    
+    [moves enumerateObjectsWithOptions:0 usingBlock:^(PlayerMove *move, NSUInteger idx, BOOL *stop)
+     {
+         [board updateBoardWithFunction:^NSArray<BoardPiece *> *
+          {
+              NSArray<BoardPiece *> *pieces = [NSArray new];
+              
+              NSLog(@"replay move %@", move);
+              Player *player = self.players[idx % 2];
+              NSArray<BoardPiece *> *piecesFromMove = [self placeMove:move forPlayer:player showMove:NO];
+              if (piecesFromMove != nil)
+              {
+                  pieces = [pieces arrayByAddingObjectsFromArray:piecesFromMove];
+              }
+              return pieces;
+          }];
+     }];
 }
 
 - (void)undo
 {
+    // remove the last move
     [self removeMove];
     
+    // if the next player is a computer then remove that one too.
     if ([self isAnyPlayerAComputer])
     {
         [self removeMove];
     }
 
-    [self reset];
     [self replayMoves];
+    
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         return [self beginTurn];
+     }];
 }
 
 - (void)redo
@@ -136,16 +153,34 @@
     {
         return;
     }
-    
+
+    GameBoard *board = self.board;
+
     for (Player *player in self.players)
     {
-        if (!player.strategy.manual)
-        {
-            PlayerMove *move = [self.redos lastObject];
-            [self.redos removeLastObject];
-            [self takeTurnAtX:move.position.x Y:move.position.y pass:move.position.isPass];
-        }
+        [board updateBoardWithFunction:^NSArray<BoardPiece *> *
+         {
+             NSArray<BoardPiece *> *pieces = [NSArray new];
+
+             PlayerMove *move = [self.redos lastObject];
+             [self.redos removeLastObject];
+     
+             NSLog(@"redo %@", move);
+
+             NSArray<BoardPiece *> *piecesFromMove = [self placeMove:move forPlayer:player showMove:YES];
+             
+             if (piecesFromMove  != nil)
+             {
+                 pieces = [pieces arrayByAddingObjectsFromArray:piecesFromMove];
+             }
+             return pieces;
+         }];
     }
+    
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         return [self beginTurn];
+     }];
 }
 
 - (void)hint
@@ -166,6 +201,12 @@
     }
     
     [self reset];
+    
+    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         return [self beginTurn];
+     }];
+
     [self ready];
 }
 
@@ -175,7 +216,8 @@
     
     GameBoard *board = self.board;
     
-    if (self.matchStatusBlock) {
+    if (self.matchStatusBlock)
+    {
         self.matchStatusBlock(NO);
     }
     self.noMoves = NO;
@@ -205,27 +247,34 @@
         
         return [pieces copy];
     }];
-    
-    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
-    {
-        return [self beginTurn];
-    }];
 }
 
-- (NSArray <BoardPiece *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (NSArray <BoardPiece *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
 {
     NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    BoardPosition *position = move.position;
 
-    // briefly highlight position
-    self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+    BoardPosition *position = move.position;
+ 
+    // briefly highlight position or show pass.
+    if (showMove)
+    {
+        self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+    }
+    
+    if (position.isPass)
+    {
+        if ([self addMove:move] != nil)
+        {
+            NSLog(@"move %@", move);
+        }
+        return nil;
+    }
 
     BOOL result = [self.board findTracksForMove:move
                                       forPlayer:player
                                      trackBlock:
     ^(NSArray<Piece *> *trackInfo)
     {
-        // add the piece to the list of moves.
         if ([self addMove:move] != nil)
         {
             NSLog(@"move %@", move);
@@ -252,12 +301,14 @@
 
 - (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
+    [self resetRedos];
+
     [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
     {
         return [self endTurn];
     }];
     
-    NSArray <BoardPiece *> * pieces = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
+    NSArray <BoardPiece *> *pieces = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
     
     if (pieces.count == 0 && !pass) // invalid move, restart turn.
     {
@@ -308,6 +359,17 @@
             return pieces;
         }];
     });
+}
+
+
+- (void)takeTurnPass
+{
+    Piece *piece = [[Piece alloc] initWithColor:self.currentPlayer.color];
+    PlayerMove *move = [PlayerMove makePassMoveWithPiece:piece];
+    [self addMove:move];
+    [self resetRedos];
+    [self nextPlayer];
+    [self takeTurn];
 }
 
 - (void)nextPlayer
@@ -377,7 +439,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"match %@",self.name];
+    return [NSString stringWithFormat:@"match %@", self.name];
 }
 
 - (void)resetRedos
@@ -393,7 +455,6 @@
     }
     
     [self.moves addObject:[move copy]];
-    [self resetRedos];
     
     if (self.movesUpdateBlock)
     {
@@ -464,49 +525,6 @@
                 }
                 return NO;
             }].count == self.players.count;
-}
-
-@end
-
-#pragma mark - PlayerMove -
-
-@implementation PlayerMove
-
-- (instancetype)copyWithZone:(NSZone *)zone
-{
-    PlayerMove *move = [[self class] allocWithZone:zone];
-    move.piece = [self.piece copy];
-    move.position = [self.position copy];
-    return move;
-}
-
-+ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)pos
-{
-    PlayerMove *move = [[PlayerMove alloc] init];
-    move.piece = piece;
-    move.position = pos;
-    return move;
-}
-
-+ (PlayerMove *)makePassMoveWithPiece:(Piece *)piece
-{
-    PlayerMove *move = [[PlayerMove alloc] init];
-    move.piece = piece;
-    move.position = [BoardPosition positionWithPass];
-    return move;
-}
-
-- (NSString *)description
-{
-    NSString  *pieceStr = self.piece.description;
-    return (!self.isPass)
-            ? [NSString stringWithFormat:@"%@ %ld - %ld ", pieceStr, (long)self.position.x + 1, (long)self.position.y + 1]
-            : [NSString stringWithFormat:@"%@ Pass", pieceStr];
-}
-
-- (BOOL)isPass
-{
-    return self.position.x == -1;
 }
 
 @end

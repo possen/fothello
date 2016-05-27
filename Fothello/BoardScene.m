@@ -12,6 +12,9 @@
 #import "Match.h"
 #import "BoardScene.h"
 #import "Strategy.h"
+#import "PlayerMove.h"
+#import "Piece.h"
+#import "BoardPosition.h"
 
 static NSString *kMainFont = @"AvenirNext-Medium";
 

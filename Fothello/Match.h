@@ -8,39 +8,30 @@
 
 #import <Foundation/Foundation.h>
 #import "FothelloGame.h"
-#import "GameBoard.h"
 
 @class PlayerMove;
+@class BoardPiece;
+@class GameBoard;
 
 #pragma mark - Match -
 
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 typedef void (^MovesUpdateBlock)();
-typedef void (^CurrentPlayerBlock)(Player *player, BOOL canMove);
-typedef void (^HighlightBlock)(PlayerMove *move, PieceColor color);
-
-// specifically a move that can be replayed.
-@interface PlayerMove : BoardPiece <NSCopying>
-+ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)position;
-+ (PlayerMove *)makePassMoveWithPiece:(Piece *)piece;
-
-@property (nonatomic, readonly) BOOL isPass;
-@end
-
+typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove);
+typedef void (^HighlightBlock)(PlayerMove * _Nonnull  move, PieceColor color);
 
 @interface Match : NSObject <NSCoding>
 
-- (instancetype)initWithName:(NSString *)name
-                     players:(NSArray<Player *> *)players
+- (nonnull instancetype)initWithName:(nonnull NSString *)name
+                     players:(nonnull NSArray<Player *> *)players
                   difficulty:(Difficulty)difficulty;
 
-- (NSArray <BoardPiece *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player;
-- (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player;
+- (nullable NSArray <BoardPiece *> *)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player showMove:(BOOL)showMove;
+- (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
 - (void)restart;
 - (void)reset;
 - (void)test;
-- (void)pass;
 - (void)hint;
 - (void)undo;
 - (void)redo;
@@ -48,25 +39,26 @@ typedef void (^HighlightBlock)(PlayerMove *move, PieceColor color);
 - (void)nextPlayer;
 - (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (void)takeTurn;
+- (void)takeTurnPass;
 - (void)ready;
-- (NSArray <BoardPiece *> *)beginTurn;
-- (NSArray <BoardPiece *> *)endTurn;
-- (NSInteger)calculateScore:(Player *)player;
+- (nullable NSArray <BoardPiece *> *)beginTurn;
+- (nullable NSArray <BoardPiece *> *)endTurn;
+- (NSInteger)calculateScore:(nonnull Player *)player;
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, readonly) GameBoard *board;
-@property (nonatomic, readonly) NSArray<Player *>*players;
-@property (nonatomic, readonly) Player *currentPlayer;
+@property (nonatomic, copy, nonnull) NSString *name;
+@property (nonatomic, readonly, nonnull) GameBoard *board;
+@property (nonatomic, readonly, nonnull) NSArray<Player *>*players;
+@property (nonatomic, readonly, nonnull) Player *currentPlayer;
 @property (nonatomic) Difficulty difficulty; // only used by AIStrategy
-@property (nonatomic, copy) CurrentPlayerBlock currentPlayerBlock;
-@property (nonatomic, copy) MatchStatusBlock matchStatusBlock;
-@property (nonatomic, copy) HighlightBlock highlightBlock;
-@property (nonatomic, copy) MovesUpdateBlock movesUpdateBlock;
-@property (nonatomic) NSMutableArray<PlayerMove *> *moves;
+@property (nonatomic, copy, nullable) CurrentPlayerBlock currentPlayerBlock;
+@property (nonatomic, copy, nullable) MatchStatusBlock matchStatusBlock;
+@property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
+@property (nonatomic, copy, nullable) MovesUpdateBlock movesUpdateBlock;
+@property (nonatomic, nonnull) NSMutableArray<PlayerMove *> *moves;
 @property (nonatomic) BOOL noMoves;
 
 @property (nonatomic, readonly) BOOL turnProcessing;
-@property (nonatomic, readonly) NSMutableArray *redos;
+@property (nonatomic, readonly, nonnull) NSMutableArray *redos;
 @property (nonatomic, readonly) BOOL areAllPlayersComputers;
 @end
 

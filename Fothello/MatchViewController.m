@@ -167,7 +167,7 @@
 
 - (IBAction)pass:(UIButton *)sender
 {
-    [self.match pass];
+    [self.match takeTurnPass];
 }
 
 - (IBAction)resetGame:(UIButton *)sender
@@ -177,7 +177,7 @@
 
 - (IBAction)hint:(UIButton *)sender
 {
-    [self.match pass];
+    [self.match hint];
 }
 
 - (IBAction)undo:(UIButton *)sender

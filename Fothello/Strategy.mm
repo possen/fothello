@@ -15,6 +15,9 @@
 #import "NetworkController.h"
 #import "FothelloNetworkRequest.h"
 #import "Strategy.h"
+#import "PlayerMove.h"
+#import "BoardPosition.h"
+#import "Piece.h"
 
 #import "json.hpp"
 
@@ -42,13 +45,11 @@ std::string testString(
 #pragma mark - Strategy -
 
 @interface Strategy ()
-@property (nonatomic) Difficulty difficulty;
 @property (nonatomic) NetworkController *network;
 @end
 
 @implementation Strategy
 
-@synthesize difficulty = _difficulty;
 @synthesize network = _network;
 
 // Not done and not used yet.
@@ -58,7 +59,6 @@ std::string testString(
     if (self)
     {
         _match = match;
-        _difficulty = match.difficulty;
         _network = [[NetworkController alloc] init];
     }
     return self;
@@ -70,7 +70,6 @@ std::string testString(
     if (self)
     {
         _match = [coder decodeObjectForKey:@"match"];
-        _difficulty = (Difficulty)[coder decodeIntForKey:@"difficulty"];
         _network = [[NetworkController alloc] init];
     }
     return self;
@@ -79,8 +78,6 @@ std::string testString(
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:self.match forKey:@"match"];
-    [aCoder encodeInt:self.difficulty forKey:@"difficulty"];
-
 }
 
 - (NSArray <BoardPiece *> *)takeTurn:(Player *)player
@@ -142,7 +139,7 @@ std::string testString(
 }
 
 
-- (PlayerMove *)calculateMoveForPlayer:(Player *)player
+- (PlayerMove *)calculateMoveForPlayer:(Player *)player difficulty:(Difficulty)difficulty
 {
     Board *board = makeBoard();
     int moveNum = (int)self.match.board.piecesPlayed.count;
@@ -157,7 +154,7 @@ std::string testString(
         return nil;
     }
     json j;
-    j["difficulty"] = (int)_difficulty;
+    j["difficulty"] = (int)difficulty;
     j["moveNum"] = moveNum;
     j["board"] = boardResult;
     j["color"] = (int)playerColor;
@@ -209,7 +206,6 @@ std::string testString(
     
     if (r["pass"].get<bool>())
     {
-        [self.match pass];
         Piece *piece = [[Piece alloc] initWithColor:player.color];
         BoardPosition *boardPosition = [BoardPosition positionWithPass];
         return [PlayerMove makeMoveWithPiece:piece position:boardPosition];
@@ -230,84 +226,6 @@ std::string testString(
 
 @end
 
-#pragma mark - HumanStategy -
 
-@implementation HumanStrategy
-
-- (BOOL)manual
-{
-    return YES;
-}
-
-- (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    [super takeTurn:player atX:x Y:y pass:pass];
-  
-    Match *match = self.match;
-    
-    Piece *piece = [[Piece alloc] initWithColor:player.color];
-    BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
-    
-    return [match placeMove:move forPlayer:player];
-}
-
-- (void)hintForPlayer:(Player *)player
-{
-    PlayerMove *move = [self calculateMoveForPlayer:player];
-    [self.match showHintMove:move forPlayer:player];
-}
-@end
-
-
-#pragma mark - AIStrategy -
-
-@interface AIStrategy ()
-@end
-
-@implementation AIStrategy
-
-- (BOOL)manual
-{
-    return NO;
-}
-
-- (id)initWithMatch:(Match *)match
-{
-    self = [super initWithMatch:match];
-    if (self)
-    {
-        self.difficulty = DifficultyEasy;
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    if (self)
-    {
-        self.difficulty = (Difficulty)[aDecoder decodeIntegerForKey:@"difficulty"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [super encodeWithCoder:aCoder];
-    [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
-}
-
-
-- (NSArray <BoardPiece *> *)takeTurn:(Player *)player
-{
-    PlayerMove *move = [self calculateMoveForPlayer:player];
-
-    Match *match = self.match;
-    return [match placeMove:move forPlayer:player];
-}
-
-
-@end
 
 

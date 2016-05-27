@@ -9,234 +9,35 @@
 #import "FothelloGame.h"
 #import "GameBoard.h"
 #import "Player.h"
+#import "Piece.h"
+#import "BoardPiece.h"
+#import "BoardPosition.h"
 
-
-#pragma mark - Move -
-
-@implementation BoardPosition
-
-- (instancetype)copyWithZone:(NSZone *)zone
+typedef enum Direction : NSInteger
 {
-    BoardPosition *position = [[self class] allocWithZone:zone];
-    position.x = self.x;
-    position.y = self.y;
-    return position;
-}
+    DirectionNone = 0,
+    DirectionUp = 1,     DirectionFirst = 1,
+    DirectionUpLeft,
+    DirectionLeft,
+    DirectionDownLeft,
+    DirectionDown,
+    DirectionDownRight,
+    DirectionRight,
+    DirectionUpRight,
+    DirectionLast
+} Direction;
 
-+ (instancetype)positionWithPass
+typedef struct Delta
 {
-    return [[BoardPosition alloc] initWithPass];
-}
-
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y
-{
-    BoardPosition *position = [[BoardPosition alloc] initWithX:x Y:y];
-    return position;
-}
-
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass
-{
-    BoardPosition *position = pass ? [[BoardPosition alloc] initWithPass] : [[BoardPosition alloc] initWithX:x Y:y];
-    return position;
-}
-
-- (BOOL)pass
-{
-    return self.x < 0 || self.y < 0;
-}
-
-- (instancetype)initWithPass
-{
-    self = [super init];
-    if (self)
-    {
-        _x = -1;
-        _y = -1;
-    }
-    return self;
-}
-
-- (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y
-{
-    self = [super init];
-    if (self)
-    {
-        _x = x;
-        _y = y;
-    }
-    return self;
-}
-
-- (NSUInteger)hash
-{
-    return self.x ^ self.y;
-}
-
-- (BOOL)isEqual:(BoardPosition *)object
-{
-    return self.x == object.x && self.y == object.y;
-}
-@end
-
-#pragma mark - BoardPiece -
-
-@implementation BoardPiece
-
-- (instancetype)copyWithZone:(NSZone *)zone
-{
-    BoardPiece *boardPiece = [[self class] allocWithZone:zone];
-    boardPiece.piece = [self.piece copy];
-    boardPiece.position = [self.position copy];
-    boardPiece.color = self.color;
-    return boardPiece;
-}
-
-+ (BoardPiece *)makeBoardPieceWithPiece:(Piece *)piece position:(BoardPosition *)pos color:(PieceColor)color
-{
-    BoardPiece *boardPiece = [[BoardPiece alloc] init];
-    boardPiece.piece = piece;
-    boardPiece.position = pos;
-    boardPiece.color = color;
-    return boardPiece;
-}
-
-- (NSUInteger)hash
-{
-    return self.position.hash ^ self.piece.color;
-}
-
-- (BOOL)isEqual:(BoardPiece *)other
-{
-    return [self.position isEqual:other.position]
-        && self.piece.color == other.piece.color;
-}
-
-- (NSString *)description
-{
-    return (self.position.x != -1)
-    ? [NSString stringWithFormat:@"%ld - %ld %@ -> %@", (long)self.position.x + 1,
-                                                  (long)self.position.y + 1, self.piece.description,
-                                                  [Piece stringFromColor:self.color]]
-    : [NSString stringWithFormat:@"Pass %@", self.piece.description];
-}
-
-@end
-
-#pragma mark - Piece -
-
-@interface Piece ()
-@property (nonatomic, readwrite) PieceColor color;
-@end
-
-@implementation Piece
-
-- (instancetype)copyWithZone:(NSZone *)zone
-{
-    Piece *piece = [[self class] allocWithZone:zone];
-    piece.color = self.color;
-    piece.userReference = self.userReference;
-    return piece;
-}
-
-- (instancetype)initWithColor:(PieceColor)color
-{
-    self = [super init];
-    if (self)
-    {
-        _color = color;
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [super init];
-    
-    if (self)
-    {
-        _color = [coder decodeIntegerForKey:@"pieceColor"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeInteger:self.color forKey:@"pieceColor"];
-}
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"%@", self.colorStringRepresentation];
-}
-
-- (BOOL)isClear
-{
-    return self.color == PieceColorNone || self.color == PieceColorLegal;
-}
-
-- (void)clear
-{
-    self.color = PieceColorNone;
-}
-
-+ (NSString *)stringFromColor:(PieceColor)color
-{
-    switch (color)
-    {
-        case PieceColorNone:
-            return @".";
-        case PieceColorWhite:
-            return @"\u25CB";
-        case PieceColorBlack:
-            return @"\u25CF";
-        case PieceColorRed:
-            return @"R";
-        case PieceColorGreen:
-            return @"G";
-        case PieceColorYellow:
-            return @"Y";
-        case PieceColorBlue:
-            return @"B";
-        case PieceColorLegal:
-            return @"•";
-    }
-}
-
-- (nonnull NSString *)colorStringRepresentation
-{
-    return [Piece stringFromColor:self.color];
-}
-
-- (nonnull NSString *)colorStringRepresentationAscii
-{
-    switch (self.color)
-    {
-        case PieceColorNone:
-            return @".";
-        case PieceColorWhite:
-            return @"O";
-        case PieceColorBlack:
-            return @"X";
-        case PieceColorRed:
-            return @"R";
-        case PieceColorGreen:
-            return @"G";
-        case PieceColorYellow:
-            return @"Y";
-        case PieceColorBlue:
-            return @"B";
-        case PieceColorLegal:
-            return @".";
-    }
-}
-
-@end
-
+    NSInteger dx;
+    NSInteger dy;
+} Delta;
 
 #pragma mark - GameBoard -
 
 @interface GameBoard ()
 @property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic) NSMutableArray<Piece *> *grid;
 @end
 
 @implementation GameBoard
@@ -314,6 +115,10 @@
 {
     for (BoardPiece *boardPiece in boardPieces)
     {
+        if (boardPiece.position.isPass)
+        {
+            
+        }
         [self changePiece:boardPiece.piece withColor:boardPiece.color];
     }
 }
@@ -403,11 +208,12 @@
     if (boardPieces != nil)
     {
         [self changePieces:boardPieces];
-
+        
         if (self.placeBlock != nil)
         {
             self.placeBlock(boardPieces);
         }
+        NSLog(@"\n%@", self.description);
     }
 }
 

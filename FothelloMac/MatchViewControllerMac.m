@@ -115,7 +115,7 @@
 
 - (IBAction)pass:(id)sender
 {
-    [self.match pass];
+    [self.match takeTurnPass];
 }
 
 - (IBAction)resetGame:(id)sender
@@ -148,6 +148,7 @@
     }
     
     BOOL computersOnly = [self.match areAllPlayersComputers];
+    
     if (theAction == @selector(redo:))
     {
         return self.match.redos.count != 0 && !computersOnly;

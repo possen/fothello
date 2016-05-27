@@ -10,6 +10,8 @@
 #import "Strategy.h"
 #import "Match.h"
 #import "Player.h"
+#import "AIStrategy.h"
+#import "HumanStrategy.h"
 
 #pragma mark - FothelloGame -
 

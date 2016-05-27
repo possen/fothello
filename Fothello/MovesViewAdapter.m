@@ -8,6 +8,7 @@
 
 #import "MovesViewAdapter.h"
 #import "Match.h"
+#import "PlayerMove.h"
 
 @interface MovesViewAdapter ()
 @end

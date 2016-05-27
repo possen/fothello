@@ -17,23 +17,16 @@
 
 @interface Strategy : NSObject <NSCoding>
 
-@property (nonatomic) Match *match;
+@property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL manual;
 
-- (id)initWithMatch:(Match *)match;
-- (NSArray <BoardPiece *> *)takeTurn:(Player *)player;
-- (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(Player *)player;
-- (PlayerMove *)calculateMoveForPlayer:(Player *)player;
-- (void)hintForPlayer:(Player *)player;
+- (nonnull id)initWithMatch:(nonnull Match *)match;
+- (nullable NSArray <BoardPiece *> *)takeTurn:(nonnull Player *)player;
+- (nullable NSArray <BoardPiece *> *)takeTurn:(nonnull Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (nullable NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
+- (nullable PlayerMove *)calculateMoveForPlayer:(nonnull Player *)player difficulty:(Difficulty)difficulty;
+- (void)hintForPlayer:(nonnull Player *)player;
 
 @end
 
 
-#pragma mark - HumanStrategy -
-
-@interface HumanStrategy : Strategy <NSCoding>
-@end
-
-@interface AIStrategy : Strategy
-@end
