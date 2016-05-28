@@ -73,10 +73,12 @@
         [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorWhite];
         [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorBlack];
   
-        Match *match = [self matchWithName:nil players:self.players difficulty:DifficultyEasy];
+        Match *match = [self matchWithName:nil players:self.players];
         
-        match.players[0].strategy = [[HumanStrategy alloc] initWithMatch:match];
-        match.players[1].strategy = [[AIStrategy alloc] initWithMatch:match];
+        match.players[0].strategy = [[HumanStrategy alloc] init];
+        match.players[1].strategy = [[AIStrategy alloc] initWithDifficulty:DifficultyEasy];
+        match.players[0].strategy.match = match;
+        match.players[1].strategy.match = match;
     }
     return self;
 }
@@ -103,9 +105,8 @@
 
 - (Match *)createMatch:(NSString *)name
                players:(NSArray<Player *> *)players
-            difficulty:(Difficulty)difficulty
 {
-    Match *match = [[Match alloc] initWithName:name players:players difficulty:difficulty];
+    Match *match = [[Match alloc] initWithName:name players:players];
     
     if ([self.matches objectForKey:name] == nil)
     {
@@ -118,18 +119,17 @@
 
 - (Match *)matchWithName:(NSString *)name
                  players:(NSArray<Player *> *)players
-              difficulty:(Difficulty)difficulty
 {
     Match *match = nil;
     if (name == nil)
     {
         long count = self.matches.count;
         name = [NSString stringWithFormat:@"Unnamed Game %ld", (long)count];
-        match = [self createMatch:name players:players difficulty:difficulty];
+        match = [self createMatch:name players:players];
     }
     else
     {
-        match = [self createMatch:name players:players difficulty:difficulty];
+        match = [self createMatch:name players:players];
     }
     
     return match;
@@ -173,34 +173,31 @@
     Player *player1 = nil;
     Player *player2 = nil;
     
-    Class player1StrategyClass;
-    Class player2StrategyClass;
-    
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
             player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [HumanStrategy class];
-            player2StrategyClass = [HumanStrategy class];
+            player1.strategy = [[HumanStrategy alloc] init];
+            player2.strategy = [[HumanStrategy alloc] init];
             break;
         case PlayerKindSelectionHumanVComputer:
             player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [HumanStrategy class];
-            player2StrategyClass = [AIStrategy class];
+            player1.strategy = [[HumanStrategy alloc] init];
+            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             break;
         case PlayerKindSelectionComputerVHuman:
             player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [AIStrategy class];
-            player2StrategyClass = [HumanStrategy class];
+            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
+            player2.strategy = [[HumanStrategy alloc] init];
             break;
         case PlayerKindSelectionComputerVComputer:
             player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player1StrategyClass = [AIStrategy class];
-            player2StrategyClass = [AIStrategy class];
+            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
+            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             break;
         case PlayerKindSelectionHumanVGameCenter:
             NSAssert(false, @"not implemented");
@@ -214,9 +211,9 @@
         return nil;
     }
     
-    Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2] difficulty:difficulty];
-    player1.strategy = [[player1StrategyClass alloc] initWithMatch:match];
-    player2.strategy = [[player2StrategyClass alloc] initWithMatch:match];
+    Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2]];
+    player1.strategy.match = match;
+    player2.strategy.match = match;
     return match;
 }
 

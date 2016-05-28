@@ -51,22 +51,14 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (BOOL)canMove
+- (void)takeTurn // automatic players
 {
-    NSArray <BoardPiece *> *moves = [self.strategy legalMoves:YES forPlayer:self];
-    return moves != nil;
+    [self.strategy takeTurn:self];
 }
 
-- (NSArray <BoardPiece *> *)takeTurn // automatic players
+- (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
-    NSArray <BoardPiece *> * pieces = [self.strategy takeTurn:self];
-    return pieces;
-}
-
-- (NSArray <BoardPiece *> *)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    NSArray <BoardPiece *> * pieces = [self.strategy takeTurn:self atX:x Y:y pass:pass];
-    return pieces;
+    [self.strategy takeTurn:self atX:x Y:y pass:pass];
 }
 
 - (BOOL)isEqual:(id)name

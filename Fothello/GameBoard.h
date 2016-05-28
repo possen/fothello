@@ -16,35 +16,40 @@
 
 @class Piece;
 @class BoardPosition;
+@class PlayerMove;
 
-typedef void (^PlaceBlock)(NSArray<BoardPiece *> * _Nullable pieces);
+typedef void (^PlaceBlock)(NSArray<NSArray<BoardPiece *> *> * _Nullable pieces);
+typedef void (^HighlightBlock)(PlayerMove * _Nonnull  move, PieceColor color);
 
 #pragma mark - GameBoard -
 
 @interface GameBoard : NSObject <NSCoding>
 
-- (nonnull id)initWithBoardSize:(NSInteger)size queue:(nonnull dispatch_queue_t)queue;
-- (nonnull id)initWithBoardSize:(NSInteger)size
-                  queue:(nonnull dispatch_queue_t)queue
-       piecePlacedBlock:(nullable PlaceBlock)block;
-
+- (nonnull id)initWithBoardSize:(NSInteger)size;
+- (nonnull id)initWithBoardSize:(NSInteger)size piecePlacedBlock:(nullable PlaceBlock)block;
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
-- (nonnull NSArray<BoardPiece *> *)erase;
-- (nonnull BoardPosition *)center;
 - (void)visitAll:(nonnull void (^)(NSInteger x, NSInteger y, Piece * _Nullable piece))block;
-- (BOOL)boardFull;
-- (nonnull NSString *)toString;
-- (nonnull NSString *)toStringAscii;
+- (BOOL)isFull;
+- (void)reset;
+- (nonnull NSString *)requestFormat;
 - (NSInteger)playerScore:(nonnull Player *)player;
-- (void)updateBoardWithFunction:(nonnull NSArray<BoardPiece *> * _Nonnull (^)())updateFunction;
-- (BOOL)findTracksForMove:(nonnull BoardPiece *)move
-                forPlayer:(nonnull Player *)player
-               trackBlock:(nullable void (^)(NSArray<BoardPiece *> * _Nonnull positions))trackBlock;
+
+- (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player showMove:(BOOL)showMove;
+- (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+
+- (nullable NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(nonnull BoardPiece *)piece
+                                                                 player:(nonnull Player *)player;
+
+- (nullable NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
+
 - (void)boxCoord:(NSInteger)dist
            block:(nonnull void (^)(BoardPosition * _Nonnull position, BOOL isCorner, NSInteger count, BOOL * _Nullable stop))block;
+
+- (BOOL)canMove:(nonnull Player *)player;
 - (nonnull NSArray<BoardPiece *>*)updateWithTrack:(nonnull NSArray<Piece *>*)trackInfo position:(nonnull BoardPosition *)position player:(nonnull Player *)player;
 
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy, nullable)  PlaceBlock placeBlock;
 @property (nonatomic, nonnull) NSMutableDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
 @end

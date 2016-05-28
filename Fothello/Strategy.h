@@ -20,13 +20,8 @@
 @property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL manual;
 
-- (nonnull id)initWithMatch:(nonnull Match *)match;
-- (nullable NSArray <BoardPiece *> *)takeTurn:(nonnull Player *)player;
-- (nullable NSArray <BoardPiece *> *)takeTurn:(nonnull Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
-- (nullable NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
-- (nullable PlayerMove *)calculateMoveForPlayer:(nonnull Player *)player difficulty:(Difficulty)difficulty;
+- (void)takeTurn:(nonnull Player *)player;
+- (void)takeTurn:(nonnull Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 - (void)hintForPlayer:(nonnull Player *)player;
 
 @end
-
-

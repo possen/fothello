@@ -10,10 +10,10 @@
 #import "GameBoard.h"
 #import "Player.h"
 #import "Match.h"
-#import "BoardScene.h"
 #import "Strategy.h"
-#import "PlayerMove.h"
+#import "BoardScene.h"
 #import "Piece.h"
+#import "PlayerMove.h"
 #import "BoardPosition.h"
 
 static NSString *kMainFont = @"AvenirNext-Medium";
@@ -47,17 +47,20 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     __weak BoardScene *weakBlockSelf = self;
 
     // whenever a piece is placed on board calls back to here.
-    match.board.placeBlock = ^(NSArray<BoardPiece *> *piecePositions)
+    match.board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *piecePositions)
     {        
         dispatch_async(dispatch_get_main_queue(), ^
         {
             [self printBoardUpdates:piecePositions];
             
-            for (BoardPiece *piecePosition in piecePositions)
+            for (NSArray<BoardPiece *> *piecePositionArray in piecePositions)
             {
-                [weakBlockSelf placeSpriteAtX:piecePosition.position.x
-                                            Y:piecePosition.position.y
-                                    withPiece:piecePosition.piece];
+                for (BoardPiece *piecePosition in piecePositionArray)
+                {
+                    [weakBlockSelf placeSpriteAtX:piecePosition.position.x
+                                                Y:piecePosition.position.y
+                                        withPiece:piecePosition.piece];
+                }
             }
         });
     };
@@ -90,7 +93,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         });
     };
     
-    match.highlightBlock = ^(PlayerMove *move, PieceColor color)
+    match.board.highlightBlock = ^(PlayerMove *move, PieceColor color)
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -103,12 +106,12 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     self.currentPlayerSprite = match.currentPlayer.userReference;    
 }
 
-- (void)printBoardUpdates:(NSArray<BoardPiece *> *)piecePositions
+- (void)printBoardUpdates:(NSArray<NSArray<BoardPiece *> *> *)piecePositions
 {
     NSLog(@"(%ld){", piecePositions.count);
-    for (BoardPiece *piece in piecePositions)
+    for (NSArray<BoardPiece *> *pieces in piecePositions)
     {
-        NSLog(@"%@", piece);
+        NSLog(@"%@", pieces);
     }
     NSLog(@"}");
 }
@@ -164,8 +167,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     Match *match = self.match;
     Player *player1 = match.players[0];
     Player *player2 = match.players[1];
-    NSInteger score1 = [match calculateScore:player1];
-    NSInteger score2 = [match calculateScore:player2];
+    NSInteger score1 = [match.board playerScore:player1];
+    NSInteger score2 = [match.board playerScore:player2];
 
     Player *winner = score1 > score2 ? player1 : player2;
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
@@ -384,7 +387,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         
         SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
         scoreLabel.name = @"score";
-        scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
+        scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match.board playerScore:player]];
         scoreLabel.fontSize = 14;
         scoreLabel.position = CGPointMake(15, -20);
         [playerSprite addChild:scoreLabel];
@@ -417,7 +420,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     self.currentPlayerSprite = player.userReference;
     
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
-    scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match calculateScore:player]];
+    scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match.board playerScore:player]];
     NSInteger homePos = self.boardDimensions / 2;
  
      SKAction *action = [SKAction moveTo:CGPointMake(homePos, 100) duration:0];

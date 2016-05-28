@@ -22,16 +22,18 @@
     return move;
 }
 
-+ (PlayerMove *)makeMoveWithPiece:(Piece *)piece position:(BoardPosition *)pos
++ (PlayerMove *)makeMoveForColor:(PieceColor)color position:(BoardPosition *)pos
 {
+    Piece *piece = [[Piece alloc] initWithColor:color];
     PlayerMove *move = [[PlayerMove alloc] init];
     move.piece = piece;
     move.position = pos;
     return move;
 }
 
-+ (PlayerMove *)makePassMoveWithPiece:(Piece *)piece
++ (PlayerMove *)makePassMoveForColor:(PieceColor)color
 {
+    Piece *piece = [[Piece alloc] initWithColor:color];
     PlayerMove *move = [[PlayerMove alloc] init];
     move.piece = piece;
     move.position = [BoardPosition positionWithPass];

@@ -64,6 +64,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "D509D61B1CC8A7AE0028C082"
+            BuildableName = "FothelloMac.app"
+            BlueprintName = "FothelloMac"
+            ReferencedContainer = "container:Fothello.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

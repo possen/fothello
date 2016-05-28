@@ -12,10 +12,10 @@
 
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
-@property (nonatomic, readonly, getter=isPass) BOOL pass;
 
 - (nonnull instancetype)initWithPass;
 - (nonnull instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;
+- (BOOL)isPass;
 
 + (nonnull instancetype)positionWithPass;
 + (nonnull instancetype)positionWithX:(NSInteger)x y:(NSInteger)y;

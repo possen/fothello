@@ -40,7 +40,7 @@
 - (BOOL)isEqual:(BoardPiece *)other
 {
     return [self.position isEqual:other.position]
-    && self.piece.color == other.piece.color;
+        && self.piece.color == other.piece.color;
 }
 
 - (NSString *)description

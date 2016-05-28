@@ -15,6 +15,11 @@
 #import "BoardPosition.h"
 
 
+@interface Strategy (Protected)
+- (nullable PlayerMove *)calculateMoveForPlayer:(nonnull Player *)player difficulty:(Difficulty)difficulty;
+@end
+
+
 #pragma mark - HumanStategy -
 
 @implementation HumanStrategy
@@ -24,17 +29,13 @@
     return YES;
 }
 
-- (NSArray <BoardPiece *> *)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (void)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     [super takeTurn:player atX:x Y:y pass:pass];
-    
-    Match *match = self.match;
-    
-    Piece *piece = [[Piece alloc] initWithColor:player.color];
+        
     BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-    PlayerMove *move = [PlayerMove makeMoveWithPiece:piece position:boardPosition];
-    
-    return [match placeMove:move forPlayer:player showMove:YES];
+    PlayerMove *move = [PlayerMove makeMoveForColor:player.color position:boardPosition];
+    [self.match placeMove:move forPlayer:player showMove:NO];
 }
 
 - (void)hintForPlayer:(Player *)player

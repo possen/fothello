@@ -35,7 +35,7 @@
     return position;
 }
 
-- (BOOL)pass
+- (BOOL)isPass
 {
     return self.x < 0 || self.y < 0;
 }

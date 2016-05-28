@@ -17,8 +17,8 @@
 // specifically a move that can be replayed.
 @interface PlayerMove : BoardPiece <NSCopying>
 
-+ (nonnull PlayerMove *)makeMoveWithPiece:(nonnull Piece *)piece position:(nonnull BoardPosition *)position;
-+ (nonnull PlayerMove *)makePassMoveWithPiece:(nonnull Piece *)piece;
++ (nonnull PlayerMove *)makeMoveForColor:(PieceColor)piece position:(nonnull BoardPosition *)position;
++ (nonnull PlayerMove *)makePassMoveForColor:(PieceColor)piece;
 
 @property (nonatomic, readonly) BOOL isPass;
 

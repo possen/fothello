@@ -9,6 +9,10 @@
 #import "AIStrategy.h"
 #import "FothelloGame.h"
 
+@interface Strategy (Protected)
+- (nullable PlayerMove *)calculateMoveForPlayer:(nonnull Player *)player difficulty:(Difficulty)difficulty;
+@end
+
 #pragma mark - AIStrategy -
 
 @interface AIStrategy ()
@@ -16,6 +20,7 @@
 @end
 
 @implementation AIStrategy
+
 @synthesize difficulty = _difficulty;
 
 - (BOOL)manual
@@ -23,12 +28,12 @@
     return NO;
 }
 
-- (id)initWithMatch:(Match *)match
+- (id)initWithDifficulty:(Difficulty)difficulty
 {
-    self = [super initWithMatch:match];
+    self = [super init];
     if (self)
     {
-        _difficulty = DifficultyEasy;
+        _difficulty = difficulty;
     }
     return self;
 }
@@ -49,12 +54,10 @@
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
-
-- (NSArray <BoardPiece *> *)takeTurn:(Player *)player
+- (void)takeTurn:(Player *)player
 {
     PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
-    Match *match = self.match;
-    return [match placeMove:move forPlayer:player showMove:YES];
+    [self.match placeMove:move forPlayer:player showMove:YES];
 }
 
 

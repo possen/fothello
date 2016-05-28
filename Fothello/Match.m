@@ -20,7 +20,6 @@
 #pragma mark - Match -
 
 @interface Match ()
-@property (nonatomic) dispatch_queue_t queue;
 @property (nonatomic, readwrite) Player *currentPlayer;
 @property (nonatomic, readwrite) BOOL turnProcessing;
 @property (nonatomic, readwrite) NSMutableArray *redos;
@@ -30,7 +29,6 @@
 
 - (instancetype)initWithName:(NSString *)name
                      players:(NSArray<Player *> *)players
-                  difficulty:(Difficulty)difficulty
 {
     self = [super init];
     
@@ -41,13 +39,11 @@
         
         _name = name;
         _players = [players copy];
-        _difficulty = difficulty;
         _currentPlayer = players[0];
         _moves = [[NSMutableArray alloc] initWithCapacity:64];
         _redos = [[NSMutableArray alloc] initWithCapacity:64];
         [self setupPlayersColors];
-        _queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
-        _board = [[GameBoard alloc] initWithBoardSize:8 queue:_queue];
+        _board = [[GameBoard alloc] initWithBoardSize:8];
         [self reset];
     }
     return self;
@@ -103,7 +99,6 @@
 
 - (void)replayMoves
 {
-    GameBoard *board = self.board;
     [self reset];
  
     NSArray<PlayerMove *> *moves = [self.moves copy];
@@ -112,19 +107,9 @@
     
     [moves enumerateObjectsWithOptions:0 usingBlock:^(PlayerMove *move, NSUInteger idx, BOOL *stop)
      {
-         [board updateBoardWithFunction:^NSArray<BoardPiece *> *
-          {
-              NSArray<BoardPiece *> *pieces = [NSArray new];
-              
-              NSLog(@"replay move %@", move);
-              Player *player = self.players[idx % 2];
-              NSArray<BoardPiece *> *piecesFromMove = [self placeMove:move forPlayer:player showMove:NO];
-              if (piecesFromMove != nil)
-              {
-                  pieces = [pieces arrayByAddingObjectsFromArray:piecesFromMove];
-              }
-              return pieces;
-          }];
+          NSLog(@"replay move %@", move);
+          Player *player = self.players[idx % 2];
+          [self.board placeMove:move forPlayer:player showMove:NO];
      }];
 }
 
@@ -140,11 +125,7 @@
     }
 
     [self replayMoves];
-    
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         return [self beginTurn];
-     }];
+    [self beginTurn];
 }
 
 - (void)redo
@@ -154,33 +135,30 @@
         return;
     }
 
-    GameBoard *board = self.board;
-
     for (Player *player in self.players)
     {
-        [board updateBoardWithFunction:^NSArray<BoardPiece *> *
-         {
-             NSArray<BoardPiece *> *pieces = [NSArray new];
-
-             PlayerMove *move = [self.redos lastObject];
-             [self.redos removeLastObject];
-     
-             NSLog(@"redo %@", move);
-
-             NSArray<BoardPiece *> *piecesFromMove = [self placeMove:move forPlayer:player showMove:YES];
-             
-             if (piecesFromMove  != nil)
-             {
-                 pieces = [pieces arrayByAddingObjectsFromArray:piecesFromMove];
-             }
-             return pieces;
-         }];
+        PlayerMove *move = [self.redos lastObject];
+        [self.redos removeLastObject];
+        
+        NSLog(@"redo %@", move);
+        
+        [self placeMove:move forPlayer:player showMove:YES];
     }
     
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         return [self beginTurn];
-     }];
+    [self beginTurn];
+}
+
+- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
+{
+    [self.board placeMove:move forPlayer:player showMove:showMove];
+    [self addMove:move];
+    [self nextPlayer];
+    [self takeTurn];
+    
+    if (player.strategy.manual) // it was a AI player if non null
+    {
+        self.turnProcessing = NO; // enable UI.
+    }
 }
 
 - (void)hint
@@ -202,11 +180,7 @@
     
     [self reset];
     
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         return [self beginTurn];
-     }];
-
+    [self beginTurn];
     [self ready];
 }
 
@@ -222,110 +196,26 @@
     }
     self.noMoves = NO;
     
-    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         return [board erase];
-     }];
-    
-    // place initial pieces.
-    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
-    {
-        NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-        NSArray<Player *> *players = self.players;
-        BoardPosition *center = board.center;
-        
-        [board boxCoord:1 block:
-         ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
-         {
-             NSInteger playerCount = count % self.players.count;
-             Player *player = players[playerCount];
-             NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;             
-             Piece *piece = [board pieceAtPositionX:x Y:y];
-             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:player.color]];
-         }];
-        
-        return [pieces copy];
-    }];
-}
-
-- (NSArray <BoardPiece *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
-{
-    NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-
-    BoardPosition *position = move.position;
- 
-    // briefly highlight position or show pass.
-    if (showMove)
-    {
-        self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
-    }
-    
-    if (position.isPass)
-    {
-        if ([self addMove:move] != nil)
-        {
-            NSLog(@"move %@", move);
-        }
-        return nil;
-    }
-
-    BOOL result = [self.board findTracksForMove:move
-                                      forPlayer:player
-                                     trackBlock:
-    ^(NSArray<Piece *> *trackInfo)
-    {
-        if ([self addMove:move] != nil)
-        {
-            NSLog(@"move %@", move);
-        }
-        
-        Piece *movePiece = [self.board pieceAtPositionX:move.position.x Y:move.position.y];
-        BoardPiece *moveBoardPiece = [BoardPiece makeBoardPieceWithPiece:movePiece position:move.position color:player.color];
-        [pieces addObject:moveBoardPiece];
-        NSArray <BoardPiece *> *morePieces = [self.board updateWithTrack:trackInfo position:position player:player];
-        [pieces addObjectsFromArray:morePieces];
-    }];
-    
-    return result ? [pieces copy] : nil;
+    [board reset];
 }
 
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         self.highlightBlock(move, player.color);
-         return nil;
-     }];
+    [self.board showHintMove:move forPlayer:player];
 }
 
 - (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
 {
     [self resetRedos];
-
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-    {
-        return [self endTurn];
-    }];
+    [self endTurn];
     
-    NSArray <BoardPiece *> *pieces = [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
-    
-    if (pieces.count == 0 && !pass) // invalid move, restart turn.
+    if ([self.board legalMoves:YES forPlayer:self.currentPlayer])
     {
-        [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-         {
-             return [self beginTurn];
-         }];
+        [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
     }
     else
     {
-        [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-        {
-            return pieces;
-        }];
-        
-        [self nextPlayer];
-        [self takeTurn];
+        [self beginTurn]; // reset not a valid move.
     }
 }
 
@@ -342,30 +232,13 @@
     
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
     {
-       [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-        {
-            NSArray <BoardPiece *> *pieces = [self.currentPlayer takeTurn];
-        
-            if (pieces != nil) // it was a AI player if non null
-            {
-                [self nextPlayer];
-                [self takeTurn];                
-            }
-            else
-            {
-                self.turnProcessing = NO; // enable UI.
-            }
-         
-            return pieces;
-        }];
+        [self.currentPlayer takeTurn];
     });
 }
 
-
 - (void)takeTurnPass
 {
-    Piece *piece = [[Piece alloc] initWithColor:self.currentPlayer.color];
-    PlayerMove *move = [PlayerMove makePassMoveWithPiece:piece];
+    PlayerMove *move = [PlayerMove makePassMoveForColor:self.currentPlayer.color];
     [self addMove:move];
     [self resetRedos];
     [self nextPlayer];
@@ -375,66 +248,50 @@
 - (void)nextPlayer
 {
     NSArray<Player *> *players = self.players;
-    BOOL prevPlayerCouldMove = self.currentPlayer.canMove;
+    
+    BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
+    [self endTurn];
+
     self.currentPlayer = (self.currentPlayer == players[0]
                           ? players[1]
                           : players[0]);
     
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
-    {
-       return [self endTurn];
-    }];
-
-    [self.board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    [self beginTurn];
+         
+     BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+     BOOL isFull = [self.board isFull];
+     
+     if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
      {
-         NSLog(@"current player %@", self.currentPlayer);
-         
-         NSArray <BoardPiece *> * pieces = [self beginTurn];
-         
-         BOOL currentPlayerCanMove = self.currentPlayer.canMove;
-         BOOL boardFull = [self.board boardFull];
-         
-         if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || boardFull)
-         {
-             self.matchStatusBlock(YES);
-             self.noMoves = YES;
-         }
+         self.matchStatusBlock(YES);
+         self.noMoves = YES;
+     }
 
-         if (self.currentPlayerBlock)
-         {
-             self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
-         }
-         return pieces;
-    }];    
+     if (self.currentPlayerBlock)
+     {
+         self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
+     }
 }
 
-- (NSArray <BoardPiece *> *)beginTurn
+- (void)beginTurn
 {
     // don't display legal moves for AI players.
     if (!self.currentPlayer.strategy.manual)
     {
-        return nil;
+        return;
     }
 
-    return [self.currentPlayer.strategy legalMoves:YES forPlayer:self.currentPlayer];
+    [self.board legalMoves:YES forPlayer:self.currentPlayer];
 }
 
-- (NSArray <BoardPiece *> *)endTurn
+- (void)endTurn
 {
     if (!self.currentPlayer.strategy.manual)
     {
-        return nil;
+        return;
     }
     
-    NSArray <BoardPiece *> *pieces = [self.currentPlayer.strategy legalMoves:NO forPlayer:self.currentPlayer];
-    
-    NSLog(@"%@", self.board);
-    return pieces;
-}
-
-- (NSInteger)calculateScore:(Player *)player
-{
-    return [self.board playerScore:player];
+    [self.board legalMoves:NO forPlayer:self.currentPlayer];
 }
 
 - (NSString *)description
@@ -449,7 +306,8 @@
 
 - (PlayerMove *)addMove:(PlayerMove *)move
 {
-    if ([self.moves containsObject:move])
+    // need to allow multiple pass objects.
+    if (!move.position.isPass  && [self.moves containsObject:move] )
     {
         return nil; // dont add twice
     }
@@ -486,10 +344,10 @@
 - (void)test
 {
     NSLog(@"player %@ score %ld", self.players[0],
-          (long)[self calculateScore:self.players[0]]);
+          (long)[self.board playerScore:self.players[0]]);
     
     NSLog(@"player %@ score %ld", self.players[1],
-          (long)[self calculateScore:self.players[1]]);
+          (long)[self.board playerScore:self.players[1]]);
 }
 
 - (BOOL)isEqual:(id)name

@@ -10,4 +10,5 @@
 #import "Strategy.h"
 
 @interface AIStrategy : Strategy
+- (instancetype)initWithDifficulty:(Difficulty)difficulty;
 @end
