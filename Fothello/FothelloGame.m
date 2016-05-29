@@ -214,6 +214,7 @@
     Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2]];
     player1.strategy.match = match;
     player2.strategy.match = match;
+    [match reset];
     return match;
 }
 

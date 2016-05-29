@@ -44,7 +44,6 @@
         _redos = [[NSMutableArray alloc] initWithCapacity:64];
         [self setupPlayersColors];
         _board = [[GameBoard alloc] initWithBoardSize:8];
-        [self reset];
     }
     return self;
 }
@@ -167,7 +166,7 @@
 }
 
 - (void)restart
-{
+{    
     self.currentPlayer = self.players[0];
 
     [self.redos removeAllObjects];
@@ -209,7 +208,19 @@
     [self resetRedos];
     [self endTurn];
     
-    if ([self.board legalMoves:YES forPlayer:self.currentPlayer])
+    NSArray<BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:self.currentPlayer];
+    
+    BOOL isLegal = NO;
+
+    for (BoardPiece *legalMove in legalMoves)
+    {
+        if (legalMove.position.x == x && legalMove.position.y == y)
+        {
+            isLegal = YES;
+        }
+    }
+
+    if (isLegal)
     {
         [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
     }
@@ -281,7 +292,7 @@
         return;
     }
 
-    [self.board legalMoves:YES forPlayer:self.currentPlayer];
+    [self.board showLegalMoves:YES forPlayer:self.currentPlayer];
 }
 
 - (void)endTurn
@@ -291,7 +302,7 @@
         return;
     }
     
-    [self.board legalMoves:NO forPlayer:self.currentPlayer];
+    [self.board showLegalMoves:NO forPlayer:self.currentPlayer];
 }
 
 - (NSString *)description

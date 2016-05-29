@@ -39,6 +39,7 @@ typedef struct Delta
 @interface GameBoard ()
 @property (nonatomic) dispatch_queue_t queue;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
+@property (nonatomic) NSArray<BoardPiece *>*legalMoves;
 @end
 
 @implementation GameBoard
@@ -133,26 +134,29 @@ typedef struct Delta
 - (void)updateBoardWithFunction:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
 {
     dispatch_async(self.queue,^
-                   {
-                       NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
-                       [self updateBoardWithPieces:pieces];
-                   });
+       {
+           NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
+           [self updateBoardWithPieces:pieces];
+       });
 }
 
-- (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)boardPieces
+- (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)tracks
 {
-    if (boardPieces != nil)
+    if (tracks != nil)
     {
 //        NSArray<BoardPiece *> *filtered = [self findChangedPieces:boardPieces];
         
         if (self.placeBlock != nil)
         {
-            self.placeBlock(boardPieces);
+            self.placeBlock(tracks);
         }
         
-        for (BoardPiece *boardPiece in boardPieces)
+        for (NSArray<BoardPiece *> *track in tracks)
         {
-            [self changePiece:boardPiece.piece withColor:boardPiece.color];
+            for (BoardPiece *boardPiece in track)
+            {
+                [self changePiece:boardPiece.piece withColor:boardPiece.color];
+            }
         }
         
         NSLog(@"\n%@", self);
@@ -251,50 +255,58 @@ typedef struct Delta
 
 - (BOOL)canMove:(Player *)player
 {
-    NSArray <BoardPiece *> *moves = [self legalMoves:YES forPlayer:player];
+    NSArray <BoardPiece *> *moves = [self legalMovesForPlayer:player];
     return moves != nil;
 }
 
-- (NSArray <BoardPiece *> *)legalMoves:(BOOL)display forPlayer:(Player *)player
+- (void)showLegalMoves:(BOOL)display forPlayer:(Player *)player
+{
+    [self updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+     {
+         if (display)
+         {
+             NSArray<BoardPiece *> *pieces = [self legalMovesForPlayer:player];
+             self.legalMoves = pieces;
+             return pieces ? @[pieces] : nil;
+         }
+         else
+         {
+             NSArray<BoardPiece *> *pieces = self.legalMoves;
+             
+             for (BoardPiece *piece in pieces)
+             {
+                 piece.color = PieceColorLegal;
+             }
+             self.legalMoves = nil;
+             return pieces ? @[pieces] : nil;
+         }
+     }];
+}
+
+- (NSArray <BoardPiece *> *)legalMovesForPlayer:(Player *)player
 {
     NSMutableArray<BoardPiece *>*pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
-    if (display)
-    {
-        __block BOOL foundLegal = NO;
-        
-        // Determine moves
-        [self visitAll:^(NSInteger x, NSInteger y, Piece *findPiece)
-         {
-             BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-             BoardPiece *findBoardPiece = [BoardPiece makeBoardPieceWithPiece:findPiece position:boardPosition color:player.color];
+    __block BOOL foundLegal = NO;
+    
+    // Determine moves
+    [self visitAll:^(NSInteger x, NSInteger y, Piece *findPiece)
+     {
+         BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+         BoardPiece *findBoardPiece = [BoardPiece makeBoardPieceWithPiece:findPiece position:boardPosition color:player.color];
 
-             BOOL foundTrack = [self findTracksForBoardPiece:findBoardPiece player:player] != nil;
-             if (foundTrack)
-             {
-                 Piece *piece = [self pieceAtPositionX:x Y:y];
-                 PieceColor color = display ? PieceColorLegal : PieceColorNone;
-                 if (piece.color != color)
-                 {
-                     [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:color]];
-                 }
-                 foundLegal = YES;
-             }
-         }];
-        return foundLegal ? [pieces copy] : nil;
-    }
-    else
-    {
-        [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+         BOOL foundTrack = [self findTracksForBoardPiece:findBoardPiece player:player] != nil;
+         if (foundTrack)
          {
-             if (piece.color == PieceColorLegal)
+             Piece *piece = [self pieceAtPositionX:x Y:y];
+             if (piece.color != PieceColorNone)
              {
-                 BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:PieceColorNone]];
+                 [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:player.color]];
              }
-         }];
-        return [pieces copy];
-    }
+             foundLegal = YES;
+         }
+     }];
+    return foundLegal ? [pieces copy] : nil;
 }
 
 - (NSArray<BoardPiece *> *)erase

@@ -47,19 +47,19 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     __weak BoardScene *weakBlockSelf = self;
 
     // whenever a piece is placed on board calls back to here.
-    match.board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *piecePositions)
+    match.board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
     {        
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [self printBoardUpdates:piecePositions];
+            [self printBoardUpdates:pieceTracks];
             
-            for (NSArray<BoardPiece *> *piecePositionArray in piecePositions)
+            for (NSArray<BoardPiece *> *pieceTrack in pieceTracks)
             {
-                for (BoardPiece *piecePosition in piecePositionArray)
+                for (BoardPiece *piece in pieceTrack)
                 {
-                    [weakBlockSelf placeSpriteAtX:piecePosition.position.x
-                                                Y:piecePosition.position.y
-                                        withPiece:piecePosition.piece];
+                    [weakBlockSelf placeSpriteAtX:piece.position.x
+                                                Y:piece.position.y
+                                        withPiece:piece.piece];
                 }
             }
         });
