@@ -124,7 +124,7 @@
     }
 
     [self replayMoves];
-    [self beginTurn];
+    self.turnProcessing = [self.currentPlayer beginTurn];
 }
 
 - (void)redo
@@ -144,7 +144,7 @@
         [self placeMove:move forPlayer:player showMove:YES];
     }
     
-    [self beginTurn];
+    self.turnProcessing = [self.currentPlayer beginTurn];
 }
 
 - (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
@@ -152,21 +152,10 @@
     [self.board placeMove:move forPlayer:player showMove:showMove];
     [self addMove:move];
     [self nextPlayer];
-    [self takeTurn];
-    
-    if (player.strategy.manual) // it was a AI player if non null
-    {
-        self.turnProcessing = NO; // enable UI.
-    }
-}
-
-- (void)hint
-{
-    [self.currentPlayer.strategy hintForPlayer:self.currentPlayer];
 }
 
 - (void)restart
-{    
+{
     self.currentPlayer = self.players[0];
 
     [self.redos removeAllObjects];
@@ -178,14 +167,13 @@
     }
     
     [self reset];
-    
-    [self beginTurn];
+    self.turnProcessing = [self.currentPlayer beginTurn];
     [self ready];
 }
 
 - (void)reset
 {
-    [self endTurn];
+    [self.currentPlayer endTurn];
     
     GameBoard *board = self.board;
     
@@ -198,112 +186,51 @@
     [board reset];
 }
 
-- (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
-{
-    [self.board showHintMove:move forPlayer:player];
-}
-
-- (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
-{
-    [self resetRedos];
-    [self endTurn];
-    
-    NSArray<BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:self.currentPlayer];
-    
-    BOOL isLegal = NO;
-
-    for (BoardPiece *legalMove in legalMoves)
-    {
-        if (legalMove.position.x == x && legalMove.position.y == y)
-        {
-            isLegal = YES;
-        }
-    }
-
-    if (isLegal)
-    {
-        [self.currentPlayer takeTurnAtX:x Y:y pass:pass];
-    }
-    else
-    {
-        [self beginTurn]; // reset not a valid move.
-    }
-}
-
 - (void)takeTurn
 {
-    self.turnProcessing = YES;
-    
     if (self.noMoves)
         return;
-    
-    double delayInSeconds = .5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
-                                            (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
-    {
-        [self.currentPlayer takeTurn];
-    });
-}
-
-- (void)takeTurnPass
-{
-    PlayerMove *move = [PlayerMove makePassMoveForColor:self.currentPlayer.color];
-    [self addMove:move];
-    [self resetRedos];
-    [self nextPlayer];
-    [self takeTurn];
+ 
+    [self.currentPlayer makeMove];
 }
 
 - (void)nextPlayer
 {
-    NSArray<Player *> *players = self.players;
-    
-    BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
-    [self endTurn];
-
-    self.currentPlayer = (self.currentPlayer == players[0]
-                          ? players[1]
-                          : players[0]);
-    
-    [self beginTurn];
-         
-     BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-     BOOL isFull = [self.board isFull];
-     
-     if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
-     {
-         self.matchStatusBlock(YES);
-         self.noMoves = YES;
-     }
-
-     if (self.currentPlayerBlock)
-     {
-         self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
-     }
-}
-
-- (void)beginTurn
-{
-    // don't display legal moves for AI players.
-    if (!self.currentPlayer.strategy.manual)
+    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
     {
-        return;
-    }
+        NSArray<Player *> *players = self.players;
+        
+        BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
+        [self.currentPlayer endTurn];
 
-    [self.board showLegalMoves:YES forPlayer:self.currentPlayer];
+        self.currentPlayer = (self.currentPlayer == players[0]
+                              ? players[1]
+                              : players[0]);
+        
+        NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
+        
+        self.turnProcessing = [self.currentPlayer beginTurn];
+             
+        BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+        BOOL isFull = [self.board isFull];
+        
+        if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
+        {
+            self.matchStatusBlock(YES);
+            self.noMoves = YES;
+        }
+        
+        if (self.currentPlayerBlock)
+        {
+            self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
+        }
+        
+        [self takeTurn];
+        
+        return nil;
+    }];
 }
 
-- (void)endTurn
-{
-    if (!self.currentPlayer.strategy.manual)
-    {
-        return;
-    }
-    
-    [self.board showLegalMoves:NO forPlayer:self.currentPlayer];
-}
 
 - (NSString *)description
 {
@@ -318,7 +245,7 @@
 - (PlayerMove *)addMove:(PlayerMove *)move
 {
     // need to allow multiple pass objects.
-    if (!move.position.isPass  && [self.moves containsObject:move] )
+    if (!move.isPass  && [self.moves containsObject:move] )
     {
         return nil; // dont add twice
     }
@@ -345,20 +272,6 @@
     }
     
     return move;
-}
-
-- (BOOL)done
-{
-    return NO;
-}
-
-- (void)test
-{
-    NSLog(@"player %@ score %ld", self.players[0],
-          (long)[self.board playerScore:self.players[0]]);
-    
-    NSLog(@"player %@ score %ld", self.players[1],
-          (long)[self.board playerScore:self.players[1]]);
 }
 
 - (BOOL)isEqual:(id)name

@@ -84,7 +84,19 @@ std::string testString(
     // subclass
 }
 
-- (void)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (void)takeTurn:(Player *)player atPosition:(BoardPosition *)position
+{
+    // subclass
+}
+
+- (BOOL)beginTurn:(Player *)player
+{
+    // subclass
+    
+    return YES;
+}
+
+- (void)endTurn:(Player *)player
 {
     // subclass
 }
@@ -155,8 +167,7 @@ std::string testString(
     
     if (r["pass"].get<bool>())
     {
-        BoardPosition *boardPosition = [BoardPosition positionWithPass];
-        return [PlayerMove makeMoveForColor:player.color position:boardPosition];
+        return [PlayerMove makePassMoveForColor:player.color];
     }
     
     NSInteger ay = r["movey"].get<int>();
@@ -169,6 +180,16 @@ std::string testString(
 - (void)hintForPlayer:(Player *)player
 {
     // subclass 
+}
+
+- (void)makeMove:(Player *)player
+{
+    // subclass
+}
+
+- (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
+{
+    //subclass
 }
 
 @end

@@ -12,9 +12,10 @@
 #import "Match.h"
 #import "Strategy.h"
 #import "BoardScene.h"
+#import "BoardPiece.h"
 #import "Piece.h"
-#import "PlayerMove.h"
 #import "BoardPosition.h"
+#import "NSArray+Extensions.h"
 
 static NSString *kMainFont = @"AvenirNext-Medium";
 
@@ -51,16 +52,13 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     {        
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [self printBoardUpdates:pieceTracks];
+            NSArray<BoardPiece *> *boardPieces = [NSArray flatten:pieceTracks];
             
-            for (NSArray<BoardPiece *> *pieceTrack in pieceTracks)
+            for (BoardPiece *piece in boardPieces)
             {
-                for (BoardPiece *piece in pieceTrack)
-                {
-                    [weakBlockSelf placeSpriteAtX:piece.position.x
-                                                Y:piece.position.y
-                                        withPiece:piece.piece];
-                }
+                [weakBlockSelf placeSpriteAtX:piece.position.x
+                                            Y:piece.position.y
+                                    withPiece:piece.piece];
             }
         });
     };
@@ -93,7 +91,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         });
     };
     
-    match.board.highlightBlock = ^(PlayerMove *move, PieceColor color)
+    match.board.highlightBlock = ^(BoardPiece *move, PieceColor color)
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
@@ -104,16 +102,6 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     [self syncronizeBoardStateWithModel];
     
     self.currentPlayerSprite = match.currentPlayer.userReference;    
-}
-
-- (void)printBoardUpdates:(NSArray<NSArray<BoardPiece *> *> *)piecePositions
-{
-    NSLog(@"(%ld){", piecePositions.count);
-    for (NSArray<BoardPiece *> *pieces in piecePositions)
-    {
-        NSLog(@"%@", pieces);
-    }
-    NSLog(@"}");
 }
 
 - (void)teardownMatch
@@ -136,8 +124,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy
 {
-    // ignore clicks if turn still processing.
-    if (self.match.turnProcessing || self.gameOverNode)
+    // ignore clicks if turn game over.
+    if (self.gameOverNode)
     {
         return;
     }
@@ -150,10 +138,10 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     CGFloat x = (rawx - boardRect.origin.x) / spacing;
     CGFloat y = (rawy - boardRect.origin.y) / spacing;
     
-    if (x >= 0 && x < boardSize && y >= 0 && y < boardSize &&
-        !self.match.turnProcessing)
+    if (x >= 0 && x < boardSize && y >= 0 && y < boardSize)
     {
-        [self.match takeTurnAtX:x Y:y pass:NO];        
+        BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+        [self.match.currentPlayer makeMoveAtPosition:boardPosition];
     }
 }
 
@@ -286,7 +274,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     }
     
     boardUI.path = pathToDraw;
-    [boardUI setStrokeColor:[SKColor whiteColor]];
+    [boardUI setStrokeColor:[SKColor blackColor]];
     
     [self addChild:boardUI];
     CFRelease(pathToDraw);
@@ -348,7 +336,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     pieceSprite.lineWidth = 1.0;
     pieceSprite.fillColor = [self skColorFromPieceColor:color];
-    pieceSprite.strokeColor = [SKColor lightGrayColor];
+    pieceSprite.strokeColor = [self skColorFromPieceColor:color];
     pieceSprite.glowWidth = 0.5;
     return pieceSprite;
 }
@@ -364,8 +352,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     CFRelease(myPath);
     
     dotSprite.lineWidth = 1.0;
-    dotSprite.fillColor = [SKColor blackColor];
-    dotSprite.strokeColor = [SKColor whiteColor];
+    dotSprite.fillColor = [SKColor whiteColor];
+    dotSprite.strokeColor = [SKColor blackColor];
     dotSprite.position = CGPointMake(position.x - (size / 2) - .5, position.y - (size / 2) -.5);
     return dotSprite;
 }

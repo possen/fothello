@@ -12,6 +12,9 @@
 #import "BoardScene.h"
 #import "Match.h"
 #import "FothelloGame.h"
+#import "BoardPosition.h"
+#import "Player.h"
+#import "PlayerMove.h"
 
 @interface MatchViewControllerMac () <DismissDelegate>
 @property (strong, nonatomic) BoardScene *boardScene;
@@ -115,7 +118,7 @@
 
 - (IBAction)pass:(id)sender
 {
-    [self.match takeTurnPass];
+    [self.match.currentPlayer makePassMove];
 }
 
 - (IBAction)resetGame:(id)sender
@@ -125,7 +128,7 @@
 
 - (IBAction)hint:(id)sender
 {
-    [self.match hint];
+    [self.match.currentPlayer hint];
 }
 
 - (IBAction)undo:(id)sender

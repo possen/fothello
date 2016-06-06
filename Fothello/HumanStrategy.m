@@ -13,6 +13,7 @@
 #import "Player.h"
 #import "PlayerMove.h"
 #import "BoardPosition.h"
+#import "GameBoard.h"
 
 
 @interface Strategy (Protected)
@@ -29,18 +30,34 @@
     return YES;
 }
 
-- (void)takeTurn:(Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    [super takeTurn:player atX:x Y:y pass:pass];
+    // ignore clicks if turn still processing.
+    if (self.match.turnProcessing)
+    {
+        return;
+    }
+    
+    [self.match resetRedos];
         
-    BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-    PlayerMove *move = [PlayerMove makeMoveForColor:player.color position:boardPosition];
     [self.match placeMove:move forPlayer:player showMove:NO];
 }
 
 - (void)hintForPlayer:(Player *)player
 {
     PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
-    [self.match showHintMove:move forPlayer:player];
+    [self.match.board showHintMove:move forPlayer:player];
 }
+
+- (BOOL)beginTurn:(Player *)player
+{
+    [self.match.board showLegalMoves:YES forPlayer:player];
+    return NO;
+}
+
+- (void)endTurn:(Player *)player
+{
+    [self.match.board showLegalMoves:NO forPlayer:player];
+}
+
 @end

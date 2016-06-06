@@ -173,29 +173,30 @@
     Player *player1 = nil;
     Player *player2 = nil;
     
+    // black goes first.
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
-            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[HumanStrategy alloc] init];
             player2.strategy = [[HumanStrategy alloc] init];
             break;
         case PlayerKindSelectionHumanVComputer:
-            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[HumanStrategy alloc] init];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             break;
         case PlayerKindSelectionComputerVHuman:
-            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             player2.strategy = [[HumanStrategy alloc] init];
             break;
         case PlayerKindSelectionComputerVComputer:
-            player1 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player2 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             break;
@@ -211,7 +212,7 @@
         return nil;
     }
     
-    Match *match = [[Match alloc] initWithName:@"game" players:@[player1, player2]];
+    Match *match = [[Match alloc] initWithName:@"game" players:@[player2, player1]];
     player1.strategy.match = match;
     player2.strategy.match = match;
     [match reset];

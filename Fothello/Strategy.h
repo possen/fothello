@@ -11,6 +11,7 @@
 #import "Strategy.h"
 
 @class Player;
+@class PlayerMove;
 @class BoardPosition;
 
 #pragma mark - Strategy -
@@ -20,8 +21,10 @@
 @property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL manual;
 
-- (void)takeTurn:(nonnull Player *)player;
-- (void)takeTurn:(nonnull Player *)player atX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
+- (void)makeMove:(nonnull Player *)player;
+- (void)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)hintForPlayer:(nonnull Player *)player;
+- (BOOL)beginTurn:(nonnull Player *)player;
+- (void)endTurn:(nonnull Player *)player;
 
 @end

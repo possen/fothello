@@ -19,7 +19,7 @@
 @class PlayerMove;
 
 typedef void (^PlaceBlock)(NSArray<NSArray<BoardPiece *> *> * _Nullable pieces);
-typedef void (^HighlightBlock)(PlayerMove * _Nonnull  move, PieceColor color);
+typedef void (^HighlightBlock)(BoardPiece * _Nonnull  move, PieceColor color);
 
 #pragma mark - GameBoard -
 
@@ -33,12 +33,15 @@ typedef void (^HighlightBlock)(PlayerMove * _Nonnull  move, PieceColor color);
 - (void)reset;
 - (nonnull NSString *)requestFormat;
 - (NSInteger)playerScore:(nonnull Player *)player;
+- (nonnull BoardPosition *)center;
 
 - (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player showMove:(BOOL)showMove;
 - (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
 - (nullable NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(nonnull BoardPiece *)piece
                                                                  player:(nonnull Player *)player;
+
+- (void)updateBoardWithFunction:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction;
 
 - (nullable NSArray <BoardPiece *> *)legalMovesForPlayer:(nonnull Player *)player;
 
@@ -52,6 +55,6 @@ typedef void (^HighlightBlock)(PlayerMove * _Nonnull  move, PieceColor color);
 
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy, nullable)  PlaceBlock placeBlock;
-@property (nonatomic, nonnull) NSMutableDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@property (nonatomic, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
 @end

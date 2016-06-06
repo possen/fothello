@@ -36,7 +36,8 @@
     Piece *piece = [[Piece alloc] initWithColor:color];
     PlayerMove *move = [[PlayerMove alloc] init];
     move.piece = piece;
-    move.position = [BoardPosition positionWithPass];
+    move.position.x = -1;
+    move.position.y = -1;
     return move;
 }
 
@@ -44,8 +45,8 @@
 {
     NSString  *pieceStr = self.piece.description;
     return (!self.isPass)
-    ? [NSString stringWithFormat:@"%@ %ld - %ld ", pieceStr, (long)self.position.x + 1, (long)self.position.y + 1]
-    : [NSString stringWithFormat:@"%@ Pass", pieceStr];
+        ? [NSString stringWithFormat:@"%@ %c%ld ", pieceStr, 'A' + (char)self.position.x, 8 - (long)self.position.y]
+        : [NSString stringWithFormat:@"%@ Pass", pieceStr];
 }
 
 - (BOOL)isPass

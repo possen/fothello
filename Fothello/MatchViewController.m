@@ -177,7 +177,7 @@
 
 - (IBAction)hint:(UIButton *)sender
 {
-    [self.match hint];
+    [self.match.currentPlayer hint];
 }
 
 - (IBAction)undo:(UIButton *)sender

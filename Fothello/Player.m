@@ -8,7 +8,7 @@
 
 #import "Player.h"
 #import "Strategy.h"
-#import "Match.h"
+#import "PlayerMove.h"
 
 #pragma mark - Player -
 
@@ -51,14 +51,14 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (void)takeTurn // automatic players
+- (BOOL)beginTurn
 {
-    [self.strategy takeTurn:self];
+   return [self.strategy beginTurn:self];
 }
 
-- (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass
+- (void)endTurn
 {
-    [self.strategy takeTurn:self atX:x Y:y pass:pass];
+    [self.strategy endTurn:self];
 }
 
 - (BOOL)isEqual:(id)name
@@ -70,5 +70,29 @@
 {
     return self.name.hash;
 }
+
+- (void)hint
+{
+    [self.strategy hintForPlayer:self];
+}
+
+- (void)makeMoveAtPosition:(BoardPosition *)position
+{
+    PlayerMove *move = [PlayerMove makeMoveForColor:self.color position:position];
+    [self.strategy makeMove:move forPlayer:self];
+}
+
+- (void)makePassMove
+{
+    PlayerMove *move = [PlayerMove makePassMoveForColor:self.color];
+    [self.strategy makeMove:move forPlayer:self];
+}
+
+- (void)makeMove // AI players
+{
+    [self.strategy makeMove:self];
+}
+
+
 
 @end

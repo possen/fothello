@@ -12,6 +12,7 @@
 @class Strategy;
 @class BoardPiece;
 @class PlayerMove;
+@class BoardPosition;
 
 typedef enum PlayerType : NSInteger
 {
@@ -32,8 +33,13 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic, nullable) id userReference;
 
 - (nonnull instancetype)initWithName:(nonnull NSString *)name;
-- (void)takeTurn; // automated players don't pass position here.
-- (void)takeTurnAtX:(NSInteger)x Y:(NSInteger)y pass:(BOOL)pass;
 
+- (void)makeMove; // AI players
+- (void)makeMoveAtPosition:(nonnull BoardPosition *)positon;
+- (void)makePassMove;
+
+- (BOOL)beginTurn;
+- (void)endTurn;
+- (void)hint;
 @end
 

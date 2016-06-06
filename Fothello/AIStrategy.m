@@ -54,10 +54,18 @@
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
-- (void)takeTurn:(Player *)player
-{
-    PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
-    [self.match placeMove:move forPlayer:player showMove:YES];
+- (void)makeMove:(Player *)player
+{    
+    double delayInSeconds = .5;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
+                                            (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
+   {
+       PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
+       [self.match placeMove:move forPlayer:player showMove:YES];
+   });
+
 }
 
 

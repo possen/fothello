@@ -13,11 +13,7 @@
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 
-- (nonnull instancetype)initWithPass;
 - (nonnull instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;
-- (BOOL)isPass;
-
-+ (nonnull instancetype)positionWithPass;
 + (nonnull instancetype)positionWithX:(NSInteger)x y:(NSInteger)y;
 + (nonnull instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass;
 

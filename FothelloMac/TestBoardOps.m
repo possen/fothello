@@ -43,10 +43,10 @@
 
 - (void)testBoardPlace
 {
-    GameBoard *board = [[GameBoard alloc] initWithBoardSize:8 queue:self.queue];
+    GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
     XCTestExpectation *expectation =  [self expectationWithDescription:@"testBoardPlace"];
 
-    [board updateBoardWithFunction:^NSArray<BoardPiece *> *
+    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
      {
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          BoardPosition *center = board.center;
@@ -55,24 +55,31 @@
           {
               NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
               Piece *piece = [board pieceAtPositionX:x Y:y];
+         
               BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
               [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:PieceColorWhite]];
           }];
          
          [expectation fulfill];
-         return [pieces copy];
+         return @[pieces];
      }];
-    
+
     [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error)
      {
          XCTAssert(error == nil, @"error");
+         
+         
          NSString *boardString = board.description;
          NSString *start = [boardString substringToIndex:18];
          NSString *end = [boardString substringFromIndex:89];
+         
          XCTAssert([start isEqualToString:@"\n----------\n|○○○○○"], @"boards");
          XCTAssert([end isEqualToString:@"|○○○○○○○○|\n----------\n{\n    2 = 28;\n}"], @"boards");
     }];
 }
 
+- (void)testFindOps {
+    
+}
 
 @end
