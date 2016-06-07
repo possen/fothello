@@ -18,37 +18,10 @@
     return position;
 }
 
-+ (instancetype)positionWithPass
-{
-    return [[BoardPosition alloc] initWithPass];
-}
-
 + (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y
 {
     BoardPosition *position = [[BoardPosition alloc] initWithX:x Y:y];
     return position;
-}
-
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass
-{
-    BoardPosition *position = pass ? [[BoardPosition alloc] initWithPass] : [[BoardPosition alloc] initWithX:x Y:y];
-    return position;
-}
-
-- (BOOL)isPass
-{
-    return self.x < 0 || self.y < 0;
-}
-
-- (instancetype)initWithPass
-{
-    self = [super init];
-    if (self)
-    {
-        _x = -1;
-        _y = -1;
-    }
-    return self;
 }
 
 - (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y

@@ -97,7 +97,6 @@ typedef struct Delta
     [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
 }
 
-
 - (void)updateColorCount:(Piece *)piece incdec:(NSInteger)incDec
 {
     if ([piece isClear])
@@ -207,7 +206,6 @@ typedef struct Delta
         
         return @[boardPieces, [setupBoard copy]];
     }];
-
 }
 
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
@@ -254,8 +252,8 @@ typedef struct Delta
 
 - (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
 {
-    [self updateBoardWithFunction:^NSArray<NSArray <BoardPiece *> *> *{
-        
+    [self updateBoardWithFunction:^NSArray<NSArray <BoardPiece *> *> *
+    {
         // briefly highlight position or show pass.
         if (showMove)
         {
@@ -267,9 +265,14 @@ typedef struct Delta
             return nil;
         }
         
-        Piece *movePiece = [self pieceAtPositionX:move.position.x Y:move.position.y];
-        NSArray<NSArray<BoardPiece *> *> *moveBoardPiece = @[@[[BoardPiece makeBoardPieceWithPiece:movePiece position:move.position color:player.color]]];
-        NSArray<NSArray<BoardPiece *> *> *pieces = [moveBoardPiece arrayByAddingObjectsFromArray:[self findTracksForBoardPiece:move player:player]];
+        Piece *currentBoardPiece = [self pieceAtPositionX:move.position.x Y:move.position.y];
+        
+        NSArray<NSArray<BoardPiece *> *> *moveBoardPiece = @[@[[BoardPiece makeBoardPieceWithPiece:currentBoardPiece
+                                                                                          position:move.position
+                                                                                             color:player.color]]];
+        
+        NSArray<NSArray<BoardPiece *> *> *pieces = [moveBoardPiece arrayByAddingObjectsFromArray:
+                                                    [self findTracksForBoardPiece:move player:player]];
 
         return pieces;
     }];
@@ -294,10 +297,19 @@ typedef struct Delta
          else
          {
              NSArray<BoardPiece *> *pieces = self.legalMoves;
-             for (BoardPiece *piece in pieces)
+             NSIndexSet *legals = [pieces indexesOfObjectsPassingTest:^BOOL(BoardPiece *piece, NSUInteger idx, BOOL * stop)
+             {
+                 Piece *currentPiece = [self pieceAtPositionX:piece.position.x Y:piece.position.y];
+                 BOOL result = currentPiece.color == PieceColorLegal;
+                 return result;
+             }];
+             
+             pieces = [pieces objectsAtIndexes:legals];
+             [pieces enumerateObjectsUsingBlock:^(BoardPiece *piece, NSUInteger idx, BOOL *stop)
              {
                  piece.color = PieceColorNone;
-             }
+             }];
+             
              self.legalMoves = nil;
              return pieces ? @[pieces] : nil;
          }
@@ -364,8 +376,13 @@ typedef struct Delta
     return [self.grid objectAtIndex:[self calculateIndexX:x Y:y]];
 }
 
-- (void)printBanner:(NSMutableString *)boardString
+- (void)printBanner:(NSMutableString *)boardString ascii:(BOOL)ascii
 {
+    if (!ascii)
+    {
+        [boardString appendString:@" "];
+    }
+
     for (NSInteger width = 0; width < self.size + 2; width++)
     {
         [boardString appendString:@"-"];
@@ -376,16 +393,34 @@ typedef struct Delta
 - (NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse
 {
     NSMutableString *boardString = [[NSMutableString alloc] init];
-    [self printBanner:boardString];
+
+    if (!ascii)
+    {
+        [boardString appendFormat:@"  "];
+        for (NSInteger x = 1; x <= self.size; x++)
+        {
+            [boardString appendFormat:@"%ld", x];
+        }
+        [boardString appendFormat:@"\n"];
+    }
+
+    [self printBanner:boardString ascii:ascii];
     
     NSInteger size = self.size;
     NSInteger reverseOffset = reverse  ? size - 1: 0;
     for (NSInteger y = 0; y < size; ++y)
     {
+        NSInteger ry = labs(reverseOffset - y);
+        if (!ascii)
+        {
+            [boardString appendFormat:@"%ld", ry+1];
+        }
+
         [boardString appendString:@"|"];
+        
         for (NSInteger x = 0; x < self.size; x++)
         {
-            Piece *piece = [self pieceAtPositionX:x Y:labs(reverseOffset - y)];
+            Piece *piece = [self pieceAtPositionX:x Y:ry];
             if (piece == nil)
             {
                 continue;
@@ -394,15 +429,18 @@ typedef struct Delta
                 ? piece.colorStringRepresentationAscii
                 : piece.colorStringRepresentation];
         }
+        
         [boardString appendString:@"|"];
         [boardString appendString:@"\n"];
     }
     
-    [self printBanner:boardString];
+    [self printBanner:boardString ascii:ascii];
+    
     if (!ascii)
     {
         [boardString appendFormat:@"%@", self.piecesPlayed];
     }
+    
     return [boardString copy];
 }
 
@@ -467,14 +505,10 @@ typedef struct Delta
             }
         } while (valid && piece.color != player.color);
         
-        // found piece of same color, end track and call back.
+        // found piece of same color, end track call back.
         if (valid && piece.color == player.color && track.count > 1)
         {
-            found = YES;
-        }
-        
-        if (track.count > 0)
-        {
+            found = YES;            
             [tracks addObject:[track copy]];
         }
     }

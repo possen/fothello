@@ -39,17 +39,14 @@
 
 - (BOOL)isEqual:(BoardPiece *)other
 {
-    return [self.position isEqual:other.position]
-        && self.piece.color == other.piece.color;
+    return [self.position isEqual:other.position] && self.piece.color == other.piece.color;
 }
 
 - (NSString *)description
 {
-    return (self.position.x != -1)
-        ? [NSString stringWithFormat:@"%ld - %ld %@ -> %@", (long)self.position.x + 1,
+    return [NSString stringWithFormat:@"%ld - %ld %@ -> %@", (long)self.position.x + 1,
            (long)self.position.y + 1, self.piece.description,
-           [Piece stringFromColor:self.color]]
-        : [NSString stringWithFormat:@"Pass %@", self.piece.description];
+            [Piece stringFromColor:self.color]];
 }
 
 @end

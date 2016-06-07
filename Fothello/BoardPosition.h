@@ -15,6 +15,5 @@
 
 - (nonnull instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;
 + (nonnull instancetype)positionWithX:(NSInteger)x y:(NSInteger)y;
-+ (nonnull instancetype)positionWithX:(NSInteger)x y:(NSInteger)y pass:(BOOL)pass;
 
 @end

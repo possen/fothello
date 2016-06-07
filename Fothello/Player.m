@@ -93,6 +93,4 @@
     [self.strategy makeMove:self];
 }
 
-
-
 @end
