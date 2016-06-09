@@ -12,6 +12,7 @@
 #import <iAd/iAd.h>
 #import "DialogViewController.h"
 #import "Match.h"
+#import "Player.h"
 
 @interface MatchViewController ()
 
@@ -167,7 +168,7 @@
 
 - (IBAction)pass:(UIButton *)sender
 {
-    [self.match takeTurnPass];
+    [self.match.currentPlayer makePassMove];
 }
 
 - (IBAction)resetGame:(UIButton *)sender

@@ -40,7 +40,6 @@
 		D50D77951CF8E5990073D0A1 /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D50D77961CF8E5990073D0A1 /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D50D77971CF92EB60073D0A1 /* FothelloTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.mm */; };
-		D50D77981CF92ED10073D0A1 /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
 		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
 		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
@@ -794,7 +793,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */,
-				D50D77981CF92ED10073D0A1 /* TestBoardOps.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
