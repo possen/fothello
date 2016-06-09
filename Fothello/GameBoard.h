@@ -35,8 +35,9 @@ typedef void (^HighlightBlock)(BoardPiece * _Nonnull  move, PieceColor color);
 - (NSInteger)playerScore:(nonnull Player *)player;
 - (nonnull BoardPosition *)center;
 
-- (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player showMove:(BOOL)showMove;
+- (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
 - (nullable NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(nonnull BoardPiece *)piece
                                                                  player:(nonnull Player *)player;

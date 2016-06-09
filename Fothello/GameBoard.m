@@ -180,7 +180,6 @@ typedef struct Delta
     {
         [self changePiece:boardPiece.piece withColor:boardPiece.color];
     }
-    
     NSLog(@"\n%@", self);
 }
 
@@ -206,6 +205,15 @@ typedef struct Delta
         
         return @[boardPieces, [setupBoard copy]];
     }];
+}
+
+- (void)showClickedMove:(PlayerMove *)move forPlayer:(Player *)player
+{
+    [self updateBoardWithFunction:^NSArray<BoardPiece *> *
+     {
+         self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+         return nil;
+     }];
 }
 
 - (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
@@ -250,16 +258,10 @@ typedef struct Delta
     return pos;
 }
 
-- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
+- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     [self updateBoardWithFunction:^NSArray<NSArray <BoardPiece *> *> *
     {
-        // briefly highlight position or show pass.
-        if (showMove)
-        {
-            self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
-        }
-        
         if (move.isPass)
         {
             return nil;

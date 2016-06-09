@@ -38,9 +38,17 @@
         return;
     }
     
+    [super makeMove:move forPlayer:player];
+    
     [self.match resetRedos];
-        
-    [self.match placeMove:move forPlayer:player showMove:NO];
+    
+    [self.match isLegalMove:move forPlayer:player completion:^(BOOL legal)
+     {
+         if (legal)
+         {
+             [self.match placeMove:move forPlayer:player];
+         }
+     }];
 }
 
 - (void)hintForPlayer:(Player *)player

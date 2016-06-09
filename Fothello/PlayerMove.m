@@ -35,9 +35,9 @@
 {
     Piece *piece = [[Piece alloc] initWithColor:color];
     PlayerMove *move = [[PlayerMove alloc] init];
+    BoardPosition *position = [BoardPosition positionWithX:-1 y:-1];
+    move.position = position;
     move.piece = piece;
-    move.position.x = -1;
-    move.position.y = -1;
     return move;
 }
 

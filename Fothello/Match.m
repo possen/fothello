@@ -1,4 +1,4 @@
-    //
+//
 //  Match.m
 //  Fothello
 //
@@ -108,7 +108,7 @@
      {
           NSLog(@"replay move %@", move);
           Player *player = self.players[idx % 2];
-          [self.board placeMove:move forPlayer:player showMove:NO];
+          [self.board placeMove:move forPlayer:player];
      }];
 }
 
@@ -141,15 +141,37 @@
         
         NSLog(@"redo %@", move);
         
-        [self placeMove:move forPlayer:player showMove:YES];
+        [self placeMove:move forPlayer:player];
     }
     
     self.turnProcessing = [self.currentPlayer beginTurn];
 }
 
-- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player showMove:(BOOL)showMove
+- (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player completion:(void (^)(BOOL legal))completion
 {
-    [self.board placeMove:move forPlayer:player showMove:showMove];
+    if ([move isPass])
+    {
+        completion(YES);
+        return;
+    }
+    
+    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+     {
+         NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
+         
+         BOOL legalMove = legalMoves != nil && [legalMoves indexOfObjectPassingTest:^BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop) {
+             return boardPiece.position.x == move.position.x && boardPiece.position.y == move.position.y;
+         }] != NSNotFound;
+         
+         completion(legalMove);
+         
+         return nil;
+     }];
+}
+
+- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+{
+    [self.board placeMove:move forPlayer:player];
     [self addMove:move];
     [self nextPlayer];
 }

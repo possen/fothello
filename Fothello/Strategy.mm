@@ -189,7 +189,7 @@ std::string testString(
 
 - (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    //subclass
+    [self.match.board showClickedMove:move forPlayer:player];
 }
 
 @end

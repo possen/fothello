@@ -62,8 +62,10 @@
     
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
    {
+       
        PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
-       [self.match placeMove:move forPlayer:player showMove:YES];
+       [super makeMove:move forPlayer: player];
+       [self.match placeMove:move forPlayer:player];
    });
 
 }
