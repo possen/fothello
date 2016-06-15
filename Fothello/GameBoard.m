@@ -83,9 +83,9 @@ typedef struct Delta
     
     if (self)
     {
-        self.grid = [coder decodeObjectForKey:@"grid"];
-        self.size = [coder decodeIntegerForKey:@"size"];
-        self.piecesPlayed = [coder decodeObjectForKey:@"piecesPlayed"];
+        _grid = [coder decodeObjectForKey:@"grid"];
+        _size = [coder decodeIntegerForKey:@"size"];
+        _piecesPlayed = [coder decodeObjectForKey:@"piecesPlayed"];
     }
     return self;
 }
@@ -95,6 +95,14 @@ typedef struct Delta
     [aCoder encodeObject:self.grid forKey:@"grid"];
     [aCoder encodeInteger:self.size forKey:@"size"];
     [aCoder encodeObject:self.piecesPlayed forKey:@"piecesPlayed"];
+}
+
+- (void)setPieceCount:(Piece *)piece value:(NSInteger)newCount
+{
+    NSMutableDictionary *piecesPlayed = [self.piecesPlayed mutableCopy];
+    NSNumber *key = @(piece.color);
+    piecesPlayed[key] = @(newCount);
+    self.piecesPlayed = [piecesPlayed copy];
 }
 
 - (void)updateColorCount:(Piece *)piece incdec:(NSInteger)incDec
@@ -107,10 +115,7 @@ typedef struct Delta
     NSMutableDictionary *piecesPlayed = [self.piecesPlayed mutableCopy];
     NSNumber *key = @(piece.color);
     NSNumber *count = piecesPlayed[key];
-    NSInteger newCount = [count integerValue] + incDec;
-    piecesPlayed[key] = @(newCount);
-
-    self.piecesPlayed = [piecesPlayed copy];
+    [self setPieceCount:piece value:[count integerValue] + incDec];
 }
 
 - (NSArray<BoardPiece *> *)findChangedPieces:(NSArray <BoardPiece *> *)boardPieces
@@ -201,8 +206,9 @@ typedef struct Delta
              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
              Piece *piece = [self pieceAtPositionX:x Y:y];
              [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:playerCount + 1]];
+             [self setPieceCount:piece value:2];
          }];
-        
+
         return @[boardPieces, [setupBoard copy]];
     }];
 }
@@ -345,8 +351,6 @@ typedef struct Delta
     
     [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
      {
-         [piece clear]; // must use this to bypass isClear check
-         
          BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
          [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:PieceColorNone]];
      }];

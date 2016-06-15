@@ -36,7 +36,6 @@
     self.match = match;
     self.adapter.match = match;
     
-    
     match.movesUpdateBlock = ^{
         dispatch_async(dispatch_get_main_queue(),
                        ^{

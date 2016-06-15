@@ -78,7 +78,17 @@
     }];
 }
 
-- (void)testFindOps {
+- (void)testReset
+{
+    GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    [board reset];
+    [board reset];
+    [board reset];
+    [board reset];
+}
+
+- (void)testFindOps
+{
     
 }
 
