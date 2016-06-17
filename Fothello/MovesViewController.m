@@ -11,7 +11,7 @@
 #import "Match.h"
 
 @interface MovesViewController ()
-@property (nonatomic) IBOutlet NSTableView *tableView;
+@property (weak, nonatomic) IBOutlet NSTableView *tableView;
 @property (nonatomic) Match *match;
 @property (nonatomic) MovesViewAdapter *adapter;
 @end

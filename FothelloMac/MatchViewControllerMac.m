@@ -17,7 +17,7 @@
 #import "PlayerMove.h"
 
 @interface MatchViewControllerMac () <DismissDelegate>
-@property (strong, nonatomic) BoardScene *boardScene;
+@property (nonatomic) BoardScene *boardScene;
 @property (nonatomic) NSInteger pageIndex;
 @property (nonatomic) IBOutlet SKView *mainView;
 @property (nonatomic) IBOutlet MovesViewController *movesController;

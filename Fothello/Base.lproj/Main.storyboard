@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="CXV-xE-1lf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11129.15" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="CXV-xE-1lf">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11103.10"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
@@ -22,46 +24,41 @@
                         <viewControllerLayoutGuide type="bottom" id="Uh9-qP-Zc5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="ViewController" id="bdc-N1-crn">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGx-fN-Uti" userLabel="SKView" customClass="SKView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-Lj-41B">
-                                        <rect key="frame" x="11" y="518" width="75" height="30"/>
                                         <state key="normal" title="New Game">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <segue destination="Ki6-IX-gBB" kind="modal" id="YFE-Qo-OKg"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVI-4k-byF">
-                                        <rect key="frame" x="267" y="518" width="33" height="30"/>
                                         <state key="normal" title="Pass">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="pass:" destination="LVB-YS-i5n" eventType="touchUpInside" id="hIS-Q5-3ew"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QV-C2-gqK">
-                                        <rect key="frame" x="11" y="480" width="30" height="30"/>
                                         <state key="normal" title="Hint"/>
                                         <connections>
                                             <action selector="hint:" destination="LVB-YS-i5n" eventType="touchUpInside" id="IPD-dQ-eXk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qU5-x4-CNl">
-                                        <rect key="frame" x="262" y="480" width="38" height="30"/>
                                         <state key="normal" title="Undo"/>
                                         <connections>
                                             <action selector="undo:" destination="LVB-YS-i5n" eventType="touchUpInside" id="VrF-Nv-DgX"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.70196078429999997" blue="0.30196078430000001" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.086277641355991364" green="0.65947967767715454" blue="0.23658248782157898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="7QV-C2-gqK" firstAttribute="leading" secondItem="iRN-Lj-41B" secondAttribute="leading" id="COc-a9-42Z"/>
                                     <constraint firstItem="qU5-x4-CNl" firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" id="MfP-sF-qic"/>
@@ -74,7 +71,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.1019607931" green="0.7019608021" blue="0.30196079609999998" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.1206526905298233" green="0.65931946039199829" blue="0.23661309480667114" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="eGx-fN-Uti" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="6Li-Id-eM7"/>
                             <constraint firstAttribute="trailing" secondItem="eGx-fN-Uti" secondAttribute="trailing" id="V2K-zt-Nal"/>
@@ -101,17 +98,18 @@
                         <viewControllerLayoutGuide type="bottom" id="zjZ-fU-5BK"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BMq-jt-uan">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zk3-uh-du9">
-                                <rect key="frame" x="158" y="347" width="42" height="21"/>
+                                <frame key="frameInset" minX="158" minY="347" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qrr-wC-PpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -127,11 +125,10 @@
                         <viewControllerLayoutGuide type="bottom" id="bJF-VZ-qS2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="DialogViewController" id="WtA-6R-oKr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T8-pB-KWU">
-                                <rect key="frame" x="131" y="89" width="58" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="58" id="7Ll-JP-ZCm"/>
                                 </constraints>
@@ -139,7 +136,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="You" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Sc2-7u-fjR">
-                                <rect key="frame" x="86" y="113" width="149" height="29"/>
                                 <segments>
                                     <segment title="Human"/>
                                     <segment title="Computer"/>
@@ -149,35 +145,30 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b73-oF-Xoc">
-                                <rect key="frame" x="94" y="149" width="132" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Difficulty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CRT-zv-tuw">
-                                <rect key="frame" x="86" y="214" width="140" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCr-CF-NYD">
-                                <rect key="frame" x="276" y="518" width="30" height="30"/>
                                 <state key="normal" title="Play">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="qHj-bB-c6V" kind="unwind" unwindAction="unwindFromConfirmationForm:" id="gTu-3N-caY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVj-2s-0mx">
-                                <rect key="frame" x="15" y="518" width="48" height="30"/>
                                 <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="qHj-bB-c6V" kind="unwind" unwindAction="unwindFromCancelForm:" id="HB4-HZ-BNP"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Against" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PWG-WD-pah">
-                                <rect key="frame" x="20" y="178" width="280" height="29"/>
                                 <segments>
                                     <segment title="Human"/>
                                     <segment title="Computer"/>
@@ -188,7 +179,6 @@
                                 </connections>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" restorationIdentifier="Difficulty" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uSL-Kx-Cnj">
-                                <rect key="frame" x="15" y="243" width="291" height="29"/>
                                 <segments>
                                     <segment title="Easy"/>
                                     <segment title="Moderate"/>
@@ -200,7 +190,7 @@
                                 </connections>
                             </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="jVj-2s-0mx" secondAttribute="bottom" constant="20" symbolic="YES" id="3fh-JP-To8"/>
                             <constraint firstItem="jVj-2s-0mx" firstAttribute="baseline" secondItem="FCr-CF-NYD" secondAttribute="baseline" id="Af0-Ve-vz0"/>
@@ -242,7 +232,7 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <nil key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
-    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
