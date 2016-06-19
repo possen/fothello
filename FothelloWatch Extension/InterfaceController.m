@@ -9,6 +9,7 @@
 #import "InterfaceController.h"
 #import "GameScene.h"
 #import "BoardScene.h"
+#import "FothelloGame.h"
 
 @interface InterfaceController()
 
@@ -28,12 +29,16 @@
     //skView.showsNodeCount = YES;
     
     // Load the SKScene from 'GameScene.sks'
-    BoardScene *scene = [BoardScene nodeWithFileNamed:@"GameScene"];
-
+//    BoardScene *scene = [BoardScene nodeWithFileNamed:@"GameScene"];
+    CGSize size = CGSizeMake(300, 300);
 //    self.pass.hidden = YES;
+    
+    FothelloGame *game = [FothelloGame sharedInstance];
+    Match *match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+ 
     // Create and configure the scene.
-//    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
-//    scene.match = self.match;
+    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:match];
+    scene.match = match;
     self.boardScene = scene;
     
     

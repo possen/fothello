@@ -5,12 +5,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055.6"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--BoardScene-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController">
+                <controller identifier="BoardScene" id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <spriteKitScene alignment="left" id="eh2-bW-rMT"/>
+                        <spriteKitScene alignment="left" scene="BoardScene" id="eh2-bW-rMT"/>
                     </items>
                     <connections>
                         <outlet property="skInterface" destination="eh2-bW-rMT" id="Wme-JX-I9n"/>

@@ -659,8 +659,8 @@
 			children = (
 				D509D6331CC8A9270028C082 /* Mac */,
 				D5F567EE1D111C6200998C14 /* FothelloWatch */,
-				D5F56A871CC3F247000700D8 /* Shared */,
 				D5F56A851CC3F1EE000700D8 /* iOS */,
+				D5F56A871CC3F247000700D8 /* Shared */,
 			);
 			name = UI;
 			sourceTree = "<group>";

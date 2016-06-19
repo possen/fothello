@@ -166,7 +166,7 @@
     [self.players removeObject:player];
 }
 
-- (Match *)createMatchFromKind:(NSInteger)kind difficulty:(Difficulty)difficulty
+- (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
 {
     FothelloGame *game = [FothelloGame sharedInstance];
     
