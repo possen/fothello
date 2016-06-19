@@ -8,11 +8,13 @@
 
 #import "GameScene.h"
 
-@implementation GameScene {
+@implementation GameScene
+{
     SKShapeNode *_spinnyNode;
 }
 
-- (void)sceneDidLoad {
+- (void)sceneDidLoad
+{
     // Setup your scene here
     
     // Get label node from scene and store it for use later
@@ -43,7 +45,8 @@
     }]]]]];
 }
 
--(void)update:(CFTimeInterval)currentTime {
+-(void)update:(CFTimeInterval)currentTime
+{
     // Called before each frame is rendered
 }
 

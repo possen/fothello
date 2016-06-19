@@ -76,7 +76,12 @@
     self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
 
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
+    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size
+                                                   match:self.match];
+    
+//    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"GameScene"];
+//    scene.match = self.match;
+    
     self.boardScene = scene;
     
     __weak typeof(self) weakSelf = self;

@@ -28,18 +28,20 @@
     //skView.showsNodeCount = YES;
     
     // Load the SKScene from 'GameScene.sks'
-    GameScene *scene = [GameScene nodeWithFileNamed:@"GameScene"];
+    BoardScene *scene = [BoardScene nodeWithFileNamed:@"GameScene"];
 
 //    self.pass.hidden = YES;
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
+//    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
+//    scene.match = self.match;
     self.boardScene = scene;
     
-    __weak InterfaceController *weakBlockSelf = self;
-    scene.updatePlayerMove = ^(BOOL canMove)
-    {
-        [weakBlockSelf updateMove:canMove];
-    };
+    
+//    __weak InterfaceController *weakBlockSelf = self;
+//    scene.updatePlayerMove = ^(BOOL canMove)
+//    {
+//        [weakBlockSelf updateMove:canMove];
+//    };
     
     // Set the scale mode to scale to fit the window
     scene.scaleMode = SKSceneScaleModeAspectFill;
