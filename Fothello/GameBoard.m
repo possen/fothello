@@ -217,7 +217,7 @@ typedef struct Delta
 {
     [self updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
-         self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+         self.highlightBlock(move.position, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
          return nil;
      }];
 }
@@ -226,7 +226,7 @@ typedef struct Delta
 {
     [self updateBoardWithFunction:^NSArray<BoardPiece *> *
      {
-         self.highlightBlock(move, player.color);
+         self.highlightBlock(move.position, player.color);
          return nil;
      }];
 }

@@ -27,7 +27,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGx-fN-Uti" userLabel="SKView" customClass="SKView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eGx-fN-Uti">
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRN-Lj-41B">
                                         <state key="normal" title="New Game">
@@ -57,37 +57,43 @@
                                             <action selector="undo:" destination="LVB-YS-i5n" eventType="touchUpInside" id="VrF-Nv-DgX"/>
                                         </connections>
                                     </button>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-a5-nW1" userLabel="SKView" customClass="SKView">
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.086277641355991364" green="0.65947967767715454" blue="0.23658248782157898" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="7QV-C2-gqK" firstAttribute="leading" secondItem="iRN-Lj-41B" secondAttribute="leading" id="COc-a9-42Z"/>
-                                    <constraint firstItem="qU5-x4-CNl" firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" id="MfP-sF-qic"/>
-                                    <constraint firstItem="7QV-C2-gqK" firstAttribute="baseline" secondItem="qU5-x4-CNl" secondAttribute="baseline" id="U2c-L4-zMC"/>
-                                    <constraint firstAttribute="bottom" secondItem="iRN-Lj-41B" secondAttribute="bottom" constant="20" symbolic="YES" id="UVd-40-NkG"/>
-                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="leading" secondItem="eGx-fN-Uti" secondAttribute="leading" constant="11" id="V9U-Lc-vE1"/>
-                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="top" secondItem="7QV-C2-gqK" secondAttribute="bottom" constant="8" symbolic="YES" id="aU8-iM-Buk"/>
-                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="baseline" secondItem="GVI-4k-byF" secondAttribute="baseline" id="cR8-SA-NJf"/>
-                                    <constraint firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" constant="20" symbolic="YES" id="kDe-ti-iDe"/>
+                                    <constraint firstItem="iRN-Lj-41B" firstAttribute="top" secondItem="7QV-C2-gqK" secondAttribute="bottom" constant="8" symbolic="YES" id="0Re-zR-npe"/>
+                                    <constraint firstItem="1PF-a5-nW1" firstAttribute="leading" secondItem="eGx-fN-Uti" secondAttribute="leading" constant="8" id="96A-ns-Md9"/>
+                                    <constraint firstItem="1PF-a5-nW1" firstAttribute="centerY" secondItem="eGx-fN-Uti" secondAttribute="centerY" id="Ghb-Ut-gbX"/>
+                                    <constraint firstAttribute="trailing" secondItem="1PF-a5-nW1" secondAttribute="trailing" constant="8" id="Hbb-SG-VtM"/>
+                                    <constraint firstItem="qU5-x4-CNl" firstAttribute="trailing" secondItem="GVI-4k-byF" secondAttribute="trailing" id="RTb-pp-BDk"/>
+                                    <constraint firstItem="1PF-a5-nW1" firstAttribute="height" secondItem="eGx-fN-Uti" secondAttribute="height" constant="-278" id="baP-cA-Zbp"/>
+                                    <constraint firstItem="7QV-C2-gqK" firstAttribute="leading" secondItem="eGx-fN-Uti" secondAttribute="leading" constant="11" id="e8e-00-iTN"/>
+                                    <constraint firstItem="qU5-x4-CNl" firstAttribute="top" secondItem="1PF-a5-nW1" secondAttribute="bottom" constant="51" id="ex9-fY-lhJ"/>
+                                    <constraint firstItem="7QV-C2-gqK" firstAttribute="leading" secondItem="iRN-Lj-41B" secondAttribute="leading" id="kZe-M5-kHn"/>
+                                    <constraint firstItem="GVI-4k-byF" firstAttribute="top" secondItem="qU5-x4-CNl" secondAttribute="bottom" constant="8" symbolic="YES" id="qx3-E9-17m"/>
+                                    <constraint firstItem="qU5-x4-CNl" firstAttribute="baseline" secondItem="7QV-C2-gqK" secondAttribute="baseline" id="uxB-ZI-4uk"/>
+                                    <constraint firstAttribute="trailing" secondItem="qU5-x4-CNl" secondAttribute="trailing" constant="20" id="y4s-Z1-Ezz"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.1206526905298233" green="0.65931946039199829" blue="0.23661309480667114" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="eGx-fN-Uti" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="6Li-Id-eM7"/>
-                            <constraint firstAttribute="trailing" secondItem="eGx-fN-Uti" secondAttribute="trailing" id="V2K-zt-Nal"/>
-                            <constraint firstItem="eGx-fN-Uti" firstAttribute="top" secondItem="bdc-N1-crn" secondAttribute="top" id="ZiP-JQ-Kic"/>
-                            <constraint firstAttribute="bottom" secondItem="eGx-fN-Uti" secondAttribute="bottom" id="tGR-E7-8vV"/>
+                            <constraint firstAttribute="trailing" secondItem="eGx-fN-Uti" secondAttribute="trailing" id="3mr-z8-nhr"/>
+                            <constraint firstItem="eGx-fN-Uti" firstAttribute="leading" secondItem="bdc-N1-crn" secondAttribute="leading" id="DGO-CH-OFI"/>
+                            <constraint firstItem="eGx-fN-Uti" firstAttribute="bottom" secondItem="Uh9-qP-Zc5" secondAttribute="top" id="FD7-fC-h8H"/>
+                            <constraint firstItem="eGx-fN-Uti" firstAttribute="top" secondItem="O8r-Wv-Dp1" secondAttribute="bottom" id="U86-Kv-j8s"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomConstraint" destination="ZiP-JQ-Kic" id="AXv-Uj-T8M"/>
-                        <outlet property="mainScene" destination="eGx-fN-Uti" id="a60-cf-8Zt"/>
+                        <outlet property="mainScene" destination="1PF-a5-nW1" id="Ksy-Li-auH"/>
                         <outlet property="pass" destination="GVI-4k-byF" id="DZ2-SA-4Fs"/>
-                        <outlet property="view" destination="bdc-N1-crn" id="Nef-E7-Y4q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btX-cZ-eVz" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="227" y="-73"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="b2P-i3-xrk">
@@ -114,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qrr-wC-PpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="93" y="596"/>
+            <point key="canvasLocation" x="90" y="668"/>
         </scene>
         <!--Dialog View Controller-->
         <scene sceneID="D1r-Da-U6m">

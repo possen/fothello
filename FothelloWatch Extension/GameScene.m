@@ -33,8 +33,10 @@
                                                 [SKAction fadeOutWithDuration:0.5],
                                                 [SKAction removeFromParent],
                                                 ]]];
+    
     [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction waitForDuration:2.0],
-                                                                       [SKAction runBlock:^{
+                                                                       [SKAction runBlock:^
+    {
         SKShapeNode *n = [_spinnyNode copy];
         n.position = CGPointMake(0.0, 0.0);
         

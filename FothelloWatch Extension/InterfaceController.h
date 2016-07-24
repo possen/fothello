@@ -9,6 +9,8 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
-@interface InterfaceController : WKInterfaceController
+@class Match;
 
+@interface InterfaceController : WKInterfaceController <WKCrownDelegate>
+@property (nonatomic) Match *match;
 @end

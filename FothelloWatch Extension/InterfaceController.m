@@ -10,15 +10,20 @@
 #import "GameScene.h"
 #import "BoardScene.h"
 #import "FothelloGame.h"
+#import "PlayerMove.h"
+#import "Match.h"
+#import "GameBoard.h"
+#import "BoardPosition.h"
 
-@interface InterfaceController()
+@interface InterfaceController() 
 
 @property (strong, nonatomic) IBOutlet WKInterfaceSKScene *skInterface;
 @property (nonatomic) BoardScene *boardScene;
+@property (nonatomic) NSInteger currentPos;
 @end
 
 
-@implementation InterfaceController
+@implementation InterfaceController 
 
 - (void)awakeWithContext:(id)context
 {
@@ -30,17 +35,16 @@
     
     // Load the SKScene from 'GameScene.sks'
 //    BoardScene *scene = [BoardScene nodeWithFileNamed:@"GameScene"];
-    CGSize size = CGSizeMake(300, 300);
+    CGSize size = CGSizeMake(310, 310);
 //    self.pass.hidden = YES;
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    Match *match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
  
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:match];
-    scene.match = match;
+    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
+    scene.match = self.match;
     self.boardScene = scene;
-    
     
 //    __weak InterfaceController *weakBlockSelf = self;
 //    scene.updatePlayerMove = ^(BOOL canMove)
@@ -58,15 +62,39 @@
     self.skInterface.preferredFramesPerSecond = 30;
 }
 
-- (void)willActivate {
+- (void)willActivate
+{
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
 }
 
-- (void)didDeactivate {
+- (void)didDeactivate
+{
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 }
+
+- (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
+{
+    self.currentPos += rotationalDelta;
+    NSInteger x = self.currentPos % 8;
+    NSInteger y = self.currentPos / 8;
+    
+    BoardPosition *pos = [BoardPosition positionWithX:x y:y];
+    self.match.board.highlightBlock(pos, PieceColorYellow);
+}
+
+- (IBAction)tapAction:(id)sender
+{
+    NSInteger x = self.currentPos % 8;
+    NSInteger y = self.currentPos / 8;
+    
+    BoardPosition *pos = [BoardPosition positionWithX:x y:y];
+    PlayerMove *move = [PlayerMove makeMoveForColor:self.match.currentPlayer.preferredPieceColor position:pos];
+    [self.match.board placeMove:move forPlayer:self.match.currentPlayer];
+}
+
+
 
 @end
 

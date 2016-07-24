@@ -91,11 +91,11 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         });
     };
     
-    match.board.highlightBlock = ^(BoardPiece *move, PieceColor color)
+    match.board.highlightBlock = ^(BoardPosition *pos, PieceColor color)
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [weakBlockSelf higlightAtX:move.position.x y:move.position.y color:color];
+            [weakBlockSelf higlightAtX:pos.x y:pos.y color:color];
         });
     };
     

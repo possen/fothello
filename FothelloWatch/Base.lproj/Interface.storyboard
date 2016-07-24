@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11129.15" systemVersion="15F34" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11163.2" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11103.10"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055.6"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11133"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11064"/>
     </dependencies>
     <scenes>
         <!--BoardScene-->
@@ -10,7 +10,16 @@
             <objects>
                 <controller identifier="BoardScene" id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <spriteKitScene alignment="left" scene="BoardScene" id="eh2-bW-rMT"/>
+                        <spriteKitScene alignment="left" scene="BoardScene" id="eh2-bW-rMT">
+                            <gestureRecognizers>
+                                <tapGestureRecognizer id="MgE-5m-htP">
+                                    <nil name="precedingGestureRecognizers"/>
+                                    <connections>
+                                        <action selector="tapAction:" destination="AgC-eL-Hgc" id="afp-nm-eU2"/>
+                                    </connections>
+                                </tapGestureRecognizer>
+                            </gestureRecognizers>
+                        </spriteKitScene>
                     </items>
                     <connections>
                         <outlet property="skInterface" destination="eh2-bW-rMT" id="Wme-JX-I9n"/>

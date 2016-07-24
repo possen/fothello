@@ -19,7 +19,7 @@
 @class PlayerMove;
 
 typedef void (^PlaceBlock)(NSArray<NSArray<BoardPiece *> *> * _Nullable pieces);
-typedef void (^HighlightBlock)(BoardPiece * _Nonnull  move, PieceColor color);
+typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color);
 
 #pragma mark - GameBoard -
 
