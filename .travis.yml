@@ -1,5 +1,7 @@
 language: objective-c
-xcode_project: Fothello.xcodeproj # path to your xcodeproj folder
+xcode_project: Fothello.xcodeproj 
 xcode_scheme: Fothello
 osx_image: xcode8.2
 
+script:
+- xcodebuild -project Fothello.xcodeproj -scheme Fothello build test  -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3'
