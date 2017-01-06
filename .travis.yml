@@ -2,4 +2,3 @@ language: Objective-C
 xcode_project: Fothello.xcodeproj # path to your xcodeproj folder
 xcode_scheme: Fothello
 osx_image: xcode8.2
-
