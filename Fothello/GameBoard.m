@@ -415,7 +415,7 @@ typedef struct Delta
         NSInteger ry = labs(reverseOffset - y);
         if (!ascii)
         {
-            [boardString appendFormat:@"%ld", (long int) ry+1];
+            [boardString appendFormat:@"%d", (int) ry+1];
         }
 
         [boardString appendString:@"|"];
