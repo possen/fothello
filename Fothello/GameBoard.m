@@ -413,7 +413,7 @@ typedef struct Delta
     for (NSInteger y = 0; y < size; ++y)
     {
         NSInteger ry = labs(reverseOffset - y);
-        if (!ascii)
+        if (!ascii) 
         {
             [boardString appendFormat:@"%d", (int) ry+1];
         }
