@@ -133,10 +133,10 @@ typedef struct Delta
 
 - (void)printBoardUpdates:(NSArray<NSArray<BoardPiece *> *> *)tracks
 {
-    NSLog(@"(%ld){", tracks.count);
+    NSLog(@"(%lu){", (unsigned long)tracks.count);
     for (NSArray<BoardPiece *> *track in tracks)
     {
-        NSMutableString *string = [[NSString stringWithFormat:@"(%ld)", track.count] mutableCopy];
+        NSMutableString *string = [[NSString stringWithFormat:@"(%lu)", (unsigned long)track.count] mutableCopy];
         for (BoardPiece *boardPiece in track)
         {
             [string appendString:@"("];
@@ -401,7 +401,7 @@ typedef struct Delta
         [boardString appendFormat:@"  "];
         for (NSInteger x = 1; x <= self.size; x++)
         {
-            [boardString appendFormat:@"%ld", x];
+            [boardString appendFormat:@"%ld", (long)x];
         }
         [boardString appendFormat:@"\n"];
     }
@@ -415,7 +415,7 @@ typedef struct Delta
         NSInteger ry = labs(reverseOffset - y);
         if (!ascii)
         {
-            [boardString appendFormat:@"%ld", ry+1];
+            [boardString appendFormat:@"%d", ry+1];
         }
 
         [boardString appendString:@"|"];
