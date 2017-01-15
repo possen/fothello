@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30D93E681E2B5C2C000A2607 /* Fothello.app in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B221831CB1100B5166A /* Fothello.app */; };
 		D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC4931CDFCD0B009308C5 /* MovesViewController.m */; };
 		D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D61F1CC8A7AF0028C082 /* AppDelegate.m */; };
 		D509D6231CC8A7AF0028C082 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6221CC8A7AF0028C082 /* main.m */; };
@@ -238,6 +239,7 @@
 				D5441B4F1831CB1100B5166A /* XCTest.framework in Frameworks */,
 				D5441B511831CB1100B5166A /* UIKit.framework in Frameworks */,
 				D5441B501831CB1100B5166A /* Foundation.framework in Frameworks */,
+				30D93E681E2B5C2C000A2607 /* Fothello.app in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
