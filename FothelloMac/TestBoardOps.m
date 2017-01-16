@@ -9,8 +9,6 @@
 #import <XCTest/XCTest.h>
 #import "BoardScene.h"
 #import "GameBoard.h"
-#import "MatchViewControllerMac.h"
-#import "MatchWindowController.h"
 #import "Match.h"
 #import "Piece.h"
 #import "BoardPosition.h"
@@ -27,13 +25,9 @@
 - (void)setUp
 {
     [super setUp];
-    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     
     self.queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
 
-    MatchViewControllerMac *vc = [storyboard instantiateControllerWithIdentifier:@"MatchViewController"];
-    self.match = vc.match;
-    self.board = self.match.board;
 }
 
 - (void)tearDown

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		309F2A401E2BFCFE00F3E27C /* FothelloMac.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */; };
 		309F2A421E2C07CC00F3E27C /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
+		30A963581E2C80B9006DDF8C /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC4931CDFCD0B009308C5 /* MovesViewController.m */; };
 		D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D61F1CC8A7AF0028C082 /* AppDelegate.m */; };
 		D509D6231CC8A7AF0028C082 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6221CC8A7AF0028C082 /* main.m */; };
@@ -815,6 +816,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */,
+				30A963581E2C80B9006DDF8C /* TestBoardOps.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
