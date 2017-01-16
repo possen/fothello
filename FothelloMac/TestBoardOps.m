@@ -47,7 +47,8 @@
          
          [board boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
           {
-              NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
+              NSInteger x = center.x + position.x;
+              NSInteger y = center.y + position.y;
               Piece *piece = [board pieceAtPositionX:x Y:y];
          
               BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
@@ -61,18 +62,17 @@
     [self waitForExpectationsWithTimeout:5.0 handler:^(NSError *error)
      {
          XCTAssert(error == nil, @"error");
-         
-         
-//         NSString *boardString = board.description;
-//         NSString *start = [boardString substringToIndex:18];
-//         NSString *end = [boardString substringFromIndex:89];
-         
-//         XCTAssert([start isEqualToString:@"\n----------\n|○○○○○"], @"boards");
-//         XCTAssert([end isEqualToString:@"|○○○○○○○○|\n----------\n{\n    2 = 28;\n}"], @"boards");
+         Piece *peice1 = [board pieceAtPositionX:0 Y:0];
+         XCTAssertEqualObjects(peice1.description, @"○");
+         Piece *peice2 = [board pieceAtPositionX:7 Y:7];
+         XCTAssertEqualObjects(peice2.description, @"○");
+         Piece *peice3 = [board pieceAtPositionX:3 Y:3];
+         XCTAssertEqualObjects(peice3.description, @".");
     }];
 }
 
-- (void)testFindOps {
+- (void)testFindOps
+{
     
 }
 
