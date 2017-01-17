@@ -30,31 +30,31 @@
     return YES;
 }
 
-- (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     // ignore clicks if turn still processing.
     if (self.match.turnProcessing)
     {
-        return;
+        return nil;
     }
     
     [super makeMove:move forPlayer:player];
     
     [self.match resetRedos];
     
-    [self.match isLegalMove:move forPlayer:player completion:^(BOOL legal)
-     {
-         if (legal)
-         {
-             [self.match placeMove:move forPlayer:player];
-         }
-     }];
+    BOOL legal = [self.match isLegalMove:move forPlayer:player];
+    if (legal)
+    {
+        return [self.match placeMove:move forPlayer:player];
+    }
+    
+    return nil;
 }
 
-- (void)hintForPlayer:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)hintForPlayer:(Player *)player
 {
     PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
-    [self.match.board showHintMove:move forPlayer:player];
+    return [self.match.board showHintMove:move forPlayer:player];
 }
 
 - (BOOL)beginTurn:(Player *)player
