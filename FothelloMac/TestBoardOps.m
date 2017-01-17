@@ -30,7 +30,6 @@
     [super setUp];
     
     self.queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
-
 }
 
 - (void)tearDown

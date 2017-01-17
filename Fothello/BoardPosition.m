@@ -47,7 +47,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"(%ld %ld)", self.x, self.y];
+    return [NSString stringWithFormat:@"(%ld %ld)", (long)self.x, (long)self.y];
 }
 @end
 
