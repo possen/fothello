@@ -143,6 +143,11 @@
     }];
 }
 
+- (void)testNewEmpty
+{
+    
+}
+
 
 
 @end
