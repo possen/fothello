@@ -44,6 +44,7 @@
 
     [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
      {
+
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          BoardPosition *center = board.center;
          [board boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
@@ -64,12 +65,17 @@
      {
          XCTAssert(error == nil, @"error");
     }];
-    Piece *peice1 = [board pieceAtPositionX:0 Y:0];
-    XCTAssertEqualObjects(peice1.description, @"○");
-    Piece *peice2 = [board pieceAtPositionX:7 Y:7];
-    XCTAssertEqualObjects(peice2.description, @"○");
-    Piece *peice3 = [board pieceAtPositionX:3 Y:3];
-    XCTAssertEqualObjects(peice3.description, @".");
+    
+    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+     {
+         Piece *peice1 = [board pieceAtPositionX:0 Y:0];
+         XCTAssertEqualObjects(peice1.description, @"○");
+         Piece *peice2 = [board pieceAtPositionX:7 Y:7];
+         XCTAssertEqualObjects(peice2.description, @"○");
+         Piece *peice3 = [board pieceAtPositionX:3 Y:3];
+         XCTAssertEqualObjects(peice3.description, @".");
+         return nil;
+     }];
 }
 
 - (void)testFindOps
@@ -88,9 +94,8 @@
         Piece *piece2 = [board pieceAtPositionX:4 Y:3];
         BoardPosition *pos2 = [[BoardPosition alloc] initWithX:4 Y:3];
         [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece2 position:pos2 color:PieceColorBlack]];
-  
+        
         [expectation fulfill];
-       
         return @[pieces];
     }];
     
@@ -99,14 +104,14 @@
          XCTAssert(error == nil, @"error");
      }];
     
-    Player *player = [[Player alloc] initWithName:@"testPlayer"];
-    player.color = PieceColorWhite;
-    XCTAssertTrue([board canMove:player]);
-    
     expectation = [self expectationWithDescription:@"testPlace"];
-    
+
     [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
      {
+         Player *player = [[Player alloc] initWithName:@"testPlayer"];
+         player.color = PieceColorWhite;
+         XCTAssertTrue([board canMove:player]);
+         
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          
          Piece *piece1 = [board pieceAtPositionX:5 Y:3];
@@ -116,8 +121,8 @@
          PlayerMove *move = [PlayerMove makeMoveForColor:PieceColorWhite position:pos1];
          NSArray<NSArray<BoardPiece *> *> *piecesLists = [board placeMove:move forPlayer:player];
          [pieces addObjectsFromArray:[piecesLists flatten]];
-         [expectation fulfill];
          
+         [expectation fulfill];
          return @[pieces];
      }];
  
@@ -125,13 +130,17 @@
      {
          XCTAssert(error == nil, @"error");
      }];
-    
-    Piece *peice1 = [board pieceAtPositionX:3 Y:3];
-    XCTAssertEqualObjects(peice1.description, @"○");
-    Piece *peice2 = [board pieceAtPositionX:4 Y:3];
-    XCTAssertEqualObjects(peice2.description, @"○");
-    Piece *peice3 = [board pieceAtPositionX:5 Y:3];
-    XCTAssertEqualObjects(peice3.description, @"○");
+  
+    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    {
+        Piece *peice1 = [board pieceAtPositionX:3 Y:3];
+        XCTAssertEqualObjects(peice1.description, @"○");
+        Piece *peice2 = [board pieceAtPositionX:4 Y:3];
+        XCTAssertEqualObjects(peice2.description, @"○");
+        Piece *peice3 = [board pieceAtPositionX:5 Y:3];
+        XCTAssertEqualObjects(peice3.description, @"○");
+        return nil;
+    }];
 }
 
 
