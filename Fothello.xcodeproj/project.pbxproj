@@ -881,12 +881,9 @@
 				D5441B1E1831CB1100B5166A /* Sources */,
 				D5441B1F1831CB1100B5166A /* Frameworks */,
 				D5441B201831CB1100B5166A /* Resources */,
-<<<<<<< HEAD
 				D5F5681E1D111C6300998C14 /* Embed Watch Content */,
 				D56AAD3B1D13E26100BBCDFA /* Embed Frameworks */,
-=======
 				305C05611E201DCE00419359 /* ShellScript */,
->>>>>>> 56539da767a7ad8265c40d2d79bf43dc48b9ede4
 			);
 			buildRules = (
 			);
