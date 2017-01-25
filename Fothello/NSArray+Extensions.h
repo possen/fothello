@@ -10,4 +10,5 @@
 
 @interface NSArray (Extensions)
 + (NSArray *)flatten:(NSArray<NSArray<id> *> *)arrayOfArrays;
+- (NSArray *)flatten;
 @end

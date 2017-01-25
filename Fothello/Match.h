@@ -32,9 +32,8 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove);
 - (void)resetRedos;
 - (void)nextPlayer;
 - (void)ready;
-- (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player completion:(void  (^ _Nonnull)  (BOOL legal))completion
-;
-- (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (nullable NSArray<NSArray<BoardPiece *> *> *)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
 @property (nonatomic, copy, nonnull) NSString *name;
 @property (nonatomic, readonly, nonnull) GameBoard *board;

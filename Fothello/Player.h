@@ -28,7 +28,7 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic, copy, nonnull) NSString *name;
 @property (nonatomic) PieceColor preferredPieceColor;
 @property (nonatomic) PieceColor color;
-@property (nonatomic, nonnull) Strategy *strategy;
+@property (nonatomic, nullable) Strategy *strategy;
 @property (nonatomic) NSInteger score;
 @property (nonatomic, nullable) id userReference;
 

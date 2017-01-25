@@ -110,9 +110,14 @@
      {
          NSLog(@"replay move %@", move);
          Player *player = self.players[idx % 2];
-         [self placeMove:move forPlayer:player];
+         [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+          {
+              NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
+              return pieces;
+          }];
      }];
 }
+
 
 - (void)undo
 {
@@ -149,14 +154,11 @@
     self.turnProcessing = [self.currentPlayer beginTurn];
 }
 
-- (void)isLegalMove:(nonnull PlayerMove *)move
-          forPlayer:(nonnull Player *)player
-         completion:(void (^)(BOOL legal))completion
+- (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player
 {
     if ([move isPass])
     {
-        completion(YES);
-        return;
+        return YES;
     }
     
     [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
@@ -177,11 +179,12 @@
      }];
 }
 
-- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    [self.board placeMove:move forPlayer:player];
+    NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
     [self addMove:move];
     [self nextPlayer];
+    return pieces;
 }
 
 - (void)restart

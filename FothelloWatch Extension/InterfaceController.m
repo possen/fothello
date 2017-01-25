@@ -19,7 +19,7 @@
 
 @property (strong, nonatomic) IBOutlet WKInterfaceSKScene *skInterface;
 @property (nonatomic) BoardScene *boardScene;
-@property (nonatomic) NSInteger currentPos;
+@property (nonatomic) double currentPos;
 @end
 
 
@@ -38,9 +38,12 @@
     CGSize size = CGSizeMake(310, 310);
 //    self.pass.hidden = YES;
     
+    self.crownSequencer.delegate = self;
+    [self.crownSequencer focus];
+
     FothelloGame *game = [FothelloGame sharedInstance];
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
- 
+    
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
     scene.match = self.match;
@@ -76,22 +79,25 @@
 
 - (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
 {
-    self.currentPos += rotationalDelta;
-    NSInteger x = self.currentPos % 8;
-    NSInteger y = self.currentPos / 8;
+    self.currentPos += rotationalDelta * 8;
+    NSInteger x = (NSInteger)self.currentPos % 8;
+    NSInteger y = (NSInteger)self.currentPos / 8;
     
     BoardPosition *pos = [BoardPosition positionWithX:x y:y];
     self.match.board.highlightBlock(pos, PieceColorYellow);
+    NSLog(@"rotate %f", rotationalDelta);
 }
 
 - (IBAction)tapAction:(id)sender
 {
-    NSInteger x = self.currentPos % 8;
-    NSInteger y = self.currentPos / 8;
+    NSInteger x = (NSInteger)self.currentPos % 8;
+    NSInteger y = (NSInteger)self.currentPos / 8;
     
     BoardPosition *pos = [BoardPosition positionWithX:x y:y];
     PlayerMove *move = [PlayerMove makeMoveForColor:self.match.currentPlayer.preferredPieceColor position:pos];
     [self.match.board placeMove:move forPlayer:self.match.currentPlayer];
+    NSLog(@"tap");
+
 }
 
 
