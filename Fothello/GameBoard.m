@@ -138,17 +138,10 @@ typedef struct Delta
 
 - (void)printBoardUpdates:(NSArray<NSArray<BoardPiece *> *> *)tracks
 {
-<<<<<<< HEAD
-    NSLog(@"(%ld){", (unsigned long)tracks.count);
-    for (NSArray<BoardPiece *> *track in tracks)
-    {
-        NSMutableString *string = [[NSString stringWithFormat:@"(%ld)", (unsigned long)track.count] mutableCopy];
-=======
     NSLog(@"(%lu){", (unsigned long)tracks.count);
     for (NSArray<BoardPiece *> *track in tracks)
     {
         NSMutableString *string = [[NSString stringWithFormat:@"(%lu)", (unsigned long)track.count] mutableCopy];
->>>>>>> 56539da767a7ad8265c40d2d79bf43dc48b9ede4
         for (BoardPiece *boardPiece in track)
         {
             [string appendString:@"("];
@@ -222,30 +215,14 @@ typedef struct Delta
 
 - (NSArray<NSArray<BoardPiece *> *> *)showClickedMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-<<<<<<< HEAD
-    [self updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         self.highlightBlock(move.position, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
-         return nil;
-     }];
-=======
-     self.highlightBlock(move, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+     self.highlightBlock(move.position, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
      return nil;
->>>>>>> 56539da767a7ad8265c40d2d79bf43dc48b9ede4
 }
 
 - (NSArray<NSArray<BoardPiece *> *> *)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-<<<<<<< HEAD
-    [self updateBoardWithFunction:^NSArray<BoardPiece *> *
-     {
-         self.highlightBlock(move.position, player.color);
-         return nil;
-     }];
-=======
-    self.highlightBlock(move, player.color);
-    return nil;
->>>>>>> 56539da767a7ad8265c40d2d79bf43dc48b9ede4
+     self.highlightBlock(move.position, player.color);
+     return nil;
 }
 
 - (BOOL)isFull
@@ -430,11 +407,7 @@ typedef struct Delta
         NSInteger ry = labs(reverseOffset - y);
         if (!ascii) 
         {
-<<<<<<< HEAD
-            [boardString appendFormat:@"%ld", (long) ry+1];
-=======
             [boardString appendFormat:@"%d", (int) ry+1];
->>>>>>> 56539da767a7ad8265c40d2d79bf43dc48b9ede4
         }
 
         [boardString appendString:@"|"];

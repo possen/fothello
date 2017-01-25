@@ -161,22 +161,18 @@
         return YES;
     }
     
-    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
-     {
-         NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
-         
-         BOOL legalMove = legalMoves != nil
-            && [legalMoves indexOfObjectPassingTest:^
-                BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop)
-                {
-                    return boardPiece.position.x == move.position.x
-                    && boardPiece.position.y == move.position.y;
-                }] != NSNotFound;
-         
-         completion(legalMove);
-         
-         return nil;
-     }];
+    NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
+    
+    BOOL legalMove = legalMoves != nil
+    && [legalMoves indexOfObjectPassingTest:^
+        BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop)
+        {
+            return boardPiece.position.x == move.position.x
+            && boardPiece.position.y == move.position.y;
+        }] != NSNotFound;
+    
+    
+    return legalMove;
 }
 
 - (NSArray<NSArray<BoardPiece *> *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player
