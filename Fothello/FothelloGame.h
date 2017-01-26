@@ -55,7 +55,7 @@ typedef NS_ENUM(NSInteger, PieceColor)
 - (Player *)newPlayerWithName:(NSString *)name
           preferredPieceColor:(PieceColor)preferredPieceColor;
 
-- (Match *)createMatchFromKind:(NSInteger)kind difficulty:(Difficulty)difficulty;
+- (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
 
 @end
 

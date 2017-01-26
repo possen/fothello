@@ -19,6 +19,10 @@
 
 static NSString *kMainFont = @"AvenirNext-Medium";
 
+@interface BoardScene ()
+@property (nonatomic) SKNode *prevHighlight;
+@end
+
 @implementation BoardScene
 
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match
@@ -91,11 +95,11 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         });
     };
     
-    match.board.highlightBlock = ^(BoardPiece *move, PieceColor color)
+    match.board.highlightBlock = ^(BoardPosition *pos, PieceColor color)
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [weakBlockSelf higlightAtX:move.position.x y:move.position.y color:color];
+            [weakBlockSelf higlightAtX:pos.x y:pos.y color:color];
         });
     };
     
@@ -451,7 +455,6 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     return CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
                   y * spacing + boardRect.origin.y - spriteSize.height / 2 + spacing / 2);
-
 }
 
 - (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
@@ -493,13 +496,15 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     sprite.alpha = 1.0;
     
     SKAction *action = [SKAction fadeAlphaTo:0 duration:.5];
- 
+    
+    [self.prevHighlight removeFromParent];
     [self addChild:sprite];
+    self.prevHighlight = sprite;
     
     [sprite runAction:action completion:
      ^{
-        [sprite removeFromParent];
-    }];
+         [sprite removeFromParent];
+     }];
 }
 
 @end

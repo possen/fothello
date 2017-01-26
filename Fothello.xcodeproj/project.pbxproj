@@ -3,47 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 47;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		303296501E2C9E60003D16D7 /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
+		309F2A401E2BFCFE00F3E27C /* FothelloMac.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */; };
+		30A963581E2C80B9006DDF8C /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC4931CDFCD0B009308C5 /* MovesViewController.m */; };
 		D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D61F1CC8A7AF0028C082 /* AppDelegate.m */; };
 		D509D6231CC8A7AF0028C082 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6221CC8A7AF0028C082 /* main.m */; };
-		D509D6291CC8A7AF0028C082 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
 		D509D62B1CC8A7AF0028C082 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D509D62A1CC8A7AF0028C082 /* Assets.xcassets */; };
 		D509D62E1CC8A7AF0028C082 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D509D62C1CC8A7AF0028C082 /* Main.storyboard */; };
 		D509D6341CC8A9FA0028C082 /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
-		D509D6351CC8A9FA0028C082 /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
-		D509D6361CC8A9FA0028C082 /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
-		D509D6371CC8A9FA0028C082 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
 		D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */; };
-		D509D63A1CC8A9FA0028C082 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
-		D509D63B1CC8A9FA0028C082 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
-		D509D63C1CC8A9FA0028C082 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
-		D509D63D1CC8A9FA0028C082 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D509D63F1CC8A9FA0028C082 /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
 		D509D6401CC8AA4D0028C082 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
-		D509D6411CC8AEFB0028C082 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
-		D509D6421CC8AF000028C082 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
-		D509D6431CC8AF060028C082 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
-		D50A31681CFB6310006FF879 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
-		D50D77811CF8DE2C0073D0A1 /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
-		D50D77821CF8DF0E0073D0A1 /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
-		D50D77851CF8DFA10073D0A1 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77841CF8DFA10073D0A1 /* Piece.m */; };
-		D50D77881CF8E0F40073D0A1 /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
-		D50D77891CF8E0F40073D0A1 /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
-		D50D778A1CF8E0FC0073D0A1 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77841CF8DFA10073D0A1 /* Piece.m */; };
-		D50D77911CF8E5160073D0A1 /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
-		D50D77921CF8E5160073D0A1 /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
-		D50D77951CF8E5990073D0A1 /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
-		D50D77961CF8E5990073D0A1 /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D50D77971CF92EB60073D0A1 /* FothelloTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.mm */; };
-		D50D77981CF92ED10073D0A1 /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
 		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
-		D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
 		D5441B281831CB1100B5166A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B271831CB1100B5166A /* CoreGraphics.framework */; };
@@ -61,30 +39,93 @@
 		D5441B511831CB1100B5166A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B291831CB1100B5166A /* UIKit.framework */; };
 		D5441B591831CB1100B5166A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5441B571831CB1100B5166A /* InfoPlist.strings */; };
 		D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.mm */; };
-		D55A6CBD1D04AF5C00B98809 /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
-		D55A6CC01D04BC7500B98809 /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
-		D55A6CC11D04C71100B98809 /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
-		D562F4A41CB0E905009A6273 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
-		D562F4AA1CB0E935009A6273 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D562F4AD1CB0E9E2009A6273 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
-		D5985C241CE98CC00084E01E /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
-		D5A97A141CB4039400DE26FB /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
-		D5A97A171CB4062B00DE26FB /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
-		D5A97A1A1CB4C86500DE26FB /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
+		D547007C1D163DE000851944 /* FothelloWatchLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D547007B1D163DE000851944 /* FothelloWatchLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D54700801D163DE000851944 /* FothelloWatchLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54700791D163DDF00851944 /* FothelloWatchLib.framework */; };
+		D54700811D163DE000851944 /* FothelloWatchLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D54700791D163DDF00851944 /* FothelloWatchLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D54700861D163E2400851944 /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
+		D54700871D163E2400851944 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
+		D54700881D163E2400851944 /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
+		D54700891D163E2400851944 /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
+		D547008A1D163E2400851944 /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77841CF8DFA10073D0A1 /* Piece.m */; };
+		D547008B1D163E2400851944 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
+		D547008C1D163E2400851944 /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
+		D547008D1D163E2400851944 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
+		D547008E1D163E2400851944 /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D547008F1D163E2400851944 /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
+		D54700901D163E2400851944 /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
+		D54700911D163E2400851944 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
+		D54700921D163E2400851944 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
+		D54700931D163E2400851944 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
+		D54700941D163E2400851944 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
+		D54700951D163EF300851944 /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
+		D54700971D163EF900851944 /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
+		D54700991D163FF900851944 /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
+		D56AAD271D13C9EA00BBCDFA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* GameScene.sks */; };
+		D56AAD281D13C9EB00BBCDFA /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* GameScene.sks */; };
+		D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
+		D56AAD321D13E26100BBCDFA /* FothelloLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D56AAD311D13E26100BBCDFA /* FothelloLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D56AAD361D13E26100BBCDFA /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56AAD2F1D13E26100BBCDFA /* FothelloLib.framework */; };
+		D56AAD371D13E26100BBCDFA /* FothelloLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D56AAD2F1D13E26100BBCDFA /* FothelloLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D56AAD3C1D13E30800BBCDFA /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
+		D56AAD501D13E38600BBCDFA /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
+		D56AAD511D13E38600BBCDFA /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
+		D56AAD521D13E38600BBCDFA /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
+		D56AAD531D13E38600BBCDFA /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77841CF8DFA10073D0A1 /* Piece.m */; };
+		D56AAD541D13E38600BBCDFA /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
+		D56AAD551D13E38600BBCDFA /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
+		D56AAD561D13E38600BBCDFA /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
+		D56AAD571D13E38600BBCDFA /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D56AAD581D13E38600BBCDFA /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
+		D56AAD591D13E38600BBCDFA /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
+		D56AAD5A1D13E38600BBCDFA /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
+		D56AAD5B1D13E39800BBCDFA /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
+		D56AAD5C1D13E39800BBCDFA /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
+		D56AAD5D1D13E39800BBCDFA /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
+		D56AAD5E1D13E3AF00BBCDFA /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
+		D56AAD5F1D13E6E500BBCDFA /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
+		D56AAD601D13E6F400BBCDFA /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
+		D56AAD611D13E6FB00BBCDFA /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
+		D56AAD6E1D13F13E00BBCDFA /* FothelloMacLib.h in Headers */ = {isa = PBXBuildFile; fileRef = D56AAD6D1D13F13E00BBCDFA /* FothelloMacLib.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D56AAD721D13F13E00BBCDFA /* FothelloMacLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D56AAD6B1D13F13E00BBCDFA /* FothelloMacLib.framework */; };
+		D56AAD731D13F13E00BBCDFA /* FothelloMacLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D56AAD6B1D13F13E00BBCDFA /* FothelloMacLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D56AAD7C1D13F1B300BBCDFA /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
+		D56AAD7D1D13F1B300BBCDFA /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
+		D56AAD7E1D13F1B300BBCDFA /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
+		D56AAD7F1D13F1B300BBCDFA /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
+		D56AAD801D13F1B300BBCDFA /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
+		D56AAD811D13F1B300BBCDFA /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
+		D56AAD821D13F1B300BBCDFA /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
+		D56AAD831D13F1B300BBCDFA /* Piece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77841CF8DFA10073D0A1 /* Piece.m */; };
+		D56AAD841D13F1B300BBCDFA /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
+		D56AAD851D13F1B300BBCDFA /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
+		D56AAD861D13F1B300BBCDFA /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
+		D56AAD871D13F1B300BBCDFA /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D56AAD881D13F1B300BBCDFA /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
+		D56AAD891D13F1B300BBCDFA /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
+		D56AAD8A1D13F1B300BBCDFA /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
+		D56AAD8B1D13F1B300BBCDFA /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
+		D56AAD8C1D13F1B300BBCDFA /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
+		D56AAD8D1D13F1B300BBCDFA /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
+		D56AAD8E1D13F1B300BBCDFA /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
 		D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66818C40E58000DCEB8 /* GameViewController.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
-		D5C0B66F18C43701000DCEB8 /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
-		D5DB1BC11CFB617100C1B5F6 /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
 		D5ED04841CE985FF0099A01A /* FothelloMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED04831CE985FF0099A01A /* FothelloMacTests.m */; };
-		D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC6183B4EC2005D5507 /* board.cpp */; };
-		D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
-		D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
-		D5EECCD9183B5152005D5507 /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
 		D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F2C15D18418C5B000F089E /* DialogViewController.m */; };
 		D5F4B7FB1CCF48AF001BCD21 /* MatchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F4B7F91CCF489D001BCD21 /* MatchWindowController.m */; };
+		D5F567F11D111C6200998C14 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5F567EF1D111C6200998C14 /* Interface.storyboard */; };
+		D5F567F31D111C6200998C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F567F21D111C6200998C14 /* Assets.xcassets */; };
+		D5F567FA1D111C6200998C14 /* FothelloWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D5F567F91D111C6200998C14 /* FothelloWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D5F568021D111C6200998C14 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568011D111C6200998C14 /* InterfaceController.m */; };
+		D5F568051D111C6300998C14 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568041D111C6200998C14 /* GameScene.m */; };
+		D5F568071D111C6300998C14 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* GameScene.sks */; };
+		D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568091D111C6300998C14 /* ExtensionDelegate.m */; };
+		D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5680C1D111C6300998C14 /* NotificationController.m */; };
+		D5F568101D111C6300998C14 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5680F1D111C6300998C14 /* ComplicationController.m */; };
+		D5F568121D111C6300998C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F568111D111C6300998C14 /* Assets.xcassets */; };
+		D5F568161D111C6300998C14 /* FothelloWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D5F567ED1D111C6200998C14 /* FothelloWatch.app */; };
 		D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */; };
 		D5F5E46F1CC1394600A5A023 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
 /* End PBXBuildFile section */
@@ -97,6 +138,27 @@
 			remoteGlobalIDString = D5441B211831CB1100B5166A;
 			remoteInfo = Fothello;
 		};
+		D547007E1D163DE000851944 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D54700781D163DDF00851944;
+			remoteInfo = FothelloWatchLib;
+		};
+		D56AAD341D13E26100BBCDFA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D56AAD2E1D13E26100BBCDFA;
+			remoteInfo = FothelloLib;
+		};
+		D56AAD701D13F13E00BBCDFA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D56AAD6A1D13F13E00BBCDFA;
+			remoteInfo = FothelloMacLib;
+		};
 		D5ED04861CE985FF0099A01A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
@@ -104,7 +166,79 @@
 			remoteGlobalIDString = D509D61B1CC8A7AE0028C082;
 			remoteInfo = FothelloMac;
 		};
+		D5F567FB1D111C6200998C14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5F567F81D111C6200998C14;
+			remoteInfo = "FothelloWatch Extension";
+		};
+		D5F568141D111C6300998C14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D5F567EC1D111C6200998C14;
+			remoteInfo = FothelloWatch;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D54700851D163DE000851944 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D54700811D163DE000851944 /* FothelloWatchLib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD3B1D13E26100BBCDFA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D56AAD371D13E26100BBCDFA /* FothelloLib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD771D13F13E00BBCDFA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D56AAD731D13F13E00BBCDFA /* FothelloMacLib.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5F5681A1D111C6300998C14 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				D5F567FA1D111C6200998C14 /* FothelloWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5F5681E1D111C6300998C14 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				D5F568161D111C6300998C14 /* FothelloWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		D509D61C1CC8A7AE0028C082 /* FothelloMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +263,7 @@
 		D517EA3518385AC2009C54E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		D53D351A1CD0928400C67EEF /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
 		D53D351B1CD0928400C67EEF /* NewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameViewController.m; sourceTree = "<group>"; };
-		D5441B221831CB1100B5166A /* Fothello.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fothello.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5441B221831CB1100B5166A /* FothelloIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B251831CB1100B5166A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D5441B271831CB1100B5166A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D5441B291831CB1100B5166A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -146,13 +280,16 @@
 		D5441B421831CB1100B5166A /* BoardScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoardScene.h; sourceTree = "<group>"; };
 		D5441B431831CB1100B5166A /* BoardScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BoardScene.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5441B471831CB1100B5166A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D5441B4D1831CB1100B5166A /* FothelloTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5441B4D1831CB1100B5166A /* FothelloIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B4E1831CB1100B5166A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D5441B561831CB1100B5166A /* FothelloTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FothelloTests-Info.plist"; sourceTree = "<group>"; };
 		D5441B581831CB1100B5166A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D5441B5A1831CB1100B5166A /* FothelloTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = FothelloTests.mm; sourceTree = "<group>"; };
 		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FothelloGame.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D54700791D163DDF00851944 /* FothelloWatchLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FothelloWatchLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D547007B1D163DE000851944 /* FothelloWatchLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FothelloWatchLib.h; sourceTree = "<group>"; };
+		D547007D1D163DE000851944 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D55A6CBE1D04BC7500B98809 /* BoardPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardPosition.m; sourceTree = "<group>"; };
 		D55A6CBF1D04BC7500B98809 /* BoardPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardPosition.h; sourceTree = "<group>"; };
 		D562F4A21CB0E905009A6273 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
@@ -162,6 +299,12 @@
 		D562F4AB1CB0E9E2009A6273 /* GameBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoard.h; sourceTree = "<group>"; };
 		D562F4AC1CB0E9E2009A6273 /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoard.m; sourceTree = "<group>"; };
 		D562F4B11CB1A320009A6273 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		D56AAD2F1D13E26100BBCDFA /* FothelloLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FothelloLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D56AAD311D13E26100BBCDFA /* FothelloLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FothelloLib.h; sourceTree = "<group>"; };
+		D56AAD331D13E26100BBCDFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D56AAD6B1D13F13E00BBCDFA /* FothelloMacLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FothelloMacLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D56AAD6D1D13F13E00BBCDFA /* FothelloMacLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FothelloMacLib.h; sourceTree = "<group>"; };
+		D56AAD6F1D13F13E00BBCDFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5A97A121CB4039400DE26FB /* NetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkController.h; sourceTree = "<group>"; };
 		D5A97A131CB4039400DE26FB /* NetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkController.m; sourceTree = "<group>"; };
 		D5A97A151CB4062B00DE26FB /* RESTNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESTNetworkRequest.h; sourceTree = "<group>"; };
@@ -199,6 +342,25 @@
 		D5F2C15D18418C5B000F089E /* DialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewController.m; sourceTree = "<group>"; };
 		D5F4B7F81CCF489D001BCD21 /* MatchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchWindowController.h; sourceTree = "<group>"; };
 		D5F4B7F91CCF489D001BCD21 /* MatchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchWindowController.m; sourceTree = "<group>"; };
+		D5F567ED1D111C6200998C14 /* FothelloWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5F567F01D111C6200998C14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		D5F567F21D111C6200998C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D5F567F41D111C6200998C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5F567F91D111C6200998C14 /* FothelloWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "FothelloWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5F567FF1D111C6200998C14 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		D5F568001D111C6200998C14 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		D5F568011D111C6200998C14 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		D5F568031D111C6200998C14 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameScene.h; path = "FothelloWatch Extension/GameScene.h"; sourceTree = SOURCE_ROOT; };
+		D5F568041D111C6200998C14 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GameScene.m; path = "FothelloWatch Extension/GameScene.m"; sourceTree = SOURCE_ROOT; };
+		D5F568061D111C6300998C14 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = GameScene.sks; path = "FothelloWatch Extension/GameScene.sks"; sourceTree = SOURCE_ROOT; };
+		D5F568081D111C6300998C14 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		D5F568091D111C6300998C14 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
+		D5F5680B1D111C6300998C14 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		D5F5680C1D111C6300998C14 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		D5F5680E1D111C6300998C14 /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
+		D5F5680F1D111C6300998C14 /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
+		D5F568111D111C6300998C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D5F568131D111C6300998C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5F56A7C1CC36074000700D8 /* MatchViewControllerMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchViewControllerMac.h; path = FothelloMac/MatchViewControllerMac.h; sourceTree = SOURCE_ROOT; };
 		D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchViewControllerMac.m; path = FothelloMac/MatchViewControllerMac.m; sourceTree = SOURCE_ROOT; };
 		D5F5E4501CC129A200A5A023 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -217,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */,
+				D56AAD721D13F13E00BBCDFA /* FothelloMacLib.framework in Frameworks */,
 				D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +391,7 @@
 				D5441B281831CB1100B5166A /* CoreGraphics.framework in Frameworks */,
 				D5441B2A1831CB1100B5166A /* UIKit.framework in Frameworks */,
 				D5441B2C1831CB1100B5166A /* SpriteKit.framework in Frameworks */,
+				D56AAD361D13E26100BBCDFA /* FothelloLib.framework in Frameworks */,
 				D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,10 +406,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D54700751D163DDF00851944 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD2B1D13E26100BBCDFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD671D13F13E00BBCDFA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D5ED047E1CE985FE0099A01A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5F567F61D111C6200998C14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54700801D163DE000851944 /* FothelloWatchLib.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +491,9 @@
 				D5441B541831CB1100B5166A /* FothelloTests */,
 				D509D61D1CC8A7AF0028C082 /* FothelloMac */,
 				D5ED04821CE985FF0099A01A /* FothelloMacTests */,
+				D547007A1D163DE000851944 /* FothelloWatchLib */,
+				D56AAD301D13E26100BBCDFA /* FothelloLib */,
+				D56AAD6C1D13F13E00BBCDFA /* FothelloMacLib */,
 				D5441B241831CB1100B5166A /* Frameworks */,
 				D5441B231831CB1100B5166A /* Products */,
 			);
@@ -306,10 +502,15 @@
 		D5441B231831CB1100B5166A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5441B221831CB1100B5166A /* Fothello.app */,
-				D5441B4D1831CB1100B5166A /* FothelloTests.xctest */,
+				D5441B221831CB1100B5166A /* FothelloIOS.app */,
+				D5441B4D1831CB1100B5166A /* FothelloIOSTests.xctest */,
 				D509D61C1CC8A7AE0028C082 /* FothelloMac.app */,
 				D5ED04811CE985FE0099A01A /* FothelloMacTests.xctest */,
+				D5F567ED1D111C6200998C14 /* FothelloWatch.app */,
+				D5F567F91D111C6200998C14 /* FothelloWatch Extension.appex */,
+				D56AAD2F1D13E26100BBCDFA /* FothelloLib.framework */,
+				D56AAD6B1D13F13E00BBCDFA /* FothelloMacLib.framework */,
+				D54700791D163DDF00851944 /* FothelloWatchLib.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -337,8 +538,6 @@
 				D5F56A831CC3F174000700D8 /* iOS */,
 				D5A97A111CB4033D00DE26FB /* UI */,
 				D562F4AF1CB0F040009A6273 /* Controllers */,
-				D562F4AE1CB0F02B009A6273 /* Model */,
-				D562F4B01CB0F08F009A6273 /* Utility */,
 				D5441B2E1831CB1100B5166A /* iOS Supporting Files */,
 			);
 			path = Fothello;
@@ -373,6 +572,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D547007A1D163DE000851944 /* FothelloWatchLib */ = {
+			isa = PBXGroup;
+			children = (
+				D547007B1D163DE000851944 /* FothelloWatchLib.h */,
+				D547007D1D163DE000851944 /* Info.plist */,
+			);
+			path = FothelloWatchLib;
+			sourceTree = "<group>";
+		};
 		D562F4AE1CB0F02B009A6273 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,15 +608,17 @@
 				D50D77901CF8E5160073D0A1 /* HumanStrategy.m */,
 				D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */,
 				D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */,
+				D5F56A821CC37087000700D8 /* Network */,
 				D5EECCC5183B4EAB005D5507 /* Mini-Othello */,
 			);
 			name = Model;
+			path = ../Fothello;
 			sourceTree = "<group>";
 		};
 		D562F4AF1CB0F040009A6273 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D5F56A821CC37087000700D8 /* Shared */,
+				D5F567FD1D111C6200998C14 /* FothelloWatch Extension */,
 				D5F56A811CC3705C000700D8 /* Mac */,
 				D5F56A801CC3703C000700D8 /* IOS */,
 			);
@@ -423,14 +633,36 @@
 				D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */,
 			);
 			name = Utility;
+			path = ../Fothello;
+			sourceTree = "<group>";
+		};
+		D56AAD301D13E26100BBCDFA /* FothelloLib */ = {
+			isa = PBXGroup;
+			children = (
+				D562F4AE1CB0F02B009A6273 /* Model */,
+				D562F4B01CB0F08F009A6273 /* Utility */,
+				D56AAD311D13E26100BBCDFA /* FothelloLib.h */,
+				D56AAD331D13E26100BBCDFA /* Info.plist */,
+			);
+			path = FothelloLib;
+			sourceTree = "<group>";
+		};
+		D56AAD6C1D13F13E00BBCDFA /* FothelloMacLib */ = {
+			isa = PBXGroup;
+			children = (
+				D56AAD6D1D13F13E00BBCDFA /* FothelloMacLib.h */,
+				D56AAD6F1D13F13E00BBCDFA /* Info.plist */,
+			);
+			path = FothelloMacLib;
 			sourceTree = "<group>";
 		};
 		D5A97A111CB4033D00DE26FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				D5F567EE1D111C6200998C14 /* FothelloWatch */,
 				D509D6331CC8A9270028C082 /* Mac */,
-				D5F56A871CC3F247000700D8 /* Shared */,
 				D5F56A851CC3F1EE000700D8 /* iOS */,
+				D5F56A871CC3F247000700D8 /* Shared */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -455,6 +687,44 @@
 				D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */,
 			);
 			name = "Mini-Othello";
+			sourceTree = "<group>";
+		};
+		D5F567EE1D111C6200998C14 /* FothelloWatch */ = {
+			isa = PBXGroup;
+			children = (
+				D5F568031D111C6200998C14 /* GameScene.h */,
+				D5F568041D111C6200998C14 /* GameScene.m */,
+				D5F567EF1D111C6200998C14 /* Interface.storyboard */,
+				D5F567F21D111C6200998C14 /* Assets.xcassets */,
+				D5F567F41D111C6200998C14 /* Info.plist */,
+			);
+			path = FothelloWatch;
+			sourceTree = SOURCE_ROOT;
+		};
+		D5F567FD1D111C6200998C14 /* FothelloWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D5F568001D111C6200998C14 /* InterfaceController.h */,
+				D5F568011D111C6200998C14 /* InterfaceController.m */,
+				D5F568081D111C6300998C14 /* ExtensionDelegate.h */,
+				D5F568091D111C6300998C14 /* ExtensionDelegate.m */,
+				D5F5680B1D111C6300998C14 /* NotificationController.h */,
+				D5F5680C1D111C6300998C14 /* NotificationController.m */,
+				D5F5680E1D111C6300998C14 /* ComplicationController.h */,
+				D5F5680F1D111C6300998C14 /* ComplicationController.m */,
+				D5F568111D111C6300998C14 /* Assets.xcassets */,
+				D5F568131D111C6300998C14 /* Info.plist */,
+				D5F567FE1D111C6200998C14 /* Supporting Files */,
+			);
+			path = "FothelloWatch Extension";
+			sourceTree = SOURCE_ROOT;
+		};
+		D5F567FE1D111C6200998C14 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5F567FF1D111C6200998C14 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		D5F56A801CC3703C000700D8 /* IOS */ = {
@@ -491,7 +761,7 @@
 			name = Mac;
 			sourceTree = "<group>";
 		};
-		D5F56A821CC37087000700D8 /* Shared */ = {
+		D5F56A821CC37087000700D8 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				D5A97A151CB4062B00DE26FB /* RESTNetworkRequest.h */,
@@ -501,7 +771,7 @@
 				D5A97A121CB4039400DE26FB /* NetworkController.h */,
 				D5A97A131CB4039400DE26FB /* NetworkController.m */,
 			);
-			name = Shared;
+			name = Network;
 			sourceTree = "<group>";
 		};
 		D5F56A831CC3F174000700D8 /* iOS */ = {
@@ -537,6 +807,7 @@
 		D5F56A871CC3F247000700D8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D5F568061D111C6300998C14 /* GameScene.sks */,
 				D5441B421831CB1100B5166A /* BoardScene.h */,
 				D5441B431831CB1100B5166A /* BoardScene.m */,
 				D5F5E46E1CC1394600A5A023 /* Media.xcassets */,
@@ -546,6 +817,33 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		D54700761D163DDF00851944 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D547007C1D163DE000851944 /* FothelloWatchLib.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD2C1D13E26100BBCDFA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D56AAD321D13E26100BBCDFA /* FothelloLib.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD681D13F13E00BBCDFA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D56AAD6E1D13F13E00BBCDFA /* FothelloMacLib.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		D509D61B1CC8A7AE0028C082 /* FothelloMac */ = {
 			isa = PBXNativeTarget;
@@ -554,36 +852,43 @@
 				D509D6181CC8A7AE0028C082 /* Sources */,
 				D509D6191CC8A7AE0028C082 /* Frameworks */,
 				D509D61A1CC8A7AE0028C082 /* Resources */,
+				D56AAD771D13F13E00BBCDFA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D56AAD711D13F13E00BBCDFA /* PBXTargetDependency */,
 			);
 			name = FothelloMac;
 			productName = FothelloMac;
 			productReference = D509D61C1CC8A7AE0028C082 /* FothelloMac.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D5441B211831CB1100B5166A /* Fothello */ = {
+		D5441B211831CB1100B5166A /* FothelloIOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5441B5E1831CB1100B5166A /* Build configuration list for PBXNativeTarget "Fothello" */;
+			buildConfigurationList = D5441B5E1831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloIOS" */;
 			buildPhases = (
 				D5441B1E1831CB1100B5166A /* Sources */,
 				D5441B1F1831CB1100B5166A /* Frameworks */,
 				D5441B201831CB1100B5166A /* Resources */,
+				D5F5681E1D111C6300998C14 /* Embed Watch Content */,
+				D56AAD3B1D13E26100BBCDFA /* Embed Frameworks */,
+				305C05611E201DCE00419359 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D5F568151D111C6300998C14 /* PBXTargetDependency */,
+				D56AAD351D13E26100BBCDFA /* PBXTargetDependency */,
 			);
-			name = Fothello;
+			name = FothelloIOS;
 			productName = Fothello;
-			productReference = D5441B221831CB1100B5166A /* Fothello.app */;
+			productReference = D5441B221831CB1100B5166A /* FothelloIOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D5441B4C1831CB1100B5166A /* FothelloTests */ = {
+		D5441B4C1831CB1100B5166A /* FothelloIOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5441B611831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloTests" */;
+			buildConfigurationList = D5441B611831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloIOSTests" */;
 			buildPhases = (
 				D5441B491831CB1100B5166A /* Sources */,
 				D5441B4A1831CB1100B5166A /* Frameworks */,
@@ -594,10 +899,64 @@
 			dependencies = (
 				D5441B531831CB1100B5166A /* PBXTargetDependency */,
 			);
-			name = FothelloTests;
+			name = FothelloIOSTests;
 			productName = FothelloTests;
-			productReference = D5441B4D1831CB1100B5166A /* FothelloTests.xctest */;
+			productReference = D5441B4D1831CB1100B5166A /* FothelloIOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D54700781D163DDF00851944 /* FothelloWatchLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D54700821D163DE000851944 /* Build configuration list for PBXNativeTarget "FothelloWatchLib" */;
+			buildPhases = (
+				D54700741D163DDF00851944 /* Sources */,
+				D54700751D163DDF00851944 /* Frameworks */,
+				D54700761D163DDF00851944 /* Headers */,
+				D54700771D163DDF00851944 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FothelloWatchLib;
+			productName = FothelloWatchLib;
+			productReference = D54700791D163DDF00851944 /* FothelloWatchLib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D56AAD2E1D13E26100BBCDFA /* FothelloLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D56AAD381D13E26100BBCDFA /* Build configuration list for PBXNativeTarget "FothelloLib" */;
+			buildPhases = (
+				D56AAD2A1D13E26100BBCDFA /* Sources */,
+				D56AAD2B1D13E26100BBCDFA /* Frameworks */,
+				D56AAD2C1D13E26100BBCDFA /* Headers */,
+				D56AAD2D1D13E26100BBCDFA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FothelloLib;
+			productName = FothelloLib;
+			productReference = D56AAD2F1D13E26100BBCDFA /* FothelloLib.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		D56AAD6A1D13F13E00BBCDFA /* FothelloMacLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D56AAD741D13F13E00BBCDFA /* Build configuration list for PBXNativeTarget "FothelloMacLib" */;
+			buildPhases = (
+				D56AAD661D13F13E00BBCDFA /* Sources */,
+				D56AAD671D13F13E00BBCDFA /* Frameworks */,
+				D56AAD681D13F13E00BBCDFA /* Headers */,
+				D56AAD691D13F13E00BBCDFA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FothelloMacLib;
+			productName = FothelloMacLib;
+			productReference = D56AAD6B1D13F13E00BBCDFA /* FothelloMacLib.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		D5ED04801CE985FE0099A01A /* FothelloMacTests */ = {
 			isa = PBXNativeTarget;
@@ -617,18 +976,55 @@
 			productReference = D5ED04811CE985FE0099A01A /* FothelloMacTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		D5F567EC1D111C6200998C14 /* FothelloWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5F5681B1D111C6300998C14 /* Build configuration list for PBXNativeTarget "FothelloWatch" */;
+			buildPhases = (
+				D5F567EB1D111C6200998C14 /* Resources */,
+				D5F5681A1D111C6300998C14 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D5F567FC1D111C6200998C14 /* PBXTargetDependency */,
+			);
+			name = FothelloWatch;
+			productName = FothelloWatch;
+			productReference = D5F567ED1D111C6200998C14 /* FothelloWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		D5F567F81D111C6200998C14 /* FothelloWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5F568171D111C6300998C14 /* Build configuration list for PBXNativeTarget "FothelloWatch Extension" */;
+			buildPhases = (
+				D5F567F51D111C6200998C14 /* Sources */,
+				D5F567F61D111C6200998C14 /* Frameworks */,
+				D5F567F71D111C6200998C14 /* Resources */,
+				D54700851D163DE000851944 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D547007F1D163DE000851944 /* PBXTargetDependency */,
+			);
+			name = "FothelloWatch Extension";
+			productName = "FothelloWatch Extension";
+			productReference = D5F567F91D111C6200998C14 /* FothelloWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		D5441B1A1831CB1100B5166A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Paul Ossenbruggen";
 				TargetAttributes = {
 					D509D61B1CC8A7AE0028C082 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = UVHFXZWG47;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
 								enabled = 1;
@@ -646,18 +1042,51 @@
 					};
 					D5441B211831CB1100B5166A = {
 						DevelopmentTeam = UVHFXZWG47;
+						ProvisioningStyle = Automatic;
 					};
 					D5441B4C1831CB1100B5166A = {
 						TestTargetID = D5441B211831CB1100B5166A;
 					};
+					D54700781D163DDF00851944 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = UVHFXZWG47;
+						DevelopmentTeamName = "Paul Ossenbruggen";
+						ProvisioningStyle = Automatic;
+					};
+					D56AAD2E1D13E26100BBCDFA = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = UVHFXZWG47;
+						DevelopmentTeamName = "Paul Ossenbruggen";
+						ProvisioningStyle = Automatic;
+					};
+					D56AAD6A1D13F13E00BBCDFA = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = UVHFXZWG47;
+						DevelopmentTeamName = "Paul Ossenbruggen";
+						ProvisioningStyle = Automatic;
+					};
 					D5ED04801CE985FE0099A01A = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = UVHFXZWG47;
+						ProvisioningStyle = Automatic;
 						TestTargetID = D509D61B1CC8A7AE0028C082;
+					};
+					D5F567EC1D111C6200998C14 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = UVHFXZWG47;
+						DevelopmentTeamName = "Paul Ossenbruggen";
+						ProvisioningStyle = Automatic;
+					};
+					D5F567F81D111C6200998C14 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = UVHFXZWG47;
+						DevelopmentTeamName = "Paul Ossenbruggen";
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = D5441B1D1831CB1100B5166A /* Build configuration list for PBXProject "Fothello" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -669,10 +1098,15 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5441B211831CB1100B5166A /* Fothello */,
-				D5441B4C1831CB1100B5166A /* FothelloTests */,
+				D5441B211831CB1100B5166A /* FothelloIOS */,
+				D5441B4C1831CB1100B5166A /* FothelloIOSTests */,
 				D509D61B1CC8A7AE0028C082 /* FothelloMac */,
 				D5ED04801CE985FE0099A01A /* FothelloMacTests */,
+				D5F567EC1D111C6200998C14 /* FothelloWatch */,
+				D5F567F81D111C6200998C14 /* FothelloWatch Extension */,
+				D56AAD2E1D13E26100BBCDFA /* FothelloLib */,
+				D56AAD6A1D13F13E00BBCDFA /* FothelloMacLib */,
+				D54700781D163DDF00851944 /* FothelloWatchLib */,
 			);
 		};
 /* End PBXProject section */
@@ -682,6 +1116,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D56AAD271D13C9EA00BBCDFA /* GameScene.sks in Resources */,
+				309F2A401E2BFCFE00F3E27C /* FothelloMac.entitlements in Resources */,
 				D509D62B1CC8A7AF0028C082 /* Assets.xcassets in Resources */,
 				D509D6401CC8AA4D0028C082 /* Media.xcassets in Resources */,
 				D509D62E1CC8A7AF0028C082 /* Main.storyboard in Resources */,
@@ -696,6 +1132,7 @@
 				D5441B3B1831CB1100B5166A /* Main.storyboard in Resources */,
 				D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */,
 				D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */,
+				D56AAD281D13C9EB00BBCDFA /* GameScene.sks in Resources */,
 				D5F5E46F1CC1394600A5A023 /* Media.xcassets in Resources */,
 				D517EA3618385AC2009C54E8 /* README.md in Resources */,
 			);
@@ -709,6 +1146,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D54700771D163DDF00851944 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD2D1D13E26100BBCDFA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD691D13F13E00BBCDFA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D5ED047F1CE985FE0099A01A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -716,40 +1174,54 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D5F567EB1D111C6200998C14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5F567F31D111C6200998C14 /* Assets.xcassets in Resources */,
+				D5F567F11D111C6200998C14 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5F567F71D111C6200998C14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5F568121D111C6300998C14 /* Assets.xcassets in Resources */,
+				D5F568071D111C6300998C14 /* GameScene.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		305C05611E201DCE00419359 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export | egrep '(BUILT_PRODUCTS_DIR)|(CURRENT_ARCH)|(OBJECT_FILE_DIR_normal)|(SRCROOT)|(OBJROOT)' > xcenv.sh\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D509D6181CC8A7AE0028C082 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D509D63F1CC8A9FA0028C082 /* NSArray+Holes.m in Sources */,
 				D509D6341CC8A9FA0028C082 /* BoardScene.m in Sources */,
-				D509D6431CC8AF060028C082 /* endgamecx.cpp in Sources */,
-				D509D6411CC8AEFB0028C082 /* board.cpp in Sources */,
-				D55A6CBD1D04AF5C00B98809 /* Strategy.mm in Sources */,
-				D509D6361CC8A9FA0028C082 /* FothelloNetworkRequest.m in Sources */,
-				D50A31681CFB6310006FF879 /* NSArray+Extensions.m in Sources */,
 				D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */,
-				D509D63C1CC8A9FA0028C082 /* Player.m in Sources */,
-				D509D6291CC8A7AF0028C082 /* Document.m in Sources */,
-				D509D63B1CC8A9FA0028C082 /* GameBoard.m in Sources */,
-				D509D63A1CC8A9FA0028C082 /* FothelloGame.m in Sources */,
-				D509D6421CC8AF000028C082 /* minimax.cpp in Sources */,
-				D50D77821CF8DF0E0073D0A1 /* PlayerMove.m in Sources */,
 				D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */,
-				D509D6371CC8A9FA0028C082 /* NetworkController.m in Sources */,
-				D50D77921CF8E5160073D0A1 /* HumanStrategy.m in Sources */,
 				D5F4B7FB1CCF48AF001BCD21 /* MatchWindowController.m in Sources */,
-				D509D63D1CC8A9FA0028C082 /* Match.m in Sources */,
-				D50D778A1CF8E0FC0073D0A1 /* Piece.m in Sources */,
 				D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */,
 				D509D6231CC8A7AF0028C082 /* main.m in Sources */,
-				D509D6351CC8A9FA0028C082 /* RESTNetworkRequest.m in Sources */,
 				D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */,
-				D55A6CC11D04C71100B98809 /* BoardPosition.m in Sources */,
-				D50D77961CF8E5990073D0A1 /* AIStrategy.m in Sources */,
-				D50D77891CF8E0F40073D0A1 /* BoardPiece.m in Sources */,
 				D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */,
 				D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */,
 			);
@@ -759,33 +1231,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D50D77851CF8DFA10073D0A1 /* Piece.m in Sources */,
-				D50D77811CF8DE2C0073D0A1 /* PlayerMove.m in Sources */,
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
 				D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */,
-				D5EECCD2183B4EC2005D5507 /* endgamecx.cpp in Sources */,
 				D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */,
-				D562F4A41CB0E905009A6273 /* Player.m in Sources */,
-				D55A6CC01D04BC7500B98809 /* BoardPosition.m in Sources */,
-				D5EECCD9183B5152005D5507 /* Strategy.mm in Sources */,
-				D5C0B66F18C43701000DCEB8 /* NSArray+Holes.m in Sources */,
-				D562F4AA1CB0E935009A6273 /* Match.m in Sources */,
 				D5441B411831CB1100B5166A /* MatchViewController.m in Sources */,
-				D5A97A171CB4062B00DE26FB /* RESTNetworkRequest.m in Sources */,
-				D5EECCD1183B4EC2005D5507 /* board.cpp in Sources */,
-				D5DB1BC11CFB617100C1B5F6 /* NSArray+Extensions.m in Sources */,
-				D5A97A1A1CB4C86500DE26FB /* FothelloNetworkRequest.m in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */,
-				D5EECCD5183B4EC2005D5507 /* minimax.cpp in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,
-				D52B11B71835AF76008DBED5 /* FothelloGame.m in Sources */,
-				D562F4AD1CB0E9E2009A6273 /* GameBoard.m in Sources */,
-				D5A97A141CB4039400DE26FB /* NetworkController.m in Sources */,
-				D50D77911CF8E5160073D0A1 /* HumanStrategy.m in Sources */,
 				D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */,
-				D50D77951CF8E5990073D0A1 /* AIStrategy.m in Sources */,
-				D50D77881CF8E0F40073D0A1 /* BoardPiece.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,7 +1247,84 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5441B5B1831CB1100B5166A /* FothelloTests.mm in Sources */,
-				D50D77981CF92ED10073D0A1 /* TestBoardOps.m in Sources */,
+				30A963581E2C80B9006DDF8C /* TestBoardOps.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D54700741D163DDF00851944 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54700951D163EF300851944 /* RESTNetworkRequest.m in Sources */,
+				D54700861D163E2400851944 /* FothelloGame.m in Sources */,
+				D54700871D163E2400851944 /* GameBoard.m in Sources */,
+				D54700881D163E2400851944 /* BoardPiece.m in Sources */,
+				D54700891D163E2400851944 /* BoardPosition.m in Sources */,
+				D547008A1D163E2400851944 /* Piece.m in Sources */,
+				D547008B1D163E2400851944 /* Player.m in Sources */,
+				D547008C1D163E2400851944 /* PlayerMove.m in Sources */,
+				D547008D1D163E2400851944 /* Match.m in Sources */,
+				D547008E1D163E2400851944 /* Strategy.mm in Sources */,
+				D547008F1D163E2400851944 /* AIStrategy.m in Sources */,
+				D54700901D163E2400851944 /* HumanStrategy.m in Sources */,
+				D54700911D163E2400851944 /* NSArray+Extensions.m in Sources */,
+				D54700971D163EF900851944 /* FothelloNetworkRequest.m in Sources */,
+				D54700921D163E2400851944 /* board.cpp in Sources */,
+				D54700931D163E2400851944 /* minimax.cpp in Sources */,
+				D54700991D163FF900851944 /* NetworkController.m in Sources */,
+				D54700941D163E2400851944 /* endgamecx.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD2A1D13E26100BBCDFA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D56AAD5E1D13E3AF00BBCDFA /* NSArray+Holes.m in Sources */,
+				D56AAD551D13E38600BBCDFA /* PlayerMove.m in Sources */,
+				D56AAD511D13E38600BBCDFA /* BoardPiece.m in Sources */,
+				D56AAD581D13E38600BBCDFA /* AIStrategy.m in Sources */,
+				D56AAD571D13E38600BBCDFA /* Strategy.mm in Sources */,
+				D56AAD501D13E38600BBCDFA /* GameBoard.m in Sources */,
+				D56AAD531D13E38600BBCDFA /* Piece.m in Sources */,
+				D56AAD3C1D13E30800BBCDFA /* FothelloGame.m in Sources */,
+				D56AAD5C1D13E39800BBCDFA /* minimax.cpp in Sources */,
+				D56AAD541D13E38600BBCDFA /* Player.m in Sources */,
+				D56AAD5B1D13E39800BBCDFA /* board.cpp in Sources */,
+				D56AAD521D13E38600BBCDFA /* BoardPosition.m in Sources */,
+				D56AAD5D1D13E39800BBCDFA /* endgamecx.cpp in Sources */,
+				D56AAD601D13E6F400BBCDFA /* FothelloNetworkRequest.m in Sources */,
+				D56AAD5F1D13E6E500BBCDFA /* RESTNetworkRequest.m in Sources */,
+				D56AAD591D13E38600BBCDFA /* HumanStrategy.m in Sources */,
+				D56AAD5A1D13E38600BBCDFA /* NSArray+Extensions.m in Sources */,
+				D56AAD611D13E6FB00BBCDFA /* NetworkController.m in Sources */,
+				D56AAD561D13E38600BBCDFA /* Match.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D56AAD661D13F13E00BBCDFA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D56AAD7C1D13F1B300BBCDFA /* RESTNetworkRequest.m in Sources */,
+				D56AAD7D1D13F1B300BBCDFA /* FothelloNetworkRequest.m in Sources */,
+				D56AAD7E1D13F1B300BBCDFA /* NetworkController.m in Sources */,
+				D56AAD7F1D13F1B300BBCDFA /* FothelloGame.m in Sources */,
+				D56AAD801D13F1B300BBCDFA /* GameBoard.m in Sources */,
+				D56AAD811D13F1B300BBCDFA /* BoardPiece.m in Sources */,
+				D56AAD821D13F1B300BBCDFA /* BoardPosition.m in Sources */,
+				D56AAD831D13F1B300BBCDFA /* Piece.m in Sources */,
+				D56AAD841D13F1B300BBCDFA /* Player.m in Sources */,
+				D56AAD851D13F1B300BBCDFA /* PlayerMove.m in Sources */,
+				D56AAD861D13F1B300BBCDFA /* Match.m in Sources */,
+				D56AAD871D13F1B300BBCDFA /* Strategy.mm in Sources */,
+				D56AAD881D13F1B300BBCDFA /* AIStrategy.m in Sources */,
+				D56AAD891D13F1B300BBCDFA /* HumanStrategy.m in Sources */,
+				D56AAD8A1D13F1B300BBCDFA /* NSArray+Extensions.m in Sources */,
+				D56AAD8B1D13F1B300BBCDFA /* board.cpp in Sources */,
+				D56AAD8C1D13F1B300BBCDFA /* minimax.cpp in Sources */,
+				D56AAD8D1D13F1B300BBCDFA /* endgamecx.cpp in Sources */,
+				D56AAD8E1D13F1B300BBCDFA /* NSArray+Holes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,9 +1332,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303296501E2C9E60003D16D7 /* TestBoardOps.m in Sources */,
 				D5ED04841CE985FF0099A01A /* FothelloMacTests.m in Sources */,
 				D50D77971CF92EB60073D0A1 /* FothelloTests.mm in Sources */,
-				D5985C241CE98CC00084E01E /* TestBoardOps.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5F567F51D111C6200998C14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */,
+				D5F568051D111C6300998C14 /* GameScene.m in Sources */,
+				D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */,
+				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
+				D5F568101D111C6300998C14 /* ComplicationController.m in Sources */,
+				D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -813,13 +1356,38 @@
 /* Begin PBXTargetDependency section */
 		D5441B531831CB1100B5166A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D5441B211831CB1100B5166A /* Fothello */;
+			target = D5441B211831CB1100B5166A /* FothelloIOS */;
 			targetProxy = D5441B521831CB1100B5166A /* PBXContainerItemProxy */;
+		};
+		D547007F1D163DE000851944 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D54700781D163DDF00851944 /* FothelloWatchLib */;
+			targetProxy = D547007E1D163DE000851944 /* PBXContainerItemProxy */;
+		};
+		D56AAD351D13E26100BBCDFA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D56AAD2E1D13E26100BBCDFA /* FothelloLib */;
+			targetProxy = D56AAD341D13E26100BBCDFA /* PBXContainerItemProxy */;
+		};
+		D56AAD711D13F13E00BBCDFA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D56AAD6A1D13F13E00BBCDFA /* FothelloMacLib */;
+			targetProxy = D56AAD701D13F13E00BBCDFA /* PBXContainerItemProxy */;
 		};
 		D5ED04871CE985FF0099A01A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D509D61B1CC8A7AE0028C082 /* FothelloMac */;
 			targetProxy = D5ED04861CE985FF0099A01A /* PBXContainerItemProxy */;
+		};
+		D5F567FC1D111C6200998C14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D5F567F81D111C6200998C14 /* FothelloWatch Extension */;
+			targetProxy = D5F567FB1D111C6200998C14 /* PBXContainerItemProxy */;
+		};
+		D5F568151D111C6300998C14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D5F567EC1D111C6200998C14 /* FothelloWatch */;
+			targetProxy = D5F568141D111C6300998C14 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -857,6 +1425,14 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		D5F567EF1D111C6200998C14 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5F567F01D111C6200998C14 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -868,17 +1444,21 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = FothelloMac/FothelloMac.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = FothelloMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -891,16 +1471,18 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = FothelloMac/FothelloMac.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = FothelloMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -921,14 +1503,18 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -941,7 +1527,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -961,20 +1547,24 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -988,18 +1578,19 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1009,19 +1600,21 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "arm64 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1029,11 +1622,7 @@
 		D5441B621831CB1100B5166A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Fothello.app/Fothello";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1043,7 +1632,7 @@
 				INFOPLIST_FILE = "FothelloTests/FothelloTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FothelloIOS.app/FothelloIOS";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1051,18 +1640,186 @@
 		D5441B631831CB1100B5166A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Fothello.app/Fothello";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "FothelloTests/FothelloTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FothelloIOS.app/FothelloIOS";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		D54700831D163DE000851944 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloWatchLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloWatchLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		D54700841D163DE000851944 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloWatchLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloWatchLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		D56AAD391D13E26100BBCDFA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D56AAD3A1D13E26100BBCDFA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D56AAD751D13F13E00BBCDFA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloMacLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloMacLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D56AAD761D13F13E00BBCDFA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloMacLib/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloMacLib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1072,17 +1829,17 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = FothelloMacTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloMacTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FothelloMac.app/Contents/MacOS/FothelloMac";
@@ -1095,21 +1852,107 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = FothelloMacTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = quintescent.FothelloMacTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloMac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FothelloMac.app/Contents/MacOS/FothelloMac";
+			};
+			name = Release;
+		};
+		D5F568181D111C6300998C14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "FothelloWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		D5F568191D111C6300998C14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "FothelloWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		D5F5681C1D111C6300998C14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = FothelloWatch_Extension;
+				INFOPLIST_FILE = FothelloWatch/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		D5F5681D1D111C6300998C14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = FothelloWatch_Extension;
+				INFOPLIST_FILE = FothelloWatch/Info.plist;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
@@ -1134,7 +1977,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5441B5E1831CB1100B5166A /* Build configuration list for PBXNativeTarget "Fothello" */ = {
+		D5441B5E1831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloIOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5441B5F1831CB1100B5166A /* Debug */,
@@ -1143,11 +1986,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5441B611831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloTests" */ = {
+		D5441B611831CB1100B5166A /* Build configuration list for PBXNativeTarget "FothelloIOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D5441B621831CB1100B5166A /* Debug */,
 				D5441B631831CB1100B5166A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D54700821D163DE000851944 /* Build configuration list for PBXNativeTarget "FothelloWatchLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D54700831D163DE000851944 /* Debug */,
+				D54700841D163DE000851944 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D56AAD381D13E26100BBCDFA /* Build configuration list for PBXNativeTarget "FothelloLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D56AAD391D13E26100BBCDFA /* Debug */,
+				D56AAD3A1D13E26100BBCDFA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D56AAD741D13F13E00BBCDFA /* Build configuration list for PBXNativeTarget "FothelloMacLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D56AAD751D13F13E00BBCDFA /* Debug */,
+				D56AAD761D13F13E00BBCDFA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1157,6 +2027,24 @@
 			buildConfigurations = (
 				D5ED04891CE985FF0099A01A /* Debug */,
 				D5ED048A1CE985FF0099A01A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5F568171D111C6300998C14 /* Build configuration list for PBXNativeTarget "FothelloWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5F568181D111C6300998C14 /* Debug */,
+				D5F568191D111C6300998C14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5F5681B1D111C6300998C14 /* Build configuration list for PBXNativeTarget "FothelloWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5F5681C1D111C6300998C14 /* Debug */,
+				D5F5681D1D111C6300998C14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

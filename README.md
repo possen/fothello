@@ -3,7 +3,7 @@ fothello
 
 Reversi like game.
 -----------------
-
+`
 This is the beginnings of a Reversi like game. The idea is to get familiar with
 SpriteKit and eventually GameKit. 
 
@@ -20,7 +20,7 @@ Capabilities
 * Redo
 * Mac and iOS
 * Move display (mac only right now)
-
+    
 
 To Do
 -----

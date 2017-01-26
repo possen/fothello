@@ -11,7 +11,7 @@
 #import "Match.h"
 
 @interface MovesViewController ()
-@property (nonatomic) IBOutlet NSTableView *tableView;
+@property (weak, nonatomic) IBOutlet NSTableView *tableView;
 @property (nonatomic) Match *match;
 @property (nonatomic) MovesViewAdapter *adapter;
 @end
@@ -35,7 +35,6 @@
 {
     self.match = match;
     self.adapter.match = match;
-    
     
     match.movesUpdateBlock = ^{
         dispatch_async(dispatch_get_main_queue(),

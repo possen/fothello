@@ -54,20 +54,11 @@
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
-- (void)makeMove:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(Player *)player
 {    
-    double delayInSeconds = .5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW,
-                                            (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void)
-   {
-       
-       PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
-       [super makeMove:move forPlayer: player];
-       [self.match placeMove:move forPlayer:player];
-   });
-
+    PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
+    [super makeMove:move forPlayer: player];
+    return [self.match placeMove:move forPlayer:player];
 }
 
 
