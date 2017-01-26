@@ -19,6 +19,7 @@ Capabilities
 * Allows different strategies for each player. 
 * legal move display
 * challenging play with Mini Othello for AI Strategy.
+* supports AWS EC2 instance to save battery life, if on netowrk and defaults back locally otherwise.
 
 Limitations
 -----------
