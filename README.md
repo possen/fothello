@@ -5,7 +5,7 @@ Reversi like game.
 -----------------
 
 This is the beginnings of a Reversi like game. The idea is to get familiar with
-SpriteKit and eventually GameKit. 
+SpriteKit and eventually GameKit also develop for multiple devices on the Apple Platforms. 
 
 Capabilities
 ------------
@@ -20,19 +20,6 @@ Capabilities
 * legal move display
 * challenging play with Mini Othello for AI Strategy.
 * supports AWS EC2 instance to save battery life, if on netowrk and defaults back locally otherwise.
-
-Limitations
------------
-* The game model is in one file, when getting started on a project I find it is easier to deal with just one
-  file then break out later.
-
-To Do
------
-* Undo
-* Allow users to enter their names
-* Add gamekit.
-* UI for managing users, selecting competitors and selecting multiple manual players. 
-* more than 2 players?
 
 Classes
 =======
