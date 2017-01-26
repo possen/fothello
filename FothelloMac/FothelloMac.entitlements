@@ -7,6 +7,6 @@
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
 	<key>com.apple.developer.ubiquity-container-identifiers</key>
-	<string></string>
+	<string>iCloud.com.synthus.FothelloMac</string>
 </dict>
 </plist>

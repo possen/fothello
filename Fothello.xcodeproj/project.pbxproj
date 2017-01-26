@@ -107,16 +107,6 @@
 		D56AAD8C1D13F1B300BBCDFA /* minimax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCCD183B4EC2005D5507 /* minimax.cpp */; };
 		D56AAD8D1D13F1B300BBCDFA /* endgamecx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCC8183B4EC2005D5507 /* endgamecx.cpp */; };
 		D56AAD8E1D13F1B300BBCDFA /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
-		D5985C241CE98CC00084E01E /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
-		D55A6CBD1D04AF5C00B98809 /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
-		D55A6CC01D04BC7500B98809 /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
-		D55A6CC11D04C71100B98809 /* BoardPosition.m in Sources */ = {isa = PBXBuildFile; fileRef = D55A6CBE1D04BC7500B98809 /* BoardPosition.m */; };
-		D562F4A41CB0E905009A6273 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
-		D562F4AA1CB0E935009A6273 /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D562F4AD1CB0E9E2009A6273 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
-		D5A97A141CB4039400DE26FB /* NetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A131CB4039400DE26FB /* NetworkController.m */; };
-		D5A97A171CB4062B00DE26FB /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
-		D5A97A1A1CB4C86500DE26FB /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
 		D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66818C40E58000DCEB8 /* GameViewController.m */; };
@@ -1891,7 +1881,7 @@
 				INFOPLIST_FILE = "FothelloWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.Fothello.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1912,7 +1902,7 @@
 				INFOPLIST_FILE = "FothelloWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.Fothello.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1934,7 +1924,7 @@
 				IBSC_MODULE = FothelloWatch_Extension;
 				INFOPLIST_FILE = FothelloWatch/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.Fothello.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1957,7 +1947,7 @@
 				IBSC_MODULE = FothelloWatch_Extension;
 				INFOPLIST_FILE = FothelloWatch/Info.plist;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.Fothello.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloIOS.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
