@@ -10,14 +10,9 @@
 
 @implementation NSArray (Extensions)
 
-+ (NSArray *)flatten:(NSArray<NSArray<id> *> *)arrayOfArrays
++ (NSArray *)flatten:(NSArray<NSArray<id> *> *)arrayOfArrays;
 {
-    return [arrayOfArrays valueForKeyPath: @"@unionOfArrays.self"];
-}
-
-- (NSArray *)flatten
-{
-    return [self valueForKeyPath: @"@unionOfArrays.self"];
+    return[arrayOfArrays valueForKeyPath: @"@unionOfArrays.self"];
 }
 
 @end

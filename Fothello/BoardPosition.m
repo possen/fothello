@@ -44,10 +44,5 @@
 {
     return self.x == object.x && self.y == object.y;
 }
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"(%ld %ld)", (long)self.x, (long)self.y];
-}
 @end
 

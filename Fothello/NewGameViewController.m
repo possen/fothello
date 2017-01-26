@@ -14,11 +14,11 @@
 #import "MatchViewControllerMac.h"
 
 @interface NewGameViewController ()
-@property (weak, nonatomic) IBOutlet NSPopUpButton *difficultyButton;
-@property (weak, nonatomic) IBOutlet NSTextField *difficultyLabel;
-@property (weak, nonatomic) IBOutlet NSPopUpButton *playerKinds;
-@property (weak, nonatomic) IBOutlet NSButton *cancelButton;
-@property (weak, nonatomic) IBOutlet NSButton *okButton;
+@property (weak) IBOutlet NSPopUpButton *difficultyButton;
+@property (weak) IBOutlet NSTextField *difficultyLabel;
+@property (weak) IBOutlet NSPopUpButton *playerKinds;
+@property (weak) IBOutlet NSButton *cancelButton;
+@property (weak) IBOutlet NSButton *okButton;
 @end
 
 @implementation NewGameViewController

@@ -57,7 +57,6 @@ SOFTWARE.
 #if defined(__clang__) || defined(__GNUC__) || defined(__GNUG__)
     #pragma GCC diagnostic push
     #pragma GCC diagnostic ignored "-Wfloat-equal"
-    #pragma clang diagnostic ignored "-Wdocumentation"
 #endif
 
 /*!

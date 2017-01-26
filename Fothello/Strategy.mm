@@ -177,21 +177,19 @@ std::string testString(
     return [PlayerMove makeMoveForColor:player.color position:boardPosition];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)hintForPlayer:(Player *)player
+- (void)hintForPlayer:(Player *)player
 {
-    // subclass
-    return nil;
+    // subclass 
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(Player *)player
+- (void)makeMove:(Player *)player
 {
     // subclass
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    return [self.match.board showClickedMove:move forPlayer:player];
+    [self.match.board showClickedMove:move forPlayer:player];
 }
 
 @end

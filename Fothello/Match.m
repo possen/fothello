@@ -90,8 +90,6 @@
 
 - (void)ready
 {
-    self.turnProcessing = [self.currentPlayer beginTurn];
-
     if ([self isAnyPlayerAComputer])
     {
         [self takeTurn];
@@ -108,16 +106,11 @@
     
     [moves enumerateObjectsWithOptions:0 usingBlock:^(PlayerMove *move, NSUInteger idx, BOOL *stop)
      {
-         NSLog(@"replay move %@", move);
-         Player *player = self.players[idx % 2];
-         [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
-          {
-              NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
-              return pieces;
-          }];
+          NSLog(@"replay move %@", move);
+          Player *player = self.players[idx % 2];
+          [self.board placeMove:move forPlayer:player];
      }];
 }
-
 
 - (void)undo
 {
@@ -154,33 +147,33 @@
     self.turnProcessing = [self.currentPlayer beginTurn];
 }
 
-- (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player
+- (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player completion:(void (^)(BOOL legal))completion
 {
     if ([move isPass])
     {
-        return YES;
+        completion(YES);
+        return;
     }
     
-    NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
-    
-    BOOL legalMove = legalMoves != nil
-    && [legalMoves indexOfObjectPassingTest:^
-        BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop)
-        {
-            return boardPiece.position.x == move.position.x
-            && boardPiece.position.y == move.position.y;
-        }] != NSNotFound;
-    
-    
-    return legalMove;
+    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+     {
+         NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
+         
+         BOOL legalMove = legalMoves != nil && [legalMoves indexOfObjectPassingTest:^BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop) {
+             return boardPiece.position.x == move.position.x && boardPiece.position.y == move.position.y;
+         }] != NSNotFound;
+         
+         completion(legalMove);
+         
+         return nil;
+     }];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
+    [self.board placeMove:move forPlayer:player];
     [self addMove:move];
     [self nextPlayer];
-    return pieces;
 }
 
 - (void)restart
@@ -196,6 +189,7 @@
     }
     
     [self reset];
+    self.turnProcessing = [self.currentPlayer beginTurn];
     [self ready];
 }
 

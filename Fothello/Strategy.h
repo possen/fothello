@@ -21,9 +21,9 @@
 @property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL manual;
 
-- (nullable NSArray<NSArray<BoardPiece *> *> *)makeMove:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)hintForPlayer:(nonnull Player *)player;
+- (void)makeMove:(nonnull Player *)player;
+- (void)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)hintForPlayer:(nonnull Player *)player;
 - (BOOL)beginTurn:(nonnull Player *)player;
 - (void)endTurn:(nonnull Player *)player;
 

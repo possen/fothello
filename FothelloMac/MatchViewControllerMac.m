@@ -17,7 +17,7 @@
 #import "PlayerMove.h"
 
 @interface MatchViewControllerMac () <DismissDelegate>
-@property (nonatomic) BoardScene *boardScene;
+@property (strong, nonatomic) BoardScene *boardScene;
 @property (nonatomic) NSInteger pageIndex;
 @property (nonatomic) IBOutlet SKView *mainView;
 @property (nonatomic) IBOutlet MovesViewController *movesController;
@@ -76,12 +76,7 @@
     self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
 
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size
-                                                   match:self.match];
-    
-//    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"GameScene"];
-//    scene.match = self.match;
-    
+    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
     self.boardScene = scene;
     
     __weak typeof(self) weakSelf = self;

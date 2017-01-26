@@ -15,7 +15,7 @@
 
 @interface DialogViewController : UIViewController
 
-@property (weak, nonatomic) id<DismissDelegate> delegate;
+@property (nonatomic, weak) id<DismissDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *difficulty;
 - (PlayerKindSelection)playerKindFromSelections;
 - (void)playerKindToSelections:(PlayerKindSelection)kind;

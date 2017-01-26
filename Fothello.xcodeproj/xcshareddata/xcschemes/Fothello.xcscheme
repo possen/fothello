@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
+   LastUpgradeVersion = "0700"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D5441B211831CB1100B5166A"
-               BuildableName = "FothelloIOS.app"
-               BlueprintName = "FothelloIOS"
+               BuildableName = "Fothello.app"
+               BlueprintName = "Fothello"
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -26,16 +26,15 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D5441B4C1831CB1100B5166A"
-               BuildableName = "FothelloIOSTests.xctest"
-               BlueprintName = "FothelloIOSTests"
+               BuildableName = "FothelloTests.xctest"
+               BlueprintName = "FothelloTests"
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
             <LocationScenarioReference
@@ -48,8 +47,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5441B211831CB1100B5166A"
-            BuildableName = "FothelloIOS.app"
-            BlueprintName = "FothelloIOS"
+            BuildableName = "Fothello.app"
+            BlueprintName = "Fothello"
             ReferencedContainer = "container:Fothello.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -71,8 +70,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5441B211831CB1100B5166A"
-            BuildableName = "FothelloIOS.app"
-            BlueprintName = "FothelloIOS"
+            BuildableName = "Fothello.app"
+            BlueprintName = "Fothello"
             ReferencedContainer = "container:Fothello.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -90,8 +89,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D5441B211831CB1100B5166A"
-            BuildableName = "FothelloIOS.app"
-            BlueprintName = "FothelloIOS"
+            BuildableName = "Fothello.app"
+            BlueprintName = "Fothello"
             ReferencedContainer = "container:Fothello.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
