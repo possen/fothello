@@ -14,7 +14,22 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>FothelloLib.xcscheme_^#shared#^_</key>
+		<key>FothelloLib-Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>FothelloLib-TV.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>FothelloLib-Watch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>FothelloLib-iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
@@ -98,6 +113,21 @@
 			<true/>
 		</dict>
 		<key>D54006971E3B22CB00F2D7BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D54006E01E3BBE8D00F2D7BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D540070E1E3BBEC200F2D7BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D540073C1E3BBF0000F2D7BB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

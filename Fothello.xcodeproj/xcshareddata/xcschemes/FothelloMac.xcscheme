@@ -29,6 +29,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D54006971E3B22CB00F2D7BB"
+               BuildableName = "FothelloLibTests.xctest"
+               BlueprintName = "FothelloLibTests"
+               ReferencedContainer = "container:Fothello.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
