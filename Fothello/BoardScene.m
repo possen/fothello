@@ -6,15 +6,8 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "FothelloGame.h"
-#import "GameBoard.h"
-#import "Player.h"
-#import "Match.h"
-#import "Strategy.h"
+#import <FothelloLib/FothelloLib.h>
 #import "BoardScene.h"
-#import "BoardPiece.h"
-#import "Piece.h"
-#import "BoardPosition.h"
 #import "NSArray+Extensions.h"
 
 static NSString *kMainFont = @"AvenirNext-Medium";
