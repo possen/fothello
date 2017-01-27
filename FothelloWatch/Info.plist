@@ -28,7 +28,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.synthus.Fothello</string>
+	<string>com.synthus.FothelloIOS</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
