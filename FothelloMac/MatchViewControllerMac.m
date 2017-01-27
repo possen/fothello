@@ -6,15 +6,12 @@
 //  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
 //
 
+#import <FothelloLib/FothelloLib.h>
+
 #import "MatchViewControllerMac.h"
 #import "NewGameViewController.h"
 #import "MovesViewController.h"
 #import "BoardScene.h"
-#import "Match.h"
-#import "FothelloGame.h"
-#import "BoardPosition.h"
-#import "Player.h"
-#import "PlayerMove.h"
 
 @interface MatchViewControllerMac () <DismissDelegate>
 @property (nonatomic) BoardScene *boardScene;

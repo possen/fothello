@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <FothelloLib/FothelloLib.h>
 #import "Board.hpp"
 
 @interface FothelloTests : XCTestCase

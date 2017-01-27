@@ -7,14 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "BoardScene.h"
-#import "GameBoard.h"
-#import "Match.h"
-#import "Piece.h"
-#import "BoardPosition.h"
-#import "BoardPiece.h"
-#import "Player.h"
-#import "PlayerMove.h"
+#import <FothelloLib/FothelloLib.h>
+
 #import "NSArray+Extensions.h"
 
 @interface TestBoardOps : XCTestCase
@@ -150,11 +144,6 @@
     [board reset];
     [board reset];
     [board reset];
-}
-
-- (void)testFindOps
-{
-    
 }
 
 

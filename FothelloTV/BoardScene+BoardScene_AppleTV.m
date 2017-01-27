@@ -6,7 +6,8 @@
 //  Copyright © 2017 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "FothelloGame.h"
+#import <FothelloLib/FothelloLib.h>
+
 #import "BoardScene.h"
 #import "BoardScene+BoardScene_AppleTV.h"
 

@@ -6,14 +6,11 @@
 //  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
 //
 
+#import <FothelloLib/FothelloLib.h>
+
 #import "InterfaceController.h"
 #import "GameScene.h"
 #import "BoardScene.h"
-#import "FothelloGame.h"
-#import "PlayerMove.h"
-#import "Match.h"
-#import "GameBoard.h"
-#import "BoardPosition.h"
 
 @interface InterfaceController() 
 
