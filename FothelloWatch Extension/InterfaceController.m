@@ -10,7 +10,6 @@
 
 #import "InterfaceController.h"
 #import "BoardScene.h"
-#import "BoardScene.h"
 
 @interface InterfaceController() 
 
