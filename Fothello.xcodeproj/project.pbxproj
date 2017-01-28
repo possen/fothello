@@ -208,7 +208,6 @@
 		D5F567F11D111C6200998C14 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5F567EF1D111C6200998C14 /* Interface.storyboard */; };
 		D5F567FA1D111C6200998C14 /* FothelloWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D5F567F91D111C6200998C14 /* FothelloWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D5F568021D111C6200998C14 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568011D111C6200998C14 /* InterfaceController.m */; };
-		D5F568051D111C6300998C14 /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568041D111C6200998C14 /* BoardScene.m */; };
 		D5F568071D111C6300998C14 /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568091D111C6300998C14 /* ExtensionDelegate.m */; };
 		D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5680C1D111C6300998C14 /* NotificationController.m */; };
@@ -457,8 +456,6 @@
 		D5F567FF1D111C6200998C14 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		D5F568001D111C6200998C14 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
 		D5F568011D111C6200998C14 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = InterfaceController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D5F568031D111C6200998C14 /* BoardScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BoardScene.h; path = "FothelloWatch Extension/BoardScene.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D5F568041D111C6200998C14 /* BoardScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = BoardScene.m; path = "FothelloWatch Extension/BoardScene.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5F568061D111C6300998C14 /* BoardScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = BoardScene.sks; path = "FothelloWatch Extension/BoardScene.sks"; sourceTree = SOURCE_ROOT; };
 		D5F568081D111C6300998C14 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
 		D5F568091D111C6300998C14 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
@@ -791,8 +788,6 @@
 		D5F567EE1D111C6200998C14 /* FothelloWatch */ = {
 			isa = PBXGroup;
 			children = (
-				D5F568031D111C6200998C14 /* BoardScene.h */,
-				D5F568041D111C6200998C14 /* BoardScene.m */,
 				D5F567EF1D111C6200998C14 /* Interface.storyboard */,
 				D5F567F41D111C6200998C14 /* Info.plist */,
 			);
@@ -1517,7 +1512,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */,
-				D5F568051D111C6300998C14 /* BoardScene.m in Sources */,
 				D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */,
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
 				D5F568101D111C6300998C14 /* ComplicationController.m in Sources */,
