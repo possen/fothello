@@ -226,13 +226,6 @@
 			remoteGlobalIDString = D540068F1E3B22CB00F2D7BB;
 			remoteInfo = FothelloLib;
 		};
-		D540076C1E3BC0D100F2D7BB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D540068F1E3B22CB00F2D7BB;
-			remoteInfo = "FothelloLib-IOS";
-		};
 		D54007711E3BC0E200F2D7BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
@@ -253,6 +246,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D540070E1E3BBEC200F2D7BB;
 			remoteInfo = "FothelloLib-Watch";
+		};
+		D5A0BF3E1E3C24740046601C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D540068F1E3B22CB00F2D7BB;
+			remoteInfo = "FothelloLib-IOS";
 		};
 		D5F567FB1D111C6200998C14 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1104,8 +1104,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D5A0BF3F1E3C24740046601C /* PBXTargetDependency */,
 				D5F568151D111C6300998C14 /* PBXTargetDependency */,
-				D540076D1E3BC0D100F2D7BB /* PBXTargetDependency */,
 			);
 			name = FothelloIOS;
 			productName = Fothello;
@@ -1192,6 +1192,9 @@
 						ProvisioningStyle = Automatic;
 					};
 					D54006E01E3BBE8D00F2D7BB = {
+						DevelopmentTeam = UVHFXZWG47;
+					};
+					D540070E1E3BBEC200F2D7BB = {
 						DevelopmentTeam = UVHFXZWG47;
 					};
 					D540073C1E3BBF0000F2D7BB = {
@@ -1527,11 +1530,6 @@
 			target = D540068F1E3B22CB00F2D7BB /* FothelloLib-IOS */;
 			targetProxy = D540069A1E3B22CC00F2D7BB /* PBXContainerItemProxy */;
 		};
-		D540076D1E3BC0D100F2D7BB /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D540068F1E3B22CB00F2D7BB /* FothelloLib-IOS */;
-			targetProxy = D540076C1E3BC0D100F2D7BB /* PBXContainerItemProxy */;
-		};
 		D54007721E3BC0E200F2D7BB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D54006E01E3BBE8D00F2D7BB /* FothelloLib-Mac */;
@@ -1546,6 +1544,11 @@
 			isa = PBXTargetDependency;
 			target = D540070E1E3BBEC200F2D7BB /* FothelloLib-Watch */;
 			targetProxy = D540077A1E3BC12800F2D7BB /* PBXContainerItemProxy */;
+		};
+		D5A0BF3F1E3C24740046601C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D540068F1E3B22CB00F2D7BB /* FothelloLib-IOS */;
+			targetProxy = D5A0BF3E1E3C24740046601C /* PBXContainerItemProxy */;
 		};
 		D5F567FC1D111C6200998C14 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1712,7 +1715,6 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1742,8 +1744,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2006,7 +2007,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2050,7 +2053,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2122,7 +2127,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "FothelloWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -2142,8 +2150,11 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "FothelloWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -2163,8 +2174,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBSC_MODULE = FothelloWatch_Extension;
@@ -2185,8 +2195,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
