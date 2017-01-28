@@ -1,14 +1,14 @@
 //
-//  GameScene.m
+//  BoardScene.m
 //  FothelloWatch Extension
 //
 //  Created by Paul Ossenbruggen on 6/14/16.
 //  Copyright © 2016 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "GameScene.h"
+#import "BoardScene.h"
 
-@implementation GameScene
+@implementation BoardScene
 {
     SKShapeNode *_spinnyNode;
 }

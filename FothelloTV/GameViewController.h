@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
 #import <GameplayKit/GameplayKit.h>
+#import <FothelloLib/FothelloLib.h>
 
 @interface GameViewController : UIViewController
-
+@property (nonatomic) Match *match;
 @end

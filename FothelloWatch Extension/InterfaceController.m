@@ -9,7 +9,7 @@
 #import <FothelloLib/FothelloLib.h>
 
 #import "InterfaceController.h"
-#import "GameScene.h"
+#import "BoardScene.h"
 #import "BoardScene.h"
 
 @interface InterfaceController() 
@@ -30,8 +30,8 @@
     //    skView.showsFPS = YES;
     //skView.showsNodeCount = YES;
     
-    // Load the SKScene from 'GameScene.sks'
-//    BoardScene *scene = [BoardScene nodeWithFileNamed:@"GameScene"];
+    // Load the SKScene from 'BoardScene.sks'
+//    BoardScene *scene = [BoardScene nodeWithFileNamed:@"BoardScene"];
     CGSize size = CGSizeMake(310, 310);
 //    self.pass.hidden = YES;
     

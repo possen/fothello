@@ -76,7 +76,7 @@
     BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size
                                                    match:self.match];
     
-//    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"GameScene"];
+//    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
 //    scene.match = self.match;
     
     self.boardScene = scene;

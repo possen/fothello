@@ -1,5 +1,5 @@
 //
-//  GameScene.h
+//  BoardScene.h
 //  FothelloWatch Extension
 //
 //  Created by Paul Ossenbruggen on 6/14/16.
@@ -9,6 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 #import <WatchKit/WatchKit.h>
 
-@interface GameScene : SKScene
+@interface BoardScene : SKScene
 
 @end

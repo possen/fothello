@@ -9,26 +9,39 @@
 #import "GameViewController.h"
 #import "BoardScene.h"
 
+@interface GameViewController ()
+@property (nonatomic) BoardScene *boardScene;
+@end
+
 @implementation GameViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
+    // Load 'BoardScene.sks' as a GKScene. This provides gameplay related content
     // including entities and graphs.
-    GKScene *scene = [GKScene sceneWithFileNamed:@"GameScene"];
+    //   GKScene *scene = [GKScene sceneWithFileNamed:@"BoardScene"];
+    CGSize size = CGSizeMake(310, 310);
+
+    FothelloGame *game = [FothelloGame sharedInstance];
+    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
+    // Create and configure the scene.
+    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
+    scene.match = self.match;
+    self.boardScene = scene;
+
     // Get the SKScene from the loaded GKScene
-    BoardScene *sceneNode = (BoardScene *)scene.rootNode;
+//    BoardScene *sceneNode = (BoardScene *)scene.rootNode;
     
     // Set the scale mode to scale to fit the window
-    sceneNode.scaleMode = SKSceneScaleModeAspectFill;
+    scene.scaleMode = SKSceneScaleModeAspectFit;
     
     SKView *skView = (SKView *)self.view;
     
     // Present the scene
-    [skView presentScene:sceneNode];
+    [skView presentScene:scene];
     
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;

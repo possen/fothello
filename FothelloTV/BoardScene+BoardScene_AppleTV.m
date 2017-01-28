@@ -1,5 +1,5 @@
 //
-//  GameScene.m
+//  BoardScene.m
 //  FothelloTV
 //
 //  Created by Paul Ossenbruggen on 1/26/17.

@@ -1,5 +1,5 @@
 //
-//  GameScene.h
+//  BoardScene.h
 //  FothelloTV
 //
 //  Created by Paul Ossenbruggen on 1/26/17.
