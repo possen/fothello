@@ -124,16 +124,16 @@ using json = nlohmann::json;
 {
     Board *board = makeBoard();
     std::string boardResult =
-                "----------\n"
-                "|XXXXXXXX|\n"
-                "|OXOOOXOO|\n"
-                "|XXXOOXOX|\n"
-                "|OOOXOXOO|\n"
-                "|XXXOXOOO|\n"
-                "|XXXXXX..|\n"
-                "|XXXXXXOO|\n"
-                "|XXXXXXXX|\n"
-                "----------\n";
+    "----------\n"
+    "|XXXXXXXX|\n"
+    "|OXOOOXOO|\n"
+    "|XXXOOXOX|\n"
+    "|OOOXOXOO|\n"
+    "|XXXOXOOO|\n"
+    "|XXOXXX..|\n"
+    "|XXXXXXOO|\n"
+    "|XXXXXXXX|\n"
+    "----------\n";
     bool result = setBoardFromString(board, boardResult);
     XCTAssertEqual(result, true, @"failetoconvert");
     
@@ -160,7 +160,7 @@ using json = nlohmann::json;
     XCTAssertEqual(ax, 6);
     XCTAssertEqual(ay, 5);
     
-    j["color"] = (int)BLACK;
+    j["color"] = (int)WHITE;
     jsonResp = getMoveFromJSON(j.dump(4));
     r = json::parse(jsonResp);
     
@@ -171,6 +171,100 @@ using json = nlohmann::json;
     XCTAssertEqual(pass, false);
     XCTAssertEqual(ax, 6);
     XCTAssertEqual(ay, 5);
+}
+
+
+- (void)testPassMove
+{
+    Board *board = makeBoard();
+    std::string boardResult =
+    "----------\n"
+    "|XXXXXXXX|\n"
+    "|OXOOOXOO|\n"
+    "|XXXOOXOX|\n"
+    "|OOOXOXOO|\n"
+    "|XXXOXOOO|\n"
+    "|XXXXXX..|\n"
+    "|XXXXXXOO|\n"
+    "|XXXXXXXX|\n"
+    "----------\n";
+    bool result = setBoardFromString(board, boardResult);
+    XCTAssertEqual(result, true, @"failetoconvert");
+    
+    json j;
+    j["difficulty"] = (int)BoardDiffcultyExperienced;
+    j["moveNum"] = 62;
+    j["board"] = boardResult;
+    j["color"] = (int)BLACK;
+    std::string s = j.dump(4);
+    printf("%s", s.c_str());
+    
+    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    json r = json::parse(jsonResp);
+    
+    bool pass;
+    NSInteger ax;
+    NSInteger ay;
+    
+    pass = r["pass"].get<bool>();
+    ay = r["movey"].get<int>();
+    ax = r["movex"].get<int>();
+    
+    XCTAssertEqual(pass, false);
+    XCTAssertEqual(ax, 6);
+    XCTAssertEqual(ay, 5);
+    
+    pass = r["pass"].get<bool>();
+    XCTAssertEqual(pass, false);
+    
+    j["color"] = (int)WHITE;
+    jsonResp = getMoveFromJSON(j.dump(4));
+    r = json::parse(jsonResp);
+    
+    pass = r["pass"].get<bool>();
+    XCTAssertEqual(pass, true);
+}
+
+
+- (void)testFromLastMove
+{
+    Board *board = makeBoard();
+    std::string boardResult =
+                "----------\n"
+                "|XXXXXXXX|\n"
+                "|OXOOOXOO|\n"
+                "|XXXOOXOX|\n"
+                "|OOOXOXOO|\n"
+                "|XXXOXOOO|\n"
+                "|XXOXXXOX|\n"
+                "|XXXXXXOO|\n"
+                "|XXXXXXXX|\n"
+                "----------\n";
+    bool result = setBoardFromString(board, boardResult);
+    XCTAssertEqual(result, true, @"failetoconvert");
+    
+    json j;
+    j["difficulty"] = (int)BoardDiffcultyExperienced;
+    j["moveNum"] = 62;
+    j["board"] = boardResult;
+    j["color"] = (int)BLACK;
+    std::string s = j.dump(4);
+    printf("%s", s.c_str());
+    
+    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    json r = json::parse(jsonResp);
+    
+    bool pass;
+    
+    pass = r["pass"].get<bool>();
+    XCTAssertEqual(pass, true);
+    
+    j["color"] = (int)WHITE;
+    jsonResp = getMoveFromJSON(j.dump(4));
+    r = json::parse(jsonResp);
+    
+    pass = r["pass"].get<bool>();
+    XCTAssertEqual(pass, true);
 }
 
 @end

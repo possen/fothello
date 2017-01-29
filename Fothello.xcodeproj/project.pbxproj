@@ -19,7 +19,6 @@
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
 		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
-		D52C31301E3D53CA00856359 /* FothelloLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = D540070C1E3BBE8D00F2D7BB /* FothelloLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
@@ -283,16 +282,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		D52C312F1E3D539E00856359 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				D52C31301E3D53CA00856359 /* FothelloLib.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		D540076E1E3BC0D200F2D7BB /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1174,7 +1163,6 @@
 				D56F0A151E3D130000DEC41A /* Sources */,
 				D56F0A161E3D130000DEC41A /* Frameworks */,
 				D56F0A171E3D130000DEC41A /* Resources */,
-				D52C312F1E3D539E00856359 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -2213,7 +2201,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = UVHFXZWG47;
-				FRAMEWORK_SEARCH_PATHS = "@executable_path/../Frameworks";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = FothelloTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -2235,7 +2222,6 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
-				FRAMEWORK_SEARCH_PATHS = "@executable_path/../Frameworks";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = FothelloTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
