@@ -168,8 +168,6 @@
 
 - (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    
     Player *player1 = nil;
     Player *player2 = nil;
     
@@ -177,26 +175,26 @@
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
-            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[HumanStrategy alloc] init];
             player2.strategy = [[HumanStrategy alloc] init];
             break;
         case PlayerKindSelectionHumanVComputer:
-            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[HumanStrategy alloc] init];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             break;
         case PlayerKindSelectionComputerVHuman:
-            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             player2.strategy = [[HumanStrategy alloc] init];
             break;
         case PlayerKindSelectionComputerVComputer:
-            player1 = [game newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [game newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
             break;

@@ -54,8 +54,8 @@ typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color)
 - (BOOL)canMove:(nonnull Player *)player;
 - (nonnull NSArray<BoardPiece *>*)updateWithTrack:(nonnull NSArray<Piece *>*)trackInfo position:(nonnull BoardPosition *)position player:(nonnull Player *)player;
 
-@property (nonatomic) NSInteger size;
-@property (nonatomic, copy, nullable)  PlaceBlock placeBlock;
 @property (nonatomic, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@property (nonatomic) NSInteger size;
+@property (nonatomic, copy, nullable) PlaceBlock placeBlock;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
 @end

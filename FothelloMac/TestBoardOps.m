@@ -136,6 +136,18 @@
     }];
 }
 
+- (void)testSetupComputerVsComputerGame
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    self.match = [game createMatchFromKind:PlayerKindSelectionComputerVComputer difficulty:DifficultyHard];
+    [self.match reset]; // clear the board only.
+    [self.match restart];
+    NSLog(@"match description %@", [self.match description]);
+    
+    XCTAssertEqual([self.match areAllPlayersComputers], true);
+    [self.match ready];
+}
+
 - (void)testReset
 {
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];

@@ -215,14 +215,20 @@ typedef struct Delta
 
 - (NSArray<NSArray<BoardPiece *> *> *)showClickedMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-     self.highlightBlock(move.position, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
-     return nil;
+    if (self.highlightBlock != nil)
+    {
+        self.highlightBlock(move.position, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+    }
+    return nil;
 }
 
 - (NSArray<NSArray<BoardPiece *> *> *)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-     self.highlightBlock(move.position, player.color);
-     return nil;
+    if (self.highlightBlock != nil)
+    {
+        self.highlightBlock(move.position, player.color);
+    }
+    return nil;
 }
 
 - (BOOL)isFull
