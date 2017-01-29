@@ -20,6 +20,20 @@
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D56F0A181E3D130000DEC41A"
+               BuildableName = "FothelloLibTestsMac.xctest"
+               BlueprintName = "FothelloLibTestsMac"
+               ReferencedContainer = "container:Fothello.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -33,9 +47,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D54006971E3B22CB00F2D7BB"
-               BuildableName = "FothelloLibTests.xctest"
-               BlueprintName = "FothelloLibTests"
+               BlueprintIdentifier = "D56F0A181E3D130000DEC41A"
+               BuildableName = "FothelloLibTestsMac.xctest"
+               BlueprintName = "FothelloLibTestsMac"
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
          </TestableReference>

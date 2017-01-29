@@ -110,8 +110,8 @@ std::string testString(
     NSString *boardStr = [self.match.board requestFormat];
     std::string boardResult = [boardStr cStringUsingEncoding:NSASCIIStringEncoding];
     bool result = setBoardFromString(board, boardResult);
-    NSAssert(result == true, @"failetoconvert");
-    if (result == false)
+    NSAssert(result, @"failetoconvert");
+    if (result)
     {
         return nil;
     }

@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D54006971E3B22CB00F2D7BB"
-               BuildableName = "FothelloLibTests.xctest"
-               BlueprintName = "FothelloLibTests"
+               BuildableName = "FothelloLibTestsIOS.xctest"
+               BlueprintName = "FothelloLibTestsIOS"
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -302,7 +302,6 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 
     SKNode *dot4 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 6))];
     [self addChild:dot4];
-
 }
 
 - (SKColor *)skColorFromPieceColor:(PieceColor)color

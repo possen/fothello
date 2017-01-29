@@ -38,7 +38,6 @@
 
     [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
      {
-
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          BoardPosition *center = board.center;
          [board boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)

@@ -20,15 +20,8 @@ Capabilities
 * Redo
 * Mac and iOS
 * Move display (mac only right now)
+* server 
     
-
-To Do
------
-* Allow users to enter their names
-* Add gamekit.
-* UI for managing users, selecting competitors and selecting multiple manual players. 
-* more than 2 players?
-
 Classes
 =======
 
