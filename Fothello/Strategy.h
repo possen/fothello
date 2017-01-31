@@ -1,10 +1,14 @@
 //
-//  AIStrategy.h
+//  Strategy.h
 //  Fothello
 //
 //  Created by Paul Ossenbruggen on 11/18/13.
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
+//  Main purpose is to pick a move whether from UI or from AI
+//  Secondarily will 
+//
+
 #import <Foundation/Foundation.h>
 
 #import "Match.h"
@@ -21,10 +25,10 @@
 @property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL manual;
 
-- (nullable NSArray<NSArray<BoardPiece *> *> *)makeMove:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)hintForPlayer:(nonnull Player *)player;
-- (BOOL)beginTurn:(nonnull Player *)player;
-- (void)endTurn:(nonnull Player *)player;
+- (void)makeMoveForPlayer:(nonnull Player *)player;
+- (void)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)hintForPlayer:(nonnull Player *)player;
+- (nullable NSArray<NSArray<BoardPiece *> *> *)beginTurn:(nonnull Player *)player;
+- (nullable NSArray<NSArray<BoardPiece *> *> *)endTurn:(nonnull Player *)player;
 
 @end

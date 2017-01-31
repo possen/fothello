@@ -145,7 +145,17 @@
     NSLog(@"match description %@", [self.match description]);
     
     XCTAssertEqual([self.match areAllPlayersComputers], true);
-    [self.match ready];
+    
+    __block BOOL gameFinished = NO;
+    self.match.matchStatusBlock = ^(BOOL gameOver)
+    {
+        gameFinished = gameOver;
+    };
+    
+    while (!gameFinished)
+    {
+        [self.match ready];
+    }
 }
 
 - (void)testReset

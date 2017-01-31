@@ -54,11 +54,11 @@
     [aCoder encodeInteger:self.difficulty forKey:@"difficulty"];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(Player *)player
+- (void)makeMoveForPlayer:(Player *)player
 {    
     PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
     [super makeMove:move forPlayer: player];
-    return [self.match placeMove:move forPlayer:player];
+    [self.match placeMove:move forPlayer:player];
 }
 
 

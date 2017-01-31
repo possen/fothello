@@ -38,8 +38,8 @@ typedef enum PlayerType : NSInteger
 - (void)makeMoveAtPosition:(nonnull BoardPosition *)positon;
 - (void)makePassMove;
 
-- (BOOL)beginTurn;
-- (void)endTurn;
+- (nullable NSArray<NSArray<BoardPiece *> *> *)beginTurn;
+- (nullable NSArray<NSArray<BoardPiece *> *> *)endTurn;
 - (void)hint;
 @end
 

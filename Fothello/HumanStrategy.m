@@ -30,12 +30,12 @@
     return YES;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     // ignore clicks if turn still processing.
     if (self.match.turnProcessing)
     {
-        return nil;
+        return;
     }
     
     [super makeMove:move forPlayer:player];
@@ -43,29 +43,27 @@
     [self.match resetRedos];
     
     BOOL legal = [self.match isLegalMove:move forPlayer:player];
+    
     if (legal)
     {
-        return [self.match placeMove:move forPlayer:player];
+        [self.match placeMove:move forPlayer:player];
     }
-    
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)hintForPlayer:(Player *)player
+- (void)hintForPlayer:(Player *)player
 {
     PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
-    return [self.match.board showHintMove:move forPlayer:player];
+    [self.match.board showHintMove:move forPlayer:player];
 }
 
-- (BOOL)beginTurn:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)beginTurn:(Player *)player
 {
-    [self.match.board showLegalMoves:YES forPlayer:player];
-    return NO;
+    return [self.match.board showLegalMoves:YES forPlayer:player];
 }
 
-- (void)endTurn:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)endTurn:(Player *)player
 {
-    [self.match.board showLegalMoves:NO forPlayer:player];
+    return [self.match.board showLegalMoves:NO forPlayer:player];
 }
 
 @end

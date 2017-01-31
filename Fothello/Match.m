@@ -90,7 +90,7 @@
 
 - (void)ready
 {
-    self.turnProcessing = [self.currentPlayer beginTurn];
+    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
 
     if ([self isAnyPlayerAComputer])
     {
@@ -131,7 +131,7 @@
     }
 
     [self replayMoves];
-    self.turnProcessing = [self.currentPlayer beginTurn];
+    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
 }
 
 - (void)redo
@@ -151,7 +151,7 @@
         [self placeMove:move forPlayer:player];
     }
     
-    self.turnProcessing = [self.currentPlayer beginTurn];
+    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
 }
 
 - (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player
@@ -164,23 +164,25 @@
     NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
     
     BOOL legalMove = legalMoves != nil
-    && [legalMoves indexOfObjectPassingTest:^
+            && [legalMoves indexOfObjectPassingTest:^
         BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop)
         {
             return boardPiece.position.x == move.position.x
             && boardPiece.position.y == move.position.y;
         }] != NSNotFound;
     
-    
     return legalMove;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
-    [self addMove:move];
-    [self nextPlayer];
-    return pieces;
+    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+     {
+         NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
+         [self addMove:move];
+         [self nextPlayer];
+         return pieces;
+     }];
 }
 
 - (void)restart
@@ -217,46 +219,44 @@
 - (void)takeTurn
 {
     if (self.noMoves)
+    {
         return;
- 
+    }
+    
     [self.currentPlayer makeMove];
 }
 
 - (void)nextPlayer
 {
-    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
-    {
-        NSArray<Player *> *players = self.players;
-        
-        BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
-        [self.currentPlayer endTurn];
+    NSArray<Player *> *players = self.players;
+    
+    BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
+    [self.currentPlayer endTurn];
 
-        self.currentPlayer = (self.currentPlayer == players[0]
-                              ? players[1]
-                              : players[0]);
-        
-        NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
-        
-        self.turnProcessing = [self.currentPlayer beginTurn];
-             
-        BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-        BOOL isFull = [self.board isFull];
-        
-        if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
-        {
-            self.matchStatusBlock(YES);
-            self.noMoves = YES;
-        }
-        
-        if (self.currentPlayerBlock)
-        {
-            self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
-        }
-        
-        [self takeTurn];
-        
-        return nil;
-    }];
+    self.currentPlayer = (self.currentPlayer == players[0]
+                          ? players[1]
+                          : players[0]);
+    
+    NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
+    
+    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
+         
+    BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+    BOOL isFull = [self.board isFull];
+    NSLog(@"Board  %@ ", self.board );
+   
+    if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
+    {
+        self.matchStatusBlock(YES);
+        self.noMoves = YES;
+    }
+    
+    if (self.currentPlayerBlock)
+    {
+        self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
+    }
+    
+    [self takeTurn];
 }
 
 

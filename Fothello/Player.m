@@ -51,14 +51,14 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (BOOL)beginTurn
+- (NSArray<NSArray<BoardPiece *> *> *)beginTurn
 {
    return [self.strategy beginTurn:self];
 }
 
-- (void)endTurn
+- (NSArray<NSArray<BoardPiece *> *> *)endTurn
 {
-    [self.strategy endTurn:self];
+    return [self.strategy endTurn:self];
 }
 
 - (BOOL)isEqual:(id)name
@@ -82,15 +82,16 @@
     [self.strategy makeMove:move forPlayer:self];
 }
 
+- (void)makeMove // AI players
+{
+    return [self.strategy makeMoveForPlayer:self];
+}
+
 - (void)makePassMove
 {
     PlayerMove *move = [PlayerMove makePassMoveForColor:self.color];
     [self.strategy makeMove:move forPlayer:self];
 }
 
-- (void)makeMove // AI players
-{
-    [self.strategy makeMove:self];
-}
 
 @end

@@ -79,26 +79,28 @@ std::string testString(
     [aCoder encodeObject:self.match forKey:@"match"];
 }
 
-- (void)takeTurn:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)takeTurn:(Player *)player
 {
     // subclass
+    return nil;
 }
 
-- (void)takeTurn:(Player *)player atPosition:(BoardPosition *)position
+- (NSArray<NSArray<BoardPiece *> *> *)takeTurn:(Player *)player atPosition:(BoardPosition *)position
 {
     // subclass
+    return nil;
 }
 
-- (BOOL)beginTurn:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)beginTurn:(Player *)player
 {
     // subclass
-    
-    return YES;
+    return nil;
 }
 
-- (void)endTurn:(Player *)player
+- (NSArray<NSArray<BoardPiece *> *> *)endTurn:(Player *)player
 {
     // subclass
+    return nil;
 }
 
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player difficulty:(Difficulty)difficulty
@@ -177,21 +179,20 @@ std::string testString(
     return [PlayerMove makeMoveForColor:player.color position:boardPosition];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)hintForPlayer:(Player *)player
+- (void)hintForPlayer:(Player *)player
 {
     // subclass
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(Player *)player
+- (void)makeMoveForPlayer:(Player *)player
 {
     // subclass
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)makeMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    return [self.match.board showClickedMove:move forPlayer:player];
+    // uses highlight block.
+    [self.match.board showClickedMove:move forPlayer:player];
 }
 
 @end
