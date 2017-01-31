@@ -139,7 +139,7 @@
 - (void)testSetupComputerVsComputerGame
 {
     FothelloGame *game = [FothelloGame sharedInstance];
-    self.match = [game createMatchFromKind:PlayerKindSelectionComputerVComputer difficulty:DifficultyHard];
+    self.match = [game createMatchFromKind:PlayerKindSelectionComputerVComputer difficulty:DifficultyEasy];
     [self.match reset]; // clear the board only.
     [self.match restart];
     NSLog(@"match description %@", [self.match description]);
