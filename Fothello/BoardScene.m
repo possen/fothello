@@ -71,6 +71,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
                 weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
             }
         });
+        [self playerTurnComplete];
     };
 
     match.matchStatusBlock = ^(BOOL gameOver)
@@ -98,7 +99,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     [self syncronizeBoardStateWithModel];
     
-    self.currentPlayerSprite = match.currentPlayer.userReference;    
+    self.currentPlayerSprite = match.currentPlayer.userReference;
 }
 
 - (void)teardownMatch
@@ -137,9 +138,33 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     if (x >= 0 && x < boardSize && y >= 0 && y < boardSize)
     {
-        BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-        [self.match.currentPlayer makeMoveAtPosition:boardPosition];
+        if (!self.match.turnProcessing) // don't allow move if other players are processing.
+        {
+            BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+            [self.match.currentPlayer takeTurnAtPosition:boardPosition];
+        }
     }
+}
+
+- (void)nextPlayer
+{
+    [self.match endTurn];
+    [self.match nextPlayer];
+    [self.match beginTurn];
+    
+    if (!self.match.currentPlayer.strategy.manual)
+    {
+        // schedule time for AI Player to start turn
+        dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC);
+        dispatch_after(when, dispatch_get_main_queue(), ^{
+            [self.match.currentPlayer takeTurn];
+        });
+    } // let UI handle.
+}
+
+- (void)playerTurnComplete
+{
+    [self nextPlayer];
 }
 
 - (void)displayGameOver

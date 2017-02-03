@@ -13,6 +13,7 @@
 @class BoardPiece;
 @class PlayerMove;
 @class BoardPosition;
+@class GameBoard;
 
 typedef enum PlayerType : NSInteger
 {
@@ -31,12 +32,13 @@ typedef enum PlayerType : NSInteger
 @property (nonatomic, nullable) Strategy *strategy;
 @property (nonatomic) NSInteger score;
 @property (nonatomic, nullable) id userReference;
+@property (nonatomic, readonly) BOOL turnProcessing;
 
 - (nonnull instancetype)initWithName:(nonnull NSString *)name;
 
-- (void)makeMove; // AI players
-- (void)makeMoveAtPosition:(nonnull BoardPosition *)positon;
-- (void)makePassMove;
+- (void)takeTurn; // AI players
+- (void)takeTurnAtPosition:(nonnull BoardPosition *)positon;
+- (void)takeTurnPass;
 
 - (nullable NSArray<NSArray<BoardPiece *> *> *)beginTurn;
 - (nullable NSArray<NSArray<BoardPiece *> *> *)endTurn;

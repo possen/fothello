@@ -94,7 +94,6 @@
     [skView presentScene:scene];
     
     [self.match restart];
-    [self.match ready];
     [self.movesController resetGame:self.match];
 }
 
@@ -120,7 +119,7 @@
 
 - (IBAction)pass:(id)sender
 {
-    [self.match.currentPlayer makePassMove];
+    [self.match.currentPlayer takeTurnPass];
 }
 
 - (IBAction)resetGame:(id)sender

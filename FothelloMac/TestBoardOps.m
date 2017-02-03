@@ -36,7 +36,7 @@
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
     XCTestExpectation *expectation =  [self expectationWithDescription:@"testBoardPlace"];
 
-    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          BoardPosition *center = board.center;
@@ -59,7 +59,7 @@
          XCTAssert(error == nil, @"error");
     }];
     
-    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          Piece *peice1 = [board pieceAtPositionX:0 Y:0];
          XCTAssertEqualObjects(peice1.description, @"○");
@@ -76,7 +76,7 @@
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
     XCTestExpectation *expectation =  [self expectationWithDescription:@"testCanMove"];
     
-    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
         
@@ -99,7 +99,7 @@
     
     expectation = [self expectationWithDescription:@"testPlace"];
 
-    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          Player *player = [[Player alloc] initWithName:@"testPlayer"];
          player.color = PieceColorWhite;
@@ -124,7 +124,7 @@
          XCTAssert(error == nil, @"error");
      }];
   
-    [board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
         Piece *peice1 = [board pieceAtPositionX:3 Y:3];
         XCTAssertEqualObjects(peice1.description, @"○");
@@ -151,10 +151,15 @@
     {
         gameFinished = gameOver;
     };
-    
+
+    //__weak TestBoardOps *weakSelf = self;
+    self.match.currentPlayerBlock = ^(Player *player, BOOL canMove)
+    {
+    };
+
     while (!gameFinished)
     {
-        [self.match ready];
+        [self.match.currentPlayer takeTurn];
     }
 }
 

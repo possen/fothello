@@ -42,7 +42,7 @@ typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color)
 - (nullable NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(nonnull BoardPiece *)piece
                                                                  player:(nonnull Player *)player;
 
-- (void)updateBoardWithFunction:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction;
+- (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction;
 
 - (nullable NSArray <BoardPiece *> *)legalMovesForPlayer:(nonnull Player *)player;
 
@@ -58,4 +58,5 @@ typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color)
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy, nullable) PlaceBlock placeBlock;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
+@property (nonatomic, nonnull) dispatch_queue_t queue;
 @end

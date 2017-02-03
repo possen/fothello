@@ -50,15 +50,12 @@
     // Present the scene.
     [skView presentScene:scene];
 
-    [self.match ready];
 }
-
 
 - (void)updateMove:(BOOL)canMove
 {
     self.pass.hidden = canMove;
 }
-
 
 - (IBAction)unwindFromCancelForm:(UIStoryboardSegue *)segue
 {
@@ -75,7 +72,6 @@
     
     FothelloGame *game = [FothelloGame sharedInstance];
 
-    [self.match reset]; // clear the board only.
     [self.boardScene teardownMatch];
 
     Match *match = [game createMatchFromKind:kind difficulty:difficulty];
@@ -85,6 +81,7 @@
     [self.boardScene setupMatch];
     
     [self.match restart];
+    [self.boardScene nextPlayer];
 }
 
 - (BOOL)allowActionToRun
@@ -94,7 +91,7 @@
 
 - (IBAction)pass:(UIButton *)sender
 {
-    [self.match.currentPlayer makePassMove];
+    [self.match.currentPlayer takeTurnPass];
 }
 
 - (IBAction)resetGame:(UIButton *)sender

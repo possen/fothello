@@ -33,7 +33,7 @@
 - (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     // ignore clicks if turn still processing.
-    if (self.match.turnProcessing)
+    if (self.match.currentPlayer.turnProcessing)
     {
         return;
     }

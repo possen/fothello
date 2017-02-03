@@ -21,7 +21,6 @@
 
 @interface Match ()
 @property (nonatomic, readwrite) Player *currentPlayer;
-@property (nonatomic, readwrite) BOOL turnProcessing;
 @property (nonatomic, readwrite) NSMutableArray *redos;
 @end
 
@@ -88,16 +87,6 @@
     }
 }
 
-- (void)ready
-{
-    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
-
-    if ([self isAnyPlayerAComputer])
-    {
-        [self takeTurn];
-    }
-}
-
 - (void)replayMoves
 {
     [self reset];
@@ -110,7 +99,7 @@
      {
          NSLog(@"replay move %@", move);
          Player *player = self.players[idx % 2];
-         [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+         [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
           {
               NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
               return pieces;
@@ -131,7 +120,6 @@
     }
 
     [self replayMoves];
-    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
 }
 
 - (void)redo
@@ -150,8 +138,6 @@
         
         [self placeMove:move forPlayer:player];
     }
-    
-    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
 }
 
 - (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player
@@ -176,13 +162,27 @@
 
 - (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    [self.board updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
-         [self addMove:move];
-         [self nextPlayer];
          return pieces;
      }];
+
+    [self addMove:move];
+
+    if (self.currentPlayerBlock)
+    {
+        BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+        self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
+    }
+}
+
+- (BOOL)turnProcessing
+{
+    return [self.players indexOfObjectPassingTest:^BOOL (Player * obj, NSUInteger idx, BOOL * stop)
+    {
+        return obj.turnProcessing;
+    }] == NSNotFound;
 }
 
 - (void)restart
@@ -198,7 +198,6 @@
     }
     
     [self reset];
-    [self ready];
 }
 
 - (void)reset
@@ -216,31 +215,18 @@
     [board reset];
 }
 
-- (void)takeTurn
-{
-    if (self.noMoves)
-    {
-        return;
-    }
-    
-    [self.currentPlayer makeMove];
-}
-
 - (void)nextPlayer
 {
     NSArray<Player *> *players = self.players;
     
     BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
-    [self.currentPlayer endTurn];
-
+    
     self.currentPlayer = (self.currentPlayer == players[0]
                           ? players[1]
                           : players[0]);
     
     NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
     
-    self.turnProcessing = [self.currentPlayer beginTurn] != nil;
-         
     BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
     BOOL isFull = [self.board isFull];
     NSLog(@"Board  %@ ", self.board );
@@ -249,16 +235,24 @@
     {
         self.matchStatusBlock(YES);
         self.noMoves = YES;
-    }
-    
-    if (self.currentPlayerBlock)
-    {
-        self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
-    }
-    
-    [self takeTurn];
+    }    
 }
 
+- (void)beginTurn
+{
+    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+    {
+         return [self.currentPlayer beginTurn];
+     }];
+}
+
+- (void)endTurn
+{
+    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+    {
+        return [self.currentPlayer endTurn];
+    }];
+}
 
 - (NSString *)description
 {

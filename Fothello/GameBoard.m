@@ -38,7 +38,6 @@ typedef struct Delta
 #pragma mark - GameBoard -
 
 @interface GameBoard ()
-@property (nonatomic) dispatch_queue_t queue;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSArray<BoardPiece *>*legalMoves;
 @end
@@ -155,13 +154,13 @@ typedef struct Delta
 
 // lets the work for the update occur in the processing queue rather than the queue
 // is is being called from.
-- (void)updateBoardWithFunction:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
+- (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
 {
     dispatch_async(self.queue,^
-       {
-           NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
-           [self updateBoardWithPieces:pieces];
-       });
+                   {
+                       NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
+                       [self updateBoardWithPieces:pieces];
+                   });
 }
 
 - (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)tracks
@@ -190,7 +189,7 @@ typedef struct Delta
 
 - (void)reset
 {
-    [self updateBoardWithFunction:^NSArray<NSArray<BoardPiece *> *> *
+    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
         NSArray<BoardPiece *> *boardPieces = [self erase];
     

@@ -8,6 +8,8 @@
 
 #import "AIStrategy.h"
 #import "FothelloGame.h"
+#import "Player.h"
+#import "GameBoard.h"
 
 @interface Strategy (Protected)
 - (nullable PlayerMove *)calculateMoveForPlayer:(nonnull Player *)player difficulty:(Difficulty)difficulty;
@@ -17,6 +19,7 @@
 
 @interface AIStrategy ()
 @property (nonatomic) Difficulty difficulty;
+@property (nonatomic, readwrite) BOOL turnProcessing;
 @end
 
 @implementation AIStrategy
@@ -55,11 +58,15 @@
 }
 
 - (void)makeMoveForPlayer:(Player *)player
-{    
-    PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
-    [super makeMove:move forPlayer: player];
-    [self.match placeMove:move forPlayer:player];
+{
+    self.turnProcessing = YES;
+    dispatch_async(self.match.board.queue, ^
+    {
+        PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
+        [super makeMove:move forPlayer:player];
+        [self.match placeMove:move forPlayer:player];
+        self.turnProcessing = NO;
+    });
 }
-
 
 @end

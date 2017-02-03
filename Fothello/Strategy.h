@@ -17,6 +17,7 @@
 @class Player;
 @class PlayerMove;
 @class BoardPosition;
+@class GameBoard;
 
 #pragma mark - Strategy -
 

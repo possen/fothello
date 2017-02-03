@@ -31,7 +31,9 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove);
 - (void)redo;
 - (void)resetRedos;
 - (void)nextPlayer;
-- (void)ready;
+- (void)beginTurn;
+- (void)endTurn;
+
 - (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 

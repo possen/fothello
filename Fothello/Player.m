@@ -12,6 +12,9 @@
 
 #pragma mark - Player -
 
+@interface Player ()
+@end
+
 @implementation Player
 
 - (instancetype)initWithName:(NSString *)name
@@ -76,18 +79,18 @@
     [self.strategy hintForPlayer:self];
 }
 
-- (void)makeMoveAtPosition:(BoardPosition *)position
+- (void)takeTurnAtPosition:(BoardPosition *)position
 {
     PlayerMove *move = [PlayerMove makeMoveForColor:self.color position:position];
     [self.strategy makeMove:move forPlayer:self];
 }
 
-- (void)makeMove // AI players
-{
+- (void)takeTurn // AI players
+{ 
     return [self.strategy makeMoveForPlayer:self];
 }
 
-- (void)makePassMove
+- (void)takeTurnPass
 {
     PlayerMove *move = [PlayerMove makePassMoveForColor:self.color];
     [self.strategy makeMove:move forPlayer:self];
