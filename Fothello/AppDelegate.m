@@ -11,7 +11,7 @@
 #import "DialogViewController.h"
 #import <VungleSDK/VungleSDK.h>
 
-#define VungleAPIKey @"5894de4c3fcbdb6757000433"
+#define VungleAPIKey @""
 
 @implementation AppDelegate
 
