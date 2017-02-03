@@ -9,12 +9,18 @@
 #import "AppDelegate.h"
 #import "FothelloGame.h"
 #import "DialogViewController.h"
+#import <VungleSDK/VungleSDK.h>
+
+#define VungleAPIKey @"5894de4c3fcbdb6757000433"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
     willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    VungleSDK *vungle = [VungleSDK sharedSDK];
+    [vungle startWithAppId:VungleAPIKey];
+
     return YES;
 }
 

@@ -12,6 +12,7 @@
 #import <iAd/iAd.h>
 #import "DialogViewController.h"
 #import "Match.h"
+#import <VungleSDK/VungleSDK.h>
 
 @interface MatchViewController ()
 
@@ -26,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+//    [VungleSDK setupSDKWithAssetLoader:self];
 
     // Configure the view.
     SKView *skView = (SKView *)self.mainScene;
@@ -185,6 +188,10 @@
         else
             [game.currentMatch nextPlayer];
     }
+    NSError *error = nil;
+
+    [[VungleSDK sharedSDK] playAd:self error:&error];
+    NSLog(@"vungle error %@", error);
 }
 
 - (BOOL)allowActionToRun
