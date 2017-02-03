@@ -34,6 +34,23 @@
 		D5A97A171CB4062B00DE26FB /* RESTNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A161CB4062B00DE26FB /* RESTNetworkRequest.m */; };
 		D5A97A1A1CB4C86500DE26FB /* FothelloNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
+		D5B444B11E45137300C13C43 /* __vungle.db in Resources */ = {isa = PBXBuildFile; fileRef = D5B444AA1E45137300C13C43 /* __vungle.db */; };
+		D5B444B21E45137300C13C43 /* vg_close.png in Resources */ = {isa = PBXBuildFile; fileRef = D5B444AB1E45137300C13C43 /* vg_close.png */; };
+		D5B444B31E45137300C13C43 /* vg_cta.png in Resources */ = {isa = PBXBuildFile; fileRef = D5B444AC1E45137300C13C43 /* vg_cta.png */; };
+		D5B444B41E45137300C13C43 /* vg_mute_off.png in Resources */ = {isa = PBXBuildFile; fileRef = D5B444AD1E45137300C13C43 /* vg_mute_off.png */; };
+		D5B444B51E45137300C13C43 /* vg_mute_on.png in Resources */ = {isa = PBXBuildFile; fileRef = D5B444AE1E45137300C13C43 /* vg_mute_on.png */; };
+		D5B444B61E45137300C13C43 /* vg_privacy.png in Resources */ = {isa = PBXBuildFile; fileRef = D5B444AF1E45137300C13C43 /* vg_privacy.png */; };
+		D5B444B71E45137300C13C43 /* VungleSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444B01E45137300C13C43 /* VungleSDK.framework */; };
+		D5B444B91E4518CD00C13C43 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444B81E4518CD00C13C43 /* libz.tbd */; };
+		D5B444BB1E4518D700C13C43 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444BA1E4518D700C13C43 /* AdSupport.framework */; };
+		D5B444BD1E4518E300C13C43 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444BC1E4518E300C13C43 /* AudioToolbox.framework */; };
+		D5B444BF1E4518F000C13C43 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444BE1E4518F000C13C43 /* AVFoundation.framework */; };
+		D5B444C11E45190600C13C43 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444C01E45190600C13C43 /* CoreMedia.framework */; };
+		D5B444C31E45192000C13C43 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444C21E45192000C13C43 /* MediaPlayer.framework */; };
+		D5B444C51E45192D00C13C43 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444C41E45192D00C13C43 /* QuartzCore.framework */; };
+		D5B444C71E45193800C13C43 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444C61E45193800C13C43 /* StoreKit.framework */; };
+		D5B444C91E45194600C13C43 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444C81E45194600C13C43 /* SystemConfiguration.framework */; };
+		D5B444CB1E45195500C13C43 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B444CA1E45195500C13C43 /* WebKit.framework */; };
 		D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66818C40E58000DCEB8 /* GameViewController.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C0B66F18C43701000DCEB8 /* NSArray+Holes.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */; };
@@ -97,6 +114,23 @@
 		D5A97A181CB4C86500DE26FB /* FothelloNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FothelloNetworkRequest.h; sourceTree = "<group>"; };
 		D5A97A191CB4C86500DE26FB /* FothelloNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FothelloNetworkRequest.m; sourceTree = "<group>"; };
 		D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launchscreen.storyboard; sourceTree = "<group>"; };
+		D5B444AA1E45137300C13C43 /* __vungle.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = __vungle.db; sourceTree = "<group>"; };
+		D5B444AB1E45137300C13C43 /* vg_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_close.png; sourceTree = "<group>"; };
+		D5B444AC1E45137300C13C43 /* vg_cta.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_cta.png; sourceTree = "<group>"; };
+		D5B444AD1E45137300C13C43 /* vg_mute_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_off.png; sourceTree = "<group>"; };
+		D5B444AE1E45137300C13C43 /* vg_mute_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_mute_on.png; sourceTree = "<group>"; };
+		D5B444AF1E45137300C13C43 /* vg_privacy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vg_privacy.png; sourceTree = "<group>"; };
+		D5B444B01E45137300C13C43 /* VungleSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VungleSDK.framework; sourceTree = "<group>"; };
+		D5B444B81E4518CD00C13C43 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D5B444BA1E4518D700C13C43 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		D5B444BC1E4518E300C13C43 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D5B444BE1E4518F000C13C43 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D5B444C01E45190600C13C43 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		D5B444C21E45192000C13C43 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D5B444C41E45192D00C13C43 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D5B444C61E45193800C13C43 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D5B444C81E45194600C13C43 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D5B444CA1E45195500C13C43 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D5C0B66718C40E58000DCEB8 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		D5C0B66818C40E58000DCEB8 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		D5C0B66A18C40F73000DCEB8 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
@@ -120,9 +154,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5B444CB1E45195500C13C43 /* WebKit.framework in Frameworks */,
+				D5B444C91E45194600C13C43 /* SystemConfiguration.framework in Frameworks */,
+				D5B444C71E45193800C13C43 /* StoreKit.framework in Frameworks */,
+				D5B444C51E45192D00C13C43 /* QuartzCore.framework in Frameworks */,
+				D5B444C31E45192000C13C43 /* MediaPlayer.framework in Frameworks */,
+				D5B444C11E45190600C13C43 /* CoreMedia.framework in Frameworks */,
+				D5B444BF1E4518F000C13C43 /* AVFoundation.framework in Frameworks */,
+				D5B444BD1E4518E300C13C43 /* AudioToolbox.framework in Frameworks */,
+				D5B444BB1E4518D700C13C43 /* AdSupport.framework in Frameworks */,
+				D5B444B91E4518CD00C13C43 /* libz.tbd in Frameworks */,
 				D5441B281831CB1100B5166A /* CoreGraphics.framework in Frameworks */,
 				D5441B2A1831CB1100B5166A /* UIKit.framework in Frameworks */,
 				D5441B2C1831CB1100B5166A /* SpriteKit.framework in Frameworks */,
+				D5B444B71E45137300C13C43 /* VungleSDK.framework in Frameworks */,
 				D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -163,11 +208,22 @@
 		D5441B241831CB1100B5166A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5B444CA1E45195500C13C43 /* WebKit.framework */,
+				D5B444C81E45194600C13C43 /* SystemConfiguration.framework */,
+				D5B444C61E45193800C13C43 /* StoreKit.framework */,
+				D5B444C41E45192D00C13C43 /* QuartzCore.framework */,
+				D5B444C21E45192000C13C43 /* MediaPlayer.framework */,
+				D5B444C01E45190600C13C43 /* CoreMedia.framework */,
+				D5B444BE1E4518F000C13C43 /* AVFoundation.framework */,
+				D5B444BC1E4518E300C13C43 /* AudioToolbox.framework */,
+				D5B444BA1E4518D700C13C43 /* AdSupport.framework */,
+				D5B444B81E4518CD00C13C43 /* libz.tbd */,
 				D5441B251831CB1100B5166A /* Foundation.framework */,
 				D5441B271831CB1100B5166A /* CoreGraphics.framework */,
 				D5441B291831CB1100B5166A /* UIKit.framework */,
 				D5441B2B1831CB1100B5166A /* SpriteKit.framework */,
 				D5441B4E1831CB1100B5166A /* XCTest.framework */,
+				D5B444A81E45137300C13C43 /* VungleSDK.embeddedframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,6 +343,28 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		D5B444A81E45137300C13C43 /* VungleSDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				D5B444A91E45137300C13C43 /* Resources */,
+				D5B444B01E45137300C13C43 /* VungleSDK.framework */,
+			);
+			path = VungleSDK.embeddedframework;
+			sourceTree = "<group>";
+		};
+		D5B444A91E45137300C13C43 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D5B444AA1E45137300C13C43 /* __vungle.db */,
+				D5B444AB1E45137300C13C43 /* vg_close.png */,
+				D5B444AC1E45137300C13C43 /* vg_cta.png */,
+				D5B444AD1E45137300C13C43 /* vg_mute_off.png */,
+				D5B444AE1E45137300C13C43 /* vg_mute_on.png */,
+				D5B444AF1E45137300C13C43 /* vg_privacy.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D5EECCC5183B4EAB005D5507 /* Mini-Othello */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,11 +458,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5441B481831CB1100B5166A /* Images.xcassets in Resources */,
+				D5B444B21E45137300C13C43 /* vg_close.png in Resources */,
+				D5B444B11E45137300C13C43 /* __vungle.db in Resources */,
+				D5B444B41E45137300C13C43 /* vg_mute_off.png in Resources */,
+				D5B444B31E45137300C13C43 /* vg_cta.png in Resources */,
 				D5441B3E1831CB1100B5166A /* Main_iPad.storyboard in Resources */,
 				D5441B3B1831CB1100B5166A /* Main_iPhone.storyboard in Resources */,
 				D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */,
 				D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */,
+				D5B444B51E45137300C13C43 /* vg_mute_on.png in Resources */,
 				D517EA3618385AC2009C54E8 /* README.md in Resources */,
+				D5B444B61E45137300C13C43 /* vg_privacy.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,10 +644,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VungleSDK.embeddedframework",
+				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -580,10 +669,15 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/VungleSDK.embeddedframework",
+				);
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Fothello/Fothello-Prefix.pch";
 				INFOPLIST_FILE = "Fothello/Fothello-Info.plist";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.synthus.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
