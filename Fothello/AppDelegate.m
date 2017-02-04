@@ -28,7 +28,6 @@
     return YES;    
 }
 
-
 - (void)application:(UIApplication *)application willEncodeRestorableStateWithCoder:(NSCoder *)coder
 {
 }

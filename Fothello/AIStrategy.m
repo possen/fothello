@@ -26,9 +26,9 @@
 
 @synthesize difficulty = _difficulty;
 
-- (BOOL)manual
+- (BOOL)automatic
 {
-    return NO;
+    return YES;
 }
 
 - (id)initWithDifficulty:(Difficulty)difficulty

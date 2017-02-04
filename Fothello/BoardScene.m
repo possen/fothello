@@ -1,4 +1,4 @@
- //
+    //
 //  MyScene.m
 //  Fothello
 //
@@ -152,7 +152,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     [self.match nextPlayer];
     [self.match beginTurn];
     
-    if (!self.match.currentPlayer.strategy.manual)
+    if (self.match.currentPlayer.strategy.automatic)
     {
         // schedule time for AI Player to start turn
         dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC);
@@ -437,7 +437,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     SKNode *piece = [self.currentPlayerSprite childNodeWithName:@"piece"];
     
-    if (!player.strategy.manual)
+    if (player.strategy.automatic)
     {
         [piece runAction:
              [SKAction repeatActionForever:

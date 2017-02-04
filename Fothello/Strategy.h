@@ -24,7 +24,7 @@
 @interface Strategy : NSObject <NSCoding>
 
 @property (nonatomic, nonnull) Match *match;
-@property (nonatomic, readonly) BOOL manual;
+@property (nonatomic, readonly) BOOL automatic;
 
 - (void)makeMoveForPlayer:(nonnull Player *)player;
 - (void)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;

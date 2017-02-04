@@ -165,16 +165,17 @@
     [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
+
+         if (self.currentPlayerBlock)
+         {
+             BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+             self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
+         }
+
          return pieces;
      }];
 
     [self addMove:move];
-
-    if (self.currentPlayerBlock)
-    {
-        BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-        self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
-    }
 }
 
 - (BOOL)turnProcessing
@@ -182,7 +183,7 @@
     return [self.players indexOfObjectPassingTest:^BOOL (Player * obj, NSUInteger idx, BOOL * stop)
     {
         return obj.turnProcessing;
-    }] == NSNotFound;
+    }] != NSNotFound;
 }
 
 - (void)restart
@@ -202,7 +203,7 @@
 
 - (void)reset
 {
-    [self.currentPlayer endTurn];
+    [self endTurn];
     
     GameBoard *board = self.board;
     
@@ -213,29 +214,35 @@
     self.noMoves = NO;
     
     [board reset];
+    [self beginTurn];
 }
 
 - (void)nextPlayer
 {
-    NSArray<Player *> *players = self.players;
-    
-    BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
-    
-    self.currentPlayer = (self.currentPlayer == players[0]
-                          ? players[1]
-                          : players[0]);
-    
-    NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
-    
-    BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-    BOOL isFull = [self.board isFull];
-    NSLog(@"Board  %@ ", self.board );
-   
-    if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
+    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
-        self.matchStatusBlock(YES);
-        self.noMoves = YES;
-    }    
+        NSArray<Player *> *players = self.players;
+        
+        BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
+        
+        self.currentPlayer = (self.currentPlayer == players[0]
+                              ? players[1]
+                              : players[0]);
+        
+        NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
+        
+        BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+        BOOL isFull = [self.board isFull];
+        NSLog(@"Board  %@ ", self.board );
+        
+        if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
+        {
+            self.matchStatusBlock(YES);
+            self.noMoves = YES;
+        }
+        
+        return @[];
+    }];
 }
 
 - (void)beginTurn
@@ -310,7 +317,7 @@
 {
     return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop)
     {
-        if (!player.strategy.manual)
+        if (player.strategy.automatic)
         {
             *stop = YES;
             return YES;
@@ -323,7 +330,7 @@
 {
     return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop)
             {
-                if (!player.strategy.manual)
+                if (player.strategy.automatic)
                 {
                     return YES;
                 }

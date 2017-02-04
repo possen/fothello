@@ -25,9 +25,9 @@
 
 @implementation HumanStrategy
 
-- (BOOL)manual
+- (BOOL)automatic
 {
-    return YES;
+    return NO;
 }
 
 - (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
@@ -38,22 +38,29 @@
         return;
     }
     
-    [super makeMove:move forPlayer:player];
-    
-    [self.match resetRedos];
-    
-    BOOL legal = [self.match isLegalMove:move forPlayer:player];
-    
-    if (legal)
+    [self.match.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
     {
-        [self.match placeMove:move forPlayer:player];
+        [super makeMove:move forPlayer:player];
+        
+        [self.match resetRedos];
+        
+        BOOL legal = [self.match isLegalMove:move forPlayer:player];
+        
+        if (legal)
+        {
+            [self.match placeMove:move forPlayer:player];
+        }
+        return @[];
     }
 }
 
 - (void)hintForPlayer:(Player *)player
 {
-    PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
-    [self.match.board showHintMove:move forPlayer:player];
+    dispatch_async(self.match.board.queue, ^
+       {
+           PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
+           [self.match.board showHintMove:move forPlayer:player];
+       });
 }
 
 - (NSArray<NSArray<BoardPiece *> *> *)beginTurn:(Player *)player
