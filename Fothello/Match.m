@@ -99,11 +99,7 @@
      {
          NSLog(@"replay move %@", move);
          Player *player = self.players[idx % 2];
-         [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-          {
-              NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
-              return pieces;
-          }];
+         [self.board placeMove:move forPlayer:player];
      }];
 }
 
@@ -140,40 +136,18 @@
     }
 }
 
-- (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player
-{
-    if ([move isPass])
-    {
-        return YES;
-    }
-    
-    NSArray <BoardPiece *> *legalMoves = [self.board legalMovesForPlayer:player];
-    
-    BOOL legalMove = legalMoves != nil
-            && [legalMoves indexOfObjectPassingTest:^
-        BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop)
-        {
-            return boardPiece.position.x == move.position.x
-            && boardPiece.position.y == move.position.y;
-        }] != NSNotFound;
-    
-    return legalMove;
-}
 
 - (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-     {
-         NSArray<NSArray<BoardPiece *> *> *pieces = [self.board placeMove:move forPlayer:player];
-
-         if (self.currentPlayerBlock)
-         {
-             BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-             self.currentPlayerBlock(self.currentPlayer, currentPlayerCanMove);
-         }
-
-         return pieces;
-     }];
+    [self.board placeMove:move forPlayer:player];
+    
+    if (self.currentPlayerBlock)
+    {
+        [self.board canMove:self.currentPlayer canMove:^(BOOL canMove, BOOL isFull)
+        {
+            self.currentPlayerBlock(self.currentPlayer, canMove);
+        }];
+    }
 
     [self addMove:move];
 }
@@ -219,20 +193,25 @@
 
 - (void)nextPlayer
 {
-    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+    NSArray<Player *> *players = self.players;
+    
+    // this enters work queue first so will complete before the second canMove call.
+    __block BOOL prevPlayerCouldMove = NO;
+    [self.board canMove:self.currentPlayer canMove:^(BOOL canMove, BOOL isFull)
     {
-        NSArray<Player *> *players = self.players;
-        
-        BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
-        
-        self.currentPlayer = (self.currentPlayer == players[0]
-                              ? players[1]
-                              : players[0]);
-        
-        NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
-        
-        BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-        BOOL isFull = [self.board isFull];
+        prevPlayerCouldMove = canMove;
+    }];
+    
+    self.currentPlayer = (self.currentPlayer == players[0]
+                          ? players[1]
+                          : players[0]);
+    
+    NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
+    
+    __block BOOL currentPlayerCanMove = NO;
+    [self.board canMove:self.currentPlayer canMove:^(BOOL canMove, BOOL isFull)
+    {
+        currentPlayerCanMove = canMove;
         NSLog(@"Board  %@ ", self.board );
         
         if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
@@ -240,25 +219,17 @@
             self.matchStatusBlock(YES);
             self.noMoves = YES;
         }
-        
-        return @[];
     }];
 }
 
 - (void)beginTurn
 {
-    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-    {
-         return [self.currentPlayer beginTurn];
-     }];
+    [self.currentPlayer beginTurn];
 }
 
 - (void)endTurn
 {
-    [self.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-    {
-        return [self.currentPlayer endTurn];
-    }];
+    [self.currentPlayer endTurn];
 }
 
 - (NSString *)description

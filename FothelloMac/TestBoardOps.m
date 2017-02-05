@@ -98,11 +98,11 @@
      }];
     
     expectation = [self expectationWithDescription:@"testPlace"];
+    Player *player = [[Player alloc] initWithName:@"testPlayer"];
+    player.color = PieceColorWhite;
 
     [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
-         Player *player = [[Player alloc] initWithName:@"testPlayer"];
-         player.color = PieceColorWhite;
          XCTAssertTrue([board canMove:player]);
          
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
@@ -112,8 +112,7 @@
          [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
          
          PlayerMove *move = [PlayerMove makeMoveForColor:PieceColorWhite position:pos1];
-         NSArray<NSArray<BoardPiece *> *> *piecesLists = [board placeMove:move forPlayer:player];
-         [pieces addObjectsFromArray:[piecesLists flatten]];
+         [board placeMove:move forPlayer:player];
          
          [expectation fulfill];
          return @[pieces];
@@ -129,14 +128,17 @@
         Piece *peice1 = [board pieceAtPositionX:3 Y:3];
         XCTAssertEqualObjects(peice1.description, @"○");
         Piece *peice2 = [board pieceAtPositionX:4 Y:3];
-        XCTAssertEqualObjects(peice2.description, @"○");
+        XCTAssertEqualObjects(peice2.description, @"●");
         Piece *peice3 = [board pieceAtPositionX:5 Y:3];
         XCTAssertEqualObjects(peice3.description, @"○");
+        
+        NSInteger score = [board playerScore:player];
+        XCTAssertEqual(score, 2);
         return nil;
     }];
 }
 
-- (void)testSetupComputerVsComputerGame
+- (void)playCvCGame
 {
     FothelloGame *game = [FothelloGame sharedInstance];
     self.match = [game createMatchFromKind:PlayerKindSelectionComputerVComputer difficulty:DifficultyEasy];
@@ -146,21 +148,39 @@
     
     XCTAssertEqual([self.match areAllPlayersComputers], true);
     
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"testFinishGame"];
+    
     __block BOOL gameFinished = NO;
     self.match.matchStatusBlock = ^(BOOL gameOver)
     {
         gameFinished = gameOver;
+        [expectation fulfill];
     };
-
-    //__weak TestBoardOps *weakSelf = self;
+    
+    __weak TestBoardOps *weakSelf = self;
     self.match.currentPlayerBlock = ^(Player *player, BOOL canMove)
     {
+        if (!gameFinished)
+        {
+            [weakSelf.match nextPlayer];
+            [weakSelf.match.currentPlayer takeTurn];
+        }
     };
+    [self.match.currentPlayer takeTurn];
+    
+    [self waitForExpectationsWithTimeout:60.0 handler:^(NSError *error)
+     {
+         XCTAssert(error == nil, @"error");
+     }];
 
-    while (!gameFinished)
-    {
-        [self.match.currentPlayer takeTurn];
-    }
+}
+- (void)testSetupComputerVsComputerGame
+{
+    [self playCvCGame];
+    [self playCvCGame];
+    [self playCvCGame];
+    [self playCvCGame];
+    [self playCvCGame];
 }
 
 - (void)testReset
@@ -171,7 +191,5 @@
     [board reset];
     [board reset];
 }
-
-
 
 @end

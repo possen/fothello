@@ -54,12 +54,12 @@
     return [NSString stringWithFormat:@"name %@",self.name];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)beginTurn
+- (void)beginTurn
 {
    return [self.strategy beginTurn:self];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)endTurn
+- (void)endTurn
 {
     return [self.strategy endTurn:self];
 }

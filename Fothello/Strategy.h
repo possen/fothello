@@ -29,7 +29,7 @@
 - (void)makeMoveForPlayer:(nonnull Player *)player;
 - (void)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)hintForPlayer:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)beginTurn:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)endTurn:(nonnull Player *)player;
+- (void)beginTurn:(nonnull Player *)player;
+- (void)endTurn:(nonnull Player *)player;
 
 @end

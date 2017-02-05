@@ -7,7 +7,9 @@
 //
 //  Manages the game pieces in a 8x8 grid.
 //  Finds legal moves and determines what pieces should be flipped for a move.
-//  Keeps track of what pieces were played.
+//  Keeps track of what pieces were played. All accesses to board must be done
+//  the queue to ensure data integrity.
+//
 
 
 #import <Foundation/Foundation.h>
@@ -21,38 +23,37 @@
 typedef void (^PlaceBlock)(NSArray<NSArray<BoardPiece *> *> * _Nullable pieces);
 typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color);
 
-#pragma mark - GameBoard -
-
 @interface GameBoard : NSObject <NSCoding>
 
 - (nonnull id)initWithBoardSize:(NSInteger)size;
 - (nonnull id)initWithBoardSize:(NSInteger)size piecePlacedBlock:(nullable PlaceBlock)block;
-- (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (void)visitAll:(nonnull void (^)(NSInteger x, NSInteger y, Piece * _Nullable piece))block;
-- (BOOL)isFull;
+- (void)isFull:(void (^_Nonnull)(BOOL))full;
 - (void)reset;
 - (nonnull NSString *)requestFormat;
-- (NSInteger)playerScore:(nonnull Player *)player;
 - (nonnull BoardPosition *)center;
 
-- (nullable NSArray<NSArray<BoardPiece *> *> *)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
-- (nullable NSArray<NSArray<BoardPiece *> *> *)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)canMove:(nonnull Player *)player canMove:(void (^ _Nonnull)(BOOL canMove, BOOL isFull))canMove;
+- (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player legal:(void (^ _Nonnull)(BOOL))legal;
+- (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
+- (void)showBoxCoord:(NSInteger)dist;
+- (void)playerScore:(nonnull Player *)player score:(void (^ _Nonnull)(NSInteger))score;
 
-- (nullable NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(nonnull BoardPiece *)piece
-                                                                 player:(nonnull Player *)player;
+// non queued safe
+- (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
+// updates or reads board on queue, if nothing to update return @[];
 - (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction;
 
-- (nullable NSArray <BoardPiece *> *)legalMovesForPlayer:(nonnull Player *)player;
-
-- (nullable NSArray<NSArray<BoardPiece *> *> *)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
-
+// Non queued versions, must be wrapped in updateBoard).
 - (void)boxCoord:(NSInteger)dist
            block:(nonnull void (^)(BoardPosition * _Nonnull position, BOOL isCorner, NSInteger count, BOOL * _Nullable stop))block;
-
 - (BOOL)canMove:(nonnull Player *)player;
-- (nonnull NSArray<BoardPiece *>*)updateWithTrack:(nonnull NSArray<Piece *>*)trackInfo position:(nonnull BoardPosition *)position player:(nonnull Player *)player;
+- (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
+- (NSInteger)playerScore:(nonnull Player *)player;
+
 
 @property (nonatomic, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSInteger size;

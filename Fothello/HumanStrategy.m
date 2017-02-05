@@ -38,39 +38,38 @@
         return;
     }
     
-    [self.match.board updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
+    [super makeMove:move forPlayer:player];
+    
+    [self.match resetRedos];
+    
+    if ([move isPass])
     {
-        [super makeMove:move forPlayer:player];
-        
-        [self.match resetRedos];
-        
-        BOOL legal = [self.match isLegalMove:move forPlayer:player];
-        
+        return;
+    }
+
+    [self.match.board isLegalMove:move forPlayer:player legal:^(BOOL legal)
+    {
         if (legal)
         {
             [self.match placeMove:move forPlayer:player];
         }
-        return @[];
-    }
+    }];
 }
 
 - (void)hintForPlayer:(Player *)player
 {
-    dispatch_async(self.match.board.queue, ^
-       {
-           PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
-           [self.match.board showHintMove:move forPlayer:player];
-       });
+     PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
+     [self.match.board showHintMove:move forPlayer:player];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)beginTurn:(Player *)player
+- (void)beginTurn:(Player *)player
 {
-    return [self.match.board showLegalMoves:YES forPlayer:player];
+    [self.match.board showLegalMoves:YES forPlayer:player];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)endTurn:(Player *)player
+- (void)endTurn:(Player *)player
 {
-    return [self.match.board showLegalMoves:NO forPlayer:player];
+    [self.match.board showLegalMoves:NO forPlayer:player];
 }
 
 @end

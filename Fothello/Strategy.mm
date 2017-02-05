@@ -79,28 +79,24 @@ std::string testString(
     [aCoder encodeObject:self.match forKey:@"match"];
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)takeTurn:(Player *)player
+- (void)takeTurn:(Player *)player
 {
     // subclass
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)takeTurn:(Player *)player atPosition:(BoardPosition *)position
+- (void)takeTurn:(Player *)player atPosition:(BoardPosition *)position
 {
     // subclass
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)beginTurn:(Player *)player
+- (void)beginTurn:(Player *)player
 {
     // subclass
-    return nil;
 }
 
-- (NSArray<NSArray<BoardPiece *> *> *)endTurn:(Player *)player
+- (void)endTurn:(Player *)player
 {
     // subclass
-    return nil;
 }
 
 - (PlayerMove *)calculateMoveForPlayer:(Player *)player difficulty:(Difficulty)difficulty
