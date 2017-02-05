@@ -24,7 +24,7 @@
 		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
 		D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */; };
-		D54006471E3AD2E200F2D7BB /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006461E3AD2E200F2D7BB /* GameViewController.m */; };
+		D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */; };
 		D540064A1E3AD2E200F2D7BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54006481E3AD2E200F2D7BB /* Main.storyboard */; };
 		D540064C1E3AD2E200F2D7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D540064B1E3AD2E200F2D7BB /* Assets.xcassets */; };
 		D54006521E3AD74000F2D7BB /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
@@ -382,8 +382,8 @@
 		D540063A1E3AD2E200F2D7BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FothelloTV/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		D54006421E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "BoardScene+BoardScene_AppleTV.h"; path = "FothelloTV/BoardScene+BoardScene_AppleTV.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "BoardScene+BoardScene_AppleTV.m"; path = "FothelloTV/BoardScene+BoardScene_AppleTV.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D54006451E3AD2E200F2D7BB /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameViewController.h; path = FothelloTV/GameViewController.h; sourceTree = SOURCE_ROOT; };
-		D54006461E3AD2E200F2D7BB /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GameViewController.m; path = FothelloTV/GameViewController.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D54006451E3AD2E200F2D7BB /* MatchViewControllerTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MatchViewControllerTV.h; path = FothelloTV/MatchViewControllerTV.h; sourceTree = SOURCE_ROOT; };
+		D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MatchViewControllerTV.m; path = FothelloTV/MatchViewControllerTV.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D54006491E3AD2E200F2D7BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D540064B1E3AD2E200F2D7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = FothelloTV/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		D540064D1E3AD2E200F2D7BB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = FothelloTV/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -645,8 +645,8 @@
 				D54006481E3AD2E200F2D7BB /* Main.storyboard */,
 				D540064B1E3AD2E200F2D7BB /* Assets.xcassets */,
 				D540064D1E3AD2E200F2D7BB /* Info.plist */,
-				D54006451E3AD2E200F2D7BB /* GameViewController.h */,
-				D54006461E3AD2E200F2D7BB /* GameViewController.m */,
+				D54006451E3AD2E200F2D7BB /* MatchViewControllerTV.h */,
+				D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */,
 				D54006361E3AD2E200F2D7BB /* Supporting Files */,
 			);
 			name = AppleTV;
@@ -875,12 +875,12 @@
 		D5F56A851CC3F1EE000700D8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D5441B361831CB1100B5166A /* AppDelegate.h */,
+				D5441B371831CB1100B5166A /* AppDelegate.m */,
 				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
 				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
 				D5441B3F1831CB1100B5166A /* MatchViewController.h */,
 				D5441B401831CB1100B5166A /* MatchViewController.m */,
-				D5441B361831CB1100B5166A /* AppDelegate.h */,
-				D5441B371831CB1100B5166A /* AppDelegate.m */,
 				D5F5E45C1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.h */,
 				D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */,
 				D5C0B66718C40E58000DCEB8 /* GameViewController.h */,
@@ -1439,7 +1439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54006561E3AE6E200F2D7BB /* BoardScene.m in Sources */,
-				D54006471E3AD2E200F2D7BB /* GameViewController.m in Sources */,
+				D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */,
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
 				D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */,
 				D54006381E3AD2E200F2D7BB /* main.m in Sources */,

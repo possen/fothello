@@ -49,7 +49,6 @@
     
     // Present the scene.
     [skView presentScene:scene];
-
 }
 
 - (void)updateMove:(BOOL)canMove
@@ -81,7 +80,6 @@
     [self.boardScene setupMatch];
     
     [self.match restart];
-    [self.boardScene nextPlayer];
 }
 
 - (BOOL)allowActionToRun

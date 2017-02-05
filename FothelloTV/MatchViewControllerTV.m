@@ -6,14 +6,14 @@
 //  Copyright © 2017 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "GameViewController.h"
+#import "MatchViewControllerTV.h"
 #import "BoardScene.h"
 
-@interface GameViewController ()
+@interface MatchViewController ()
 @property (nonatomic) BoardScene *boardScene;
 @end
 
-@implementation GameViewController
+@implementation MatchViewController
 
 - (void)viewDidLoad
 {
@@ -32,6 +32,12 @@
     scene.match = self.match;
     self.boardScene = scene;
 
+    __weak MatchViewController *weakSelf = self;
+    scene.updatePlayerMove = ^(BOOL canMove)
+    {
+        [weakSelf updateMove:canMove];
+    };
+
     // Get the SKScene from the loaded GKScene
 //    BoardScene *sceneNode = (BoardScene *)scene.rootNode;
     
@@ -45,6 +51,11 @@
     
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
+}
+
+- (void)updateMove:(BOOL)canMove
+{
+    //    self.pass.hidden = canMove;
 }
 
 - (void)didReceiveMemoryWarning

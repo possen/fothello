@@ -25,7 +25,7 @@
     
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
- 
+    
     self.adapter = [[MovesViewAdapter alloc] initWithMatch:self.match];
     self.tableView.delegate = self.adapter;
     self.tableView.dataSource = self.adapter;

@@ -36,6 +36,7 @@
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
 
+    
     [self resetGame];
 }
 
@@ -167,6 +168,7 @@
     {
         return !self.match.noMoves;
     }
+    
     return YES;
 }
 

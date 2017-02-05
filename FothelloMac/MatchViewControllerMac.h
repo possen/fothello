@@ -12,6 +12,8 @@
 @class Match;
 
 @interface MatchViewControllerMac : NSViewController
+
 @property (nonatomic) Match *match;
+
 - (void)resetGame;
 @end
