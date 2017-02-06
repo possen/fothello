@@ -7,13 +7,13 @@
 //
 
 #import "PageViewController.h"
-#import "MatchViewController.h"
+#import "MatchViewControllerIOS.h"
 #import "FothelloGame.h"
 #import "NSArray+Holes.h"
 
 @interface PageViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@property (nonatomic) NSMutableArray<MatchViewController *> *activeControllers;
+@property (nonatomic) NSMutableArray<MatchViewControllerIOS *> *activeControllers;
 
 @end
 
@@ -28,7 +28,7 @@
     
     if (index == -1)
     {
-        MatchViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"gameViewController"];
+        MatchViewControllerIOS *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"gameViewController"];
         
         [self.activeControllers setObject:vc atCheckedIndex:index + 1];
         return vc;
@@ -41,7 +41,7 @@
     
     if (inRange)
     {
-        MatchViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"boardViewController"];
+        MatchViewControllerIOS *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"boardViewController"];
  
         [self.activeControllers setObject:vc atCheckedIndex:index +  1];
         NSString *matchName = matchOrder[index];
@@ -51,13 +51,13 @@
     return nil;
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MatchViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MatchViewControllerIOS *)viewController
 {
     NSUInteger index = viewController.pageIndex;
     return [self viewControllerForPageIndex:(index + 1)];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(MatchViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(MatchViewControllerIOS *)viewController
 {
     NSUInteger index = viewController.pageIndex;
     return [self viewControllerForPageIndex:(index - 1)];

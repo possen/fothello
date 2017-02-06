@@ -6,21 +6,21 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
-#import "MatchViewController.h"
+#import "MatchViewControllerIOS.h"
 #import "BoardScene+BoardScene_iOS.h"
 #import "FothelloGame.h"
 #import "DialogViewController.h"
 #import "Match.h"
 #import "Player.h"
 
-@interface MatchViewController ()
+@interface MatchViewControllerIOS ()
 
 // contentView's vertical bottom constraint, used to alter the contentView's vertical size when ads arrive
 @property (nonatomic) BOOL notFirstTime;
 
 @end
 
-@implementation MatchViewController
+@implementation MatchViewControllerIOS
 
 - (void)viewDidLoad
 {
@@ -39,7 +39,7 @@
     BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];
     self.boardScene = scene;
  
-    __weak MatchViewController *weakBlockSelf = self;
+    __weak MatchViewControllerIOS *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
         [weakBlockSelf updateMove:canMove];

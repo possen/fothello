@@ -192,7 +192,7 @@
 		D5441B341831CB1100B5166A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B331831CB1100B5166A /* main.m */; };
 		D5441B381831CB1100B5166A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B371831CB1100B5166A /* AppDelegate.m */; };
 		D5441B3B1831CB1100B5166A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5441B391831CB1100B5166A /* Main.storyboard */; };
-		D5441B411831CB1100B5166A /* MatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* MatchViewController.m */; };
+		D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */; };
 		D5441B441831CB1100B5166A /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
 		D5441B481831CB1100B5166A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5441B471831CB1100B5166A /* Images.xcassets */; };
 		D56AAD271D13C9EA00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
@@ -411,8 +411,8 @@
 		D5441B361831CB1100B5166A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D5441B371831CB1100B5166A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5441B3A1831CB1100B5166A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D5441B3F1831CB1100B5166A /* MatchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchViewController.h; sourceTree = "<group>"; };
-		D5441B401831CB1100B5166A /* MatchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchViewController.m; sourceTree = "<group>"; };
+		D5441B3F1831CB1100B5166A /* MatchViewControllerIOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatchViewControllerIOS.h; sourceTree = "<group>"; };
+		D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MatchViewControllerIOS.m; sourceTree = "<group>"; };
 		D5441B421831CB1100B5166A /* BoardScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BoardScene.h; sourceTree = "<group>"; };
 		D5441B431831CB1100B5166A /* BoardScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BoardScene.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5441B471831CB1100B5166A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -879,8 +879,8 @@
 				D5441B371831CB1100B5166A /* AppDelegate.m */,
 				D5C0B66A18C40F73000DCEB8 /* PageViewController.h */,
 				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
-				D5441B3F1831CB1100B5166A /* MatchViewController.h */,
-				D5441B401831CB1100B5166A /* MatchViewController.m */,
+				D5441B3F1831CB1100B5166A /* MatchViewControllerIOS.h */,
+				D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */,
 				D5F5E45C1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.h */,
 				D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */,
 				D5C0B66718C40E58000DCEB8 /* GameViewController.h */,
@@ -1566,7 +1566,7 @@
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
 				D5C0B66918C40E58000DCEB8 /* GameViewController.m in Sources */,
 				D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */,
-				D5441B411831CB1100B5166A /* MatchViewController.m in Sources */,
+				D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,

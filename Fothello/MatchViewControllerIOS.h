@@ -13,7 +13,7 @@
 @class BoardScene;
 @class Match;
 
-@interface MatchViewController : UIViewController
+@interface MatchViewControllerIOS : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *pass;
 @property (weak, nonatomic) IBOutlet UIButton *resetGame;
 @property (nonatomic) BOOL bannerIsVisible;
