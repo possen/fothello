@@ -9,11 +9,11 @@
 #import "MatchViewControllerTV.h"
 #import "BoardScene.h"
 
-@interface MatchViewController ()
+@interface MatchViewControllerTV ()
 @property (nonatomic) BoardScene *boardScene;
 @end
 
-@implementation MatchViewController
+@implementation MatchViewControllerTV
 
 - (void)viewDidLoad
 {
@@ -22,8 +22,11 @@
     // Load 'BoardScene.sks' as a GKScene. This provides gameplay related content
     // including entities and graphs.
     //   GKScene *scene = [GKScene sceneWithFileNamed:@"BoardScene"];
+    
+    // Get the SKScene from the loaded GKScene
+    //    BoardScene *sceneNode = (BoardScene *)scene.rootNode;
     CGSize size = CGSizeMake(310, 310);
-
+    
     FothelloGame *game = [FothelloGame sharedInstance];
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
@@ -31,16 +34,13 @@
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
     scene.match = self.match;
     self.boardScene = scene;
-
-    __weak MatchViewController *weakSelf = self;
+    
+    __weak MatchViewControllerTV *weakSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
         [weakSelf updateMove:canMove];
     };
-
-    // Get the SKScene from the loaded GKScene
-//    BoardScene *sceneNode = (BoardScene *)scene.rootNode;
-    
+  
     // Set the scale mode to scale to fit the window
     scene.scaleMode = SKSceneScaleModeAspectFit;
     
@@ -51,6 +51,13 @@
     
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
+
+    [self reset];
+}
+
+- (void)reset
+{
+    [self.match reset];
 }
 
 - (void)updateMove:(BOOL)canMove

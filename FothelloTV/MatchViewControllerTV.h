@@ -11,6 +11,6 @@
 #import <GameplayKit/GameplayKit.h>
 #import <FothelloLib/FothelloLib.h>
 
-@interface MatchViewController : UIViewController
+@interface MatchViewControllerTV : UIViewController
 @property (nonatomic) Match *match;
 @end

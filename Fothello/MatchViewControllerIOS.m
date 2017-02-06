@@ -25,30 +25,37 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Configure the view.
-    SKView *skView = (SKView *)self.mainScene;
     
     self.pass.hidden = YES;
-    
- //   CGRect bounds = skView.bounds;
+   
+    self.boardScene.match = self.match;
     
     CGRect bounds = CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height);
     
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];
     self.boardScene = scene;
- 
+    
     __weak MatchViewControllerIOS *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
         [weakBlockSelf updateMove:canMove];
     };
-
+    
     scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Configure the view.
+    SKView *skView = (SKView *)self.mainScene;
     
     // Present the scene.
     [skView presentScene:scene];
+  
+    [self reset];
+}
+
+- (void)reset
+{
+    [self.match restart];
 }
 
 - (void)updateMove:(BOOL)canMove
@@ -77,9 +84,7 @@
     self.match = match;
     self.boardScene.match = match;
     
-    [self.boardScene setupMatch];
-    
-    [self.match restart];
+    [self reset];
 }
 
 - (BOOL)allowActionToRun

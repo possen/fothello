@@ -24,7 +24,6 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 @property (nonatomic) SKShapeNode *boardUI;
 
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match;
-- (void)setupMatch;
 - (void)nextPlayer;
 - (void)teardownMatch;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;

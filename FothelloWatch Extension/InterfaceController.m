@@ -93,10 +93,7 @@
     PlayerMove *move = [PlayerMove makeMoveForColor:self.match.currentPlayer.preferredPieceColor position:pos];
     [self.match.board placeMove:move forPlayer:self.match.currentPlayer];
     NSLog(@"tap");
-
 }
-
-
 
 @end
 

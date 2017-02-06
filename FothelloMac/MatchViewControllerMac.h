@@ -15,5 +15,5 @@
 
 @property (nonatomic) Match *match;
 
-- (void)resetGame;
+- (void)reset;
 @end

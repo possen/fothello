@@ -31,13 +31,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     FothelloGame *game = [FothelloGame sharedInstance];
     
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
 
+    self.boardScene.match = self.match;
+    SKView *skView = self.mainView;
+  
+    // Create and configure the scene.
+    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size
+                                                   match:self.match];
     
-    [self resetGame];
+    //    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
+    //    scene.match = self.match;
+    
+    self.boardScene = scene;
+    
+    __weak typeof(self) weakSelf = self;
+    scene.updatePlayerMove = ^(BOOL canMove)
+    {
+        [weakSelf updateMove:canMove];
+    };
+    
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Set the scale mode to scale to fit the window
+    self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
+    
+    // Present the scene.
+    [skView presentScene:scene];
+    
+    [self reset];
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
@@ -61,39 +87,13 @@
         self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
                                                              difficulty:difficulty];
         
-        [self resetGame];
+        [self reset];
     }
+
 }
 
-- (void)resetGame
+- (void)reset
 {
-    SKView *skView = self.mainView;
-    self.boardScene.match = self.match;
-    
-    // Set the scale mode to scale to fit the window
-    self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
-
-    // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size
-                                                   match:self.match];
-    
-//    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
-//    scene.match = self.match;
-    
-    self.boardScene = scene;
-    
-    __weak typeof(self) weakSelf = self;
-      
-    scene.updatePlayerMove = ^(BOOL canMove)
-    {
-        [weakSelf updateMove:canMove];
-    };
-    
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
-    
     [self.match restart];
     [self.movesController resetGame:self.match];
 }

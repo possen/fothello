@@ -104,33 +104,6 @@
             </objects>
             <point key="canvasLocation" x="227" y="-73"/>
         </scene>
-        <!--Game View Controller-->
-        <scene sceneID="b2P-i3-xrk">
-            <objects>
-                <viewController storyboardIdentifier="gameViewController" id="O76-XR-Pf1" customClass="GameViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Hvz-C5-Sea"/>
-                        <viewControllerLayoutGuide type="bottom" id="zjZ-fU-5BK"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="BMq-jt-uan">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zk3-uh-du9">
-                                <rect key="frame" x="158" y="347" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Qrr-wC-PpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="90" y="668"/>
-        </scene>
         <!--Dialog View Controller-->
         <scene sceneID="D1r-Da-U6m">
             <objects>
