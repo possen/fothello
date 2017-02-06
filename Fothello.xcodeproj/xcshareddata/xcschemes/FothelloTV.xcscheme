@@ -33,9 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D54006971E3B22CB00F2D7BB"
-               BuildableName = "FothelloLibTestsIOS.xctest"
-               BlueprintName = "FothelloLibTestsIOS"
+               BlueprintIdentifier = "D55B70AD1E481AF000C53A51"
+               BuildableName = "FothelloLibTestsTV.xctest"
+               BlueprintName = "FothelloLibTestsTV"
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
          </TestableReference>

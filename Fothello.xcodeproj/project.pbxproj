@@ -195,6 +195,9 @@
 		D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */; };
 		D5441B441831CB1100B5166A /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
 		D5441B481831CB1100B5166A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5441B471831CB1100B5166A /* Images.xcassets */; };
+		D55B70B11E481AF000C53A51 /* FothelloLibTestsTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D55B70B01E481AF000C53A51 /* FothelloLibTestsTV.m */; };
+		D55B70B81E481DE200C53A51 /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
+		D55B70B91E481DE200C53A51 /* FothelloTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloTests.mm */; };
 		D56AAD271D13C9EA00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D56AAD281D13C9EB00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
@@ -251,6 +254,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = D540070E1E3BBEC200F2D7BB;
 			remoteInfo = "FothelloLib-Watch";
+		};
+		D55B70B31E481AF000C53A51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5441B1A1831CB1100B5166A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D54006331E3AD2E200F2D7BB;
+			remoteInfo = FothelloTV;
 		};
 		D56F0A1E1E3D130100DEC41A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -422,6 +432,9 @@
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D55A6CBE1D04BC7500B98809 /* BoardPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardPosition.m; sourceTree = "<group>"; };
 		D55A6CBF1D04BC7500B98809 /* BoardPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardPosition.h; sourceTree = "<group>"; };
+		D55B70AE1E481AF000C53A51 /* FothelloLibTestsTV.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloLibTestsTV.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D55B70B01E481AF000C53A51 /* FothelloLibTestsTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloLibTestsTV.m; sourceTree = "<group>"; };
+		D55B70B21E481AF000C53A51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D562F4A21CB0E905009A6273 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		D562F4A31CB0E905009A6273 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		D562F4A81CB0E935009A6273 /* Match.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Match.h; sourceTree = "<group>"; };
@@ -561,6 +574,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D55B70AB1E481AF000C53A51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D56F0A161E3D130000DEC41A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -693,6 +713,7 @@
 				D540069C1E3B22CC00F2D7BB /* FothelloLibTests */,
 				D535DD4F1E3D03EF00AE5C1D /* FothelloTestsMac */,
 				D56F0A1A1E3D130100DEC41A /* FothelloTests */,
+				D55B70AF1E481AF000C53A51 /* FothelloLibTestsTV */,
 				D5441B241831CB1100B5166A /* Frameworks */,
 				D5441B231831CB1100B5166A /* Products */,
 			);
@@ -712,6 +733,7 @@
 				D540073A1E3BBEC200F2D7BB /* FothelloLib.framework */,
 				D54007681E3BBF0000F2D7BB /* FothelloLib.framework */,
 				D56F0A191E3D130000DEC41A /* FothelloLibTestsMac.xctest */,
+				D55B70AE1E481AF000C53A51 /* FothelloLibTestsTV.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -754,6 +776,15 @@
 				D5441B351831CB1100B5166A /* Fothello-Prefix.pch */,
 			);
 			name = "iOS Supporting Files";
+			sourceTree = "<group>";
+		};
+		D55B70AF1E481AF000C53A51 /* FothelloLibTestsTV */ = {
+			isa = PBXGroup;
+			children = (
+				D55B70B01E481AF000C53A51 /* FothelloLibTestsTV.m */,
+				D55B70B21E481AF000C53A51 /* Info.plist */,
+			);
+			path = FothelloLibTestsTV;
 			sourceTree = "<group>";
 		};
 		D562F4AE1CB0F02B009A6273 /* Model */ = {
@@ -1157,6 +1188,24 @@
 			productReference = D5441B221831CB1100B5166A /* FothelloIOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D55B70AD1E481AF000C53A51 /* FothelloLibTestsTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D55B70B51E481AF000C53A51 /* Build configuration list for PBXNativeTarget "FothelloLibTestsTV" */;
+			buildPhases = (
+				D55B70AA1E481AF000C53A51 /* Sources */,
+				D55B70AB1E481AF000C53A51 /* Frameworks */,
+				D55B70AC1E481AF000C53A51 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D55B70B41E481AF000C53A51 /* PBXTargetDependency */,
+			);
+			name = FothelloLibTestsTV;
+			productName = FothelloLibTestsTV;
+			productReference = D55B70AE1E481AF000C53A51 /* FothelloLibTestsTV.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D56F0A181E3D130000DEC41A /* FothelloLibTestsMac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D56F0A201E3D130100DEC41A /* Build configuration list for PBXNativeTarget "FothelloLibTestsMac" */;
@@ -1270,6 +1319,11 @@
 						DevelopmentTeam = UVHFXZWG47;
 						ProvisioningStyle = Automatic;
 					};
+					D55B70AD1E481AF000C53A51 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = UVHFXZWG47;
+						ProvisioningStyle = Automatic;
+					};
 					D56F0A181E3D130000DEC41A = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = UVHFXZWG47;
@@ -1313,6 +1367,7 @@
 				D540073C1E3BBF0000F2D7BB /* FothelloLib-TV */,
 				D54006971E3B22CB00F2D7BB /* FothelloLibTestsIOS */,
 				D56F0A181E3D130000DEC41A /* FothelloLibTestsMac */,
+				D55B70AD1E481AF000C53A51 /* FothelloLibTestsTV */,
 			);
 		};
 /* End PBXProject section */
@@ -1387,6 +1442,13 @@
 				D56AAD281D13C9EB00BBCDFA /* BoardScene.sks in Resources */,
 				D5F5E46F1CC1394600A5A023 /* Media.xcassets in Resources */,
 				D517EA3618385AC2009C54E8 /* README.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D55B70AC1E481AF000C53A51 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1574,6 +1636,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D55B70AA1E481AF000C53A51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D55B70B11E481AF000C53A51 /* FothelloLibTestsTV.m in Sources */,
+				D55B70B91E481DE200C53A51 /* FothelloTests.mm in Sources */,
+				D55B70B81E481DE200C53A51 /* TestBoardOps.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D56F0A151E3D130000DEC41A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1618,6 +1690,11 @@
 			isa = PBXTargetDependency;
 			target = D540070E1E3BBEC200F2D7BB /* FothelloLib-Watch */;
 			targetProxy = D540077A1E3BC12800F2D7BB /* PBXContainerItemProxy */;
+		};
+		D55B70B41E481AF000C53A51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D54006331E3AD2E200F2D7BB /* FothelloTV */;
+			targetProxy = D55B70B31E481AF000C53A51 /* PBXContainerItemProxy */;
 		};
 		D56F0A1F1E3D130100DEC41A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2194,6 +2271,43 @@
 			};
 			name = Release;
 		};
+		D55B70B61E481AF000C53A51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = UVHFXZWG47;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloLibTestsTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloLibTestsTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = Debug;
+		};
+		D55B70B71E481AF000C53A51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = UVHFXZWG47;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = FothelloLibTestsTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloLibTestsTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 10.1;
+			};
+			name = Release;
+		};
 		D56F0A211E3D130100DEC41A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2412,6 +2526,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		D55B70B51E481AF000C53A51 /* Build configuration list for PBXNativeTarget "FothelloLibTestsTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D55B70B61E481AF000C53A51 /* Debug */,
+				D55B70B71E481AF000C53A51 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		D56F0A201E3D130100DEC41A /* Build configuration list for PBXNativeTarget "FothelloLibTestsMac" */ = {
 			isa = XCConfigurationList;
