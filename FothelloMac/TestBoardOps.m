@@ -174,12 +174,34 @@
      }];
 
 }
-- (void)testSetupComputerVsComputerGame
+
+- (void)testSetupComputerVsComputerGame1
 {
+    srand(1);
     [self playCvCGame];
+}
+
+- (void)testSetupComputerVsComputerGame2
+{
+    srand(2);
     [self playCvCGame];
+}
+
+- (void)testSetupComputerVsComputerGame3
+{
+    srand(3);
     [self playCvCGame];
+}
+
+- (void)testSetupComputerVsComputerGame4
+{
+    srand(4);
     [self playCvCGame];
+}
+
+- (void)testSetupComputerVsComputerGame5
+{
+    srand(5);
     [self playCvCGame];
 }
 
