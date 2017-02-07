@@ -37,7 +37,6 @@
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
 
-    self.boardScene.match = self.match;
     SKView *skView = self.mainView;
   
     // Create and configure the scene.
@@ -45,10 +44,9 @@
                                                    match:self.match];
     
     //    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
-    //    scene.match = self.match;
-    
+    scene.match = self.match;
     self.boardScene = scene;
-    
+  
     __weak typeof(self) weakSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
@@ -90,6 +88,13 @@
         [self reset];
     }
 
+}
+
+- (void)setMatch:(Match *)match
+{
+    [self.match reset]; // erase board
+    _match = match;
+    [self.match reset]; // setup board
 }
 
 - (void)reset

@@ -25,6 +25,6 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match;
 - (void)nextPlayer;
-- (void)teardownMatch;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
+
 @end

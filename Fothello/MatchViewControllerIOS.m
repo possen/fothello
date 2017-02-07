@@ -15,9 +15,6 @@
 
 @interface MatchViewControllerIOS ()
 
-// contentView's vertical bottom constraint, used to alter the contentView's vertical size when ads arrive
-@property (nonatomic) BOOL notFirstTime;
-
 @end
 
 @implementation MatchViewControllerIOS
@@ -28,14 +25,13 @@
     
     self.pass.hidden = YES;
    
-    self.boardScene.match = self.match;
-    
     CGRect bounds = CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height);
     
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];
     self.boardScene = scene;
-    
+    scene.match = self.match;
+
     __weak MatchViewControllerIOS *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
@@ -78,11 +74,9 @@
     
     FothelloGame *game = [FothelloGame sharedInstance];
 
-    [self.boardScene teardownMatch];
-
     Match *match = [game createMatchFromKind:kind difficulty:difficulty];
-    self.match = match;
     self.boardScene.match = match;
+    self.match = match;
     
     [self reset];
 }

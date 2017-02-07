@@ -28,7 +28,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         _boardDimensions = MIN(size.width, size.height) - 40;
         _boardRect = CGRectMake(20, size.height / 2 - _boardDimensions / 2,
                                     _boardDimensions, _boardDimensions);
-        [self setupMatch];
+        [self setMatch:match];
         
         /* Setup your scene here */
         [self drawBoard];
@@ -37,9 +37,9 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     return self;
 }
 
-- (void)setupMatch
+- (void)setMatch:(Match *)match
 {
-    Match *match = self.match;
+    _match = match;
     _boardSize = match.board.size;
     
     __weak BoardScene *weakBlockSelf = self;

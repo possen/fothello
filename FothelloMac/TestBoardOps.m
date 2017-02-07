@@ -205,13 +205,98 @@
     [self playCvCGame];
 }
 
+- (void)checkScore:(NSInteger)score player:(Player *)player board:(GameBoard *)board
+{
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"testScore"];
+    
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+    {
+        // don't call expectation twice.x
+    };
+    
+    [board playerScore:player score:^(NSInteger boardScore)
+     {
+         XCTAssertEqual(score, boardScore);
+         [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:5 handler:^(NSError * error) {
+    }];
+}
+
+- (void)doReset:(GameBoard *)board
+{
+    XCTestExpectation *expectation1 =  [self expectationWithDescription:@"testErase1"];
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+    {
+        [expectation1 fulfill];
+    };
+    [board reset];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+    }];
+}
+
 - (void)testReset
 {
+    Player *player1 = [[Player alloc] init];
+    player1.color = PieceColorWhite;
+    Player *player2 = [[Player alloc] init];
+    player1.color = PieceColorBlack;
+    
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
-    [board reset];
-    [board reset];
-    [board reset];
-    [board reset];
+
+    [self doReset:board];
+    [self checkScore:2 player:player1 board:board];
+    [self checkScore:2 player:player2 board:board];
+
+    [self doReset:board];
+    [self checkScore:2 player:player1 board:board];
+    [self checkScore:2 player:player2 board:board];
+
+    XCTestExpectation *expectationPlace =  [self expectationWithDescription:@"expectationPlace"];
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks) {
+        [expectationPlace fulfill];
+    };
+
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+     {
+         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+         
+         Piece *piece1 = [board pieceAtPositionX:6 Y:4];
+         BoardPosition *pos1 = [[BoardPosition alloc] initWithX:3 Y:3];
+         [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
+         
+         Piece *piece2 = [board pieceAtPositionX:7 Y:2];
+         BoardPosition *pos2 = [[BoardPosition alloc] initWithX:4 Y:3];
+         [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece2 position:pos2 color:PieceColorBlack]];
+  
+         return @[pieces];
+     }];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+    }];
+    
+    [self checkScore:3 player:player1 board:board];
+    [self checkScore:3 player:player2 board:board];
+
+    [self doReset:board];
+    [self checkScore:2 player:player1 board:board];
+    [self checkScore:2 player:player2 board:board];
+
+    [self doReset:board];
+    [self checkScore:2 player:player1 board:board];
+    [self checkScore:2 player:player2 board:board];
+}
+
+- (void)testBoardFull
+{
+    
+}
+
+- (void)testCanMove
+{
+    
 }
 
 @end

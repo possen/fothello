@@ -58,6 +58,9 @@ typedef struct Delta
         _queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
 
         _placeBlock = block;
+        _updateComplete = ^{
+            
+        };
         
         if (size % 2 == 1)
             return nil; // must be multiple of 2
@@ -104,22 +107,34 @@ typedef struct Delta
 // are not queued already, if they update or read board data structures
 //
 - (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
+           complete:(UpdateCompleteBlock)updateComplete
 {
     dispatch_async(self.queue,^
                    {
-                       NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
-                       [self updateBoardWithPieces:pieces];
+                       if (updateFunction != nil)
+                       {
+                           NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
+                           [self updateBoardWithPieces:pieces];
+                       }
+                       if (updateComplete != nil)
+                       {
+                           updateComplete();
+                       }
                    });
 }
 
+- (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
+{
+    [self updateBoard:updateFunction complete:nil];
+}
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
 {
-    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> * _Nonnull
+    [self updateBoard:nil
+             complete:^
      {
          [self visitAllInternal:block];
          
-         return @[];
      }];
 }
 
@@ -161,7 +176,6 @@ typedef struct Delta
              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
              Piece *piece = [self pieceAtPositionX:x Y:y];
              [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:playerCount + 1]];
-             [self setPieceCount:piece value:2];
          }];
 
         return @[boardPieces, [setupBoard copy]];
@@ -170,21 +184,21 @@ typedef struct Delta
 
 - (void)isFull:(void (^)(BOOL))full
 {
-    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-    {
-        BOOL isFull = [self isFull];
-        full(isFull);
-        return @[];
-    }];
+    [self updateBoard:nil
+             complete:^
+     {
+         BOOL isFull = [self isFull];
+         full(isFull);
+     }];
 }
 
 - (void)playerScore:(nonnull Player *)player score:(void (^)(NSInteger))score
 {
-    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-    {
-        score([self playerScore:player]);
-        return @[];
-    }];
+    [self updateBoard:nil
+             complete:^
+     {
+         score([self playerScore:player]);
+     }];
 }
 
 - (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
@@ -210,20 +224,21 @@ typedef struct Delta
 
 - (void)canMove:(Player *)player canMove:(void (^)(BOOL, BOOL))canMove
 {
-    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+    [self updateBoard:nil
+             complete:^
      {
-        BOOL canMoverResult = [self canMove:player];
-        BOOL isFull = [self isFull];
-        canMove(canMoverResult, isFull);
-        return @[];
-    }];
+         BOOL canMoverResult = [self canMove:player];
+         BOOL isFull = [self isFull];
+         canMove(canMoverResult, isFull);
+     }];
 }
 
 - (void)isLegalMove:(nonnull PlayerMove *)move
           forPlayer:(nonnull Player *)player
               legal:(void (^ _Nonnull)(BOOL))legal
 {
-    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+    [self updateBoard:nil
+             complete:^
     {
         NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayer:player];
         
@@ -234,9 +249,8 @@ typedef struct Delta
                 return boardPiece.position.x == move.position.x
                 && boardPiece.position.y == move.position.y;
             }] != NSNotFound;
-      
+        
         legal(legalMove);
-        return @[];
     }];
 }
 
@@ -277,7 +291,7 @@ typedef struct Delta
 {
     NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [self visitAll:^(NSInteger x, NSInteger y, Piece *piece)
+    [self visitAllInternal:^(NSInteger x, NSInteger y, Piece *piece)
      {
          BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
          [pieces addObject:
@@ -286,7 +300,6 @@ typedef struct Delta
                                         color:PieceColorNone]];
      }];
     
-    self.piecesPlayed = [NSDictionary new];
     return [pieces copy];
 }
 
@@ -335,6 +348,11 @@ typedef struct Delta
 
 - (void)setPieceCount:(Piece *)piece value:(NSInteger)newCount
 {
+    if ([piece isClear])
+    {
+        return;
+    }
+    
     NSMutableDictionary *piecesPlayed = [self.piecesPlayed mutableCopy];
     NSNumber *key = @(piece.color);
     piecesPlayed[key] = @(newCount);
@@ -343,11 +361,6 @@ typedef struct Delta
 
 - (void)updateColorCount:(Piece *)piece incdec:(NSInteger)incDec
 {
-    if ([piece isClear])
-    {
-        return;
-    }
-    
     NSMutableDictionary *piecesPlayed = [self.piecesPlayed mutableCopy];
     NSNumber *key = @(piece.color);
     NSNumber *count = piecesPlayed[key];

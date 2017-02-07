@@ -36,10 +36,11 @@
     self.match = match;
     self.adapter.match = match;
     
-    match.movesUpdateBlock = ^{
+    __weak MovesViewController *weakSelf = self;
+    self.match.movesUpdateBlock = ^{
         dispatch_async(dispatch_get_main_queue(),
                        ^{
-                           [self.tableView reloadData];
+                           [weakSelf.tableView reloadData];
                        });
     };
 }

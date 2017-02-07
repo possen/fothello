@@ -22,6 +22,7 @@
 
 typedef void (^PlaceBlock)(NSArray<NSArray<BoardPiece *> *> * _Nullable pieces);
 typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color);
+typedef void (^UpdateCompleteBlock)();
 
 @interface GameBoard : NSObject <NSCoding>
 
@@ -45,6 +46,9 @@ typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color)
 - (void)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
 // updates or reads board on queue, if nothing to update return @[];
+- (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction
+           complete:(nullable UpdateCompleteBlock)updateComplete;
+
 - (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction;
 
 // Non queued versions, must be wrapped in updateBoard).
@@ -59,5 +63,6 @@ typedef void (^HighlightBlock)(BoardPosition * _Nonnull  move, PieceColor color)
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy, nullable) PlaceBlock placeBlock;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
+@property (nonatomic, copy, nullable) UpdateCompleteBlock updateComplete;
 @property (nonatomic, nonnull) dispatch_queue_t queue;
 @end
