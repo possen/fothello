@@ -40,6 +40,8 @@
 
 @implementation NSMutableArray (NSMutableArray_Holes)
 
+// This grows the array to the maximum index so not recommended for large maximum indexes.
+
 - (void)setObject:(id)object atCheckedIndex:(NSUInteger)index
 {
     NSNull *null = [NSNull null];

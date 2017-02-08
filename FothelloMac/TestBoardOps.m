@@ -166,13 +166,13 @@
             [weakSelf.match.currentPlayer takeTurn];
         }
     };
+    
     [self.match.currentPlayer takeTurn];
     
     [self waitForExpectationsWithTimeout:60.0 handler:^(NSError *error)
      {
          XCTAssert(error == nil, @"error");
      }];
-
 }
 
 - (void)testSetupComputerVsComputerGame1
@@ -205,25 +205,6 @@
     [self playCvCGame];
 }
 
-- (void)checkScore:(NSInteger)score player:(Player *)player board:(GameBoard *)board
-{
-    XCTestExpectation *expectation =  [self expectationWithDescription:@"testScore"];
-    
-    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
-    {
-        // don't call expectation twice.x
-    };
-    
-    [board playerScore:player score:^(NSInteger boardScore)
-     {
-         XCTAssertEqual(score, boardScore);
-         [expectation fulfill];
-    }];
-    
-    [self waitForExpectationsWithTimeout:5 handler:^(NSError * error) {
-    }];
-}
-
 - (void)doReset:(GameBoard *)board
 {
     XCTestExpectation *expectation1 =  [self expectationWithDescription:@"testErase1"];
@@ -242,20 +223,22 @@
     Player *player1 = [[Player alloc] init];
     player1.color = PieceColorWhite;
     Player *player2 = [[Player alloc] init];
-    player1.color = PieceColorBlack;
+    player2.color = PieceColorBlack;
     
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
 
     [self doReset:board];
-    [self checkScore:2 player:player1 board:board];
-    [self checkScore:2 player:player2 board:board];
+    XCTAssertEqual(2, [board playerScore:player1]);
+    XCTAssertEqual(2, [board playerScore:player2]);
 
     [self doReset:board];
-    [self checkScore:2 player:player1 board:board];
-    [self checkScore:2 player:player2 board:board];
+    XCTAssertEqual(2, [board playerScore:player1]);
+    XCTAssertEqual(2, [board playerScore:player2]);
 
     XCTestExpectation *expectationPlace =  [self expectationWithDescription:@"expectationPlace"];
-    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks) {
+    
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+    {
         [expectationPlace fulfill];
     };
 
@@ -277,26 +260,70 @@
     [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
     }];
     
-    [self checkScore:3 player:player1 board:board];
-    [self checkScore:3 player:player2 board:board];
+    XCTAssertEqual(3, [board playerScore:player1]);
+    XCTAssertEqual(3, [board playerScore:player2]);
 
     [self doReset:board];
-    [self checkScore:2 player:player1 board:board];
-    [self checkScore:2 player:player2 board:board];
+    XCTAssertEqual(2, [board playerScore:player1]);
+    XCTAssertEqual(2, [board playerScore:player2]);
 
     [self doReset:board];
-    [self checkScore:2 player:player1 board:board];
-    [self checkScore:2 player:player2 board:board];
+    XCTAssertEqual(2, [board playerScore:player1]);
+    XCTAssertEqual(2, [board playerScore:player2]);
 }
 
 - (void)testBoardFull
 {
-    
-}
+    Player *player1 = [[Player alloc] init];
+    player1.color = PieceColorWhite;
+    Player *player2 = [[Player alloc] init];
+    player2.color = PieceColorBlack;
 
-- (void)testCanMove
-{
+    GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    [self doReset:board];
     
+    {
+        BOOL full = [board isFull];
+        XCTAssertFalse(full);
+        BOOL canMove1 = [board canMove:player1];
+        XCTAssertTrue(canMove1);
+        BOOL canMove2 = [board canMove:player2];
+        XCTAssertTrue(canMove2);
+    }
+    
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"boardFull"];
+  
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+    {
+        [expectation fulfill];
+    };
+
+    [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+    {
+        NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+        
+        [board visitAllUnqueued:^(NSInteger x, NSInteger y, Piece *piece)
+         {
+             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+             [pieces addObject:
+              [BoardPiece makeBoardPieceWithPiece:piece
+                                         position:pos
+                                            color:PieceColorBlack]];
+         }];
+        return @[pieces];
+    }];
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+    }];
+
+    {
+        BOOL full = [board isFull];
+        XCTAssertTrue(full);
+        BOOL canMove1 = [board canMove:player1];
+        XCTAssertFalse(canMove1);
+        BOOL canMove2 = [board canMove:player2];
+        XCTAssertFalse(canMove2);
+    }
 }
 
 @end

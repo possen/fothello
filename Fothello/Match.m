@@ -143,10 +143,8 @@
     
     if (self.currentPlayerBlock)
     {
-        [self.board canMove:self.currentPlayer canMove:^(BOOL canMove, BOOL isFull)
-        {
-            self.currentPlayerBlock(self.currentPlayer, canMove);
-        }];
+        BOOL canMove = [self.board canMove:self.currentPlayer];
+        self.currentPlayerBlock(self.currentPlayer, canMove);
     }
 
     [self addMove:move];
@@ -196,11 +194,7 @@
     NSArray<Player *> *players = self.players;
     
     // this enters work queue first so will complete before the second canMove call.
-    __block BOOL prevPlayerCouldMove = NO;
-    [self.board canMove:self.currentPlayer canMove:^(BOOL canMove, BOOL isFull)
-    {
-        prevPlayerCouldMove = canMove;
-    }];
+    BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
     
     self.currentPlayer = (self.currentPlayer == players[0]
                           ? players[1]
@@ -208,18 +202,16 @@
     
     NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
     
-    __block BOOL currentPlayerCanMove = NO;
-    [self.board canMove:self.currentPlayer canMove:^(BOOL canMove, BOOL isFull)
+    BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
+    BOOL isFull = [self.board isFull];
+
+    NSLog(@"Board  %@ ", self.board );
+    
+    if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
     {
-        currentPlayerCanMove = canMove;
-        NSLog(@"Board  %@ ", self.board );
-        
-        if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
-        {
-            self.matchStatusBlock(YES);
-            self.noMoves = YES;
-        }
-    }];
+        self.matchStatusBlock(YES);
+        self.noMoves = YES;
+    }
 }
 
 - (void)beginTurn

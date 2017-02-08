@@ -29,21 +29,20 @@ typedef void (^UpdateCompleteBlock)();
 - (nonnull id)initWithBoardSize:(NSInteger)size;
 - (nonnull id)initWithBoardSize:(NSInteger)size piecePlacedBlock:(nullable PlaceBlock)block;
 - (void)visitAll:(nonnull void (^)(NSInteger x, NSInteger y, Piece * _Nullable piece))block;
-- (void)isFull:(void (^_Nonnull)(BOOL))full;
 - (void)reset;
 - (nonnull NSString *)requestFormat;
 - (nonnull BoardPosition *)center;
 
 - (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
-- (void)canMove:(nonnull Player *)player canMove:(void (^ _Nonnull)(BOOL canMove, BOOL isFull))canMove;
 - (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player legal:(void (^ _Nonnull)(BOOL))legal;
 - (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
 - (void)showBoxCoord:(NSInteger)dist;
-- (void)playerScore:(nonnull Player *)player score:(void (^ _Nonnull)(NSInteger))score;
 
 // non queued safe
 - (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (BOOL)isFull;
+- (BOOL)canMove:(nonnull Player *)player;
 
 // updates or reads board on queue, if nothing to update return @[];
 - (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction
@@ -54,15 +53,13 @@ typedef void (^UpdateCompleteBlock)();
 // Non queued versions, must be wrapped in updateBoard).
 - (void)boxCoord:(NSInteger)dist
            block:(nonnull void (^)(BoardPosition * _Nonnull position, BOOL isCorner, NSInteger count, BOOL * _Nullable stop))block;
-- (BOOL)canMove:(nonnull Player *)player;
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (NSInteger)playerScore:(nonnull Player *)player;
+- (void)visitAllUnqueued:(nonnull void (^)(NSInteger x, NSInteger y, Piece *_Nonnull piece))block;
 
-
-@property (nonatomic, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy, nullable) PlaceBlock placeBlock;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
-@property (nonatomic, copy, nullable) UpdateCompleteBlock updateComplete;
 @property (nonatomic, nonnull) dispatch_queue_t queue;
 @end
