@@ -11,4 +11,6 @@
 @interface NSArray (Extensions)
 + (NSArray *)flatten:(NSArray<NSArray<id> *> *)arrayOfArrays;
 - (NSArray *)flatten;
+- (NSArray *)mapObjectsUsingBlock:(id (^)(id obj, NSUInteger idx))block;
+
 @end

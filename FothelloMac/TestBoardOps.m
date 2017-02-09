@@ -326,4 +326,213 @@
     }
 }
 
+- (void)testShowLegalMoves
+{
+    Player *player1 = [[Player alloc] init];
+    player1.color = PieceColorWhite;
+    Player *player2 = [[Player alloc] init];
+    player2.color = PieceColorBlack;
+    
+    GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    [self doReset:board];
+    
+    {
+        BOOL full = [board isFull];
+        XCTAssertFalse(full);
+        BOOL canMove1 = [board canMove:player1];
+        XCTAssertTrue(canMove1);
+        BOOL canMove2 = [board canMove:player2];
+        XCTAssertTrue(canMove2);
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"boardFull"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
+         {
+             NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
+             
+             Piece *piece1 = [board pieceAtPositionX:5 Y:3];
+             BoardPosition *pos1 = [[BoardPosition alloc] initWithX:5 Y:3];
+             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
+             
+             Piece *piece2 = [board pieceAtPositionX:4 Y:2];
+             BoardPosition *pos2 = [[BoardPosition alloc] initWithX:4 Y:2];
+             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece2 position:pos2 color:PieceColorBlack]];
+             
+             return @[pieces];
+         }];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+        
+        XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
+        XCTAssertEqualObjects(board.piecesPlayed[@1], @3);
+        XCTAssertEqualObjects(board.piecesPlayed[@2], @3);
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"ShowLegalYes"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [board showLegalMoves:YES forPlayer:player1];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+        
+        XCTAssertEqualObjects(board.piecesPlayed[@0], @-13);
+        XCTAssertEqualObjects(board.piecesPlayed[@7], @7);
+        XCTAssertEqualObjects(board.piecesPlayed[@2], @3);
+        XCTAssertEqualObjects(board.piecesPlayed[@1], @3);
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"ShowLegalNo"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [board showLegalMoves:NO forPlayer:player1];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+        
+        XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
+        XCTAssertEqualObjects(board.piecesPlayed[@7], @0);
+        XCTAssertEqualObjects(board.piecesPlayed[@2], @3);
+        XCTAssertEqualObjects(board.piecesPlayed[@1], @3);
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"ShowLegalYes"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [board showLegalMoves:YES forPlayer:player2];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+        
+        XCTAssertEqualObjects(board.piecesPlayed[@0], @-11);
+        XCTAssertEqualObjects(board.piecesPlayed[@7], @5);
+        XCTAssertEqualObjects(board.piecesPlayed[@2], @3);
+        XCTAssertEqualObjects(board.piecesPlayed[@1], @3);
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"ShowLegalNo"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [board showLegalMoves:NO forPlayer:player2];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+        XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
+        XCTAssertEqualObjects(board.piecesPlayed[@7], @0);
+        XCTAssertEqualObjects(board.piecesPlayed[@2], @3);
+        XCTAssertEqualObjects(board.piecesPlayed[@1], @3);
+    }
+}
+
+- (void)testHumanMatch
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    
+    GameBoard *board = self.match.board;
+    
+    // Create and configure the scene.
+
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"placeMove"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        BoardPosition *pos = [BoardPosition positionWithX:3 y:2];
+        PlayerMove *move = [PlayerMove makeMoveForColor:PieceColorWhite position:pos];
+
+        [self.match placeMove:move forPlayer:self.match.currentPlayer];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"hint"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [self.match nextPlayer];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+    }
+    
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"hint"];
+        
+        board.highlightBlock = ^(BoardPosition * _Nonnull  move, PieceColor color)
+        {
+            [expectation fulfill];
+        };
+        
+        [self.match.currentPlayer hint];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+    }
+
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"beginTurn"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [self.match beginTurn];
+      
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+    }
+
+    {
+        XCTestExpectation *expectation =  [self expectationWithDescription:@"endTurn"];
+        
+        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
+        {
+            [expectation fulfill];
+        };
+        
+        [self.match endTurn];
+        
+        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        }];
+    }
+}
+
 @end

@@ -18,6 +18,14 @@
 		D509D6401CC8AA4D0028C082 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
+		D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
+		D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
+		D521BEE31E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
+		D521BEE41E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
+		D521BEE51E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
+		D521BEE61E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
+		D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
+		D521BEE81E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
 		D52C31311E40FAC700856359 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
@@ -381,6 +389,8 @@
 		D50D77931CF8E5990073D0A1 /* AIStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIStrategy.h; sourceTree = "<group>"; };
 		D50D77941CF8E5990073D0A1 /* AIStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIStrategy.m; sourceTree = "<group>"; };
 		D517EA3518385AC2009C54E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
+		D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extension.m"; sourceTree = "<group>"; };
 		D535DD501E3D03EF00AE5C1D /* FothelloTestsMac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloTestsMac.m; sourceTree = "<group>"; };
 		D535DD521E3D03EF00AE5C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53D351A1CD0928400C67EEF /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
@@ -822,6 +832,8 @@
 			children = (
 				D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */,
 				D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */,
+				D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */,
+				D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */,
 				D562F4B11CB1A320009A6273 /* json.hpp */,
 				D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */,
 				D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */,
@@ -952,6 +964,7 @@
 				D54006C31E3B295000F2D7BB /* AIStrategy.h in Headers */,
 				D54006C51E3B295000F2D7BB /* NSArray+Extensions.h in Headers */,
 				D54006C41E3B295000F2D7BB /* HumanStrategy.h in Headers */,
+				D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
 				D54006C61E3B295000F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54006C71E3B295000F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54006C81E3B295000F2D7BB /* NetworkController.h in Headers */,
@@ -976,6 +989,7 @@
 				D54007011E3BBE8D00F2D7BB /* AIStrategy.h in Headers */,
 				D54007021E3BBE8D00F2D7BB /* NSArray+Extensions.h in Headers */,
 				D54007031E3BBE8D00F2D7BB /* HumanStrategy.h in Headers */,
+				D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
 				D54007041E3BBE8D00F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54007051E3BBE8D00F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54007061E3BBE8D00F2D7BB /* NetworkController.h in Headers */,
@@ -1000,6 +1014,7 @@
 				D540072F1E3BBEC200F2D7BB /* AIStrategy.h in Headers */,
 				D54007301E3BBEC200F2D7BB /* NSArray+Extensions.h in Headers */,
 				D54007311E3BBEC200F2D7BB /* HumanStrategy.h in Headers */,
+				D521BEE31E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */,
 				D54007321E3BBEC200F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54007331E3BBEC200F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54007341E3BBEC200F2D7BB /* NetworkController.h in Headers */,
@@ -1024,6 +1039,7 @@
 				D540075D1E3BBF0000F2D7BB /* AIStrategy.h in Headers */,
 				D540075E1E3BBF0000F2D7BB /* NSArray+Extensions.h in Headers */,
 				D540075F1E3BBF0000F2D7BB /* HumanStrategy.h in Headers */,
+				D521BEE41E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */,
 				D54007601E3BBF0000F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54007611E3BBF0000F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54007621E3BBF0000F2D7BB /* NetworkController.h in Headers */,
@@ -1509,6 +1525,7 @@
 			files = (
 				D54006A71E3B232900F2D7BB /* FothelloGame.m in Sources */,
 				D54006A81E3B232900F2D7BB /* GameBoard.m in Sources */,
+				D521BEE51E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
 				D54006A91E3B232900F2D7BB /* BoardPiece.m in Sources */,
 				D54006AA1E3B232900F2D7BB /* BoardPosition.m in Sources */,
 				D54006AB1E3B232900F2D7BB /* Piece.m in Sources */,
@@ -1544,6 +1561,7 @@
 			files = (
 				D54006E21E3BBE8D00F2D7BB /* FothelloGame.m in Sources */,
 				D54006E31E3BBE8D00F2D7BB /* GameBoard.m in Sources */,
+				D521BEE61E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
 				D54006E41E3BBE8D00F2D7BB /* BoardPiece.m in Sources */,
 				D54006E51E3BBE8D00F2D7BB /* BoardPosition.m in Sources */,
 				D54006E61E3BBE8D00F2D7BB /* Piece.m in Sources */,
@@ -1570,6 +1588,7 @@
 			files = (
 				D54007101E3BBEC200F2D7BB /* FothelloGame.m in Sources */,
 				D54007111E3BBEC200F2D7BB /* GameBoard.m in Sources */,
+				D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
 				D54007121E3BBEC200F2D7BB /* BoardPiece.m in Sources */,
 				D54007131E3BBEC200F2D7BB /* BoardPosition.m in Sources */,
 				D54007141E3BBEC200F2D7BB /* Piece.m in Sources */,
@@ -1596,6 +1615,7 @@
 			files = (
 				D540073E1E3BBF0000F2D7BB /* FothelloGame.m in Sources */,
 				D540073F1E3BBF0000F2D7BB /* GameBoard.m in Sources */,
+				D521BEE81E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
 				D54007401E3BBF0000F2D7BB /* BoardPiece.m in Sources */,
 				D54007411E3BBF0000F2D7BB /* BoardPosition.m in Sources */,
 				D54007421E3BBF0000F2D7BB /* Piece.m in Sources */,
@@ -2528,6 +2548,7 @@
 				D55B70B71E481AF000C53A51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D56F0A201E3D130100DEC41A /* Build configuration list for PBXNativeTarget "FothelloLibTestsMac" */ = {
 			isa = XCConfigurationList;

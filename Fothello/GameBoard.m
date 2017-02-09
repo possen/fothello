@@ -14,6 +14,8 @@
 #import "BoardPosition.h"
 #import "PlayerMove.h"
 #import "NSArray+Extensions.h"
+#import "NSDictionary+Extensions.h"
+
 #import "NSArray+Holes.h"
 
 typedef enum Direction : NSInteger
@@ -329,11 +331,6 @@ typedef struct Delta
 
 - (void)setPieceCount:(Piece *)piece value:(NSInteger)newCount
 {
-    if ([piece isClear])
-    {
-        return;
-    }
-    
     NSMutableDictionary *piecesPlayed = [self.piecesPlayed mutableCopy];
     NSNumber *key = @(piece.color);
     piecesPlayed[key] = @(newCount);
@@ -523,10 +520,6 @@ typedef struct Delta
         for (NSInteger x = 0; x < self.size; x++)
         {
             Piece *piece = [self pieceAtPositionX:x Y:ry];
-            if (piece == nil)
-            {
-                continue;
-            }
             [boardString appendString:ascii
              ? piece.colorStringRepresentationAscii
                                      : piece.colorStringRepresentation];
@@ -540,7 +533,16 @@ typedef struct Delta
     
     if (!ascii)
     {
-        [boardString appendFormat:@"%@", self.piecesPlayed];
+       NSDictionary *dict =  [self.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj)
+         {
+             return @[[Piece stringFromColor:[key integerValue]], obj];
+         }];
+        
+        // printing the dict does not preserve dictionary key unicode characters.
+        for (NSString *dictItem in dict)
+        {
+            [boardString appendFormat:@"%@ %@\n", dictItem, dict[dictItem]];
+        }
     }
     
     return [boardString copy];

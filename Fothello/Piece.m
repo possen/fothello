@@ -67,7 +67,7 @@
     switch (color)
     {
         case PieceColorNone:
-            return @".";
+            return @"\u00B7";
         case PieceColorWhite:
             return @"\u25CB";
         case PieceColorBlack:
@@ -81,7 +81,7 @@
         case PieceColorBlue:
             return @"B";
         case PieceColorLegal:
-            return @"•";
+            return @"\u25EE";
     }
 }
 
