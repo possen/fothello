@@ -203,6 +203,9 @@
 		D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */; };
 		D5441B441831CB1100B5166A /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
 		D5441B481831CB1100B5166A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5441B471831CB1100B5166A /* Images.xcassets */; };
+		D555BF5A1E4D106C00F954D2 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D555BF551E4D0FF400F954D2 /* UtilTests.m */; };
+		D555BF5B1E4D106D00F954D2 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D555BF551E4D0FF400F954D2 /* UtilTests.m */; };
+		D555BF5C1E4D106F00F954D2 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D555BF551E4D0FF400F954D2 /* UtilTests.m */; };
 		D55B70B11E481AF000C53A51 /* FothelloLibTestsTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D55B70B01E481AF000C53A51 /* FothelloLibTestsTV.m */; };
 		D55B70B81E481DE200C53A51 /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D55B70B91E481DE200C53A51 /* FothelloAITests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloAITests.mm */; };
@@ -439,6 +442,7 @@
 		D5441B5A1831CB1100B5166A /* FothelloAITests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = FothelloAITests.mm; path = ../FothelloTests/FothelloAITests.mm; sourceTree = "<group>"; };
 		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FothelloGame.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D555BF551E4D0FF400F954D2 /* UtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilTests.m; sourceTree = "<group>"; };
 		D55A6CBE1D04BC7500B98809 /* BoardPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardPosition.m; sourceTree = "<group>"; };
 		D55A6CBF1D04BC7500B98809 /* BoardPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardPosition.h; sourceTree = "<group>"; };
 		D55B70AE1E481AF000C53A51 /* FothelloLibTestsTV.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloLibTestsTV.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -707,6 +711,7 @@
 				D5ED047B1CE983B50099A01A /* TestBoardOps.m */,
 				D5441B5A1831CB1100B5166A /* FothelloAITests.mm */,
 				D540069F1E3B22CC00F2D7BB /* Info.plist */,
+				D555BF551E4D0FF400F954D2 /* UtilTests.m */,
 			);
 			path = FothelloLibTests;
 			sourceTree = "<group>";
@@ -1550,6 +1555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D555BF5A1E4D106C00F954D2 /* UtilTests.m in Sources */,
 				D54006D81E3B2FDC00F2D7BB /* FothelloAITests.mm in Sources */,
 				D54006D91E3B2FE900F2D7BB /* TestBoardOps.m in Sources */,
 			);
@@ -1657,6 +1663,7 @@
 				D55B70B11E481AF000C53A51 /* FothelloLibTestsTV.m in Sources */,
 				D55B70B91E481DE200C53A51 /* FothelloAITests.mm in Sources */,
 				D55B70B81E481DE200C53A51 /* TestBoardOps.m in Sources */,
+				D555BF5C1E4D106F00F954D2 /* UtilTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1667,6 +1674,7 @@
 				D56F0A231E3D136900DEC41A /* TestBoardOps.m in Sources */,
 				D56F0A241E3D136900DEC41A /* FothelloAITests.mm in Sources */,
 				D56F0A1C1E3D130100DEC41A /* FothelloTests.m in Sources */,
+				D555BF5B1E4D106D00F954D2 /* UtilTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2167,6 +2175,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
@@ -2212,6 +2221,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;

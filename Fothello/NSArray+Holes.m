@@ -5,7 +5,11 @@
 //  Created by Paul Ossenbruggen on 2/15/13.
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
-// an array extension that allows unfilled in areas. 
+// an array extension that allows unfilled in areas.
+// not recommended for large collections but in thousands should be ok.
+//
+// May reimplement using NSPointerArray at somepoint. Or just use that directly.
+//
 
 #import "NSArray+Holes.h"
 

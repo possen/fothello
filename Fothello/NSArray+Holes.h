@@ -16,6 +16,7 @@
 @end
 
 @interface NSMutableArray (NSMutableArray_Holes)
+
 - (void)setObject:(id)object atCheckedIndex:(NSUInteger)index;
 
 @end
