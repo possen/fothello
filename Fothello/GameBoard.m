@@ -207,20 +207,9 @@ typedef struct Delta
      }];
 }
 
-- (void)canMove:(Player *)player canMove:(void (^)(BOOL, BOOL))canMove
-{
-    [self updateBoard:nil
-             complete:^
-     {
-         BOOL canMoverResult = [self canMove:player];
-         BOOL isFull = [self isFull];
-         canMove(canMoverResult, isFull);
-     }];
-}
-
-- (void)isLegalMove:(nonnull PlayerMove *)move
-          forPlayer:(nonnull Player *)player
-              legal:(void (^ _Nonnull)(BOOL))legal
+- (void)isLegalMove:(PlayerMove *)move
+          forPlayer:(Player *)player
+              legal:(void (^)(BOOL))legal
 {
     [self updateBoard:nil
              complete:^
