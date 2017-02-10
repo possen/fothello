@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "NSArray+Holes.h"
+#import "NSArray+Extensions.h"
 
 @interface UtilTests : XCTestCase
 
@@ -15,17 +16,8 @@
 
 @implementation UtilTests
 
-- (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testTestAccessors {
+- (void)testTestAccessors
+{
     NSMutableArray *arr = [NSMutableArray new];
     [arr setObject:@"test1" atCheckedIndex:2];
     [arr setObject:@"test2" atCheckedIndex:20];
@@ -37,7 +29,7 @@
 }
 
 
-- (void)testNullAndFlatten
+- (void)testNullAndFilteredNils
 {
     NSMutableArray *arr = [NSMutableArray new];
     [arr setObject:nil atCheckedIndex:15];
@@ -47,12 +39,39 @@
 
     XCTAssertNil([arr objectAtCheckedIndex:15]);
     XCTAssertNil([arr objectAtCheckedIndex:3]);
-    NSArray *flattened = [arr filterNSNulls];
+    NSArray *filtered = [arr filterNSNulls];
     NSArray *result = @[@"test1", @"test3", @"test2"];
-    XCTAssertEqualObjects(result, flattened);
+    XCTAssertEqualObjects(result, filtered);
 
     XCTAssertNil([arr objectAtCheckedIndex:50]);
 }
 
+- (void)testFlattened
+{
+    NSArray *arr = @[@[@"test1", @"test2"], @[@"test3", @"test4"], @[@"test5"]];
+    NSArray *flattened = [arr flatten];
+    NSArray *result = @[@"test1", @"test2", @"test3", @"test4", @"test5"];
+    XCTAssertEqualObjects(result, flattened);
+    
+    XCTAssertNil([arr objectAtCheckedIndex:50]);
+}
+
+- (void)testMap
+{
+    NSArray *arr = @[@1, @2, @3, @4, @5, @8];
+    NSArray *result = [arr mapObjectsUsingBlock:
+        ^id(id obj, NSUInteger idx)
+        {
+            return [NSString stringWithFormat:@"Mississippi %@", obj];
+        }];
+    NSArray *mapped =     @[@"Mississippi 1",
+                            @"Mississippi 2",
+                            @"Mississippi 3",
+                            @"Mississippi 4",
+                            @"Mississippi 5",
+                            @"Mississippi 8"];
+
+    XCTAssertEqualObjects(result, mapped );
+}
 
 @end

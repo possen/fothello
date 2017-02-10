@@ -142,26 +142,6 @@ typedef struct Delta
      }];
 }
 
-- (void)showBoxCoord:(NSInteger)dist
-{
-    [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-     {
-         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-         BoardPosition *center = self.center;
-         [self boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
-          {
-              NSInteger x = center.x + position.x;
-              NSInteger y = center.y + position.y;
-              Piece *piece = [self pieceAtPositionX:x Y:y];
-              
-              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-              [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:PieceColorWhite]];
-          }];
-         
-         return @[pieces];
-     }];
-}
-
 - (void)reset
 {
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *

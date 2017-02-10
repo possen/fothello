@@ -36,7 +36,6 @@ typedef void (^UpdateCompleteBlock)();
 - (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player legal:(void (^ _Nonnull)(BOOL))legal;
 - (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
-- (void)showBoxCoord:(NSInteger)dist;
 
 // non queued safe
 - (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
