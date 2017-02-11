@@ -51,7 +51,7 @@
 
 - (void)reset
 {
-    [self.match restart];
+    [self.match beginMatch];
 }
 
 - (void)updateMove:(BOOL)canMove
@@ -94,7 +94,7 @@
 
 - (IBAction)resetGame:(UIButton *)sender
 {
-    [self.match restart];
+    [self.match beginMatch];
 }
 
 - (IBAction)hint:(UIButton *)sender

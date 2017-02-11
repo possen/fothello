@@ -368,7 +368,7 @@
              return @[pieces];
          }];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
         
         XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
@@ -386,7 +386,7 @@
         
         [board showLegalMoves:YES forPlayer:player1];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
         
         XCTAssertEqualObjects(board.piecesPlayed[@0], @-13);
@@ -405,7 +405,7 @@
         
         [board showLegalMoves:NO forPlayer:player1];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
         
         XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
@@ -472,7 +472,7 @@
         
         [self.match.currentPlayer takeTurn]; //ai white
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
     
@@ -486,7 +486,7 @@
         
         [self.match nextPlayer];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
     
@@ -500,7 +500,7 @@
         
         [self.match.currentPlayer hint]; //human black
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
         
         board.highlightBlock = ^(BoardPosition * _Nonnull  move, PieceColor color)
@@ -518,7 +518,7 @@
         
         [self.match beginTurn];
       
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
 
@@ -532,7 +532,7 @@
         
         [self.match endTurn];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
    
@@ -547,7 +547,7 @@
         BoardPosition *pos = [BoardPosition positionWithX:2 y:2];
         [self.match.currentPlayer takeTurnAtPosition:pos];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
 
@@ -568,7 +568,7 @@
         
         [self.match nextPlayer];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
     
@@ -582,7 +582,7 @@
         
         [self.match.currentPlayer takeTurn]; // White AI
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
 
@@ -596,7 +596,7 @@
         
         [self.match.currentPlayer takeTurnPass];
         
-        [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
         }];
     }
 
