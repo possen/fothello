@@ -35,7 +35,7 @@
         }
 
         _sharedObject = fothello;
-    });
+    }); 
     
     return _sharedObject;
 }

@@ -44,18 +44,21 @@ typedef NS_ENUM(NSInteger, PieceColor)
 
 #pragma mark - Fothello -
 
+typedef void (^GameOverBlock)();
+
 @interface FothelloGame : NSObject <NSCoding>
 
-+ (id)sharedInstance;
++ (nonnull id)sharedInstance;
 
-@property (nonatomic) NSMutableArray <NSString *> *matchOrder;
-@property (nonatomic) NSMutableDictionary <NSString *, Match *> *matches;
-@property (nonatomic) NSMutableArray <Player *> *players;
+@property (nonnull, nonatomic) NSMutableArray <NSString *> *matchOrder;
+@property (nonnull, nonatomic) NSMutableDictionary <NSString *, Match *> *matches;
+@property (nonnull, nonatomic) NSMutableArray <Player *> *players;
+@property (nonatomic, copy, nullable) GameOverBlock gameOverBlock; // only for testing.
 
-- (Player *)newPlayerWithName:(NSString *)name
+- (nonnull Player *)newPlayerWithName:(nonnull NSString *)name
           preferredPieceColor:(PieceColor)preferredPieceColor;
 
-- (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
+- (nonnull Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
 
 @end
 

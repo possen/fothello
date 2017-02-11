@@ -25,11 +25,13 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove);
 - (nonnull instancetype)initWithName:(nonnull NSString *)name
                              players:(nonnull NSArray<Player *> *)players;
 
-- (void)restart;
+- (void)beginMatch;
+- (void)endMatch;
 - (void)reset;
 - (void)undo;
 - (void)redo;
 - (void)resetRedos;
+- (void)nextPlayerWithTime:(float)time; // in seconds
 - (void)nextPlayer;
 - (void)beginTurn;
 - (void)endTurn;
@@ -43,6 +45,7 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove);
 @property (nonatomic, copy, nullable) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy, nullable) MatchStatusBlock matchStatusBlock;
 @property (nonatomic, copy, nullable) MovesUpdateBlock movesUpdateBlock;
+
 @property (nonatomic, nonnull) NSMutableArray<PlayerMove *> *moves;
 @property (nonatomic) BOOL noMoves;
 @property (nonatomic, readonly) BOOL turnProcessing;

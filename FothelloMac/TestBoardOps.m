@@ -66,7 +66,7 @@
          Piece *peice2 = [board pieceAtPositionX:7 Y:7];
          XCTAssertEqualObjects(peice2.description, @"○");
          Piece *peice3 = [board pieceAtPositionX:3 Y:3];
-         XCTAssertEqualObjects(peice3.description, @".");
+         XCTAssertEqualObjects(peice3.description, @"·");
          return nil;
      }];
 }
@@ -142,8 +142,8 @@
 {
     FothelloGame *game = [FothelloGame sharedInstance];
     self.match = [game createMatchFromKind:PlayerKindSelectionComputerVComputer difficulty:DifficultyEasy];
-    [self.match reset]; // clear the board only.
-    [self.match restart];
+    [self.match reset]; 
+    [self.match beginMatch];
     NSLog(@"match description %@", [self.match description]);
     
     XCTAssertEqual([self.match areAllPlayersComputers], true);

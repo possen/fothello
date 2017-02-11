@@ -376,21 +376,8 @@ typedef struct Delta
 
 - (BOOL)isFull
 {
-    NSInteger total = 0;
-    
-    for (NSNumber *key in self.piecesPlayed)
-    {
-        NSInteger score = [self.piecesPlayed[key] integerValue];
-        
-        if (score == 0)
-        {
-            return YES; // all white or all black.
-        }
-        
-        total += score;
-    }
-    
-    return total >= self.size * self.size;
+    NSInteger total = [self.piecesPlayed[@0] integerValue];
+    return labs(total) >= self.size * self.size;
 }
 
 - (NSInteger)playerScore:(Player *)player

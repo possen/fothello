@@ -79,6 +79,7 @@
     self.match = match;
     
     [self reset];
+    [match beginMatch];
 }
 
 - (BOOL)allowActionToRun

@@ -158,7 +158,7 @@
     }] != NSNotFound;
 }
 
-- (void)restart
+- (void)beginMatch
 {
     self.currentPlayer = self.players[0];
 
@@ -170,14 +170,22 @@
         self.movesUpdateBlock();
     }
     
-    [self reset];
+    [self beginTurn];
+    
+    // kick off two automatic first player.
+    if (self.currentPlayer.strategy.automatic)
+    {
+        [self.currentPlayer takeTurn];
+    }
+}
+
+- (void)endMatch
+{
 }
 
 - (void)reset
 {
     [self endTurn];
-    
-    GameBoard *board = self.board;
     
     if (self.matchStatusBlock)
     {
@@ -185,8 +193,21 @@
     }
     self.noMoves = NO;
     
-    [board reset];
-    [self beginTurn];
+    [self.board reset];
+}
+
+- (void)nextPlayerWithTime:(float)time
+{
+    [self nextPlayer];
+    
+    if (self.currentPlayer.strategy.automatic)
+    {
+        // schedule time for AI Player to start turn
+        dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
+        dispatch_after(when, dispatch_get_main_queue(), ^{
+            [self.currentPlayer takeTurn];
+        });
+    } 
 }
 
 - (void)nextPlayer

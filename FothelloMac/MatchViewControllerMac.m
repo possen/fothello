@@ -84,10 +84,9 @@
     {
         self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
                                                              difficulty:difficulty];
-        
+        self.boardScene.match = self.match;
         [self reset];
     }
-
 }
 
 - (void)setMatch:(Match *)match
@@ -99,8 +98,9 @@
 
 - (void)reset
 {
-    [self.match restart];
     [self.movesController resetGame:self.match];
+    [self.match reset];
+    [self.match beginMatch];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
@@ -130,7 +130,7 @@
 
 - (IBAction)resetGame:(id)sender
 {
-    [self.match restart];
+    [self reset];
 }
 
 - (IBAction)hint:(id)sender
@@ -171,6 +171,7 @@
 
     if (theAction == @selector(hint:))
     {
+        NSLog(@"hint %d", self.match.noMoves);
         return !self.match.noMoves;
     }
     

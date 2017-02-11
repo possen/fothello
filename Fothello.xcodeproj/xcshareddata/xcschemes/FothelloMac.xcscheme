@@ -53,6 +53,16 @@
                ReferencedContainer = "container:Fothello.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D58775EF1E4D42E800A29386"
+               BuildableName = "FothelloUITestsMac.xctest"
+               BlueprintName = "FothelloUITestsMac"
+               ReferencedContainer = "container:Fothello.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

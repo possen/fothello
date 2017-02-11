@@ -80,6 +80,12 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         {
             if (gameOver)
             {
+                FothelloGame *game = [FothelloGame sharedInstance];
+                if (game.gameOverBlock)
+                {
+                    game.gameOverBlock();
+                }
+
                 [weakBlockSelf displayGameOver];
             }
             else // no means we are restarting.
@@ -149,21 +155,17 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 - (void)nextPlayer
 {
     [self.match endTurn];
-    [self.match nextPlayer];
+    [self.match nextPlayerWithTime:.5];
     [self.match beginTurn];
-    
-    if (self.match.currentPlayer.strategy.automatic)
-    {
-        // schedule time for AI Player to start turn
-        dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC);
-        dispatch_after(when, dispatch_get_main_queue(), ^{
-            [self.match.currentPlayer takeTurn];
-        });
-    } // let UI handle.
 }
 
 - (void)playerTurnComplete
 {
+    if (self.gameOverNode)
+    {
+        return;
+    }
+
     [self nextPlayer];
 }
 

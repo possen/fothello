@@ -53,6 +53,7 @@
     skView.showsNodeCount = YES;
 
     [self reset];
+    [self.match beginMatch];
 }
 
 - (void)reset
