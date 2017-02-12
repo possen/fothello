@@ -100,9 +100,7 @@
     player.color = PieceColorWhite;
 
     [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
-     {
-         XCTAssertTrue([board canMove:player]);
-         
+     {         
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          
          Piece *piece1 = [board pieceAtPositionX:5 Y:3];
@@ -130,7 +128,7 @@
         Piece *peice3 = [board pieceAtPositionX:5 Y:3];
         XCTAssertEqualObjects(peice3.description, @"○");
         
-        NSInteger score = [board playerScore:player];
+        NSInteger score = [board playerScoreUnqueued:player];
         XCTAssertEqual(score, 2);
         return nil;
     }];

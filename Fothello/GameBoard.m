@@ -375,32 +375,47 @@ typedef struct Delta
     NSLog(@"}");
 }
 
+- (BOOL)isFullUnqueud
+{
+    NSInteger total = [self.piecesPlayed[@0] integerValue];
+    return labs(total) >= self.size * self.size;
+}
+
 - (BOOL)isFull
 {
     __block BOOL result = NO;
     dispatch_sync(self.queue,^{
-        NSInteger total = [self.piecesPlayed[@0] integerValue];
-        result = labs(total) >= self.size * self.size;
+        result = [self isFullUnqueud];
     });
     return result;
+}
+
+- (NSInteger)playerScoreUnqueued:(Player *)player
+{
+    NSNumber *key = @(player.color);
+    return [self.piecesPlayed[key] integerValue];
 }
 
 - (NSInteger)playerScore:(Player *)player
 {
     __block BOOL result = NO;
     dispatch_sync(self.queue,^{
-        NSNumber *key = @(player.color);
-        result = [self.piecesPlayed[key] integerValue];
+        result = [self playerScoreUnqueued:player];
     });
     return result;
+}
+
+- (BOOL)canMoveUnqueued:(Player *)player
+{
+    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
+    return  moves.count != 0;
 }
 
 - (BOOL)canMove:(Player *)player
 {
     __block BOOL result = NO;
     dispatch_sync(self.queue,^{
-        NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
-        result =  moves.count != 0;
+        result = [self canMoveUnqueued:player];
     });
     
     return result;

@@ -27,3 +27,7 @@ FOUNDATION_EXPORT const unsigned char FothelloLibVersionString[];
 #import <FothelloLib/Strategy.h>
 #import <FothelloLib/AIStrategy.h>
 #import <FothelloLib/HumanStrategy.h>
+#import <FothelloLib/NSArray+Extensions.h>
+#import <FothelloLib/NSArray+Holes.h>
+#import <FothelloLib/NSDictionary+Extensions.h>
+

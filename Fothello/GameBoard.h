@@ -42,6 +42,7 @@ typedef void (^UpdateCompleteBlock)();
 - (void)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (BOOL)isFull;
 - (BOOL)canMove:(nonnull Player *)player;
+- (NSInteger)playerScore:(nonnull Player *)player;
 
 // updates or reads board on queue, if nothing to update return @[];
 - (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction
@@ -53,8 +54,10 @@ typedef void (^UpdateCompleteBlock)();
 - (void)boxCoord:(NSInteger)dist
            block:(nonnull void (^)(BoardPosition * _Nonnull position, BOOL isCorner, NSInteger count, BOOL * _Nullable stop))block;
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
-- (NSInteger)playerScore:(nonnull Player *)player;
+- (NSInteger)playerScoreUnqueued:(nonnull Player *)player;
 - (void)visitAllUnqueued:(nonnull void (^)(NSInteger x, NSInteger y, Piece *_Nonnull piece))block;
+- (BOOL)isFullUnqueud;
+- (BOOL)canMoveUnqueued:(nonnull Player *)player;
 
 @property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSInteger size;
