@@ -228,7 +228,7 @@
 
     NSLog(@"Board  %@ ", self.board );
     
-    if ((!prevPlayerCouldMove  && !currentPlayerCanMove) || isFull)
+    if ( !(prevPlayerCouldMove  || currentPlayerCanMove) || isFull)
     {
         self.matchStatusBlock(YES);
         self.noMoves = YES;

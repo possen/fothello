@@ -119,6 +119,7 @@ typedef struct Delta
            [self updateBoardWithPieces:pieces];
            [self.legalMovesForPlayer setObject:[self legalMovesForPlayerColor:PieceColorBlack] atCheckedIndex:PieceColorBlack - 1];
            [self.legalMovesForPlayer setObject:[self legalMovesForPlayerColor:PieceColorWhite] atCheckedIndex:PieceColorWhite - 1];
+           NSLog(@"%@", self.legalMovesForPlayer);
        }
        
        if (updateComplete != nil)
@@ -376,20 +377,33 @@ typedef struct Delta
 
 - (BOOL)isFull
 {
-    NSInteger total = [self.piecesPlayed[@0] integerValue];
-    return labs(total) >= self.size * self.size;
+    __block BOOL result = NO;
+    dispatch_sync(self.queue,^{
+        NSInteger total = [self.piecesPlayed[@0] integerValue];
+        result = labs(total) >= self.size * self.size;
+    });
+    return result;
 }
 
 - (NSInteger)playerScore:(Player *)player
 {
-    NSNumber *key = @(player.color);
-    return [self.piecesPlayed[key] integerValue];
+    __block BOOL result = NO;
+    dispatch_sync(self.queue,^{
+        NSNumber *key = @(player.color);
+        result = [self.piecesPlayed[key] integerValue];
+    });
+    return result;
 }
 
 - (BOOL)canMove:(Player *)player
 {
-    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
-    return moves != nil;
+    __block BOOL result = NO;
+    dispatch_sync(self.queue,^{
+        NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
+        result =  moves.count != 0;
+    });
+    
+    return result;
 }
 
 - (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color

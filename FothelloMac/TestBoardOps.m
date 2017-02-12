@@ -9,8 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <FothelloLib/FothelloLib.h>
 
-#import "NSArray+Extensions.h"
-
 @interface TestBoardOps : XCTestCase
 @property (nonatomic) Match *match;
 @property (nonatomic) GameBoard *board;
@@ -214,8 +212,7 @@
     };
     [board reset];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
-    }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 }
 
 - (void)testReset
@@ -313,8 +310,7 @@
         return @[pieces];
     }];
     
-    [self waitForExpectationsWithTimeout:5.0 handler:^(NSError * error) {
-    }];
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
 
     {
         BOOL full = [board isFull];
@@ -368,7 +364,7 @@
              return @[pieces];
          }];
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:30.0 handler:^(NSError * error) {
         }];
         
         XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
@@ -386,7 +382,7 @@
         
         [board showLegalMoves:YES forPlayer:player1];
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:30.0 handler:^(NSError * error) {
         }];
         
         XCTAssertEqualObjects(board.piecesPlayed[@0], @-13);
@@ -405,7 +401,7 @@
         
         [board showLegalMoves:NO forPlayer:player1];
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
+        [self waitForExpectationsWithTimeout:30.0 handler:^(NSError * error) {
         }];
         
         XCTAssertEqualObjects(board.piecesPlayed[@0], @-6);
@@ -459,7 +455,6 @@
     
     GameBoard *board = self.match.board;
 
-
     // Create and configure the scene.
 
     {
@@ -472,38 +467,29 @@
         
         [self.match.currentPlayer takeTurn]; //ai white
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
-    
+
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
     {
-        XCTestExpectation *expectation =  [self expectationWithDescription:@"nextPlayer"];
-        
-        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
-        {
-            [expectation fulfill];
-        };
-        
-        [self.match nextPlayer];
-        
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
-    }
+        // clear out previous block.
+    };
+
+    [self.match nextPlayer];
     
     {
         XCTestExpectation *expectation =  [self expectationWithDescription:@"hint"];
         
-        board.highlightBlock = ^(BoardPosition * _Nonnull  move, PieceColor color)
+        board.highlightBlock = ^(BoardPosition *move, PieceColor color)
         {
             [expectation fulfill];
         };
         
         [self.match.currentPlayer hint]; //human black
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
         
-        board.highlightBlock = ^(BoardPosition * _Nonnull  move, PieceColor color)
+        board.highlightBlock = ^(BoardPosition *move, PieceColor color)
         {
         };
     }
@@ -518,8 +504,7 @@
         
         [self.match beginTurn];
       
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
 
     {
@@ -532,8 +517,7 @@
         
         [self.match endTurn];
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
    
     {
@@ -547,59 +531,41 @@
         BoardPosition *pos = [BoardPosition positionWithX:2 y:2];
         [self.match.currentPlayer takeTurnAtPosition:pos];
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
 
+    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
     {
-        XCTestExpectation *expectation =  [self expectationWithDescription:@"nextPlayer"];
-
-        __block BOOL gameFinished = NO;
-        self.match.matchStatusBlock = ^(BOOL gameOver)
-        {
-            gameFinished = gameOver;
-            [expectation fulfill];
-        };
-
-        board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
-        {
-            // clear out previous block.
-        };
-        
-        [self.match nextPlayer];
-        
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
-    }
+        // clear out previous block.
+    };
+    
+    [self.match nextPlayer];
     
     {
         XCTestExpectation *expectation =  [self expectationWithDescription:@"takeTurn"];
         
-        board.highlightBlock = ^(BoardPosition *  move, PieceColor color)
+        board.highlightBlock = ^(BoardPosition *move, PieceColor color)
         {
             [expectation fulfill];
         };
         
         [self.match.currentPlayer takeTurn]; // White AI
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
 
     {
         XCTestExpectation *expectation =  [self expectationWithDescription:@"takeTurnPass"];
         
-        board.highlightBlock = ^(BoardPosition * _Nonnull  move, PieceColor color)
+        board.highlightBlock = ^(BoardPosition *move, PieceColor color)
         {
             [expectation fulfill];
         };
         
         [self.match.currentPlayer takeTurnPass];
         
-        [self waitForExpectationsWithTimeout:10.0 handler:^(NSError * error) {
-        }];
+        [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
-
 }
 
 @end

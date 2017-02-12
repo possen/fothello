@@ -18,10 +18,10 @@
 		D509D6401CC8AA4D0028C082 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
 		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
-		D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
-		D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
-		D521BEE31E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
-		D521BEE41E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; };
+		D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D521BEE31E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D521BEE41E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D521BEE51E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D521BEE61E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
@@ -69,11 +69,11 @@
 		D54006C21E3B295000F2D7BB /* Strategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5EECCD7183B5152005D5507 /* Strategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54006C31E3B295000F2D7BB /* AIStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D77931CF8E5990073D0A1 /* AIStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54006C41E3B295000F2D7BB /* HumanStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D778F1CF8E5160073D0A1 /* HumanStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D54006C51E3B295000F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; };
+		D54006C51E3B295000F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54006C61E3B295000F2D7BB /* RESTNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A151CB4062B00DE26FB /* RESTNetworkRequest.h */; };
 		D54006C71E3B295000F2D7BB /* FothelloNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A181CB4C86500DE26FB /* FothelloNetworkRequest.h */; };
 		D54006C81E3B295000F2D7BB /* NetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A121CB4039400DE26FB /* NetworkController.h */; };
-		D54006C91E3B295000F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; };
+		D54006C91E3B295000F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54006D71E3B2BEA00F2D7BB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54006D61E3B2BEA00F2D7BB /* XCTest.framework */; };
 		D54006D81E3B2FDC00F2D7BB /* FothelloAITests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloAITests.mm */; };
 		D54006D91E3B2FE900F2D7BB /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
@@ -108,12 +108,12 @@
 		D54006FF1E3BBE8D00F2D7BB /* Match.h in Headers */ = {isa = PBXBuildFile; fileRef = D562F4A81CB0E935009A6273 /* Match.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007001E3BBE8D00F2D7BB /* Strategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5EECCD7183B5152005D5507 /* Strategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007011E3BBE8D00F2D7BB /* AIStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D77931CF8E5990073D0A1 /* AIStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D54007021E3BBE8D00F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; };
+		D54007021E3BBE8D00F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007031E3BBE8D00F2D7BB /* HumanStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D778F1CF8E5160073D0A1 /* HumanStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007041E3BBE8D00F2D7BB /* RESTNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A151CB4062B00DE26FB /* RESTNetworkRequest.h */; };
 		D54007051E3BBE8D00F2D7BB /* FothelloNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A181CB4C86500DE26FB /* FothelloNetworkRequest.h */; };
 		D54007061E3BBE8D00F2D7BB /* NetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A121CB4039400DE26FB /* NetworkController.h */; };
-		D54007071E3BBE8D00F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; };
+		D54007071E3BBE8D00F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007101E3BBEC200F2D7BB /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D54007111E3BBEC200F2D7BB /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
 		D54007121E3BBEC200F2D7BB /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
@@ -144,12 +144,12 @@
 		D540072D1E3BBEC200F2D7BB /* Match.h in Headers */ = {isa = PBXBuildFile; fileRef = D562F4A81CB0E935009A6273 /* Match.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540072E1E3BBEC200F2D7BB /* Strategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5EECCD7183B5152005D5507 /* Strategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540072F1E3BBEC200F2D7BB /* AIStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D77931CF8E5990073D0A1 /* AIStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D54007301E3BBEC200F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; };
+		D54007301E3BBEC200F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007311E3BBEC200F2D7BB /* HumanStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D778F1CF8E5160073D0A1 /* HumanStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007321E3BBEC200F2D7BB /* RESTNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A151CB4062B00DE26FB /* RESTNetworkRequest.h */; };
 		D54007331E3BBEC200F2D7BB /* FothelloNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A181CB4C86500DE26FB /* FothelloNetworkRequest.h */; };
 		D54007341E3BBEC200F2D7BB /* NetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A121CB4039400DE26FB /* NetworkController.h */; };
-		D54007351E3BBEC200F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; };
+		D54007351E3BBEC200F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540073E1E3BBF0000F2D7BB /* FothelloGame.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B651831CB2800B5166A /* FothelloGame.m */; };
 		D540073F1E3BBF0000F2D7BB /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4AC1CB0E9E2009A6273 /* GameBoard.m */; };
 		D54007401E3BBF0000F2D7BB /* BoardPiece.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77871CF8E0F40073D0A1 /* BoardPiece.m */; };
@@ -180,12 +180,12 @@
 		D540075B1E3BBF0000F2D7BB /* Match.h in Headers */ = {isa = PBXBuildFile; fileRef = D562F4A81CB0E935009A6273 /* Match.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540075C1E3BBF0000F2D7BB /* Strategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D5EECCD7183B5152005D5507 /* Strategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540075D1E3BBF0000F2D7BB /* AIStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D77931CF8E5990073D0A1 /* AIStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D540075E1E3BBF0000F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; };
+		D540075E1E3BBF0000F2D7BB /* NSArray+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540075F1E3BBF0000F2D7BB /* HumanStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = D50D778F1CF8E5160073D0A1 /* HumanStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D54007601E3BBF0000F2D7BB /* RESTNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A151CB4062B00DE26FB /* RESTNetworkRequest.h */; };
 		D54007611E3BBF0000F2D7BB /* FothelloNetworkRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A181CB4C86500DE26FB /* FothelloNetworkRequest.h */; };
 		D54007621E3BBF0000F2D7BB /* NetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = D5A97A121CB4039400DE26FB /* NetworkController.h */; };
-		D54007631E3BBF0000F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; };
+		D54007631E3BBF0000F2D7BB /* NSArray+Holes.h in Headers */ = {isa = PBXBuildFile; fileRef = D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D540076A1E3BC0D100F2D7BB /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54006901E3B22CB00F2D7BB /* FothelloLib.framework */; };
 		D540076B1E3BC0D100F2D7BB /* FothelloLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D54006901E3B22CB00F2D7BB /* FothelloLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D540076F1E3BC0E200F2D7BB /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D540070C1E3BBE8D00F2D7BB /* FothelloLib.framework */; };
@@ -2691,6 +2691,7 @@
 				D58775F91E4D42E800A29386 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D5F568171D111C6300998C14 /* Build configuration list for PBXNativeTarget "FothelloWatch Extension" */ = {
 			isa = XCConfigurationList;
