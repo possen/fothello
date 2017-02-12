@@ -60,12 +60,15 @@
 - (void)makeMoveForPlayer:(Player *)player
 {
     self.turnProcessing = YES;
-    dispatch_async(self.match.board.queue, ^
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^
     {
         PlayerMove *move = [self calculateMoveForPlayer:player difficulty:self.difficulty];
-        [super makeMove:move forPlayer:player];
-        [self.match placeMove:move forPlayer:player];
-        self.turnProcessing = NO;
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            [super makeMove:move forPlayer:player];
+            [self.match placeMove:move forPlayer:player];
+            self.turnProcessing = NO;
+        });
     });
 }
 

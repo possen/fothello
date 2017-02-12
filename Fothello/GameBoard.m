@@ -545,7 +545,13 @@ typedef struct Delta
 
 - (NSString *)requestFormat
 {
-    return [self convertToString:YES reverse:NO];
+    __block NSString *result = nil;
+    
+    dispatch_sync(self.queue, ^
+    {
+        result = [self convertToString:YES reverse:NO];
+    });
+    return result;
 }
 
 - (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece

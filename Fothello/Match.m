@@ -230,8 +230,12 @@
     
     if ( !(prevPlayerCouldMove  || currentPlayerCanMove) || isFull)
     {
-        self.matchStatusBlock(YES);
-        self.noMoves = YES;
+        NSLog(@"no moves");
+        if (!self.noMoves)
+        {
+            self.matchStatusBlock(YES);
+            self.noMoves = YES;
+        }
     }
 }
 

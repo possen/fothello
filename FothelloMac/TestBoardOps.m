@@ -158,8 +158,10 @@
     {
         if (!gameFinished)
         {
-            [weakSelf.match nextPlayer];
-            [weakSelf.match.currentPlayer takeTurn];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.match nextPlayer];
+                [weakSelf.match.currentPlayer takeTurn];
+            });
         }
     };
     
