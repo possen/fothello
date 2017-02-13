@@ -212,11 +212,11 @@
 		D56AAD271D13C9EA00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D56AAD281D13C9EB00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
-		D56F0A1C1E3D130100DEC41A /* FothelloTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D56F0A1B1E3D130100DEC41A /* FothelloTests.m */; };
 		D56F0A231E3D136900DEC41A /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D56F0A241E3D136900DEC41A /* FothelloAITests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloAITests.mm */; };
 		D56F0A261E3D485700DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54006901E3B22CB00F2D7BB /* FothelloLib.framework */; };
 		D56F0A271E3D486000DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D540070C1E3BBE8D00F2D7BB /* FothelloLib.framework */; };
+		D5718A0D1E517B4900623E0A /* FothelloTestsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D535DD501E3D03EF00AE5C1D /* FothelloTestsMac.m */; };
 		D58775F31E4D42E800A29386 /* FothelloUITestsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D58775F21E4D42E800A29386 /* FothelloUITestsMac.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
@@ -472,8 +472,6 @@
 		D562F4AC1CB0E9E2009A6273 /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameBoard.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D562F4B11CB1A320009A6273 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		D56F0A191E3D130000DEC41A /* FothelloLibTestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloLibTestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D56F0A1B1E3D130100DEC41A /* FothelloTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloTests.m; sourceTree = "<group>"; };
-		D56F0A1D1E3D130100DEC41A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D58775F01E4D42E800A29386 /* FothelloUITestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloUITestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58775F21E4D42E800A29386 /* FothelloUITestsMac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloUITestsMac.m; sourceTree = "<group>"; };
 		D58775F41E4D42E800A29386 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -760,7 +758,6 @@
 				D54006911E3B22CB00F2D7BB /* FothelloLib */,
 				D540069C1E3B22CC00F2D7BB /* FothelloLibTests */,
 				D535DD4F1E3D03EF00AE5C1D /* FothelloTestsMac */,
-				D56F0A1A1E3D130100DEC41A /* FothelloTests */,
 				D55B70AF1E481AF000C53A51 /* FothelloLibTestsTV */,
 				D58775F11E4D42E800A29386 /* FothelloUITestsMac */,
 				D5C2498F1E51605E009D8267 /* FothelloUITestsIOS */,
@@ -884,15 +881,6 @@
 				D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */,
 			);
 			name = Utility;
-			sourceTree = "<group>";
-		};
-		D56F0A1A1E3D130100DEC41A /* FothelloTests */ = {
-			isa = PBXGroup;
-			children = (
-				D56F0A1B1E3D130100DEC41A /* FothelloTests.m */,
-				D56F0A1D1E3D130100DEC41A /* Info.plist */,
-			);
-			path = FothelloTests;
 			sourceTree = "<group>";
 		};
 		D58775F11E4D42E800A29386 /* FothelloUITestsMac */ = {
@@ -1795,8 +1783,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D56F0A231E3D136900DEC41A /* TestBoardOps.m in Sources */,
+				D5718A0D1E517B4900623E0A /* FothelloTestsMac.m in Sources */,
 				D56F0A241E3D136900DEC41A /* FothelloAITests.mm in Sources */,
-				D56F0A1C1E3D130100DEC41A /* FothelloTests.m in Sources */,
 				D555BF5B1E4D106D00F954D2 /* UtilTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

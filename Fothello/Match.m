@@ -143,7 +143,7 @@
     
     if (self.currentPlayerBlock)
     {
-        BOOL canMove = [self.board canMove:self.currentPlayer];
+        BOOL canMove = [self.board canMoveUnqueued:self.currentPlayer];
         self.currentPlayerBlock(self.currentPlayer, canMove);
     }
 

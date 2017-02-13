@@ -70,8 +70,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
             {
                 weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
             }
-        });
-        [self playerTurnComplete];
+            [self playerTurnComplete];
+       });
     };
 
     match.matchStatusBlock = ^(BOOL gameOver)

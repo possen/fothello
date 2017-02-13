@@ -94,7 +94,7 @@
 
 - (IBAction)resetGame:(UIButton *)sender
 {
-    [self.match beginMatch];
+    [self reset];
 }
 
 - (IBAction)hint:(UIButton *)sender
