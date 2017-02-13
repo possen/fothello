@@ -51,6 +51,7 @@
 
 - (void)reset
 {
+    [self.match reset];
     [self.match beginMatch];
 }
 
@@ -79,7 +80,6 @@
     self.match = match;
     
     [self reset];
-    [match beginMatch];
 }
 
 - (BOOL)allowActionToRun
