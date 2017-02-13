@@ -7,8 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "FothelloGame.h"
-#import "Match.h"
+#import <FothelloLib/FothelloLib.h>
 
 @interface FothelloUITests : XCTestCase
 
@@ -36,10 +35,7 @@
     XCUIApplication *app = [[XCUIApplication alloc] init];
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
-    [self expectationForPredicate:
-     [NSPredicate predicateWithFormat:@"isEnabled == false"]
-                 evaluatedWithObject:app.menuItems[@"Hint"]
-                          handler:nil ];
+    XCUIElement *item = app.menuItems[@"Hint"];
 
     [menuBarsQuery.menuBarItems[@"File"] click];
     [menuBarsQuery.menuItems[@"New Game..."] click];
@@ -51,9 +47,15 @@
     [sheetsQuery.buttons[@"Start"] click];
     [menuBarsQuery.menuBarItems[@"Game"] click];
     
+    [self expectationForPredicate:
+     [NSPredicate predicateWithBlock:^BOOL(XCUIElement *evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+        return !evaluatedObject.isEnabled;
+    }]
+              evaluatedWithObject:app.menuItems[@"Hint"]
+                          handler:nil ];
+    
     [self waitForExpectationsWithTimeout:960 handler:nil];
-//    XCUIElement *item = app.menuItems[@"Hint"];
-//    XCTAssertFalse(item.isEnabled);
+    XCTAssertFalse(item.isEnabled);
 }
 
 @end

@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class MatchViewControllerMac;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-
-
 @end
 

@@ -156,12 +156,12 @@
                                                 <action selector="pass:" target="Ady-hI-5gd" id="COd-IK-Nb8"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Hint" keyEquivalent="H" id="ybI-Kj-FaP">
+                                        <menuItem isSeparatorItem="YES" id="0FU-jC-UlK"/>
+                                        <menuItem title="Hint" keyEquivalent="H" id="ybI-Kj-FaP" userLabel="Hide">
                                             <connections>
                                                 <action selector="hint:" target="Ady-hI-5gd" id="S4P-ap-ibg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="0FU-jC-UlK"/>
                                         <menuItem title="Reset" keyEquivalent="R" id="cmt-tt-ZbJ">
                                             <connections>
                                                 <action selector="resetGame:" target="Ady-hI-5gd" id="qLZ-VQ-Rsw"/>
@@ -226,8 +226,13 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
+                    <connections>
+                        <outlet property="hideMenuItem" destination="ybI-Kj-FaP" id="54a-ix-f1s"/>
+                    </connections>
+                </customObject>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="3uR-i1-wKV"/>
             </objects>
             <point key="canvasLocation" x="53.5" y="-135"/>
         </scene>

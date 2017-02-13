@@ -7,15 +7,27 @@
 //
 
 #import "AppDelegate.h"
+#import <FothelloLib/FothelloLib.h>
 
-@interface AppDelegate ()
-
+@interface AppDelegate () <NSMenuDelegate>
+@property (weak) IBOutlet NSMenuItem *hideMenuItem;
+@property (nonatomic) BOOL updateMenu;
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+
+    FothelloGame *game = [FothelloGame sharedInstance];
+    NSMenu *menu = [[NSApplication sharedApplication] mainMenu];
+
+    game.gameOverBlock = ^
+    {
+        self.hideMenuItem.enabled = NO;
+
+        // this should do the trick but it seems it needs the enabled above.
+        [menu update];
+    };
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

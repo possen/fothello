@@ -12,6 +12,7 @@
 #import "NewGameViewController.h"
 #import "MovesViewController.h"
 #import "BoardScene.h"
+#import "AppDelegate.h"
 
 @interface MatchViewControllerMac () <DismissDelegate>
 @property (nonatomic) BoardScene *boardScene;
@@ -19,6 +20,7 @@
 @property (nonatomic) IBOutlet SKView *mainView;
 @property (nonatomic) IBOutlet MovesViewController *movesController;
 @property (nonatomic) BOOL canMove;
+
 @end
 
 @implementation MatchViewControllerMac
@@ -31,7 +33,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     FothelloGame *game = [FothelloGame sharedInstance];
     
     NSAssert(game.matches.count != 0, @"matches empty");
@@ -44,7 +46,6 @@
                                                    match:self.match];
     
     //    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
-    scene.match = self.match;
     self.boardScene = scene;
   
     __weak typeof(self) weakSelf = self;
@@ -61,6 +62,9 @@
     // Present the scene.
     [skView presentScene:scene];
     
+    // do this after setting up scene otherwise we get an error sometimes modifiying an array while iterating.
+    scene.match = self.match;
+
     [self reset];
 }
 

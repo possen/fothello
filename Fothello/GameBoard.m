@@ -119,7 +119,7 @@ typedef struct Delta
            [self updateBoardWithPieces:pieces];
            [self.legalMovesForPlayer setObject:[self legalMovesForPlayerColor:PieceColorBlack] atCheckedIndex:PieceColorBlack - 1];
            [self.legalMovesForPlayer setObject:[self legalMovesForPlayerColor:PieceColorWhite] atCheckedIndex:PieceColorWhite - 1];
-           NSLog(@"%@", self.legalMovesForPlayer);
+//           NSLog(@"%@", self.legalMovesForPlayer);
        }
        
        if (updateComplete != nil)
