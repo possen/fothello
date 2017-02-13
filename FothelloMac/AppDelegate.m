@@ -11,7 +11,6 @@
 
 @interface AppDelegate () <NSMenuDelegate>
 @property (weak) IBOutlet NSMenuItem *hideMenuItem;
-@property (nonatomic) BOOL updateMenu;
 @end
 
 @implementation AppDelegate
@@ -21,6 +20,7 @@
     FothelloGame *game = [FothelloGame sharedInstance];
     NSMenu *menu = [[NSApplication sharedApplication] mainMenu];
 
+    // UI tests dont work if we don't do this, menu is not updating. x
     game.gameOverBlock = ^
     {
         self.hideMenuItem.enabled = NO;

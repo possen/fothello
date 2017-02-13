@@ -398,7 +398,7 @@ typedef struct Delta
 
 - (NSInteger)playerScore:(Player *)player
 {
-    __block BOOL result = NO;
+    __block NSInteger result = 0;
     dispatch_sync(self.queue,^{
         result = [self playerScoreUnqueued:player];
     });
