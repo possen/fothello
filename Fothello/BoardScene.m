@@ -136,8 +136,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     /* Called when a touch begins */
     CGRect boardRect = self.boardRect;
-    NSInteger boardSize = self.boardSize;
-    NSInteger spacing = self.boardDimensions / self.boardSize;
+    CGFloat boardSize = self.boardSize;
+    CGFloat spacing = self.boardDimensions / self.boardSize;
     
     CGFloat x = (rawx - boardRect.origin.x) / spacing;
     CGFloat y = (rawy - boardRect.origin.y) / spacing;
@@ -267,7 +267,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     self.backgroundColor = [SKColor colorWithRed:.0 green:.70 blue:0.3 alpha:1.0];
     
     CGRect boardRect = self.boardRect;
-    NSInteger boardDimensions = self.boardDimensions;
+    CGFloat boardDimensions = self.boardDimensions;
     SKShapeNode *boardUI = [SKShapeNode node];
     
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
@@ -277,8 +277,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
                                                boardRect.size.width,
                                                boardRect.size.height));
     
-    NSInteger spacing = boardDimensions / _boardSize;
-    for (NSInteger lines = 0; lines < boardDimensions; lines += spacing)
+    CGFloat spacing = boardDimensions / _boardSize;
+    for (CGFloat lines = 0; lines < boardDimensions; lines += spacing)
     {
         CGPathMoveToPoint(pathToDraw, NULL,
                           boardRect.origin.x,
@@ -367,7 +367,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 - (SKNode *)makeDotAtPosition:(CGPoint)position
 {
     SKShapeNode *dotSprite = [[SKShapeNode alloc] init];
-    NSInteger size = 5;
+    CGFloat size = 5;
     CGMutablePathRef myPath = CGPathCreateMutable();
     CGRect rect = CGRectMake(0, 0, size, size);
     CGPathAddEllipseInRect(myPath, NULL, rect);
@@ -432,7 +432,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     
     SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
     scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match.board playerScore:player]];
-    NSInteger homePos = self.boardDimensions / 2;
+    CGFloat homePos = self.boardDimensions / 2;
  
      SKAction *action = [SKAction moveTo:CGPointMake(homePos, 100) duration:0];
     [self.currentPlayerSprite runAction:[SKAction sequence:@[action]]];
@@ -455,8 +455,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 
 - (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
 {
-    NSInteger boardSize = self.boardSize;
-    NSInteger spacing = self.boardDimensions / boardSize;
+    CGFloat boardSize = self.boardSize;
+    CGFloat spacing = self.boardDimensions / boardSize;
     CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
     if (sizeSmall)
     {
@@ -468,8 +468,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 - (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall
 {
     CGRect boardRect = self.boardRect;
-    NSInteger boardSize = self.boardSize;
-    NSInteger spacing = self.boardDimensions / boardSize;
+    CGFloat boardSize = self.boardSize;
+    CGFloat spacing = self.boardDimensions / boardSize;
     CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:sizeSmall];
     
     return CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
