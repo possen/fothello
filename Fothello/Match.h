@@ -18,7 +18,7 @@
 
 typedef void (^MatchStatusBlock)(BOOL gameOver);
 typedef void (^MovesUpdateBlock)();
-typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove);
+typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL pass);
 
 @interface Match : NSObject <NSCoding>
 

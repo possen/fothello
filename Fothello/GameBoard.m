@@ -212,11 +212,15 @@ typedef struct Delta
 
 - (void)showLegalMoves:(BOOL)display forPlayer:(Player *)player
 {
+    NSLog(@"showLegalMoves");
+
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          if (display)
          {
              NSArray<BoardPiece *> *pieces = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
+             NSLog(@"exiting updateBoard");
+
              return pieces ? @[pieces] : nil;
          }
          else
@@ -234,7 +238,8 @@ typedef struct Delta
               {
                   piece.color = PieceColorNone;
               }];
-             
+             NSLog(@"exiting updateBoard");
+
              return pieces ? @[pieces] : nil;
          }
      }];

@@ -44,6 +44,7 @@
     
     if ([move isPass])
     {
+        [self.match placeMove:move forPlayer:player];
         return;
     }
 
