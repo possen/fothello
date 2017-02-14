@@ -52,7 +52,7 @@
         return !evaluatedObject.isEnabled;
     }]
               evaluatedWithObject:app.menuItems[@"Hint"]
-                          handler:nil ];
+                          handler:nil];
     
     [self waitForExpectationsWithTimeout:960 handler:nil];
     XCTAssertFalse(item.isEnabled);

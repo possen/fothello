@@ -205,12 +205,14 @@ static NSString *kMainFont = @"AvenirNext-Medium";
          }];
     }];
     
-    [myLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
-                        [SKAction sequence:@[action, action2]] count:5],
-                                            runAction]]];
+    self.gameOverNode = myLabel;
+
     [self addChild:myLabel];
     
-    self.gameOverNode = myLabel;
+    [myLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
+                                             [SKAction sequence:@[action, action2]] count:5],
+                                            runAction]]];
+   
     
     [self.boardUI runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
     
