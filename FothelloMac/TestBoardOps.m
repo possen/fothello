@@ -509,8 +509,6 @@
             [expectation fulfill];
         };
 
-        XCTAssertEqualObjects([self.match.currentPlayer.strategy className], @"HumanStrategy");
-
         [self.match beginTurn];
       
         [self waitForExpectationsWithTimeout:30.0 handler:nil];

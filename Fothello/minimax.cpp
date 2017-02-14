@@ -68,7 +68,6 @@ float evaluateEndGame(char selfPieces, char oppPieces);
 float evaluateBoard(char *a, char forWhom, char whoseTurn, char prevmaxDOF,
                     char prevminDOF, char selfPieces, char oppPieces);
 
-void printBoardArray(char *a);
 int strongEndGameSolve(char depth, char color, char selfPieces, char oppPieces,
                        char prevNotPass, float alpha, float beta);
 
@@ -616,8 +615,7 @@ float evaluateEndGame(char selfPieces, char oppPieces) {
 float evaluateBoard(char *a, char forWhom, char whoseTurn, char prevmaxDOF, 
                     char prevminDOF, char selfPieces, char oppPieces) {
   if(DEBUG_MINIMAX) {
-    printBoardArray(a);
-    printf("Depth: %d, eval. value: %e\n", selfPieces+oppPieces-base-4, 
+    printf("Depth: %d, eval. value: %e\n", selfPieces+oppPieces-base-4,
             (float)(selfPieces-oppPieces));
     return selfPieces - oppPieces;
   }
@@ -647,26 +645,6 @@ float evaluateBoard(char *a, char forWhom, char whoseTurn, char prevmaxDOF,
   result += (((a[56]+1) % 3 - mean) * sign) * ESTIMATED_CORNER_WORTH;
   result += (((a[63]+1) % 3 - mean) * sign) * ESTIMATED_CORNER_WORTH;
   return result;
-}
-
-/* Print out the board array -- for debugging purpose */
-void printBoardArray(char *a) {
-  char place;
-  printf("\n   0 1 2 3 4 5 6 7\n");
-  for(char y=0; y<8; y++) {
-    printf("%d  ", y);
-    for(char x=0; x<8; x++) {
-      place = CONV_21(x, y);
-      if(a[place] == BLACK)
-        printf("X ");
-      else if(a[place] == WHITE)
-        printf("O ");
-      else
-        printf(". ");
-    }
-    printf("\n");
-  }
-  printf("\n");
 }
 
 /* Uses Andersson's complicated end of game solver 
