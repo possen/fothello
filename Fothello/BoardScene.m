@@ -308,13 +308,13 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     self.boardUI = boardUI;
     
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
-    [self addChild:myLabel];
 
     myLabel.text = @"Fothello";
     myLabel.fontSize = 30;
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                    boardRect.origin.y
                                    + boardRect.size.height + 20 );
+    [self addChild:myLabel];
 
     SKAction *action = [SKAction fadeAlphaTo:0 duration:2];
     [myLabel runAction:action];
