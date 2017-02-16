@@ -32,7 +32,6 @@
     
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
-    scene.match = self.match;
     self.boardScene = scene;
     
     __weak MatchViewControllerTV *weakSelf = self;
@@ -48,17 +47,25 @@
     
     // Present the scene
     [skView presentScene:scene];
-    
+    scene.match = self.match;
+   
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
 
     [self reset];
-    [self.match beginMatch];
+}
+
+- (void)setMatch:(Match *)match
+{
+    [self.match reset]; // erase board
+    _match = match;
+    [self.match reset]; // setup board
 }
 
 - (void)reset
 {
     [self.match reset];
+    [self.match beginMatch];
 }
 
 - (void)updateMove:(BOOL)canMove

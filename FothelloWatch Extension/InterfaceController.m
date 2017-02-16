@@ -42,7 +42,6 @@
     
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
-    scene.match = self.match;
     self.boardScene = scene;
     
 //    __weak InterfaceController *weakBlockSelf = self;
@@ -57,8 +56,25 @@
     // Present the scene
     [self.skInterface presentScene:scene];
     
+    scene.match = self.match;
+   
     // Use a value that will maintain consistent frame rate
     self.skInterface.preferredFramesPerSecond = 30;
+    
+    [self reset];
+}
+
+- (void)reset
+{
+    [self.match reset];
+    [self.match beginMatch];
+}
+
+- (void)setMatch:(Match *)match
+{
+    [self.match reset]; // erase board
+    _match = match;
+    [self.match reset]; // setup board
 }
 
 - (void)willActivate

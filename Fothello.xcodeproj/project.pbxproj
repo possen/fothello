@@ -224,7 +224,6 @@
 		D5C249911E51605E009D8267 /* FothelloUITestsIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C249901E51605E009D8267 /* FothelloUITestsIOS.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
 		D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F2C15D18418C5B000F089E /* DialogViewController.m */; };
-		D5F4B7FB1CCF48AF001BCD21 /* MatchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F4B7F91CCF489D001BCD21 /* MatchWindowController.m */; };
 		D5F567F11D111C6200998C14 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5F567EF1D111C6200998C14 /* Interface.storyboard */; };
 		D5F567FA1D111C6200998C14 /* FothelloWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D5F567F91D111C6200998C14 /* FothelloWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D5F568021D111C6200998C14 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568011D111C6200998C14 /* InterfaceController.m */; };
@@ -508,8 +507,6 @@
 		D5EECCD8183B5152005D5507 /* Strategy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Strategy.mm; sourceTree = "<group>"; };
 		D5F2C15C18418C5B000F089E /* DialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewController.h; sourceTree = "<group>"; };
 		D5F2C15D18418C5B000F089E /* DialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewController.m; sourceTree = "<group>"; };
-		D5F4B7F81CCF489D001BCD21 /* MatchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchWindowController.h; sourceTree = "<group>"; };
-		D5F4B7F91CCF489D001BCD21 /* MatchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchWindowController.m; sourceTree = "<group>"; };
 		D5F567ED1D111C6200998C14 /* FothelloWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5F567F01D111C6200998C14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		D5F567F41D111C6200998C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -662,8 +659,6 @@
 				D509D62F1CC8A7AF0028C082 /* Info.plist */,
 				D509D6271CC8A7AF0028C082 /* Document.h */,
 				D509D6281CC8A7AF0028C082 /* Document.m */,
-				D5F4B7F81CCF489D001BCD21 /* MatchWindowController.h */,
-				D5F4B7F91CCF489D001BCD21 /* MatchWindowController.m */,
 				D5F56A7C1CC36074000700D8 /* MatchViewControllerMac.h */,
 				D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */,
 				D53D351A1CD0928400C67EEF /* NewGameViewController.h */,
@@ -1613,7 +1608,6 @@
 				D509D6341CC8A9FA0028C082 /* BoardScene.m in Sources */,
 				D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */,
 				D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */,
-				D5F4B7FB1CCF48AF001BCD21 /* MatchWindowController.m in Sources */,
 				D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */,
 				D509D6231CC8A7AF0028C082 /* main.m in Sources */,
 				D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */,
