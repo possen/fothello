@@ -86,7 +86,6 @@ void startNewMinimax(char diffculty) {
     bruteForceDepth = diffculty;
     winLarge = DEF_WIN_LARGE;
     randomnessLevel = DEF_RANDOMNESS_LEVEL;
-    srand((unsigned)time(NULL));
 }
 
 /* Return a move using minimax search. -- Called only once per move made */

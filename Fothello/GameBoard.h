@@ -33,7 +33,7 @@ typedef void (^UpdateCompleteBlock)();
 - (nonnull NSString *)requestFormat;
 - (nonnull BoardPosition *)center;
 
-- (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)placeMoves:(nonnull NSArray<PlayerMove *> *)moves;
 - (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player legal:(void (^ _Nonnull)(BOOL))legal;
 - (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
 
@@ -45,9 +45,6 @@ typedef void (^UpdateCompleteBlock)();
 - (NSInteger)playerScore:(nonnull Player *)player;
 
 // updates or reads board on queue, if nothing to update return @[];
-- (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction
-           complete:(nullable UpdateCompleteBlock)updateComplete;
-
 - (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)())updateFunction;
 
 // Non queued versions, must be wrapped in updateBoard).
@@ -63,5 +60,6 @@ typedef void (^UpdateCompleteBlock)();
 @property (nonatomic) NSInteger size;
 @property (nonatomic, copy, nullable) PlaceBlock placeBlock;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
+@property (nonatomic, copy, nullable) UpdateCompleteBlock updateCompleteBlock;
 @property (nonatomic, nonnull) dispatch_queue_t queue;
 @end

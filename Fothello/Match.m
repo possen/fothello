@@ -16,6 +16,7 @@
 #import "PlayerMove.h"
 #import "Piece.h"
 #import "BoardPosition.h"
+#import "NSArray+Extensions.h"
 
 #pragma mark - Match -
 
@@ -93,14 +94,13 @@
  
     NSArray<PlayerMove *> *moves = [self.moves copy];
     
-    [self.moves removeAllObjects]; // replaying them, so need to clear this out to avoid readd check.
-    
-    [moves enumerateObjectsWithOptions:0 usingBlock:^(PlayerMove *move, NSUInteger idx, BOOL *stop)
-     {
-         NSLog(@"replay move %@", move);
-         Player *player = self.players[idx % 2];
-         [self.board placeMove:move forPlayer:player];
-     }];
+    NSLog(@"replay moves");
+    for (PlayerMove *obj in moves)
+    {
+        NSLog(@"move %@", obj.description);
+    }
+    [self.board placeMoves:moves];
+    [self beginTurn];
 }
 
 
@@ -139,7 +139,8 @@
 
 - (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    [self.board placeMove:move forPlayer:player];
+    NSLog(@"place move %@", move);
+    [self.board placeMoves:@[move]];
     
     if (self.currentPlayerBlock)
     {

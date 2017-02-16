@@ -108,7 +108,7 @@
          [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
          
          PlayerMove *move = [PlayerMove makeMoveForColor:PieceColorWhite position:pos1];
-         [board placeMove:move forPlayer:player];
+         [board placeMoves:@[move]];
          
          [expectation fulfill];
          return @[pieces];
@@ -448,36 +448,60 @@
     }
 }
 
+- (void)makeMoveAI
+{
+    __weak TestBoardOps *weakSelf = self;
+    
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"placeMove"];
+    
+    weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
+    {
+        XCTAssertEqualObjects(player.name, self.match.currentPlayer.name);
+        [expectation fulfill];
+    };
+    
+    XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
+    [self.match.currentPlayer takeTurn]; //ai white
+    
+    [self waitForExpectationsWithTimeout:30.0 handler:nil];
+    
+    weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
+    {
+    };
+}
+
+- (void)makeMoveHuman:(BoardPosition *)position
+{
+    __weak TestBoardOps *weakSelf = self;
+    
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"placeMove"];
+    
+    weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
+    {
+        XCTAssertEqualObjects(player.name, self.match.currentPlayer.name);
+        [expectation fulfill];
+    };
+    
+    [self.match.currentPlayer takeTurnAtPosition:position];
+    [self waitForExpectationsWithTimeout:30.0 handler:nil];
+    
+    weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
+    {
+    };
+}
+
+
 - (void)testMatch
 {
+    srand(1);
+
     FothelloGame *game = [FothelloGame sharedInstance];
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
     GameBoard *board = self.match.board;
     __weak TestBoardOps *weakSelf = self;
 
-    // Create and configure the scene.
-
-    {
-        XCTestExpectation *expectation =  [self expectationWithDescription:@"placeMove"];
-        
-        weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
-        {
-            XCTAssertEqualObjects(player.name, self.match.currentPlayer.name);
-            [expectation fulfill];
-        };
-        
-        XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
-        [self.match.currentPlayer takeTurn]; //ai white
-        
-        [self waitForExpectationsWithTimeout:30.0 handler:nil];
-    }
-
-    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
-    {
-        // clear out previous block.
-    };
-
+    [self makeMoveAI];
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
    
@@ -532,43 +556,13 @@
         // clear out block
     };
     
-    {
-        XCTestExpectation *expectation =  [self expectationWithDescription:@"placeMove"];
-        
-        weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
-        {
-            NSLog(@"fullfill human player move Black");
-            [expectation fulfill];
-        };
-        
-        NSLog(@"start human player move Black");
-        BoardPosition *pos = [BoardPosition positionWithX:1 y:4];
-        [self.match.currentPlayer takeTurnAtPosition:pos];
-        
-        [self waitForExpectationsWithTimeout:30.0 handler:nil];
-    }
+    [self makeMoveHuman:[BoardPosition positionWithX:1 y:4]];
 
-    board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
-    {
-        // clear out previous block.
-    };
-    
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
 
-    {
-        XCTestExpectation *expectation =  [self expectationWithDescription:@"takeTurn"];
-        
-        weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove,BOOL pass)
-        {
-            [expectation fulfill];
-        };
-        
-        [self.match.currentPlayer takeTurn]; // White AI
-        
-        [self waitForExpectationsWithTimeout:30.0 handler:nil];
-    }
-
+    [self makeMoveAI];
+    
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
 
@@ -602,7 +596,68 @@
         
         [self waitForExpectationsWithTimeout:30.0 handler:nil];
     }
+}
 
+- (void)undoMoves
+{    
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"undo"];
+    
+    GameBoard *board = self.match.board;
+    board.updateCompleteBlock = ^()
+    {
+        [expectation fulfill];
+    };
+    
+    [self.match undo];
+    [self waitForExpectationsWithTimeout:30.0 handler:nil];
+    
+    board.updateCompleteBlock = ^()
+    {
+    };
+}
+
+
+- (void)redoMoves
+{
+    XCTestExpectation *expectation =  [self expectationWithDescription:@"undo"];
+    
+    GameBoard *board = self.match.board;
+    board.updateCompleteBlock = ^()
+    {
+        [expectation fulfill];
+    };
+    
+    [self.match redo];
+    [self waitForExpectationsWithTimeout:30.0 handler:nil];
+    
+    board.updateCompleteBlock = ^()
+    {
+    };
+}
+
+
+- (void)testUndoRedo
+{
+    srand(1);
+
+    FothelloGame *game = [FothelloGame sharedInstance];
+    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+
+    [self makeMoveAI];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
+    [self makeMoveHuman:[BoardPosition positionWithX:1 y:4]];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
+    [self makeMoveAI];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
+    [self makeMoveHuman:[BoardPosition positionWithX:2 y:6]];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
+    [self makeMoveAI];    
+    [self undoMoves];
+    [self redoMoves];
 }
 
 @end

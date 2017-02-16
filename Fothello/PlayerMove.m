@@ -19,6 +19,7 @@
     PlayerMove *move = [[self class] allocWithZone:zone];
     move.piece = [self.piece copy];
     move.position = [self.position copy];
+    move.color = self.color;
     return move;
 }
 
@@ -28,6 +29,7 @@
     PlayerMove *move = [[PlayerMove alloc] init];
     move.piece = piece;
     move.position = pos;
+    move.color = color;
     return move;
 }
 
@@ -38,6 +40,7 @@
     BoardPosition *position = [BoardPosition positionWithX:-1 y:-1];
     move.position = position;
     move.piece = piece;
+    move.color = color;
     return move;
 }
 

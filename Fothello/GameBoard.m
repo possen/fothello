@@ -122,6 +122,11 @@ typedef struct Delta
 //           NSLog(@"%@", self.legalMovesForPlayer);
        }
        
+       if (self.updateCompleteBlock != nil)
+       {
+           self.updateCompleteBlock();
+       }
+
        if (updateComplete != nil)
        {
            updateComplete();
@@ -167,23 +172,30 @@ typedef struct Delta
     }];
 }
 
-- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+
+- (void)placeMoves:(NSArray<PlayerMove *> *)moves
 {
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
-         if (move.isPass)
+         NSArray<NSArray<BoardPiece *> *> *pieces = @[];
+         for (PlayerMove *move in moves)
          {
-             return nil;
+             if (move.isPass)
+             {
+                 return nil;
+             }
+             
+             Piece *currentBoardPiece = [self pieceAtPositionX:move.position.x Y:move.position.y];
+             
+             NSArray<NSArray<BoardPiece *> *> *moveBoardPiece = @[@[[BoardPiece makeBoardPieceWithPiece:currentBoardPiece
+                                                                                               position:move.position
+                                                                                                  color:move.color]]];
+             
+             NSArray<NSArray<BoardPiece *> *> *movePieces = [moveBoardPiece arrayByAddingObjectsFromArray:
+                                                         [self findTracksForBoardPiece:move color:move.color]];
+             
+             pieces = [pieces arrayByAddingObjectsFromArray:movePieces];
          }
-         
-         Piece *currentBoardPiece = [self pieceAtPositionX:move.position.x Y:move.position.y];
-         
-         NSArray<NSArray<BoardPiece *> *> *moveBoardPiece = @[@[[BoardPiece makeBoardPieceWithPiece:currentBoardPiece
-                                                                                           position:move.position
-                                                                                              color:player.color]]];
-         
-         NSArray<NSArray<BoardPiece *> *> *pieces = [moveBoardPiece arrayByAddingObjectsFromArray:
-                                                     [self findTracksForBoardPiece:move color:player.color]];
          return pieces;
      }];
 }
@@ -212,14 +224,11 @@ typedef struct Delta
 
 - (void)showLegalMoves:(BOOL)display forPlayer:(Player *)player
 {
-    NSLog(@"showLegalMoves");
-
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          if (display)
          {
              NSArray<BoardPiece *> *pieces = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
-             NSLog(@"exiting updateBoard");
 
              return pieces ? @[pieces] : nil;
          }
@@ -238,7 +247,6 @@ typedef struct Delta
               {
                   piece.color = PieceColorNone;
               }];
-             NSLog(@"exiting updateBoard");
 
              return pieces ? @[pieces] : nil;
          }
@@ -502,7 +510,7 @@ typedef struct Delta
         NSInteger ry = labs(reverseOffset - y);
         if (!ascii)
         {
-            [boardString appendFormat:@"%d", (int) ry+1];
+            [boardString appendFormat:@"%c", (char) ry + 'A'];
         }
         
         [boardString appendString:@"|"];

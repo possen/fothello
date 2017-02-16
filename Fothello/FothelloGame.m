@@ -65,6 +65,7 @@
     self = [super init];
     if (self)
     {
+        srand((unsigned)time(NULL));
         _matchOrder = [[NSMutableArray alloc] initWithCapacity:10];
         _matches = [[NSMutableDictionary alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];

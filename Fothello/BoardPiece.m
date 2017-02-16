@@ -44,9 +44,9 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%ld - %ld %@ -> %@", (long)self.position.x + 1,
-           (long)self.position.y + 1, self.piece.description,
-            [Piece stringFromColor:self.color]];
+    NSString  *pieceStr = self.piece.description;
+
+    return [NSString stringWithFormat:@"%@ %c%ld", pieceStr, 'A' + (char)self.position.x, (long)self.position.y + 1];
 }
 
 @end
