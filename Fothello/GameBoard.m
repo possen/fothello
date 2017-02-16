@@ -117,8 +117,6 @@ typedef struct Delta
        {
            NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
            [self updateBoardWithPieces:pieces];
-           [self.legalMovesForPlayer setObject:[self legalMovesForPlayerColor:PieceColorBlack] atCheckedIndex:PieceColorBlack - 1];
-           [self.legalMovesForPlayer setObject:[self legalMovesForPlayerColor:PieceColorWhite] atCheckedIndex:PieceColorWhite - 1];
 //           NSLog(@"%@", self.legalMovesForPlayer);
        }
        
@@ -228,6 +226,9 @@ typedef struct Delta
      {
          if (display)
          {
+             NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayerColor:player.color];
+             [self.legalMovesForPlayer setObject:legalMoves atCheckedIndex:player.color - 1];
+
              NSArray<BoardPiece *> *pieces = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
 
              return pieces ? @[pieces] : nil;
