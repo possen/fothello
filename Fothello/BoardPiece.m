@@ -46,7 +46,7 @@
 {
     NSString  *pieceStr = self.piece.description;
 
-    return [NSString stringWithFormat:@"%@ %c%ld", pieceStr, 'A' + (char)self.position.x, (long)self.position.y + 1];
+    return [NSString stringWithFormat:@"%@%c%ld", pieceStr, 'A' + (char)self.position.x, (long)self.position.y + 1];
 }
 
 @end

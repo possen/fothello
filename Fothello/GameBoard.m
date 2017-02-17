@@ -421,7 +421,7 @@ typedef struct Delta
 
 - (BOOL)canMoveUnqueued:(Player *)player
 {
-    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color - 1];
+    NSArray <BoardPiece *> *moves = [self  legalMovesForPlayerColor:player.color];
     return  moves.count != 0;
 }
 
