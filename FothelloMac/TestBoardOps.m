@@ -175,6 +175,8 @@
      {
          XCTAssert(error == nil, @"error");
      }];
+    
+    self.match.currentPlayerBlock = nil;
 }
 
 - (void)testSetupComputerVsComputerGame1
@@ -611,7 +613,7 @@
 {
     __weak TestBoardOps *weakSelf = self;
 
-    XCTestExpectation *expectation =  [self expectationWithDescription:@"undo"];
+    __block XCTestExpectation *expectation =  [self expectationWithDescription:@"undo"];
     weakSelf.match.matchStatusBlock = ^(BOOL gameOver)
     {
         XCTAssertFalse(gameOver);
@@ -621,6 +623,7 @@
     board.updateCompleteBlock = ^()
     {
         [expectation fulfill];
+        expectation = nil; // may get called multiple times.
     };
     
     [self.match undo];
