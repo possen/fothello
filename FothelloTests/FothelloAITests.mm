@@ -64,10 +64,12 @@ using json = nlohmann::json;
    
     printBoard(myB, legal, CONV_21(0, 0));
     
-    char move1 = getMove(myB, CONV_21(6, 5), 2, BoardDiffcultyExperienced);
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
+    char move1 = getMove(myB, CONV_21(6, 5), 2, BoardDiffcultyExperienced, [game.randomSource nextInt]);
     XCTAssertEqual(move1, -1);
     
-    char move2 = getMove(myB, CONV_21(5, 5), 2, BoardDiffcultyExperienced);
+    char move2 = getMove(myB, CONV_21(5, 5), 2, BoardDiffcultyExperienced, [game.randomSource nextInt]);
     XCTAssertEqual(move2, -1);
 }
 
@@ -96,7 +98,11 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    FothelloGame *game = [FothelloGame sharedInstance];
+    
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
+
+    std::string jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     json r = json::parse(jsonResp);
 
     bool pass = r["pass"].get<bool>();
@@ -108,7 +114,7 @@ using json = nlohmann::json;
     XCTAssertEqual(ay, 2);
     
     j["color"] = (int)WHITE;
-    jsonResp = getMoveFromJSON(j.dump(4));
+    jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     r = json::parse(jsonResp);
     
     pass = r["pass"].get<bool>();
@@ -145,7 +151,11 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    FothelloGame *game = [FothelloGame sharedInstance];
+    
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
+
+    std::string jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     json r = json::parse(jsonResp);
     
     bool pass;
@@ -161,7 +171,7 @@ using json = nlohmann::json;
     XCTAssertEqual(ay, 5);
     
     j["color"] = (int)WHITE;
-    jsonResp = getMoveFromJSON(j.dump(4));
+    jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     r = json::parse(jsonResp);
     
     pass = r["pass"].get<bool>();
@@ -199,7 +209,11 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    FothelloGame *game = [FothelloGame sharedInstance];
+    
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
+
+    std::string jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     json r = json::parse(jsonResp);
     
     bool pass;
@@ -218,7 +232,7 @@ using json = nlohmann::json;
     XCTAssertEqual(pass, false);
     
     j["color"] = (int)WHITE;
-    jsonResp = getMoveFromJSON(j.dump(4));
+    jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     r = json::parse(jsonResp);
     
     pass = r["pass"].get<bool>();
@@ -251,7 +265,11 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    std::string jsonResp = getMoveFromJSON(j.dump(4));
+    FothelloGame *game = [FothelloGame sharedInstance];
+    
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
+
+    std::string jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     json r = json::parse(jsonResp);
     
     bool pass;
@@ -260,7 +278,7 @@ using json = nlohmann::json;
     XCTAssertEqual(pass, true);
     
     j["color"] = (int)WHITE;
-    jsonResp = getMoveFromJSON(j.dump(4));
+    jsonResp = getMoveFromJSON(j.dump(4), [game.randomSource nextInt]);
     r = json::parse(jsonResp);
     
     pass = r["pass"].get<bool>();

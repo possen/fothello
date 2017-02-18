@@ -145,6 +145,7 @@
     if (self.currentPlayerBlock)
     {
         BOOL canMove = [self.board canMoveUnqueued:self.currentPlayer];
+        NSLog(@"canMove %d", canMove);
         self.currentPlayerBlock(self.currentPlayer, canMove, move.isPass);
     }
 
@@ -228,8 +229,15 @@
     BOOL isFull = [self.board isFull];
 
     NSLog(@"Board  %@ ", self.board );
-    
-    if ( !(prevPlayerCouldMove || currentPlayerCanMove) || isFull)
+    if (!currentPlayerCanMove)
+    {
+        if (self.matchStatusBlock)
+        {
+            self.matchStatusBlock(NO);
+        }
+    }
+
+    if ( (!prevPlayerCouldMove && !currentPlayerCanMove) || isFull)
     {
         NSLog(@"no moves");
         if (!self.noMoves)

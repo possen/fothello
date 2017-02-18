@@ -36,6 +36,8 @@ typedef void (^UpdateCompleteBlock)();
 - (void)placeMoves:(nonnull NSArray<PlayerMove *> *)moves;
 - (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player legal:(void (^ _Nonnull)(BOOL))legal;
 - (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
+- (BOOL)isFullUnqueud;
+- (BOOL)canMoveUnqueued:(nonnull Player *)player;
 
 // non queued safe
 - (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
@@ -53,8 +55,6 @@ typedef void (^UpdateCompleteBlock)();
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (NSInteger)playerScoreUnqueued:(nonnull Player *)player;
 - (void)visitAllUnqueued:(nonnull void (^)(NSInteger x, NSInteger y, Piece *_Nonnull piece))block;
-- (BOOL)isFullUnqueud;
-- (BOOL)canMoveUnqueued:(nonnull Player *)player;
 
 @property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSInteger size;

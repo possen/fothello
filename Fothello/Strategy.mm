@@ -158,8 +158,10 @@ std::string testString(
 
     if (respError != nil || !network)
     {
+        FothelloGame *game = [FothelloGame sharedInstance];
+        NSInteger randValue = [game.randomSource nextInt];
         // error or network disabled, do processing locally.
-        std::string jsonResp = getMoveFromJSON(j.dump(4));
+        std::string jsonResp = getMoveFromJSON(j.dump(4), randValue);
         r = json::parse(jsonResp);
     }
     

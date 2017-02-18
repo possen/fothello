@@ -19,7 +19,7 @@ using namespace std;
 using json = nlohmann::json;
 
 
-const string getMoveFromJSON(const std::string &move) {
+const string getMoveFromJSON(const std::string &move, long randValue) {
     Board *board = makeBoard();
     auto requestJson = json::parse(move);
     auto color = requestJson["color"].get<int>();
@@ -28,7 +28,7 @@ const string getMoveFromJSON(const std::string &move) {
     auto boardStr = requestJson["board"].get<string>();
     char result = -1;
     if (setBoardFromString(board, boardStr)) {
-        result = getMove(board, color, moveNum, (BoardDiffculty)difficulty);
+        result = getMove(board, color, moveNum, (BoardDiffculty)difficulty, randValue);
     }
     json response;
     response["pass"] = result == -1;
@@ -39,19 +39,19 @@ const string getMoveFromJSON(const std::string &move) {
     return response.dump();
 }
 
-char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty) {
+char getMove(Board *board, char color, long moveNum, BoardDiffculty difficulty, long randValue) {
     bool legalMoves[64];
     char computerHasLegalMove = findLegalMoves(board, legalMoves, color);
     if (!computerHasLegalMove)
     {
         return -1;
     }
-    char nextMove = getMove(board, legalMoves, color, moveNum, (BoardDiffculty)difficulty);
+    char nextMove = getMove(board, legalMoves, color, moveNum, (BoardDiffculty)difficulty, randValue);
     return nextMove;
 }
 
-char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty) {
-    return getMinimaxMove(board, legalMoves, forPlayer, moveNum, difficulty);
+char getMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty, long randValue) {
+    return getMinimaxMove(board, legalMoves, forPlayer, moveNum, difficulty, randValue);
 }
 
 /* calls malloc to allocate memory for board and initialize to start-of-game 

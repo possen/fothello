@@ -70,6 +70,8 @@
         _matches = [[NSMutableDictionary alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
         
+        _randomSource = [[GKARC4RandomSource alloc] init];
+        
         // create default players.
         [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorWhite];
         [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorBlack];
@@ -218,11 +220,4 @@
     return match;
 }
 
-
 @end
-
-
-
-
-
-

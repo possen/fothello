@@ -40,6 +40,6 @@
 #define DEBUG_MINIMAX 0
 #define COUNT_PRUNING 0
 
-char getMinimaxMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty);
+char getMinimaxMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty, long randValue);
 
 #endif

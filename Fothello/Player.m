@@ -82,6 +82,7 @@
 - (void)takeTurnAtPosition:(BoardPosition *)position
 {
     PlayerMove *move = [PlayerMove makeMoveForColor:self.color position:position];
+    NSLog(@"human move %@", move);
     [self.strategy makeMove:move forPlayer:self];
 }
 

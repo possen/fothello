@@ -88,9 +88,13 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 
                 [weakBlockSelf displayGameOver];
             }
-            else // no means we are restarting.
+            else
             {
-                [weakBlockSelf removeGameOver];
+                weakBlockSelf.updatePlayerMove(NO);
+                if (self.gameOverNode)
+                {
+                    [weakBlockSelf removeGameOver];
+                }
             }
         });
     };

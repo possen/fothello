@@ -89,7 +89,10 @@ void startNewMinimax(char diffculty) {
 }
 
 /* Return a move using minimax search. -- Called only once per move made */
-char getMinimaxMove(Board *board, bool *legalMoves, char forPlayer, char moveNum, BoardDiffculty difficulty) {
+char getMinimaxMove(Board *board, bool *legalMoves,
+                    char forPlayer, char moveNum,
+                    BoardDiffculty difficulty,
+                    long randValue) {
   startNewMinimax(difficulty);
   /* Initialization */
   countPruning = countSearching = countEval = 0;
@@ -111,7 +114,7 @@ char getMinimaxMove(Board *board, bool *legalMoves, char forPlayer, char moveNum
   // Add a certain randomness to corner value 
   extra = DENOMINATOR_EXTRA_PREV_MIN_DOF;
   if(randomnessLevel) {
-    float temprand = ((float)(rand() % 4001)) / 4001 - 0.5;  // +- 0.5
+    float temprand = (randValue % 4001) / 4001 - 0.5;  // +- 0.5
     extra = DENOMINATOR_EXTRA_PREV_MIN_DOF * (1 + 0.02 * temprand * randomnessLevel);
   }
   // initialize the arrays to the board configuration.

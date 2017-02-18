@@ -52,6 +52,7 @@
     {
         if (legal)
         {
+            [self endTurn:player];
             [self.match placeMove:move forPlayer:player];
         }
     }];

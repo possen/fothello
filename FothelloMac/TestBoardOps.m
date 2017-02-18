@@ -150,7 +150,10 @@
     self.match.matchStatusBlock = ^(BOOL gameOver)
     {
         gameFinished = gameOver;
-        [expectation fulfill];
+        if (gameFinished)
+        {
+            [expectation fulfill];
+        }
     };
     
     __weak TestBoardOps *weakSelf = self;
@@ -158,7 +161,8 @@
     {
         if (!gameFinished)
         {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^
+            {
                 [weakSelf.match nextPlayer];
                 [weakSelf.match.currentPlayer takeTurn];
             });
@@ -175,31 +179,36 @@
 
 - (void)testSetupComputerVsComputerGame1
 {
-    srand(1);
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"1" dataUsingEncoding:NSASCIIStringEncoding]];
     [self playCvCGame];
 }
 
 - (void)testSetupComputerVsComputerGame2
 {
-    srand(2);
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"2" dataUsingEncoding:NSASCIIStringEncoding]];
     [self playCvCGame];
 }
 
 - (void)testSetupComputerVsComputerGame3
 {
-    srand(3);
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"3" dataUsingEncoding:NSASCIIStringEncoding]];
     [self playCvCGame];
 }
 
 - (void)testSetupComputerVsComputerGame4
 {
-    srand(4);
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
     [self playCvCGame];
 }
 
 - (void)testSetupComputerVsComputerGame5
 {
-    srand(5);
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"5" dataUsingEncoding:NSASCIIStringEncoding]];
     [self playCvCGame];
 }
 
@@ -493,9 +502,9 @@
 
 - (void)testMatch
 {
-    srand(1);
-
     FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"1" dataUsingEncoding:NSASCIIStringEncoding]];
+
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
     GameBoard *board = self.match.board;
@@ -586,7 +595,7 @@
     {
         XCTestExpectation *expectation =  [self expectationWithDescription:@"takeTurn"];
         
-        weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove,BOOL pass)
+        weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
         {
             XCTAssertFalse(pass);
             [expectation fulfill];
@@ -599,8 +608,14 @@
 }
 
 - (void)undoMoves
-{    
+{
+    __weak TestBoardOps *weakSelf = self;
+
     XCTestExpectation *expectation =  [self expectationWithDescription:@"undo"];
+    weakSelf.match.matchStatusBlock = ^(BOOL gameOver)
+    {
+        XCTAssertFalse(gameOver);
+    };
     
     GameBoard *board = self.match.board;
     board.updateCompleteBlock = ^()
@@ -614,6 +629,7 @@
     board.updateCompleteBlock = ^()
     {
     };
+    weakSelf.match.matchStatusBlock = nil;
 }
 
 
@@ -638,9 +654,8 @@
 
 - (void)testUndoRedo
 {
-    srand(1);
-
     FothelloGame *game = [FothelloGame sharedInstance];
+    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"1" dataUsingEncoding:NSASCIIStringEncoding]];
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
 
     [self makeMoveAI];

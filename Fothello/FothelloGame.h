@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GameplayKit/GameplayKit.h>
 
 @class Match;
 @class Player;
@@ -54,7 +55,7 @@ typedef void (^GameOverBlock)();
 @property (nonnull, nonatomic) NSMutableDictionary <NSString *, Match *> *matches;
 @property (nonnull, nonatomic) NSMutableArray <Player *> *players;
 @property (nonatomic, copy, nullable) GameOverBlock gameOverBlock; 
-
+@property (nonnull, nonatomic) GKRandomSource *randomSource;
 - (nonnull Player *)newPlayerWithName:(nonnull NSString *)name
           preferredPieceColor:(PieceColor)preferredPieceColor;
 

@@ -10,7 +10,10 @@
 #import "Piece.h"
 #import "BoardPosition.h"
 
+
 #pragma mark - PlayerMove -
+
+#define PlayerMovePass -1  // sentinel value
 
 @implementation PlayerMove
 
@@ -37,7 +40,7 @@
 {
     Piece *piece = [[Piece alloc] initWithColor:color];
     PlayerMove *move = [[PlayerMove alloc] init];
-    BoardPosition *position = [BoardPosition positionWithX:-1 y:-1];
+    BoardPosition *position = [BoardPosition positionWithX:PlayerMovePass y:PlayerMovePass];
     move.position = position;
     move.piece = piece;
     move.color = color;
@@ -54,7 +57,7 @@
 
 - (BOOL)isPass
 {
-    return self.position.x == -1;
+    return self.position.x == PlayerMovePass;
 }
 
 @end
