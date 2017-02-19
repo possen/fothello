@@ -94,7 +94,7 @@ int main(void)
     const char * uri = FCGX_GetParam("REQUEST_URI", request.envp);
 
     string content = get_request_content(request);
-    string jsonResp = getMoveFromJSON(content);
+    string jsonResp = getMoveFromJSON(content, rand());
 
     cout << "Content-type: application/json\r\n" 
          << "\r\n"
