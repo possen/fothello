@@ -17,8 +17,7 @@
 + (nonnull instancetype)engine;
 
 - (nullable instancetype)init;
-- (nonnull NSDictionary *)calculateMoveForPlayer:(nonnull Player *)player match:(nonnull Match *)match difficulty:(Difficulty)difficulty;
-- (void)seed:(nonnull NSString *)seed;
+- (nonnull NSDictionary<NSString *, id> *)calculateMoveForPlayer:(PieceColor)playerColor match:(nonnull Match *)match difficulty:(Difficulty)difficulty;
 
 @end
 

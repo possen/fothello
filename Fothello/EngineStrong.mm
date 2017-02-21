@@ -19,6 +19,7 @@
 #import "GameBoard.h"
 #import "board.hpp"
 #import "json.hpp"
+#import "EngineStrong.h"
 
 using json = nlohmann::json;
 
@@ -41,9 +42,6 @@ std::string testString(
                        "\"moveNum\": 2"
                        "}");
 
-@interface EngineStrong ()
-@property (nonatomic) NetworkController *network;
-@end
 
 @implementation EngineStrong
 
@@ -109,15 +107,24 @@ std::string testString(
     self.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[seed dataUsingEncoding:NSASCIIStringEncoding]];
 }
 
-- (NSDictionary *)calculateMoveForPlayer:(Player *)player match:(Match *)match difficulty:(Difficulty)difficulty
+- (NSDictionary *)calculateMoveForPlayer:(PieceColor)playerColor match:(Match *)match difficulty:(Difficulty)difficulty
 {
     int moveNum = (int)match.board.piecesPlayed.count;
-    char playerColor = player.color == PieceColorBlack ? BLACK : WHITE;
     NSString *boardStr = [match.board requestFormat];
-    
-    std::string boardResult = [boardStr cStringUsingEncoding:NSASCIIStringEncoding];
+    return [self calculateMoveWithBoard:boardStr playerColor:playerColor moveNumber:moveNum diffculty:difficulty];
+}
+
+
+- (NSDictionary *)calculateMoveWithBoard:(NSString *)boardStr
+                             playerColor:(PieceColor)playerColor
+                              moveNumber:(NSInteger)moveNumber
+                               diffculty:(Difficulty)difficulty
+{
+    char color = playerColor == PieceColorBlack ? BLACK : WHITE;
     Board *board = makeBoard();
-    bool result = setBoardFromString(board, boardResult);
+    std::string boardData = [boardStr cStringUsingEncoding:NSASCIIStringEncoding];
+
+    bool result = setBoardFromString(board, boardData);
     NSAssert(result, @"failetoconvert");
     if (!result)
     {
@@ -125,21 +132,21 @@ std::string testString(
     }
     json j;
     j["difficulty"] = (int)difficulty;
-    j["moveNum"] = moveNum;
-    j["board"] = boardResult;
-    j["color"] = (int)playerColor;
+    j["moveNum"] = (int)moveNumber;
+    j["board"] = boardData;
+    j["color"] = (int)color;
     std::string s = j.dump(4);
     //    printf("%s", s.c_str());
     
     __block json r;
     __block NSError *respError = nil;
-  
+    
     bool network = false;
     if (network)
     {
         [self calculateRemotely:s];
     }
-
+    
     // error or network disabled, do processing locally.
     if (respError != nil || !network)
     {
@@ -147,7 +154,7 @@ std::string testString(
         std::string jsonResp = getMoveFromJSON(j.dump(4), randValue);
         r = json::parse(jsonResp);
         NSLog(@"%s", jsonResp.c_str());
-
+        
     }
     
     NSMutableDictionary *response = [[NSMutableDictionary alloc] init];

@@ -9,9 +9,11 @@
 #import <XCTest/XCTest.h>
 #import <FothelloLib/FothelloLib.h>
 #import <GameplayKit/GameplayKit.h>
+#import "EngineStrong.h"
 
 @interface TestBoardOps : XCTestCase
 @property (nonatomic) Match *match;
+@property (nonatomic) EngineStrong *engineStrong;
 @property (nonatomic) FothelloGame *game;
 @end
 
@@ -21,10 +23,12 @@
 {
     [super setUp];
     
-    self.game = [FothelloGame sharedInstance];
-    EngineStrong *engine = [EngineStrong engine];
-    self.game.engine = engine;
-    [self.game setupDefaultMatch:engine];
+    FothelloGame *game = [FothelloGame sharedInstance];
+    EngineStrong *engineStrong = [EngineStrong engine];
+    game.engine = engineStrong;
+    [game setupDefaultMatch:engineStrong];
+    self.engineStrong = engineStrong;
+    self.game = game;
 }
 
 - (void)tearDown
@@ -139,7 +143,7 @@
 
 - (void)playCvCGame:(NSString *)seed
 {
-    [self.game.engine seed:seed];
+    [self.engineStrong seed:seed];
 
     self.match = [self.game createMatchFromKind:PlayerKindSelectionComputerVComputer
                                      difficulty:DifficultyEasy];
@@ -500,7 +504,7 @@
 
 - (void)testMatch
 {
-    [self.game.engine seed:@"match"];
+    [self.engineStrong seed:@"match"];
     self.match = [self.game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
     GameBoard *board = self.match.board;
@@ -651,7 +655,7 @@
 
 - (void)testUndoRedo
 {
-    [self.game.engine seed:@"undoredo"];
+    [self.engineStrong seed:@"undoredo"];
     self.match = [self.game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
 
     [self makeMoveAI];

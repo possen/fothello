@@ -35,11 +35,6 @@
 		D525FBCA1E599082006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290F91E58DC5F00651B03 /* GameplayKit.framework */; };
 		D525FBCC1E5990AD006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBCB1E5990AD006CA134 /* GameplayKit.framework */; };
 		D525FBCE1E5990B9006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBCD1E5990B9006CA134 /* GameplayKit.framework */; };
-		D525FBD11E5A04C3006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
-		D525FBD21E5A04D4006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
-		D525FBD31E5A04D5006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
-		D525FBD41E5A04E1006CA134 /* EngineStrongIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */; };
-		D525FBD51E5A05FD006CA134 /* EngineWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBC21E596B20006CA134 /* EngineWatch.m */; };
 		D525FBD61E5A0621006CA134 /* EngineStrongIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */; };
 		D525FBD91E5A0704006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290F91E58DC5F00651B03 /* GameplayKit.framework */; };
 		D525FBDA1E5A0DA6006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -236,6 +231,7 @@
 		D56F0A261E3D485700DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54006901E3B22CB00F2D7BB /* FothelloLib.framework */; };
 		D56F0A271E3D486000DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D540070C1E3BBE8D00F2D7BB /* FothelloLib.framework */; };
 		D5718A0D1E517B4900623E0A /* FothelloTestsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D535DD501E3D03EF00AE5C1D /* FothelloTestsMac.m */; };
+		D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D58775F31E4D42E800A29386 /* FothelloUITestsMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D58775F21E4D42E800A29386 /* FothelloUITestsMac.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
@@ -485,6 +481,7 @@
 		D5441B5A1831CB1100B5166A /* FothelloAITests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = FothelloAITests.mm; path = ../FothelloTests/FothelloAITests.mm; sourceTree = "<group>"; };
 		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FothelloGame.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngineStrong.h; sourceTree = "<group>"; };
 		D555BF551E4D0FF400F954D2 /* UtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilTests.m; sourceTree = "<group>"; };
 		D55A6CBE1D04BC7500B98809 /* BoardPosition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardPosition.m; sourceTree = "<group>"; };
 		D55A6CBF1D04BC7500B98809 /* BoardPosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardPosition.h; sourceTree = "<group>"; };
@@ -899,6 +896,7 @@
 				D50D778F1CF8E5160073D0A1 /* HumanStrategy.h */,
 				D50D77901CF8E5160073D0A1 /* HumanStrategy.m */,
 				D525FBBC1E59634D006CA134 /* Engine.h */,
+				D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */,
 				D525FBBD1E59634D006CA134 /* EngineStrong.mm */,
 				D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */,
 				D525FBC21E596B20006CA134 /* EngineWatch.m */,
@@ -1059,6 +1057,7 @@
 				D54006C51E3B295000F2D7BB /* NSArray+Extensions.h in Headers */,
 				D54006C41E3B295000F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
+				D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */,
 				D54006C61E3B295000F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54006C71E3B295000F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54006C81E3B295000F2D7BB /* NetworkController.h in Headers */,
@@ -1661,7 +1660,6 @@
 				D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */,
 				D509D6231CC8A7AF0028C082 /* main.m in Sources */,
 				D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */,
-				D525FBD21E5A04D4006CA134 /* EngineStrong.mm in Sources */,
 				D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */,
 				D52C31311E40FAC700856359 /* Document.m in Sources */,
 				D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */,
@@ -1674,7 +1672,6 @@
 			files = (
 				D54006561E3AE6E200F2D7BB /* BoardScene.m in Sources */,
 				D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */,
-				D525FBD31E5A04D5006CA134 /* EngineStrong.mm in Sources */,
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
 				D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */,
 				D54006381E3AD2E200F2D7BB /* main.m in Sources */,
@@ -1810,11 +1807,9 @@
 			files = (
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
 				D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */,
-				D525FBD11E5A04C3006CA134 /* EngineStrong.mm in Sources */,
 				D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */,
-				D525FBD41E5A04E1006CA134 /* EngineStrongIOS.m in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,
 				D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */,
 			);
@@ -1862,7 +1857,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D525FBD51E5A05FD006CA134 /* EngineWatch.m in Sources */,
 				D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */,
 				D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */,
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,

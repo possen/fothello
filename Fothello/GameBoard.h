@@ -34,6 +34,7 @@ typedef void (^UpdateCompleteBlock)();
 - (nonnull BoardPosition *)center;
 
 - (void)placeMoves:(nonnull NSArray<PlayerMove *> *)moves;
+- (nonnull NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color;
 - (void)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player legal:(void (^ _Nonnull)(BOOL))legal;
 - (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
 - (BOOL)isFullUnqueud;

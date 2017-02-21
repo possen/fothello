@@ -47,10 +47,10 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL 
 @property (nonatomic, copy, nullable) MovesUpdateBlock movesUpdateBlock;
 
 @property (nonatomic, nonnull) NSMutableArray<PlayerMove *> *moves;
+@property (nonatomic, readonly, nonnull) NSMutableArray<PlayerMove *> *redos;
 @property (nonatomic) BOOL noMoves;
 @property (nonatomic, readonly) BOOL turnProcessing;
 
-@property (nonatomic, readonly, nonnull) NSMutableArray *redos;
 @property (nonatomic, readonly) BOOL areAllPlayersComputers;
 @end
 

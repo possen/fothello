@@ -10,6 +10,8 @@
 
 #import "InterfaceController.h"
 #import "BoardScene.h"
+#import "GameBoard.h"
+#import "Match.h"
 
 @interface InterfaceController() 
 
@@ -97,20 +99,30 @@
 - (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
 {
     self.currentPos += rotationalDelta * 8;
-    NSInteger x = (NSInteger)self.currentPos % 8;
-    NSInteger y = (NSInteger)self.currentPos / 8;
+    NSArray<BoardPiece *> *legalMoves = [self.match.board
+                                         legalMovesForPlayerColor:self.match.currentPlayer.color];
+   
+    NSInteger countLegalMoves = legalMoves.count;
+    if (self.currentPos > countLegalMoves - 1)
+    {
+        self.currentPos = 0;
+    }
     
-    BoardPosition *pos = [BoardPosition positionWithX:x y:y];
+    if (self.currentPos < 0)
+    {
+        self.currentPos = countLegalMoves - 1;
+    }
+    
+    BoardPosition *pos = legalMoves[(NSInteger)self.currentPos].position;
     self.match.board.highlightBlock(pos, PieceColorYellow);
-    NSLog(@"rotate %f", rotationalDelta);
 }
 
 - (IBAction)tapAction:(id)sender
 {
-    NSInteger x = (NSInteger)self.currentPos % 8;
-    NSInteger y = (NSInteger)self.currentPos / 8;
-    
-    BoardPosition *pos = [BoardPosition positionWithX:x y:y];
+    NSArray<BoardPiece *> *legalMoves = [self.match.board
+                                         legalMovesForPlayerColor:self.match.currentPlayer.color];
+
+    BoardPosition *pos = legalMoves[(NSInteger)self.currentPos].position;
     PlayerMove *move = [PlayerMove makeMoveForColor:self.match.currentPlayer.preferredPieceColor position:pos];
     [self.match.board placeMoves:@[move]];
     NSLog(@"tap");

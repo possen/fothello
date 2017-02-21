@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <WatchConnectivity/WatchConnectivity.h>
 #import "Engine.h"
+#import "EngineStrong.h"
 
 @interface EngineStrongIOS () <WCSessionDelegate>
 @property (nonatomic)WCSession *session;
@@ -38,9 +39,25 @@
     return self;
 }
 
-- (void)sesion:(WCSession *)session didReceiveApplicationContext:(NSDictionary<NSString *, id> *)applicationContext
+- (void)session:(WCSession *)session didReceiveMessage:(NSDictionary<NSString *, id> *)message
+   replyHandler:(void(^)(NSDictionary<NSString *, id> *replyMessage))replyHandler
 {
-    NSAssert(false, @"implement");
+    Difficulty difficulty = [message[@"difficulty"] integerValue];
+    NSInteger moveNumber = [message[@"moveNum"] integerValue];
+    PieceColor pieceColor = [message[@"color"] integerValue];
+    NSString *board = [message[@"board"] stringValue];
+    
+    NSDictionary *replyMessage = [self calculateMoveWithBoard:board
+                                                  playerColor:pieceColor
+                                                   moveNumber:moveNumber
+                                                    diffculty:difficulty];
+    NSLog(@"IOS %@", replyMessage);
+    return replyHandler(replyMessage);
+}
+
+- (void)sesion:(WCSession *)session didReceiveApplicationContext:(NSDictionary<NSString *, id> *)data
+{
+    NSLog(@"%s", __FUNCTION__);
 }
 
 - (void)session:(WCSession *)session

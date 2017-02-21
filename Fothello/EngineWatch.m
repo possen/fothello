@@ -23,7 +23,9 @@
 {
     __block EngineWatch *result = nil;
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
+    
+    dispatch_once(&onceToken, ^
+    {
         result = [[EngineWatch alloc] init];
     });
     return result;
@@ -70,12 +72,14 @@ activationDidCompleteWithState:(WCSessionActivationState)activationState
     // don't genereate randome numbers here.
 }
 
-- (NSDictionary<NSString *, id> *)calculateMoveForPlayer:(Player *)player match:(Match *)match difficulty:(Difficulty)difficulty
+- (NSDictionary<NSString *, id> *)calculateMoveForPlayer:(PieceColor)playerColor
+                                                   match:(Match *)match
+                                              difficulty:(Difficulty)difficulty
 {
     int moveNum = (int)match.board.piecesPlayed.count;
     
     NSMutableDictionary *applicationData = [[NSMutableDictionary alloc] initWithCapacity:5];
-    applicationData[@"playerColor"] = [NSString stringWithFormat:@"%d", player.color];
+    applicationData[@"playerColor"] = [NSString stringWithFormat:@"%d", playerColor];
     applicationData[@"board"] = [match.board requestFormat];
     applicationData[@"moveNum"] = [@(moveNum) stringValue];
     applicationData[@"difficulty"] = @(difficulty);
@@ -99,7 +103,7 @@ activationDidCompleteWithState:(WCSessionActivationState)activationState
     
     [condition lock];
     [condition wait];
-    
+    NSLog(@"watch %@", response);
     return response;
 }
 

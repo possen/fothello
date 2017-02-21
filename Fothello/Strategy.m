@@ -79,7 +79,7 @@
     NSAssert(self.engine != nil, @"No engine!");
     NSAssert(self.match != nil, @"No match!");
 
-    NSDictionary *response = [self.engine calculateMoveForPlayer:player
+    NSDictionary *response = [self.engine calculateMoveForPlayer:player.color
                                                            match:self.match
                                                       difficulty:difficulty];
     if ([response[@"pass"] boolValue])
