@@ -10,6 +10,7 @@
 
 @interface BoardPosition : NSObject <NSCopying>
 
+// thses are in zero offset coordinates
 @property (nonatomic) NSInteger x;
 @property (nonatomic) NSInteger y;
 

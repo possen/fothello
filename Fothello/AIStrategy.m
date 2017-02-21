@@ -10,6 +10,7 @@
 #import "FothelloGame.h"
 #import "Player.h"
 #import "GameBoard.h"
+#import "Engine.h"
 
 @interface Strategy (Protected)
 - (nullable PlayerMove *)calculateMoveForPlayer:(nonnull Player *)player difficulty:(Difficulty)difficulty;
@@ -31,9 +32,9 @@
     return YES;
 }
 
-- (id)initWithDifficulty:(Difficulty)difficulty
+- (id)initWithDifficulty:(Difficulty)difficulty engine:(id<Engine>)engine
 {
-    self = [super init];
+    self = [super initWithEngine:engine];
     if (self)
     {
         _difficulty = difficulty;

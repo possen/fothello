@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 #import <FothelloLib/FothelloLib.h>
+#import <GameplayKit/GameplayKit.h>
 
 @interface TestBoardOps : XCTestCase
 @property (nonatomic) Match *match;
-@property (nonatomic) GameBoard *board;
-@property (nonatomic) dispatch_queue_t queue;
+@property (nonatomic) FothelloGame *game;
 @end
 
 @implementation TestBoardOps
@@ -21,7 +21,10 @@
 {
     [super setUp];
     
-    self.queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
+    self.game = [FothelloGame sharedInstance];
+    EngineStrong *engine = [EngineStrong engine];
+    self.game.engine = engine;
+    [self.game setupDefaultMatch:engine];
 }
 
 - (void)tearDown
@@ -134,11 +137,14 @@
     }];
 }
 
-- (void)playCvCGame
+- (void)playCvCGame:(NSString *)seed
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    self.match = [game createMatchFromKind:PlayerKindSelectionComputerVComputer difficulty:DifficultyEasy];
-    [self.match reset]; 
+    [self.game.engine seed:seed];
+
+    self.match = [self.game createMatchFromKind:PlayerKindSelectionComputerVComputer
+                                     difficulty:DifficultyEasy];
+
+    [self.match reset];
     [self.match beginMatch];
     NSLog(@"match description %@", [self.match description]);
     
@@ -181,37 +187,27 @@
 
 - (void)testSetupComputerVsComputerGame1
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"1" dataUsingEncoding:NSASCIIStringEncoding]];
-    [self playCvCGame];
+    [self playCvCGame:@"1"];
 }
 
 - (void)testSetupComputerVsComputerGame2
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"2" dataUsingEncoding:NSASCIIStringEncoding]];
-    [self playCvCGame];
+    [self playCvCGame:@"2"];
 }
 
 - (void)testSetupComputerVsComputerGame3
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"3" dataUsingEncoding:NSASCIIStringEncoding]];
-    [self playCvCGame];
+    [self playCvCGame:@"3"];
 }
 
 - (void)testSetupComputerVsComputerGame4
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
-    [self playCvCGame];
+    [self playCvCGame:@"4"];
 }
 
 - (void)testSetupComputerVsComputerGame5
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"5" dataUsingEncoding:NSASCIIStringEncoding]];
-    [self playCvCGame];
+    [self playCvCGame:@"5"];
 }
 
 - (void)doReset:(GameBoard *)board
@@ -504,10 +500,8 @@
 
 - (void)testMatch
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"1" dataUsingEncoding:NSASCIIStringEncoding]];
-
-    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    [self.game.engine seed:@"match"];
+    self.match = [self.game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
     GameBoard *board = self.match.board;
     __weak TestBoardOps *weakSelf = self;
@@ -657,9 +651,8 @@
 
 - (void)testUndoRedo
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"1" dataUsingEncoding:NSASCIIStringEncoding]];
-    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    [self.game.engine seed:@"undoredo"];
+    self.match = [self.game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
 
     [self makeMoveAI];
     [self.match nextPlayer];

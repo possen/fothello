@@ -7,11 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <GameplayKit/GameplayKit.h>
+
 
 @class Match;
 @class Player;
 @class Strategy;
+@protocol Engine;
 
 typedef NS_ENUM(NSInteger, Difficulty)
 {
@@ -51,13 +52,14 @@ typedef void (^GameOverBlock)();
 
 + (nonnull id)sharedInstance;
 
+@property (nonnull, nonatomic) id<Engine>engine;
 @property (nonnull, nonatomic) NSMutableArray <NSString *> *matchOrder;
 @property (nonnull, nonatomic) NSMutableDictionary <NSString *, Match *> *matches;
 @property (nonnull, nonatomic) NSMutableArray <Player *> *players;
 @property (nonatomic, copy, nullable) GameOverBlock gameOverBlock; 
-@property (nonnull, nonatomic) GKRandomSource *randomSource;
 - (nonnull Player *)newPlayerWithName:(nonnull NSString *)name
           preferredPieceColor:(PieceColor)preferredPieceColor;
+- (void)setupDefaultMatch:(nonnull id<Engine>)engine;
 
 - (nonnull Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
 

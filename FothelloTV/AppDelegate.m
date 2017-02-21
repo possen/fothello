@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "FothelloGame.h"
+#import "Engine.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineStrong engine];
+    [game setupDefaultMatch:game.engine];
+
     return YES;
 }
 

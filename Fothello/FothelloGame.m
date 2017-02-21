@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
+
 #import "FothelloGame.h"
 #import "Strategy.h"
 #import "Match.h"
@@ -69,19 +70,10 @@
         _matchOrder = [[NSMutableArray alloc] initWithCapacity:10];
         _matches = [[NSMutableDictionary alloc] initWithCapacity:10];
         _players = [[NSMutableArray alloc] initWithCapacity:10];
-        
-        _randomSource = [[GKARC4RandomSource alloc] init];
-        
+                
         // create default players.
         [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorWhite];
         [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorBlack];
-  
-        Match *match = [self matchWithName:nil players:self.players];
-        
-        match.players[0].strategy = [[HumanStrategy alloc] init];
-        match.players[1].strategy = [[AIStrategy alloc] initWithDifficulty:DifficultyEasy];
-        match.players[0].strategy.match = match;
-        match.players[1].strategy.match = match;
     }
     return self;
 }
@@ -103,7 +95,16 @@
 {
     [encoder encodeObject:self.matchOrder forKey:@"matchOrder"];
     [encoder encodeObject:self.players forKey:@"players"];
-    [encoder encodeObject:self.matches  forKey:@"matches"];
+    [encoder encodeObject:self.matches forKey:@"matches"];
+}
+
+- (void)setupDefaultMatch:(id<Engine>)engine
+{
+    Match *match = [self matchWithName:nil players:self.players];
+    match.players[0].strategy = [[HumanStrategy alloc] initWithEngine:engine];
+    match.players[1].strategy = [[AIStrategy alloc] initWithDifficulty:DifficultyEasy engine:engine];
+    match.players[0].strategy.match = match;
+    match.players[1].strategy.match = match;
 }
 
 - (Match *)createMatch:(NSString *)name
@@ -169,37 +170,46 @@
     [self.players removeObject:player];
 }
 
+- (void)setEngine:(id <Engine>) engine
+{
+    _engine = engine;
+    for (Player *player in self.players)
+    {
+        player.strategy.engine = engine;
+    }
+}
+
 - (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
 {
     Player *player1 = nil;
     Player *player2 = nil;
-    
+    id<Engine>engine = [[FothelloGame sharedInstance] engine];
     // black goes first.
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
             player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player1.strategy = [[HumanStrategy alloc] init];
-            player2.strategy = [[HumanStrategy alloc] init];
+            player1.strategy = [[HumanStrategy alloc] initWithEngine:engine];
+            player2.strategy = [[HumanStrategy alloc] initWithEngine:engine];
             break;
         case PlayerKindSelectionHumanVComputer:
             player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player1.strategy = [[HumanStrategy alloc] init];
-            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
+            player1.strategy = [[HumanStrategy alloc] initWithEngine:engine];
+            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
         case PlayerKindSelectionComputerVHuman:
             player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
-            player2.strategy = [[HumanStrategy alloc] init];
+            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
+            player2.strategy = [[HumanStrategy alloc] initWithEngine:engine];
             break;
         case PlayerKindSelectionComputerVComputer:
             player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
             player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
-            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty];
+            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
+            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
         case PlayerKindSelectionHumanVGameCenter:
             NSAssert(false, @"not implemented");
@@ -214,8 +224,11 @@
     }
     
     Match *match = [[Match alloc] initWithName:@"game" players:@[player2, player1]];
-    player1.strategy.match = match;
-    player2.strategy.match = match;
+    for (Player *player in self.players)
+    {
+        player.strategy.engine = self.engine;
+        player.strategy.match = match;
+    }
     [match reset];
     return match;
 }

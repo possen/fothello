@@ -18,6 +18,7 @@
 @class PlayerMove;
 @class BoardPosition;
 @class GameBoard;
+@class Engine;
 
 #pragma mark - Strategy -
 
@@ -25,7 +26,9 @@
 
 @property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL automatic;
+@property (nonnull, nonatomic) id <Engine>engine;
 
+- (nonnull instancetype)initWithEngine:(nonnull id<Engine>)engine;
 - (void)makeMoveForPlayer:(nonnull Player *)player;
 - (void)makeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (void)hintForPlayer:(nonnull Player *)player;

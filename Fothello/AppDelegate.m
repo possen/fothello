@@ -9,12 +9,16 @@
 #import "AppDelegate.h"
 #import "FothelloGame.h"
 #import "DialogViewController.h"
+#import "Engine.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application
     willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineStrongIOS engine];
+    [game setupDefaultMatch:game.engine];
     return YES;
 }
 
@@ -36,5 +40,6 @@
 {
     [FothelloGame sharedInstance];
 }
+
 
 @end

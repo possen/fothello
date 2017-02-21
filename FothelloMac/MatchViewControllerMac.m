@@ -35,6 +35,7 @@
     [super viewDidLoad];
 
     FothelloGame *game = [FothelloGame sharedInstance];
+    [game setupDefaultMatch:game.engine];
     
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];

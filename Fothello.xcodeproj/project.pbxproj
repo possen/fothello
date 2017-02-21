@@ -27,6 +27,25 @@
 		D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D521BEE81E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
+		D525FBC41E5982FB006CA134 /* EngineWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBC21E596B20006CA134 /* EngineWatch.m */; };
+		D525FBC51E59831D006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
+		D525FBC61E59831E006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
+		D525FBC71E59831F006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
+		D525FBC91E598D5E006CA134 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBC81E598D5E006CA134 /* WatchConnectivity.framework */; };
+		D525FBCA1E599082006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290F91E58DC5F00651B03 /* GameplayKit.framework */; };
+		D525FBCC1E5990AD006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBCB1E5990AD006CA134 /* GameplayKit.framework */; };
+		D525FBCE1E5990B9006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBCD1E5990B9006CA134 /* GameplayKit.framework */; };
+		D525FBD11E5A04C3006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
+		D525FBD21E5A04D4006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
+		D525FBD31E5A04D5006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
+		D525FBD41E5A04E1006CA134 /* EngineStrongIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */; };
+		D525FBD51E5A05FD006CA134 /* EngineWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBC21E596B20006CA134 /* EngineWatch.m */; };
+		D525FBD61E5A0621006CA134 /* EngineStrongIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */; };
+		D525FBD91E5A0704006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290F91E58DC5F00651B03 /* GameplayKit.framework */; };
+		D525FBDA1E5A0DA6006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D525FBDB1E5A0DAF006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D525FBDC1E5A0DB0006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D52C31311E40FAC700856359 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
@@ -47,7 +66,7 @@
 		D54006AC1E3B232900F2D7BB /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
 		D54006AD1E3B232900F2D7BB /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
 		D54006AE1E3B232900F2D7BB /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D54006AF1E3B232900F2D7BB /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D54006AF1E3B232900F2D7BB /* Strategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.m */; };
 		D54006B01E3B232900F2D7BB /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D54006B11E3B232900F2D7BB /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
 		D54006B21E3B232900F2D7BB /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
@@ -86,7 +105,7 @@
 		D54006E71E3BBE8D00F2D7BB /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
 		D54006E81E3BBE8D00F2D7BB /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
 		D54006E91E3BBE8D00F2D7BB /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D54006EA1E3BBE8D00F2D7BB /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D54006EA1E3BBE8D00F2D7BB /* Strategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.m */; };
 		D54006EB1E3BBE8D00F2D7BB /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D54006EC1E3BBE8D00F2D7BB /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
 		D54006ED1E3BBE8D00F2D7BB /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
@@ -122,7 +141,7 @@
 		D54007151E3BBEC200F2D7BB /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
 		D54007161E3BBEC200F2D7BB /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
 		D54007171E3BBEC200F2D7BB /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D54007181E3BBEC200F2D7BB /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D54007181E3BBEC200F2D7BB /* Strategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.m */; };
 		D54007191E3BBEC200F2D7BB /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D540071A1E3BBEC200F2D7BB /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
 		D540071B1E3BBEC200F2D7BB /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
@@ -158,7 +177,7 @@
 		D54007431E3BBF0000F2D7BB /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A31CB0E905009A6273 /* Player.m */; };
 		D54007441E3BBF0000F2D7BB /* PlayerMove.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */; };
 		D54007451E3BBF0000F2D7BB /* Match.m in Sources */ = {isa = PBXBuildFile; fileRef = D562F4A91CB0E935009A6273 /* Match.m */; };
-		D54007461E3BBF0000F2D7BB /* Strategy.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.mm */; };
+		D54007461E3BBF0000F2D7BB /* Strategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D5EECCD8183B5152005D5507 /* Strategy.m */; };
 		D54007471E3BBF0000F2D7BB /* AIStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77941CF8E5990073D0A1 /* AIStrategy.m */; };
 		D54007481E3BBF0000F2D7BB /* HumanStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = D50D77901CF8E5160073D0A1 /* HumanStrategy.m */; };
 		D54007491E3BBF0000F2D7BB /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D5DB1BC01CFB617100C1B5F6 /* NSArray+Extensions.m */; };
@@ -409,6 +428,15 @@
 		D517EA3518385AC2009C54E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
 		D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extension.m"; sourceTree = "<group>"; };
+		D525FBB51E58E109006CA134 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
+		D525FBB91E59569A006CA134 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		D525FBBC1E59634D006CA134 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
+		D525FBBD1E59634D006CA134 /* EngineStrong.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EngineStrong.mm; sourceTree = "<group>"; };
+		D525FBC21E596B20006CA134 /* EngineWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineWatch.m; sourceTree = "<group>"; };
+		D525FBC81E598D5E006CA134 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
+		D525FBCB1E5990AD006CA134 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
+		D525FBCD1E5990B9006CA134 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.1.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
+		D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineStrongIOS.m; sourceTree = "<group>"; };
 		D535DD501E3D03EF00AE5C1D /* FothelloTestsMac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloTestsMac.m; sourceTree = "<group>"; };
 		D535DD521E3D03EF00AE5C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53D351A1CD0928400C67EEF /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
@@ -471,6 +499,8 @@
 		D562F4AC1CB0E9E2009A6273 /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameBoard.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D562F4B11CB1A320009A6273 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
 		D56F0A191E3D130000DEC41A /* FothelloLibTestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloLibTestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D57290F91E58DC5F00651B03 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
+		D57290FD1E58DDE900651B03 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		D58775F01E4D42E800A29386 /* FothelloUITestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloUITestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D58775F21E4D42E800A29386 /* FothelloUITestsMac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloUITestsMac.m; sourceTree = "<group>"; };
 		D58775F41E4D42E800A29386 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -504,7 +534,7 @@
 		D5EECCCD183B4EC2005D5507 /* minimax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = minimax.cpp; sourceTree = "<group>"; };
 		D5EECCCE183B4EC2005D5507 /* minimax.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = minimax.hpp; sourceTree = "<group>"; };
 		D5EECCD7183B5152005D5507 /* Strategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Strategy.h; sourceTree = "<group>"; };
-		D5EECCD8183B5152005D5507 /* Strategy.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Strategy.mm; sourceTree = "<group>"; };
+		D5EECCD8183B5152005D5507 /* Strategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Strategy.m; sourceTree = "<group>"; };
 		D5F2C15C18418C5B000F089E /* DialogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewController.h; sourceTree = "<group>"; };
 		D5F2C15D18418C5B000F089E /* DialogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewController.m; sourceTree = "<group>"; };
 		D5F567ED1D111C6200998C14 /* FothelloWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -558,6 +588,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D525FBCA1E599082006CA134 /* GameplayKit.framework in Frameworks */,
+				D525FBC91E598D5E006CA134 /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +606,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D525FBCC1E5990AD006CA134 /* GameplayKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +621,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D525FBCE1E5990B9006CA134 /* GameplayKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +629,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D525FBD91E5A0704006CA134 /* GameplayKit.framework in Frameworks */,
 				D54006811E3AEA3500F2D7BB /* UIKit.framework in Frameworks */,
 				D540076A1E3BC0D100F2D7BB /* FothelloLib.framework in Frameworks */,
 				D5441B2C1831CB1100B5166A /* SpriteKit.framework in Frameworks */,
@@ -785,6 +820,13 @@
 		D5441B241831CB1100B5166A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D525FBCD1E5990B9006CA134 /* GameplayKit.framework */,
+				D525FBCB1E5990AD006CA134 /* GameplayKit.framework */,
+				D525FBC81E598D5E006CA134 /* WatchConnectivity.framework */,
+				D525FBB91E59569A006CA134 /* CoreImage.framework */,
+				D525FBB51E58E109006CA134 /* CallKit.framework */,
+				D57290FD1E58DDE900651B03 /* GameKit.framework */,
+				D57290F91E58DC5F00651B03 /* GameplayKit.framework */,
 				D54006D61E3B2BEA00F2D7BB /* XCTest.framework */,
 				D5D9BCB81CD330D700B41864 /* GameKit.framework */,
 				D5F5E4541CC129FB00A5A023 /* CoreGraphics.framework */,
@@ -851,11 +893,15 @@
 				D562F4A81CB0E935009A6273 /* Match.h */,
 				D562F4A91CB0E935009A6273 /* Match.m */,
 				D5EECCD7183B5152005D5507 /* Strategy.h */,
-				D5EECCD8183B5152005D5507 /* Strategy.mm */,
+				D5EECCD8183B5152005D5507 /* Strategy.m */,
 				D50D77931CF8E5990073D0A1 /* AIStrategy.h */,
 				D50D77941CF8E5990073D0A1 /* AIStrategy.m */,
 				D50D778F1CF8E5160073D0A1 /* HumanStrategy.h */,
 				D50D77901CF8E5160073D0A1 /* HumanStrategy.m */,
+				D525FBBC1E59634D006CA134 /* Engine.h */,
+				D525FBBD1E59634D006CA134 /* EngineStrong.mm */,
+				D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */,
+				D525FBC21E596B20006CA134 /* EngineWatch.m */,
 				D5F56A821CC37087000700D8 /* Network */,
 				D5EECCC5183B4EAB005D5507 /* Mini-Othello */,
 				D562F4B01CB0F08F009A6273 /* Utility */,
@@ -1007,6 +1053,7 @@
 				D54006C01E3B295000F2D7BB /* PlayerMove.h in Headers */,
 				D54006DF1E3BBAC200F2D7BB /* FothelloLib.h in Headers */,
 				D54006C11E3B295000F2D7BB /* Match.h in Headers */,
+				D525FBDA1E5A0DA6006CA134 /* Engine.h in Headers */,
 				D54006C21E3B295000F2D7BB /* Strategy.h in Headers */,
 				D54006C31E3B295000F2D7BB /* AIStrategy.h in Headers */,
 				D54006C51E3B295000F2D7BB /* NSArray+Extensions.h in Headers */,
@@ -1032,6 +1079,7 @@
 				D54006FD1E3BBE8D00F2D7BB /* PlayerMove.h in Headers */,
 				D54006FE1E3BBE8D00F2D7BB /* FothelloLib.h in Headers */,
 				D54006FF1E3BBE8D00F2D7BB /* Match.h in Headers */,
+				D525FBDB1E5A0DAF006CA134 /* Engine.h in Headers */,
 				D54007001E3BBE8D00F2D7BB /* Strategy.h in Headers */,
 				D54007011E3BBE8D00F2D7BB /* AIStrategy.h in Headers */,
 				D54007021E3BBE8D00F2D7BB /* NSArray+Extensions.h in Headers */,
@@ -1057,6 +1105,7 @@
 				D540072B1E3BBEC200F2D7BB /* PlayerMove.h in Headers */,
 				D540072C1E3BBEC200F2D7BB /* FothelloLib.h in Headers */,
 				D540072D1E3BBEC200F2D7BB /* Match.h in Headers */,
+				D525FBDC1E5A0DB0006CA134 /* Engine.h in Headers */,
 				D540072E1E3BBEC200F2D7BB /* Strategy.h in Headers */,
 				D540072F1E3BBEC200F2D7BB /* AIStrategy.h in Headers */,
 				D54007301E3BBEC200F2D7BB /* NSArray+Extensions.h in Headers */,
@@ -1082,6 +1131,7 @@
 				D54007591E3BBF0000F2D7BB /* PlayerMove.h in Headers */,
 				D540075A1E3BBF0000F2D7BB /* FothelloLib.h in Headers */,
 				D540075B1E3BBF0000F2D7BB /* Match.h in Headers */,
+				D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */,
 				D540075C1E3BBF0000F2D7BB /* Strategy.h in Headers */,
 				D540075D1E3BBF0000F2D7BB /* AIStrategy.h in Headers */,
 				D540075E1E3BBF0000F2D7BB /* NSArray+Extensions.h in Headers */,
@@ -1611,6 +1661,7 @@
 				D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */,
 				D509D6231CC8A7AF0028C082 /* main.m in Sources */,
 				D509136F1CF22AAA0009FE12 /* MovesViewController.m in Sources */,
+				D525FBD21E5A04D4006CA134 /* EngineStrong.mm in Sources */,
 				D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */,
 				D52C31311E40FAC700856359 /* Document.m in Sources */,
 				D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */,
@@ -1623,6 +1674,7 @@
 			files = (
 				D54006561E3AE6E200F2D7BB /* BoardScene.m in Sources */,
 				D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */,
+				D525FBD31E5A04D5006CA134 /* EngineStrong.mm in Sources */,
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
 				D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */,
 				D54006381E3AD2E200F2D7BB /* main.m in Sources */,
@@ -1636,13 +1688,15 @@
 				D54006A71E3B232900F2D7BB /* FothelloGame.m in Sources */,
 				D54006A81E3B232900F2D7BB /* GameBoard.m in Sources */,
 				D521BEE51E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
+				D525FBC51E59831D006CA134 /* EngineStrong.mm in Sources */,
 				D54006A91E3B232900F2D7BB /* BoardPiece.m in Sources */,
 				D54006AA1E3B232900F2D7BB /* BoardPosition.m in Sources */,
+				D525FBD61E5A0621006CA134 /* EngineStrongIOS.m in Sources */,
 				D54006AB1E3B232900F2D7BB /* Piece.m in Sources */,
 				D54006AC1E3B232900F2D7BB /* Player.m in Sources */,
 				D54006AD1E3B232900F2D7BB /* PlayerMove.m in Sources */,
 				D54006AE1E3B232900F2D7BB /* Match.m in Sources */,
-				D54006AF1E3B232900F2D7BB /* Strategy.mm in Sources */,
+				D54006AF1E3B232900F2D7BB /* Strategy.m in Sources */,
 				D54006B01E3B232900F2D7BB /* AIStrategy.m in Sources */,
 				D54006B11E3B232900F2D7BB /* HumanStrategy.m in Sources */,
 				D54006B21E3B232900F2D7BB /* NSArray+Extensions.m in Sources */,
@@ -1673,13 +1727,14 @@
 				D54006E21E3BBE8D00F2D7BB /* FothelloGame.m in Sources */,
 				D54006E31E3BBE8D00F2D7BB /* GameBoard.m in Sources */,
 				D521BEE61E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
+				D525FBC61E59831E006CA134 /* EngineStrong.mm in Sources */,
 				D54006E41E3BBE8D00F2D7BB /* BoardPiece.m in Sources */,
 				D54006E51E3BBE8D00F2D7BB /* BoardPosition.m in Sources */,
 				D54006E61E3BBE8D00F2D7BB /* Piece.m in Sources */,
 				D54006E71E3BBE8D00F2D7BB /* Player.m in Sources */,
 				D54006E81E3BBE8D00F2D7BB /* PlayerMove.m in Sources */,
 				D54006E91E3BBE8D00F2D7BB /* Match.m in Sources */,
-				D54006EA1E3BBE8D00F2D7BB /* Strategy.mm in Sources */,
+				D54006EA1E3BBE8D00F2D7BB /* Strategy.m in Sources */,
 				D54006EB1E3BBE8D00F2D7BB /* AIStrategy.m in Sources */,
 				D54006EC1E3BBE8D00F2D7BB /* HumanStrategy.m in Sources */,
 				D54006ED1E3BBE8D00F2D7BB /* NSArray+Extensions.m in Sources */,
@@ -1697,6 +1752,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D525FBC41E5982FB006CA134 /* EngineWatch.m in Sources */,
 				D54007101E3BBEC200F2D7BB /* FothelloGame.m in Sources */,
 				D54007111E3BBEC200F2D7BB /* GameBoard.m in Sources */,
 				D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
@@ -1706,7 +1762,7 @@
 				D54007151E3BBEC200F2D7BB /* Player.m in Sources */,
 				D54007161E3BBEC200F2D7BB /* PlayerMove.m in Sources */,
 				D54007171E3BBEC200F2D7BB /* Match.m in Sources */,
-				D54007181E3BBEC200F2D7BB /* Strategy.mm in Sources */,
+				D54007181E3BBEC200F2D7BB /* Strategy.m in Sources */,
 				D54007191E3BBEC200F2D7BB /* AIStrategy.m in Sources */,
 				D540071A1E3BBEC200F2D7BB /* HumanStrategy.m in Sources */,
 				D540071B1E3BBEC200F2D7BB /* NSArray+Extensions.m in Sources */,
@@ -1727,13 +1783,14 @@
 				D540073E1E3BBF0000F2D7BB /* FothelloGame.m in Sources */,
 				D540073F1E3BBF0000F2D7BB /* GameBoard.m in Sources */,
 				D521BEE81E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
+				D525FBC71E59831F006CA134 /* EngineStrong.mm in Sources */,
 				D54007401E3BBF0000F2D7BB /* BoardPiece.m in Sources */,
 				D54007411E3BBF0000F2D7BB /* BoardPosition.m in Sources */,
 				D54007421E3BBF0000F2D7BB /* Piece.m in Sources */,
 				D54007431E3BBF0000F2D7BB /* Player.m in Sources */,
 				D54007441E3BBF0000F2D7BB /* PlayerMove.m in Sources */,
 				D54007451E3BBF0000F2D7BB /* Match.m in Sources */,
-				D54007461E3BBF0000F2D7BB /* Strategy.mm in Sources */,
+				D54007461E3BBF0000F2D7BB /* Strategy.m in Sources */,
 				D54007471E3BBF0000F2D7BB /* AIStrategy.m in Sources */,
 				D54007481E3BBF0000F2D7BB /* HumanStrategy.m in Sources */,
 				D54007491E3BBF0000F2D7BB /* NSArray+Extensions.m in Sources */,
@@ -1753,9 +1810,11 @@
 			files = (
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
 				D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */,
+				D525FBD11E5A04C3006CA134 /* EngineStrong.mm in Sources */,
 				D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */,
+				D525FBD41E5A04E1006CA134 /* EngineStrongIOS.m in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,
 				D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */,
 			);
@@ -1803,6 +1862,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D525FBD51E5A05FD006CA134 /* EngineWatch.m in Sources */,
 				D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */,
 				D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */,
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
@@ -2391,6 +2451,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULE_DEBUGGING = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -2414,6 +2476,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULE_DEBUGGING = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_C_LANGUAGE_STANDARD = c11;

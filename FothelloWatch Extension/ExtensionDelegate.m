@@ -7,12 +7,16 @@
 //
 
 #import "ExtensionDelegate.h"
+#import "Engine.h"
 
 @implementation ExtensionDelegate
 
 - (void)applicationDidFinishLaunching
 {
     // Perform any final initialization of your application.
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineWatch engine];
+    [game setupDefaultMatch:game.engine];
 }
 
 - (void)applicationDidBecomeActive

@@ -44,11 +44,11 @@
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
     self.boardScene = scene;
     
-//    __weak InterfaceController *weakBlockSelf = self;
-//    scene.updatePlayerMove = ^(BOOL canMove)
-//    {
-//        [weakBlockSelf updateMove:canMove];
-//    };
+    __weak InterfaceController *weakBlockSelf = self;
+    scene.updatePlayerMove = ^(BOOL canMove)
+    {
+        [weakBlockSelf updateMove:canMove];
+    };
     
     // Set the scale mode to scale to fit the window
     scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -62,6 +62,11 @@
     self.skInterface.preferredFramesPerSecond = 30;
     
     [self reset];
+}
+
+- (void)updateMove:(BOOL)canMove
+{
+    //x`    self.pass.hidden = canMove;
 }
 
 - (void)reset

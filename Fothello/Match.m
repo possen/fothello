@@ -146,7 +146,7 @@
     {
         BOOL canMove = [self.board canMoveUnqueued:self.currentPlayer];
         NSLog(@"canMove %d", canMove);
-        self.currentPlayerBlock(self.currentPlayer, canMove, move.isPass);
+        self.currentPlayerBlock(player, canMove, move.isPass);
     }
 
     [self addMove:move];

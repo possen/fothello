@@ -15,9 +15,12 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
     FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineStrong engine];
+    [game setupDefaultMatch:game.engine];
+
     NSMenu *menu = [[NSApplication sharedApplication] mainMenu];
 
     // UI tests dont work if we don't do this, menu is not updating. x

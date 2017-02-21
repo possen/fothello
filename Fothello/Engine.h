@@ -1,0 +1,33 @@
+//
+//  Engine.h
+//  Fothello
+//
+//  Created by Paul Ossenbruggen on 2/18/17.
+//  Copyright © 2017 Paul Ossenbruggen. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "FothelloGame.h"
+
+@class Match;
+@class GKARC4RandomSource;
+
+@protocol Engine <NSObject>
+
++ (nonnull instancetype)engine;
+
+- (nullable instancetype)init;
+- (nonnull NSDictionary *)calculateMoveForPlayer:(nonnull Player *)player match:(nonnull Match *)match difficulty:(Difficulty)difficulty;
+- (void)seed:(nonnull NSString *)seed;
+
+@end
+
+@interface EngineWatch : NSObject <Engine>
+@end
+
+@interface EngineStrong : NSObject <Engine>
+@property (nonatomic, nonnull) GKARC4RandomSource *randomSource;
+@end
+
+@interface EngineStrongIOS : EngineStrong
+@end
