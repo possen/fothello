@@ -96,25 +96,35 @@
     [super didDeactivate];
 }
 
-- (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
+- (NSInteger)normaizeIndex:(NSInteger)maxIndex value:(CGFloat)value
 {
-    self.currentPos += rotationalDelta * 8;
-    NSArray<BoardPiece *> *legalMoves = [self.match.board
-                                         legalMovesForPlayerColor:self.match.currentPlayer.color];
-   
-    NSInteger countLegalMoves = legalMoves.count;
-    if (self.currentPos > countLegalMoves - 1)
+    NSInteger result = value;
+    if (self.currentPos > maxIndex - 1)
     {
-        self.currentPos = 0;
+        result = 0;
     }
     
     if (self.currentPos < 0)
     {
-        self.currentPos = countLegalMoves - 1;
+        result = maxIndex - 1;
     }
+    return result;
+}
+
+- (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
+{
+    self.currentPos += rotationalDelta;
+    NSArray<BoardPiece *> *legalMoves = [self.match.board
+                                         legalMovesForPlayerColor:self.match.currentPlayer.color];
+   
+    NSInteger countLegalMoves = legalMoves.count;
+    NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
     
-    BoardPosition *pos = legalMoves[(NSInteger)self.currentPos].position;
-    self.match.board.highlightBlock(pos, PieceColorYellow);
+    if (countLegalMoves != 0)
+    {
+        BoardPosition *pos = legalMoves[index].position;
+        self.match.board.highlightBlock(pos, PieceColorYellow);
+    }
 }
 
 - (IBAction)tapAction:(id)sender
@@ -122,9 +132,21 @@
     NSArray<BoardPiece *> *legalMoves = [self.match.board
                                          legalMovesForPlayerColor:self.match.currentPlayer.color];
 
-    BoardPosition *pos = legalMoves[(NSInteger)self.currentPos].position;
-    PlayerMove *move = [PlayerMove makeMoveForColor:self.match.currentPlayer.preferredPieceColor position:pos];
-    [self.match.board placeMoves:@[move]];
+    Player *player = self.match.currentPlayer;
+    NSInteger countLegalMoves = legalMoves.count;
+    NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
+ 
+    if (countLegalMoves != 0)
+    {
+        BoardPosition *pos = legalMoves[index].position;
+        PlayerMove *move = [PlayerMove makeMoveForColor:player.color position:pos];
+        [self.match placeMove:move forPlayer:player];
+    }
+    else
+    {
+        PlayerMove *passMove = [PlayerMove makePassMoveForColor:player.color];
+        [self.match placeMove:passMove forPlayer:player];
+    }
     NSLog(@"tap");
 }
 
