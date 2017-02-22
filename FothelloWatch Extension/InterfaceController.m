@@ -40,7 +40,7 @@
     [self.crownSequencer focus];
 
     FothelloGame *game = [FothelloGame sharedInstance];
-    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    [game setupDefaultMatch:game.engine];
     
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];

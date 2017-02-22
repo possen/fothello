@@ -181,33 +181,26 @@
 
 - (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
 {
-    Player *player1 = nil;
-    Player *player2 = nil;
     id<Engine>engine = [[FothelloGame sharedInstance] engine];
+    Player *player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+    Player *player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+
     // black goes first.
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
-            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[HumanStrategy alloc] initWithEngine:engine];
             player2.strategy = [[HumanStrategy alloc] initWithEngine:engine];
             break;
         case PlayerKindSelectionHumanVComputer:
-            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[HumanStrategy alloc] initWithEngine:engine];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
         case PlayerKindSelectionComputerVHuman:
-            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             player2.strategy = [[HumanStrategy alloc] initWithEngine:engine];
             break;
         case PlayerKindSelectionComputerVComputer:
-            player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-            player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;

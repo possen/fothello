@@ -24,14 +24,13 @@
     UIViewController *vc = [self.activeControllers objectAtCheckedIndex:index + 1];
     
     if (vc && vc != (id) [NSNull null])
+    {
         return vc;
-    
+    }
+
     if (index == -1)
     {
-        MatchViewControllerIOS *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"gameViewController"];
-        
-        [self.activeControllers setObject:vc atCheckedIndex:index + 1];
-        return vc;
+        return nil;
     }
 
     NSArray<NSString *> *matchOrder = [[FothelloGame sharedInstance] matchOrder];
