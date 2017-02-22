@@ -42,7 +42,8 @@
 - (void)makeWindowControllers
 {
     NSWindowController *windowController =
-        [[NSStoryboard storyboardWithName:@"Main" bundle:nil] instantiateControllerWithIdentifier:@"Document Window Controller"];
+        [[NSStoryboard storyboardWithName:@"Main" bundle:nil]
+         instantiateControllerWithIdentifier:@"Document Window Controller"];
     
     // Override to return the Storyboard file name of the document.
     [self addWindowController:windowController];

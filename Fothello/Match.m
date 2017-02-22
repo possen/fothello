@@ -57,6 +57,8 @@
         _board = [coder decodeObjectForKey:@"board"];
         _name = [coder decodeObjectForKey:@"name"];
         _currentPlayer = [coder decodeObjectForKey:@"currentPlayer"];
+        _moves = [coder decodeObjectForKey:@"moves"];
+        _redos = [coder decodeObjectForKey:@"redos"];
     }
     return self;
 }
@@ -67,6 +69,8 @@
     [aCoder encodeObject:self.board forKey:@"board"];
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.currentPlayer forKey:@"currentPlayer"];
+    [aCoder encodeObject:self.moves forKey:@"moves"];
+    [aCoder encodeObject:self.redos forKey:@"redos"];
 }
 
 - (void)setupPlayersColors

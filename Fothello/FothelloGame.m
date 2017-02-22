@@ -49,7 +49,17 @@
        objectAtIndex:0];
     
     NSString *filename = [docsPath stringByAppendingPathComponent:@"Fothello"];
-    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL exists = [fileManager fileExistsAtPath:filename];
+    if (!exists)
+    {
+        NSError *error = nil;
+        [fileManager createDirectoryAtPath:filename withIntermediateDirectories:NO attributes:nil error:&error];
+        if (error != nil)
+        {
+            NSLog(@"error %@", error);
+        }
+    }
     return filename;
 }
 
@@ -57,7 +67,6 @@
 {
     FothelloGame *game = [FothelloGame sharedInstance];
     NSString *filename = [FothelloGame pathForGameState];
-    
     [NSKeyedArchiver archiveRootObject:game toFile:filename];
 }
 

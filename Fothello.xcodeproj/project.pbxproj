@@ -208,6 +208,8 @@
 		D54007741E3BC0FE00F2D7BB /* FothelloLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D54007681E3BBF0000F2D7BB /* FothelloLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D54007781E3BC12800F2D7BB /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D540073A1E3BBEC200F2D7BB /* FothelloLib.framework */; };
 		D54007791E3BC12800F2D7BB /* FothelloLib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D540073A1E3BBEC200F2D7BB /* FothelloLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D5434B0E1E5D5BB9008E5A6C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290FD1E58DDE900651B03 /* GameKit.framework */; };
+		D5434B101E5D5DBD008E5A6C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5434B0F1E5D5DBD008E5A6C /* GameKit.framework */; };
 		D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B251831CB1100B5166A /* Foundation.framework */; };
 		D5441B2C1831CB1100B5166A /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5441B2B1831CB1100B5166A /* SpriteKit.framework */; };
 		D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5441B301831CB1100B5166A /* InfoPlist.strings */; };
@@ -460,6 +462,7 @@
 		D540073B1E3BBEC300F2D7BB /* FothelloLib-Watch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FothelloLib-Watch-Info.plist"; path = "/Users/possen/Projects/Fothello/FothelloLib/FothelloLib-Watch-Info.plist"; sourceTree = "<absolute>"; };
 		D54007681E3BBF0000F2D7BB /* FothelloLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FothelloLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54007691E3BBF0000F2D7BB /* FothelloLib-TV-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FothelloLib-TV-Info.plist"; path = "/Users/possen/Projects/Fothello/FothelloLib/FothelloLib-TV-Info.plist"; sourceTree = "<absolute>"; };
+		D5434B0F1E5D5DBD008E5A6C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.1.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5441B221831CB1100B5166A /* FothelloIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5441B251831CB1100B5166A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D5441B271831CB1100B5166A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -578,6 +581,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54007731E3BC0FE00F2D7BB /* FothelloLib.framework in Frameworks */,
+				D5434B101E5D5DBD008E5A6C /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +633,7 @@
 				D525FBD91E5A0704006CA134 /* GameplayKit.framework in Frameworks */,
 				D54006811E3AEA3500F2D7BB /* UIKit.framework in Frameworks */,
 				D540076A1E3BC0D100F2D7BB /* FothelloLib.framework in Frameworks */,
+				D5434B0E1E5D5BB9008E5A6C /* GameKit.framework in Frameworks */,
 				D5441B2C1831CB1100B5166A /* SpriteKit.framework in Frameworks */,
 				D5441B261831CB1100B5166A /* Foundation.framework in Frameworks */,
 			);
@@ -817,6 +822,7 @@
 		D5441B241831CB1100B5166A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5434B0F1E5D5DBD008E5A6C /* GameKit.framework */,
 				D525FBCD1E5990B9006CA134 /* GameplayKit.framework */,
 				D525FBCB1E5990AD006CA134 /* GameplayKit.framework */,
 				D525FBC81E598D5E006CA134 /* WatchConnectivity.framework */,
@@ -1435,6 +1441,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = UVHFXZWG47;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					D540068F1E3B22CB00F2D7BB = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1461,6 +1472,11 @@
 					D5441B211831CB1100B5166A = {
 						DevelopmentTeam = UVHFXZWG47;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					D55B70AD1E481AF000C53A51 = {
 						CreatedOnToolsVersion = 8.2.1;

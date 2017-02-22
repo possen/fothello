@@ -675,4 +675,31 @@
     [self redoMoves];
 }
 
+- (void)testSaveReload
+{
+    [self.engineStrong seed:@"undoredo"];
+    self.match = [self.game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    
+    [self makeMoveAI];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
+    [self makeMoveHuman:[BoardPosition positionWithX:1 y:4]];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
+    [self makeMoveAI];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
+    [self makeMoveHuman:[BoardPosition positionWithX:2 y:6]];
+    [self.match nextPlayer];
+    XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
+    [self makeMoveAI];
+    [self undoMoves];
+    [self redoMoves];
+
+    [self.game saveGameState];
+    [self.game loadGameState];
+    
+    
+}
+
 @end
