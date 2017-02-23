@@ -54,17 +54,17 @@
 activationDidCompleteWithState:(WCSessionActivationState)activationState
           error:(NSError *)error
 {
-    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"EngineWatch %s", __FUNCTION__);
 }
 
 - (void)sessionDidBecomeInactive:(WCSession *)session
 {
-    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"EngineWatch %s", __FUNCTION__);
 }
 
 - (void)sessionDidDeactivate:(WCSession *)WCSession
 {
-    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"EngineWatch %s", __FUNCTION__);
 }
 
 - (void)seed:(NSString *)seed

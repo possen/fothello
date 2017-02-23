@@ -472,11 +472,11 @@
 		D5434B0F1E5D5DBD008E5A6C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.1.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5434B111E5E63F9008E5A6C /* FothelloGameGameKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FothelloGameGameKit.h; sourceTree = "<group>"; };
 		D5434B121E5E63F9008E5A6C /* FothelloGameGameKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FothelloGameGameKit.m; sourceTree = "<group>"; };
-		D5434B191E5EB0FC008E5A6C /* FothelloIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FothelloIOS.entitlements; sourceTree = "<group>"; };
+		D5434B191E5EB0FC008E5A6C /* FothelloIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FothelloIOS.entitlements; sourceTree = SOURCE_ROOT; };
 		D5434B1A1E5EB112008E5A6C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		D5434B1C1E5EB1EE008E5A6C /* FothelloTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FothelloTV.entitlements; path = FothelloTV/FothelloTV.entitlements; sourceTree = "<group>"; };
+		D5434B1C1E5EB1EE008E5A6C /* FothelloTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FothelloTV.entitlements; path = FothelloTV/FothelloTV.entitlements; sourceTree = SOURCE_ROOT; };
 		D5434B1D1E5EB1F8008E5A6C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
-		D5434B1F1E5EB211008E5A6C /* FothelloWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "FothelloWatch Extension.entitlements"; path = "FothelloWatch Extension/FothelloWatch Extension.entitlements"; sourceTree = "<group>"; };
+		D5434B1F1E5EB211008E5A6C /* FothelloWatch Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "FothelloWatch Extension.entitlements"; path = "FothelloWatch Extension/FothelloWatch Extension.entitlements"; sourceTree = SOURCE_ROOT; };
 		D5434B201E5EB215008E5A6C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.1.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5434B221E5EB225008E5A6C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.1.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5441B221831CB1100B5166A /* FothelloIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -702,6 +702,7 @@
 		D509D6211CC8A7AF0028C082 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */,
 				D509D6221CC8A7AF0028C082 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -726,7 +727,6 @@
 				D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */,
 				D5F5E45F1CC12E5100A5A023 /* BoardScene+BoardScene_Mac.h */,
 				D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */,
-				D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */,
 				D509D62C1CC8A7AF0028C082 /* Main.storyboard */,
 				D509D62A1CC8A7AF0028C082 /* Assets.xcassets */,
 				D509D6211CC8A7AF0028C082 /* Supporting Files */,
@@ -746,6 +746,7 @@
 		D54006361E3AD2E200F2D7BB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D5434B1C1E5EB1EE008E5A6C /* FothelloTV.entitlements */,
 				D54006371E3AD2E200F2D7BB /* main.m */,
 			);
 			name = "Supporting Files";
@@ -805,9 +806,6 @@
 		D5441B191831CB1100B5166A = {
 			isa = PBXGroup;
 			children = (
-				D5434B1F1E5EB211008E5A6C /* FothelloWatch Extension.entitlements */,
-				D5434B1C1E5EB1EE008E5A6C /* FothelloTV.entitlements */,
-				D5434B191E5EB0FC008E5A6C /* FothelloIOS.entitlements */,
 				D517EA3518385AC2009C54E8 /* README.md */,
 				D5441B2D1831CB1100B5166A /* Fothello */,
 				D54006911E3B22CB00F2D7BB /* FothelloLib */,
@@ -886,6 +884,7 @@
 		D5441B2E1831CB1100B5166A /* iOS Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D5434B191E5EB0FC008E5A6C /* FothelloIOS.entitlements */,
 				D5441B2F1831CB1100B5166A /* Fothello-Info.plist */,
 				D5441B301831CB1100B5166A /* InfoPlist.strings */,
 				D5441B331831CB1100B5166A /* main.m */,
@@ -1020,6 +1019,7 @@
 		D5F567FE1D111C6200998C14 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D5434B1F1E5EB211008E5A6C /* FothelloWatch Extension.entitlements */,
 				D5F567FF1D111C6200998C14 /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
