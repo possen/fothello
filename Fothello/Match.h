@@ -13,6 +13,7 @@
 @class BoardPiece;
 @class GameBoard;
 @class BoardPosition;
+@class GKGameSession;
 
 #pragma mark - Match -
 
@@ -50,8 +51,9 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL 
 @property (nonatomic, readonly, nonnull) NSMutableArray<PlayerMove *> *redos;
 @property (nonatomic) BOOL noMoves;
 @property (nonatomic, readonly) BOOL turnProcessing;
-
 @property (nonatomic, readonly) BOOL areAllPlayersComputers;
+@property (nonatomic, copy, nullable) GKGameSession *session;
+
 @end
 
 

@@ -697,7 +697,7 @@
     [self redoMoves];
 
     [self.game saveGameState];
-    [self.game loadGameState];
+//    [self.game loadGameState];
     
     
 }

@@ -61,8 +61,9 @@ typedef void (^GameOverBlock)();
           preferredPieceColor:(PieceColor)preferredPieceColor;
 - (void)setupDefaultMatch:(nonnull id<Engine>)engine;
 - (void)saveGameState;
+- (nonnull Match *)setupMatch:(nonnull NSArray<Player *> *)players;
 
-- (nonnull Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
+- (nullable Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
 
 @end
 

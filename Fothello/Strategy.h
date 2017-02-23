@@ -26,7 +26,7 @@
 
 @property (nonatomic, nonnull) Match *match;
 @property (nonatomic, readonly) BOOL automatic;
-@property (nonnull, nonatomic) id <Engine>engine;
+@property (nonatomic, nonnull) id <Engine>engine;
 
 - (nonnull instancetype)initWithEngine:(nonnull id<Engine>)engine;
 - (void)makeMoveForPlayer:(nonnull Player *)player;

@@ -13,6 +13,7 @@
 #import "Player.h"
 #import "AIStrategy.h"
 #import "HumanStrategy.h"
+#import "FothelloGameGameKit.h"
 
 #pragma mark - FothelloGame -
 
@@ -32,7 +33,11 @@
         // if there is no saved game state create it for the first time.
         if (fothello == nil)
         {
+#if TARGET_OS_WATCH
             fothello = [[FothelloGame alloc] init];
+#else
+            fothello = [[FothelloGameGameKit alloc] init];
+#endif
         }
 
         _sharedObject = fothello;
@@ -213,11 +218,8 @@
             player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
-        case PlayerKindSelectionHumanVGameCenter:
-            NSAssert(false, @"not implemented");
-            break;
         default:
-            NSAssert(false, @"cant find kind");
+            NSAssert(false, @"can't find kind");
     }
     
     if (player1 == nil || player2 == nil)
@@ -225,7 +227,12 @@
         return nil;
     }
     
-    Match *match = [[Match alloc] initWithName:@"game" players:@[player2, player1]];
+    return [self setupMatch:@[player2, player1]];
+}
+
+- (Match *)setupMatch:(NSArray<Player *> *)players
+{
+    Match *match = [[Match alloc] initWithName:@"game" players:players];
     for (Player *player in self.players)
     {
         player.strategy.engine = self.engine;
@@ -234,5 +241,6 @@
     [match reset];
     return match;
 }
+
 
 @end
