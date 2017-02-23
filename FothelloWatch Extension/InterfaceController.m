@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet WKInterfaceSKScene *skInterface;
 @property (nonatomic) BoardScene *boardScene;
 @property (nonatomic) double currentPos;
+
 @end
 
 
