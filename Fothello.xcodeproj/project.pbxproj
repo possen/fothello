@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -42,6 +42,7 @@
 		D525FBDC1E5A0DB0006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D52C31311E40FAC700856359 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
+		D52C56201E5F484B00DB29EF /* WatchAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F568111D111C6300998C14 /* WatchAssets.xcassets */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
@@ -255,7 +256,6 @@
 		D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F568091D111C6300998C14 /* ExtensionDelegate.m */; };
 		D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5680C1D111C6300998C14 /* NotificationController.m */; };
 		D5F568101D111C6300998C14 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5680F1D111C6300998C14 /* ComplicationController.m */; };
-		D5F568121D111C6300998C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F568111D111C6300998C14 /* Assets.xcassets */; };
 		D5F568161D111C6300998C14 /* FothelloWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D5F567ED1D111C6200998C14 /* FothelloWatch.app */; };
 		D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */; };
 		D5F5E46F1CC1394600A5A023 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
@@ -567,7 +567,7 @@
 		D5F5680C1D111C6300998C14 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		D5F5680E1D111C6300998C14 /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
 		D5F5680F1D111C6300998C14 /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
-		D5F568111D111C6300998C14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D5F568111D111C6300998C14 /* WatchAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchAssets.xcassets; sourceTree = "<group>"; };
 		D5F568131D111C6300998C14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5F56A7C1CC36074000700D8 /* MatchViewControllerMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchViewControllerMac.h; path = FothelloMac/MatchViewControllerMac.h; sourceTree = SOURCE_ROOT; };
 		D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MatchViewControllerMac.m; path = FothelloMac/MatchViewControllerMac.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -760,11 +760,11 @@
 				D540063A1E3AD2E200F2D7BB /* AppDelegate.m */,
 				D54006421E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.h */,
 				D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */,
+				D54006451E3AD2E200F2D7BB /* MatchViewControllerTV.h */,
+				D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */,
 				D54006481E3AD2E200F2D7BB /* Main.storyboard */,
 				D540064B1E3AD2E200F2D7BB /* Assets.xcassets */,
 				D540064D1E3AD2E200F2D7BB /* Info.plist */,
-				D54006451E3AD2E200F2D7BB /* MatchViewControllerTV.h */,
-				D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */,
 				D54006361E3AD2E200F2D7BB /* Supporting Files */,
 			);
 			name = AppleTV;
@@ -1008,7 +1008,7 @@
 				D5F5680C1D111C6300998C14 /* NotificationController.m */,
 				D5F5680E1D111C6300998C14 /* ComplicationController.h */,
 				D5F5680F1D111C6300998C14 /* ComplicationController.m */,
-				D5F568111D111C6300998C14 /* Assets.xcassets */,
+				D5F568111D111C6300998C14 /* WatchAssets.xcassets */,
 				D5F568131D111C6300998C14 /* Info.plist */,
 				D5F567FE1D111C6200998C14 /* Supporting Files */,
 			);
@@ -1570,7 +1570,7 @@
 				};
 			};
 			buildConfigurationList = D5441B1D1831CB1100B5166A /* Build configuration list for PBXProject "Fothello" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1705,6 +1705,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D52C56201E5F484B00DB29EF /* WatchAssets.xcassets in Resources */,
 				D5F567F11D111C6200998C14 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1713,7 +1714,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5F568121D111C6300998C14 /* Assets.xcassets in Resources */,
 				D5F568071D111C6300998C14 /* BoardScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
