@@ -196,7 +196,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     myLabel.fontSize = 32;
     myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    SKAction *action = [SKAction fadeInWithDuration:.5];
+    SKAction *action1 = [SKAction fadeInWithDuration:.5];
     SKAction *action2 = [SKAction fadeOutWithDuration:.5];
     SKAction *runAction = [SKAction runBlock:
     ^{
@@ -214,7 +214,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     [self addChild:myLabel];
     
     [myLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
-                                             [SKAction sequence:@[action, action2]] count:5],
+                                             [SKAction sequence:@[action1, action2]] count:5],
                                             runAction]]];
    
     
@@ -519,16 +519,15 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:NO];
     sprite.alpha = 1.0;
     
-    SKAction *action = [SKAction fadeAlphaTo:0 duration:.5];
-    
     [self.prevHighlight removeFromParent];
     [self addChild:sprite];
     self.prevHighlight = sprite;
-    
-    [sprite runAction:action completion:
-     ^{
-         [sprite removeFromParent];
-     }];
+    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
+    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:0];
+
+    [sprite runAction:
+     [SKAction repeatActionForever:
+      [SKAction sequence:@[fadeIn, fadeOut]]]];
 }
 
 @end

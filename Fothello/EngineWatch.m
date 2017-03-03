@@ -69,7 +69,7 @@ activationDidCompleteWithState:(WCSessionActivationState)activationState
 
 - (void)seed:(NSString *)seed
 {
-    // don't genereate randome numbers here.
+    // don't genereate random numbers here.
 }
 
 - (NSDictionary<NSString *, id> *)calculateMoveForPlayer:(PieceColor)playerColor

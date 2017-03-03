@@ -219,7 +219,7 @@
             player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
         default:
-            NSAssert(false, @"can't find kind");
+            break;
     }
     
     if (player1 == nil || player2 == nil)

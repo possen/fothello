@@ -9,7 +9,7 @@
 #import <FothelloLib/FothelloLib.h>
 
 #import "InterfaceController.h"
-#import "BoardScene.h"
+#import "BoardSceneWatch.h"
 #import "GameBoard.h"
 #import "Match.h"
 
@@ -44,7 +44,7 @@
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
+    BoardSceneWatch *scene = [[BoardSceneWatch alloc] initWithSize:size match:self.match];
     self.boardScene = scene;
     
     __weak InterfaceController *weakBlockSelf = self;
@@ -99,17 +99,8 @@
 
 - (NSInteger)normaizeIndex:(NSInteger)maxIndex value:(CGFloat)value
 {
-    NSInteger result = value;
-    if (self.currentPos > maxIndex - 1)
-    {
-        result = 0;
-    }
-    
-    if (self.currentPos < 0)
-    {
-        result = maxIndex - 1;
-    }
-    return result;
+    NSInteger result = ((NSInteger) self.currentPos) % maxIndex;
+    return abs(result);
 }
 
 - (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
@@ -119,10 +110,10 @@
                                          legalMovesForPlayerColor:self.match.currentPlayer.color];
    
     NSInteger countLegalMoves = legalMoves.count;
-    NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
     
     if (countLegalMoves != 0)
     {
+        NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
         BoardPosition *pos = legalMoves[index].position;
         self.match.board.highlightBlock(pos, PieceColorYellow);
     }
@@ -135,10 +126,10 @@
 
     Player *player = self.match.currentPlayer;
     NSInteger countLegalMoves = legalMoves.count;
-    NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
  
     if (countLegalMoves != 0)
     {
+        NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
         BoardPosition *pos = legalMoves[index].position;
         PlayerMove *move = [PlayerMove makeMoveForColor:player.color position:pos];
         [self.match placeMove:move forPlayer:player];

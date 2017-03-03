@@ -51,7 +51,9 @@
                                                   playerColor:pieceColor
                                                    moveNumber:moveNumber
                                                     diffculty:difficulty];
-    NSLog(@"IOS %@", replyMessage);
+    
+    NSLog(@"Recieved Message from watch %@", replyMessage);
+    
     return replyHandler(replyMessage);
 }
 

@@ -43,6 +43,7 @@
 		D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D52C31311E40FAC700856359 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
 		D52C56201E5F484B00DB29EF /* WatchAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F568111D111C6300998C14 /* WatchAssets.xcassets */; };
+		D52C56241E5F9A3800DB29EF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D52C56231E5F9A3800DB29EF /* CloudKit.framework */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
@@ -233,6 +234,7 @@
 		D55B70B11E481AF000C53A51 /* FothelloLibTestsTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D55B70B01E481AF000C53A51 /* FothelloLibTestsTV.m */; };
 		D55B70B81E481DE200C53A51 /* TestBoardOps.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ED047B1CE983B50099A01A /* TestBoardOps.m */; };
 		D55B70B91E481DE200C53A51 /* FothelloAITests.mm in Sources */ = {isa = PBXBuildFile; fileRef = D5441B5A1831CB1100B5166A /* FothelloAITests.mm */; };
+		D563AD251E5FFC7600409242 /* BoardSceneWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D563AD241E5FFC7600409242 /* BoardSceneWatch.m */; };
 		D56AAD271D13C9EA00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D56AAD281D13C9EB00BBCDFA /* BoardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D5F568061D111C6300998C14 /* BoardScene.sks */; };
 		D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
@@ -442,6 +444,7 @@
 		D525FBCB1E5990AD006CA134 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
 		D525FBCD1E5990B9006CA134 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.1.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
 		D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineStrongIOS.m; sourceTree = "<group>"; };
+		D52C56231E5F9A3800DB29EF /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		D535DD501E3D03EF00AE5C1D /* FothelloTestsMac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloTestsMac.m; sourceTree = "<group>"; };
 		D535DD521E3D03EF00AE5C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53D351A1CD0928400C67EEF /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
@@ -514,6 +517,8 @@
 		D562F4AB1CB0E9E2009A6273 /* GameBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GameBoard.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D562F4AC1CB0E9E2009A6273 /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameBoard.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D562F4B11CB1A320009A6273 /* json.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		D563AD231E5FFC7600409242 /* BoardSceneWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardSceneWatch.h; sourceTree = "<group>"; };
+		D563AD241E5FFC7600409242 /* BoardSceneWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoardSceneWatch.m; sourceTree = "<group>"; };
 		D56F0A191E3D130000DEC41A /* FothelloLibTestsMac.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloLibTestsMac.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D57290F91E58DC5F00651B03 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = System/Library/Frameworks/GameplayKit.framework; sourceTree = SDKROOT; };
 		D57290FD1E58DDE900651B03 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -587,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D540076F1E3BC0E200F2D7BB /* FothelloLib.framework in Frameworks */,
+				D52C56241E5F9A3800DB29EF /* CloudKit.framework in Frameworks */,
 				D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */,
 				D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */,
 			);
@@ -843,6 +849,7 @@
 		D5441B241831CB1100B5166A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D52C56231E5F9A3800DB29EF /* CloudKit.framework */,
 				D5434B221E5EB225008E5A6C /* GameKit.framework */,
 				D5434B201E5EB215008E5A6C /* CloudKit.framework */,
 				D5434B1D1E5EB1F8008E5A6C /* CloudKit.framework */,
@@ -1000,6 +1007,8 @@
 		D5F567FD1D111C6200998C14 /* Apple Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D563AD231E5FFC7600409242 /* BoardSceneWatch.h */,
+				D563AD241E5FFC7600409242 /* BoardSceneWatch.m */,
 				D5F568001D111C6200998C14 /* InterfaceController.h */,
 				D5F568011D111C6200998C14 /* InterfaceController.m */,
 				D5F568081D111C6300998C14 /* ExtensionDelegate.h */,
@@ -1465,7 +1474,7 @@
 								enabled = 1;
 							};
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -1936,6 +1945,7 @@
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
 				D5F568101D111C6300998C14 /* ComplicationController.m in Sources */,
 				D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */,
+				D563AD251E5FFC7600409242 /* BoardSceneWatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
