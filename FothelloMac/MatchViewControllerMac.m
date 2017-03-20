@@ -7,6 +7,7 @@
 //
 
 #import <FothelloLib/FothelloLib.h>
+#import <GameKit/GameKit.h>
 
 #import "MatchViewControllerMac.h"
 #import "NewGameViewController.h"
@@ -14,12 +15,13 @@
 #import "BoardScene.h"
 #import "AppDelegate.h"
 
-@interface MatchViewControllerMac () <DismissDelegate>
+@interface MatchViewControllerMac () <DismissDelegate, GKTurnBasedMatchmakerViewControllerDelegate>
 @property (nonatomic) BoardScene *boardScene;
 @property (nonatomic) NSInteger pageIndex;
 @property (nonatomic) IBOutlet SKView *mainView;
 @property (nonatomic) IBOutlet MovesViewController *movesController;
 @property (nonatomic) BOOL canMove;
+@property (nonatomic) NSViewController *authenticationController;
 
 @end
 
@@ -32,6 +34,8 @@
 
 - (void)viewDidLoad
 {
+    [self authenticateLocalPlayer];
+    
     [super viewDidLoad];
 
     FothelloGame *game = [FothelloGame sharedInstance];
@@ -69,6 +73,45 @@
     [self reset];
 }
 
+- (void)authenticateLocalPlayer
+{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    
+    __weak GKLocalPlayer *weakLocalPlayer = localPlayer;
+    
+    localPlayer.authenticateHandler = ^(NSViewController *viewController, NSError *error){
+        if (viewController != nil)
+        {
+            //showAuthenticationDialogWhenReasonable: is an example method name. Create your own method that displays an authentication view when appropriate for your app.
+            [self showAuthenticationDialog:viewController];
+        }
+        else if (weakLocalPlayer.isAuthenticated)
+        {
+            //        [self authenticatedPlayer: localPlayer];
+        }
+        else
+        {
+            [self disableGameCenter];
+        }
+    };
+}
+
+- (void)showAuthenticationDialog:(NSViewController *)vc
+{
+    [self presentViewControllerAsSheet:vc];
+    self.authenticationController = vc;
+}
+
+- (void)authenticatedPlayer:(GKLocalPlayer *)localPlayer
+{
+    
+}
+
+- (void)disableGameCenter
+{
+    
+}
+
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"NewDocument"])
@@ -87,12 +130,50 @@
 {
     if (!cancel)
     {
-        self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
-                                                             difficulty:difficulty];
-        self.boardScene.match = self.match;
-        [self reset];
+        if (playerKind == PlayerKindSelectionHumanVGameCenter)
+        {
+            [self createGameKitMatch];
+        }
+        else
+        {
+            self.match = [[FothelloGame sharedInstance] createMatchFromKind:playerKind
+                                                                 difficulty:difficulty];
+            self.boardScene.match = self.match;
+            [self reset];
+        }
     }
 }
+
+- (void)createGameKitMatch
+{
+//    NSAssert(error == nil, @"error %@", error);
+    
+    GKMatchRequest *matchRequest = [[GKMatchRequest alloc] init];
+    matchRequest.minPlayers = 2;
+    matchRequest.maxPlayers = 2;
+    matchRequest.defaultNumberOfPlayers = 2;
+    matchRequest.inviteMessage = @"Please play Fothello with me!"; // TODO: customize
+    
+    matchRequest.playerAttributes
+        = PieceColorBlack
+        ? 0xFFFF0000
+        : 0x0000FFFF;
+    
+    GKTurnBasedMatchmakerViewController *vc
+        = [[GKTurnBasedMatchmakerViewController alloc] initWithMatchRequest:matchRequest];
+    
+    vc.turnBasedMatchmakerDelegate = self;
+    GKDialogController *controller = [[GKDialogController alloc] init];
+    [controller presentViewController:vc];
+    
+    //                     Player *player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+    //                     player2.name = players[1]
+    //                                [self setupMatch:@[player2, player1]];
+    //}];
+
+}
+
+
 
 - (void)setMatch:(Match *)match
 {
@@ -181,6 +262,29 @@
     }
     
     return YES;
+}
+
+#pragma mark - GKTurnBasedMatchmakerViewControllerDelegate -
+
+- (void)turnBasedMatchmakerViewControllerWasCancelled:(GKTurnBasedMatchmakerViewController *)viewController
+{
+    [self.authenticationController dismissController:nil];
+}
+
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController
+                         didFailWithError:(NSError *)error
+{
+    [self.authenticationController dismissController:nil];
+}
+
+- (void)turnBasedMatchmakerViewController:(GKTurnBasedMatchmakerViewController *)viewController
+                             didFindMatch:(GKTurnBasedMatch *)turnBasedMatch
+{
+    id<Engine>engine = [[FothelloGame sharedInstance] engine];
+    //    Player *player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+    //   player1.name = player.displayName;
+    [self.authenticationController dismissController:nil];
+    
 }
 
 @end

@@ -1,4 +1,5 @@
-//
+
+    //
 //  FothelloGameGameKit.m
 //  Fothello
 //
@@ -11,7 +12,7 @@
 
 #import "FothelloGameGameKit.h"
 
-@interface FothelloGameGameKit ()
+@interface FothelloGameGameKit () 
 @property (nonatomic) NSArray<GKGameSession *> *sessions;
 @end
 
@@ -32,11 +33,9 @@
                                 maxConnectedPlayers:2
                                   completionHandler:
              ^(GKGameSession *session, NSError *error)
-             {
-                 //            [super setupMatch:players];
-             }];
-        }
+             {}];
             break;
+        }
         default:
             break;
     }
@@ -51,6 +50,8 @@
     [GKGameSession loadSessionsInContainer:defaultContainer.containerIdentifier
                          completionHandler:^(NSArray<GKGameSession *> *sessions, NSError *error)
      {
+         NSAssert(error != nil, @"error %@", error);
+
          self.sessions = sessions;
      }];
 }
@@ -63,9 +64,9 @@
         [match.session saveData:data
               completionHandler:^(NSData *conflictingData, NSError * error)
          {
-             
+             NSAssert(error != nil, @"error %@", error);
+           
          }];
     }
-
 }
 @end
