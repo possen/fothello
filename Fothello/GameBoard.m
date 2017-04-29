@@ -667,26 +667,16 @@ typedef struct Delta
     
     switch (direction)
     {
-        case DirectionUp: case DirectionUpLeft: case DirectionUpRight:
-            y = -1;
-            break;
-        case DirectionDown: case DirectionDownRight: case DirectionDownLeft:
-            y = 1;
-            break;
-        case DirectionNone: case DirectionLeft: case DirectionRight: case DirectionLast:
-            break;
+        case DirectionUp: case DirectionUpLeft: case DirectionUpRight: y = -1; break;
+        case DirectionDown: case DirectionDownRight: case DirectionDownLeft: y = 1; break;
+        case DirectionNone: case DirectionLeft: case DirectionRight: case DirectionLast: break;
     }
     
     switch (direction)
     {
-        case DirectionRight: case DirectionDownRight: case DirectionUpRight:
-            x = 1;
-            break;
-        case DirectionLeft: case DirectionDownLeft: case DirectionUpLeft:
-            x = -1;
-            break;
-        case DirectionNone: case DirectionUp: case DirectionDown: case DirectionLast:
-            break;
+        case DirectionRight: case DirectionDownRight: case DirectionUpRight: x = 1; break;
+        case DirectionLeft: case DirectionDownLeft: case DirectionUpLeft: x = -1; break;
+        case DirectionNone: case DirectionUp: case DirectionDown: case DirectionLast: break;
     }
     
     Delta delta; delta.dx = x; delta.dy = y;
