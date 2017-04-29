@@ -37,6 +37,51 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     return self;
 }
 
+- (void)setPiece:(NSArray<NSArray <BoardPiece *> *> *)pieceTracks
+{
+    NSArray<BoardPiece *> *boardPieces = [NSArray flatten:pieceTracks];
+    
+    for (BoardPiece *piece in boardPieces)
+    {
+        [self placeSpriteAtX:piece.position.x
+                           Y:piece.position.y
+                   withPiece:piece.piece];
+    }
+}
+
+- (void)currentPlayerChange:(Player *)player canMove:(BOOL)canMove pass:(BOOL)pass
+{
+    [self displayCurrentPlayer:player];
+    
+    if (self.updatePlayerMove)
+    {
+        self.updatePlayerMove(canMove || self.gameOverNode);
+    }
+    [self playerTurnComplete];
+}
+
+- (void)statusUpdate:(BOOL)gameOver
+{
+    if (gameOver)
+    {
+        FothelloGame *game = [FothelloGame sharedInstance];
+        if (game.gameOverBlock)
+        {
+            game.gameOverBlock();
+        }
+        
+        [self displayGameOver];
+    }
+    else
+    {
+        self.updatePlayerMove(NO);
+        if (self.gameOverNode)
+        {
+            [self removeGameOver];
+        }
+    }
+}
+
 - (void)setMatch:(Match *)match
 {
     _match = match;
@@ -49,14 +94,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     {        
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            NSArray<BoardPiece *> *boardPieces = [NSArray flatten:pieceTracks];
-            
-            for (BoardPiece *piece in boardPieces)
-            {
-                [weakBlockSelf placeSpriteAtX:piece.position.x
-                                            Y:piece.position.y
-                                    withPiece:piece.piece];
-            }
+            [weakBlockSelf setPiece:pieceTracks];
         });
     };
     
@@ -64,13 +102,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            [weakBlockSelf displayCurrentPlayer:player];
-            
-            if (weakBlockSelf.updatePlayerMove)
-            {
-                weakBlockSelf.updatePlayerMove(canMove || self.gameOverNode);
-            }
-            [self playerTurnComplete];
+            [weakBlockSelf currentPlayerChange:player canMove:canMove pass:pass];
        });
     };
 
@@ -78,24 +110,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     {
         dispatch_async(dispatch_get_main_queue(), ^
         {
-            if (gameOver)
-            {
-                FothelloGame *game = [FothelloGame sharedInstance];
-                if (game.gameOverBlock)
-                {
-                    game.gameOverBlock();
-                }
-
-                [weakBlockSelf displayGameOver];
-            }
-            else
-            {
-                weakBlockSelf.updatePlayerMove(NO);
-                if (self.gameOverNode)
-                {
-                    [weakBlockSelf removeGameOver];
-                }
-            }
+            [weakBlockSelf statusUpdate:gameOver];
         });
     };
     
@@ -187,15 +202,17 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     NSInteger score2 = [match.board playerScore:player2];
 
     Player *winner = score1 > score2 ? player1 : player2;
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
-    myLabel.text = score1 == score2
+    SKLabelNode *winLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
+    winLabel.text = score1 == score2
                  ? @"Tie"
                  : [NSString stringWithFormat:NSLocalizedString(@"%@ Wins", @"user name"), winner.name];
     
-    myLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    myLabel.fontSize = 32;
-    myLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    winLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    winLabel.fontSize = 32;
+    winLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
+    winLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    self.gameOverNode = winLabel;
+
     SKAction *action = [SKAction fadeInWithDuration:.5];
     SKAction *action2 = [SKAction fadeOutWithDuration:.5];
     SKAction *runAction = [SKAction runBlock:
@@ -209,11 +226,10 @@ static NSString *kMainFont = @"AvenirNext-Medium";
          }];
     }];
     
-    self.gameOverNode = myLabel;
 
-    [self addChild:myLabel];
+    [self addChild:winLabel];
     
-    [myLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
+    [winLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
                                              [SKAction sequence:@[action, action2]] count:5],
                                             runAction]]];
    

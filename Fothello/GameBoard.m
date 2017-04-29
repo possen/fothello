@@ -712,8 +712,7 @@ typedef struct Delta
         Direction dir = moveDist / dist * 2 + DirectionFirst;
         Delta diff = [self determineDirection:dir];
         
-        position.x += diff.dx;
-        position.y += diff.dy;
+        position.x += diff.dx; position.y += diff.dy;
         
         BOOL stop = NO;
         block(position, ABS(position.x) == ABS(position.y), moveDist, &stop);
