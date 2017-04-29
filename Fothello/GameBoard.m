@@ -583,6 +583,36 @@ typedef struct Delta
     return result;
 }
 
+- (NSArray *)followTrackForDirection:(Direction)direction
+                               piece:(BoardPiece *)boardPiece
+                               color:(PieceColor)pieceColor
+{
+    Delta diff = [self determineDirection:direction];
+    
+    NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    NSInteger offsetx = boardPiece.position.x; NSInteger offsety = boardPiece.position.y;
+    Piece *piece;
+    
+    // keep adding pieces until we hit a piece of the same color, edge of board or
+    // clear space.
+    BOOL valid;
+    
+    do {
+        offsetx += diff.dx; offsety += diff.dy;
+        piece = [self pieceAtPositionX:offsetx Y:offsety];
+        valid = piece && ![piece isClear]; // make sure it is on board and not clear.
+        
+        if (valid)
+        {
+            BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
+            BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset color:pieceColor];
+            [track addObject:trackInfo];
+        }
+    } while (valid && piece.color != pieceColor);
+    return track;
+}
+
 - (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece
                                                          color:(PieceColor)pieceColor
 {
@@ -600,37 +630,18 @@ typedef struct Delta
         return nil;
     }
     
-    NSMutableArray<NSMutableArray <BoardPiece *> *> *tracks = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<NSMutableArray <BoardPiece *> *> *tracks
+        = [[NSMutableArray alloc] initWithCapacity:10];
     
     // try each direction, to see if there is a track
     for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
     {
-        Delta diff = [self determineDirection:direction];
-        NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
-        
-        NSInteger offsetx = boardPiece.position.x;
-        NSInteger offsety = boardPiece.position.y;
-        Piece *piece;
-        
-        // keep adding pieces until we hit a piece of the same color, edge of board or
-        // clear space.
-        BOOL valid;
-        
-        do {
-            offsetx += diff.dx; offsety += diff.dy;
-            piece = [self pieceAtPositionX:offsetx Y:offsety];
-            valid = piece && ![piece isClear]; // make sure it is on board and not clear.
-            
-            if (valid)
-            {
-                BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
-                BoardPiece *trackInfo = [BoardPiece makeBoardPieceWithPiece:piece position:offset color:pieceColor];
-                [track addObject:trackInfo];
-            }
-        } while (valid && piece.color != pieceColor);
+        NSArray *track = [self followTrackForDirection:direction
+                                                 piece:boardPiece
+                                                 color:pieceColor];
         
         // found piece of same color, end track call back.
-        if (valid && piece.color == pieceColor && track.count > 1)
+        if (piece.color == pieceColor && track.count > 1)
         {
             found = YES;
             [tracks addObject:[track copy]];
@@ -646,39 +657,25 @@ typedef struct Delta
     
     switch (direction)
     {
-        case DirectionUp:
-        case DirectionUpLeft:
-        case DirectionUpRight:
+        case DirectionUp: case DirectionUpLeft: case DirectionUpRight:
             y = -1;
             break;
-        case DirectionDown:
-        case DirectionDownRight:
-        case DirectionDownLeft:
+        case DirectionDown: case DirectionDownRight: case DirectionDownLeft:
             y = 1;
             break;
-        case DirectionNone:
-        case DirectionLeft:
-        case DirectionRight:
-        case DirectionLast:
+        case DirectionNone: case DirectionLeft: case DirectionRight: case DirectionLast:
             break;
     }
     
     switch (direction)
     {
-        case DirectionRight:
-        case DirectionDownRight:
-        case DirectionUpRight:
+        case DirectionRight: case DirectionDownRight: case DirectionUpRight:
             x = 1;
             break;
-        case DirectionLeft:
-        case DirectionDownLeft:
-        case DirectionUpLeft:
+        case DirectionLeft: case DirectionDownLeft: case DirectionUpLeft:
             x = -1;
             break;
-        case DirectionNone:
-        case DirectionUp:
-        case DirectionDown:
-        case DirectionLast:
+        case DirectionNone: case DirectionUp: case DirectionDown: case DirectionLast:
             break;
     }
     
