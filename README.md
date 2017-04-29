@@ -1,5 +1,6 @@
 fothello
 ========
+[![codebeat badge](https://codebeat.co/badges/e4c837cf-c58e-45ee-aa88-5cb48169447c)](https://codebeat.co/projects/github-com-possen-fothello-master)
 
 Reversi like game.
 -----------------
