@@ -1,4 +1,4 @@
-   //
+//
 //  GameBoard.m
 //  Fothello
 //
@@ -103,6 +103,20 @@ typedef struct Delta
 
 #pragma - Queued - 
 
+
+- (void)determineLegalMoves
+{
+    // Make copy to update, so it can be read outside queue.
+    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
+    for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
+    {
+        NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayerColor:color];
+        [legalPieces setObject:legalMoves atCheckedIndex:color];
+    }
+    
+    self.legalMovesForPlayer = legalPieces;
+}
+
 //
 // lets the work for the update occur in the processing queue rather than the queue
 // is is being called from the caller's thread. Use this method around calls that
@@ -112,21 +126,12 @@ typedef struct Delta
            complete:(UpdateCompleteBlock)updateComplete
 {
     dispatch_async(self.queue,^
-   {
+                   {
        if (updateFunction != nil)
        {
            NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
            [self updateBoardWithPieces:pieces];
-           
-           // Make copy to update, so it can be read outside queue.
-           NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
-           for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
-           {
-               NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayerColor:color];
-               [legalPieces setObject:legalMoves atCheckedIndex:color];
-           }
-           
-           self.legalMovesForPlayer = legalPieces;
+           [self determineLegalMoves];
 //           NSLog(@"%@", self.legalMovesForPlayer);
        }
        
@@ -233,6 +238,23 @@ typedef struct Delta
     }];
 }
 
+- (NSArray<BoardPiece *> *)findLegals:(NSArray<BoardPiece *> *)pieces
+{
+    NSIndexSet *legals = [pieces indexesOfObjectsPassingTest:
+                          ^BOOL(BoardPiece *piece, NSUInteger idx, BOOL * stop)
+                          {
+                              Piece *currentPiece = [self pieceAtPositionX:piece.position.x Y:piece.position.y];
+                              BOOL result = currentPiece.color == PieceColorLegal;
+                              return result;
+                          }];
+    
+    pieces = [pieces objectsAtIndexes:legals];
+    [pieces enumerateObjectsUsingBlock:^(BoardPiece *piece, NSUInteger idx, BOOL *stop)
+     {
+         piece.color = PieceColorNone;
+     }];
+    return pieces;
+}
 
 - (void)showLegalMoves:(BOOL)display forPlayer:(Player *)player
 {
@@ -246,19 +268,7 @@ typedef struct Delta
          }
          else
          {
-             NSIndexSet *legals = [pieces indexesOfObjectsPassingTest:^BOOL(BoardPiece *piece, NSUInteger idx, BOOL * stop)
-                                   {
-                                       Piece *currentPiece = [self pieceAtPositionX:piece.position.x Y:piece.position.y];
-                                       BOOL result = currentPiece.color == PieceColorLegal;
-                                       return result;
-                                   }];
-             
-             pieces = [pieces objectsAtIndexes:legals];
-             [pieces enumerateObjectsUsingBlock:^(BoardPiece *piece, NSUInteger idx, BOOL *stop)
-              {
-                  piece.color = PieceColorNone;
-              }];
-
+             pieces = [self findLegals:pieces];
              return pieces ? @[pieces] : @[];
          }
      }];
