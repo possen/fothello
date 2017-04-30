@@ -200,10 +200,7 @@ typedef struct Delta
          NSArray<NSArray<BoardPiece *> *> *pieces = @[];
          for (PlayerMove *move in moves)
          {
-             if (move.isPass)
-             {
-                 return nil;
-             }
+             if (move.isPass) return nil;
              
              Piece *currentBoardPiece = [self pieceAtPositionX:move.position.x Y:move.position.y];
              
@@ -520,22 +517,8 @@ typedef struct Delta
     [boardString appendString:@"\n"];
 }
 
-- (NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse
+- (void)printRow:(NSMutableString *)boardString ascii:(BOOL)ascii reverse:(BOOL)reverse
 {
-    NSMutableString *boardString = [[NSMutableString alloc] init];
-    
-    if (!ascii)
-    {
-        [boardString appendFormat:@"  "];
-        for (NSInteger x = 0; x < self.size; x++)
-        {
-            [boardString appendFormat:@"%c", (char)x + 'A'];
-        }
-        [boardString appendFormat:@"\n"];
-    }
-    
-    [self printBanner:boardString ascii:ascii];
-    
     NSInteger size = self.size;
     NSInteger reverseOffset = reverse  ? size - 1 : 0;
     for (NSInteger y = 0; y < size; ++y)
@@ -559,21 +542,47 @@ typedef struct Delta
         [boardString appendString:@"|"];
         [boardString appendString:@"\n"];
     }
+}
+
+- (void)printHeader:(NSMutableString *)boardString
+{
+    [boardString appendFormat:@"  "];
+    for (NSInteger x = 0; x < self.size; x++)
+    {
+        [boardString appendFormat:@"%c", (char)x + 'A'];
+    }
+    [boardString appendFormat:@"\n"];
+}
+
+- (void)printPlayedPieces:(NSMutableString *)boardString
+{
+    NSDictionary *dict =  [self.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj)
+                           {
+                               return @[[Piece stringFromColor:[key integerValue]], obj];
+                           }];
     
+    // printing the dict does not preserve dictionary key unicode characters.
+    for (NSString *dictItem in dict)
+    {
+        [boardString appendFormat:@"%@ %@\n", dictItem, dict[dictItem]];
+    }
+}
+
+- (NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse
+{
+    NSMutableString *boardString = [[NSMutableString alloc] init];
+
+    if (!ascii)
+    {
+        [self printHeader:boardString];
+    }
+    [self printBanner:boardString ascii:ascii];
+    [self printRow:boardString ascii:ascii reverse:reverse];
     [self printBanner:boardString ascii:ascii];
     
     if (!ascii)
     {
-       NSDictionary *dict =  [self.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj)
-         {
-             return @[[Piece stringFromColor:[key integerValue]], obj];
-         }];
-        
-        // printing the dict does not preserve dictionary key unicode characters.
-        for (NSString *dictItem in dict)
-        {
-            [boardString appendFormat:@"%@ %@\n", dictItem, dict[dictItem]];
-        }
+        [self printPlayedPieces:boardString];
     }
     
     return [boardString copy];
