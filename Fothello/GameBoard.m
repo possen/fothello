@@ -161,27 +161,34 @@ typedef struct Delta
      }];
 }
 
+- (NSArray<BoardPiece *> *)startingPieces
+{
+    // place initial pieces.
+    BoardPosition *center = self.center;
+    
+    NSMutableArray<BoardPiece *> *setupBoard = [NSMutableArray new];
+    [self boxCoord:1 block:
+     ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
+     {
+         NSInteger playerCount = (count + 1) % 2;
+         NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
+         BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+         Piece *piece = [self pieceAtPositionX:x Y:y];
+         
+         [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece
+                                                          position:pos
+                                                             color:playerCount + 1]];
+     }];
+    return [setupBoard copy];
+}
+
 - (void)reset
 {
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
         NSArray<BoardPiece *> *boardPieces = [self erase];
-    
-        // place initial pieces.
-        BoardPosition *center = self.center;
-        
-        NSMutableArray<BoardPiece *> *setupBoard = [NSMutableArray new];
-        [self boxCoord:1 block:
-         ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
-         {
-             NSInteger playerCount = (count + 1) % 2;
-             NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
-             BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-             Piece *piece = [self pieceAtPositionX:x Y:y];
-             [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:playerCount + 1]];
-         }];
-
-        return @[boardPieces, [setupBoard copy]];
+        NSArray<BoardPiece *> *startingPieces = [self startingPieces];
+        return @[boardPieces, startingPieces];
     }];
 }
 
@@ -590,6 +597,7 @@ typedef struct Delta
     {
         result = [self convertToString:YES reverse:NO];
     });
+    
     return result;
 }
 
@@ -620,6 +628,7 @@ typedef struct Delta
             [track addObject:trackInfo];
         }
     } while (valid && piece.color != pieceColor);
+    
     return track;
 }
 
@@ -691,8 +700,7 @@ typedef struct Delta
     dist = (dist - 1) * 2 + 1; // skip even rings
     
     // calculate start position
-    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2
-                                                         y:dist - dist / 2];
+    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2 y:dist - dist / 2];
     
     // calculate how many pieces to place.
     // Four times dist for the number of directions
