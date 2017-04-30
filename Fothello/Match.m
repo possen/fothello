@@ -212,6 +212,14 @@
     } 
 }
 
+- (void)callMatchStatusBlock:(BOOL)result
+{
+    if (self.matchStatusBlock)
+    {
+        self.matchStatusBlock(result);
+    }
+}
+
 - (void)nextPlayer
 {
     NSArray<Player *> *players = self.players;
@@ -231,10 +239,7 @@
     NSLog(@"Board  %@ ", self.board );
     if (!currentPlayerCanMove)
     {
-        if (self.matchStatusBlock)
-        {
-            self.matchStatusBlock(NO);
-        }
+        [self callMatchStatusBlock:NO];
     }
 
     if ( (!prevPlayerCouldMove && !currentPlayerCanMove) || isFull)
@@ -242,7 +247,7 @@
         NSLog(@"no moves");
         if (!self.noMoves)
         {
-            self.matchStatusBlock(YES);
+            [self callMatchStatusBlock:YES];
             self.noMoves = YES;
         }
     }
