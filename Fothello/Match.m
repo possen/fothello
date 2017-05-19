@@ -164,10 +164,7 @@
     [self.redos removeAllObjects];
     [self.moves removeAllObjects];
     
-    if (self.movesUpdateBlock)
-    {
-        self.movesUpdateBlock();
-    }
+    if (self.movesUpdateBlock) self.movesUpdateBlock();
     
     [self beginTurn];
     
@@ -215,16 +212,17 @@
 - (void)nextPlayer
 {
     NSArray<Player *> *players = self.players;
+    GameBoard *board = self.board;
     
     // this enters work queue first so will complete before the second canMove call.
-    BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
+    BOOL prevPlayerCouldMove = [board canMove:self.currentPlayer];
     
     self.currentPlayer = (self.currentPlayer == players[0] ? players[1] : players[0]);
     
-    NSLog(@"Current Player %@ %@ %@", self.currentPlayer, self.currentPlayer.strategy, self.board );
+    NSLog(@"Current Player %@ %@ %@", self.currentPlayer, self.currentPlayer.strategy, board );
     
-    BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
-    BOOL isFull = [self.board isFull];
+    BOOL currentPlayerCanMove = [board canMove:self.currentPlayer];
+    BOOL isFull = [board isFull];
 
     if (!currentPlayerCanMove) [self callMatchStatusBlock:NO];
 
