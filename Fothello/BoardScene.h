@@ -7,6 +7,9 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "FothelloGame.h"
+
+static NSString *kMainFont = @"AvenirNext-Medium";
 
 @class Match;
 
@@ -25,5 +28,6 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
+- (SKNode *)makePieceWithColor:(PieceColor)color size:(CGSize)size;
 
 @end

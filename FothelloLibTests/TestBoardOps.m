@@ -228,9 +228,9 @@
 
 - (void)testReset
 {
-    Player *player1 = [[Player alloc] init];
+    Player *player1 = [[Player alloc] initWithName:@"Player 1"];
     player1.color = PieceColorWhite;
-    Player *player2 = [[Player alloc] init];
+    Player *player2 = [[Player alloc] initWithName:@"Player 2"];
     player2.color = PieceColorBlack;
     
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
@@ -282,9 +282,9 @@
 
 - (void)testBoardFull
 {
-    Player *player1 = [[Player alloc] init];
+    Player *player1 = [[Player alloc] initWithName:@"Player 1"];
     player1.color = PieceColorWhite;
-    Player *player2 = [[Player alloc] init];
+    Player *player2 = [[Player alloc] initWithName:@"Player 2"];
     player2.color = PieceColorBlack;
 
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
@@ -335,9 +335,9 @@
 
 - (void)testShowLegalMoves
 {
-    Player *player1 = [[Player alloc] init];
+    Player *player1 = [[Player alloc] initWithName:@"Player 1"];
     player1.color = PieceColorWhite;
-    Player *player2 = [[Player alloc] init];
+    Player *player2 = [[Player alloc] initWithName:@"Player 2"];
     player2.color = PieceColorBlack;
     
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];

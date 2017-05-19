@@ -231,12 +231,11 @@
                           ? players[1]
                           : players[0]);
     
-    NSLog(@"Current Player %@ %@", self.currentPlayer, self.currentPlayer.strategy );
+    NSLog(@"Current Player %@ %@ %@", self.currentPlayer, self.currentPlayer.strategy, self.board );
     
     BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
     BOOL isFull = [self.board isFull];
 
-    NSLog(@"Board  %@ ", self.board );
     if (!currentPlayerCanMove)
     {
         [self callMatchStatusBlock:NO];
@@ -244,7 +243,6 @@
 
     if ( (!prevPlayerCouldMove && !currentPlayerCanMove) || isFull)
     {
-        NSLog(@"no moves");
         if (!self.noMoves)
         {
             [self callMatchStatusBlock:YES];

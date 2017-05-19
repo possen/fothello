@@ -9,11 +9,16 @@
 #import <FothelloLib/FothelloLib.h>
 #import "BoardScene.h"
 #import "NSArray+Extensions.h"
+#import "GameOverDisplay.h"
+#import "BoardDisplay.h"
+#import "PlayerDisplay.h"
 
-static NSString *kMainFont = @"AvenirNext-Medium";
 
 @interface BoardScene ()
 @property (nonatomic) SKNode *prevHighlight;
+@property (nonatomic) GameOverDisplay *gameOverDisplay;
+@property (nonatomic) BoardDisplay *boardDisplay;
+@property (nonatomic) PlayerDisplay *playerDisplay;
 @end
 
 @implementation BoardScene
@@ -28,11 +33,9 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         _boardDimensions = MIN(size.width, size.height) - 40;
         _boardRect = CGRectMake(20, size.height / 2 - _boardDimensions / 2,
                                     _boardDimensions, _boardDimensions);
+        _boardDisplay = [[BoardDisplay alloc] initWithMatch:match boardScene:self];
+        _playerDisplay = [[PlayerDisplay alloc] initWithMatch:match boardScene:self];
         [self setMatch:match];
-        
-        /* Setup your scene here */
-        [self drawBoard];
-        [self addPlayerSprites];
     }
     return self;
 }
@@ -51,7 +54,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 
 - (void)currentPlayerChange:(Player *)player canMove:(BOOL)canMove pass:(BOOL)pass
 {
-    [self displayCurrentPlayer:player];
+    [self.playerDisplay displayPlayer:player];
     
     if (self.updatePlayerMove)
     {
@@ -77,7 +80,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
         self.updatePlayerMove(NO);
         if (self.gameOverNode)
         {
-            [self removeGameOver];
+            [self.gameOverDisplay dismiss];
+            [self.playerDisplay displayPlayer:self.match.players[0]];
         }
     }
 }
@@ -86,7 +90,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
 {
     _match = match;
     _boardSize = match.board.size;
-    
+    [self.boardDisplay drawBoard];
     __weak BoardScene *weakBlockSelf = self;
 
     // whenever a piece is placed on board calls back to here.
@@ -133,7 +137,7 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     match.board.placeBlock = nil;
     match.currentPlayerBlock = nil;
     self.currentPlayerSprite = nil;;
-    [self removeGameOver];
+    [self.gameOverDisplay dismiss];
 }
 
 - (void)syncronizeBoardStateWithModel
@@ -194,162 +198,8 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     {
         return;
     }
-    
-    Match *match = self.match;
-    Player *player1 = match.players[0];
-    Player *player2 = match.players[1];
-    NSInteger score1 = [match.board playerScore:player1];
-    NSInteger score2 = [match.board playerScore:player2];
 
-    Player *winner = score1 > score2 ? player1 : player2;
-    SKLabelNode *winLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
-    winLabel.text = score1 == score2
-                 ? @"Tie"
-                 : [NSString stringWithFormat:NSLocalizedString(@"%@ Wins", @"user name"), winner.name];
-    
-    winLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-    winLabel.fontSize = 32;
-    winLabel.fontColor = [SKColor colorWithRed:0xff green:0 blue:0 alpha:.7];
-    winLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    self.gameOverNode = winLabel;
-
-    SKAction *action = [SKAction fadeInWithDuration:.5];
-    SKAction *action2 = [SKAction fadeOutWithDuration:.5];
-    SKAction *runAction = [SKAction runBlock:
-    ^{
-        [self.boardUI runAction:[SKAction fadeAlphaTo:1 duration:.5]];
-        
-        [self.match.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-         {
-             SKNode *node = piece.userReference;
-             [node runAction:[SKAction fadeAlphaTo:1 duration:.5]];
-         }];
-    }];
-    
-
-    [self addChild:winLabel];
-    
-    [winLabel runAction:[SKAction sequence:@[[SKAction repeatAction:
-                                             [SKAction sequence:@[action, action2]] count:5],
-                                            runAction]]];
-   
-    
-    [self.boardUI runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
-    
-    [self.match.board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-    {
-        SKNode *node = piece.userReference;
-        [node runAction:[SKAction fadeAlphaTo:.4 duration:.5]];
-    }];
-
-    SKNode *playerNode1 =  player1.userReference;
-    
-    // assuming both player displays are same height
-    NSInteger ypos = self.boardRect.origin.y + self.boardRect.size.height
-                    + playerNode1.frame.size.height;
-    
-    SKNode *node1 = player1.userReference;
-    SKNode *playerName1 = [playerNode1 childNodeWithName:@"playerName"];
-    [playerName1 runAction:[SKAction fadeAlphaTo:0 duration:1]];
-    
-    [node1 runAction:
-     [SKAction group:
-        @[[SKAction moveToX:self.frame.size.width / 4 - playerNode1.frame.size.width/2 duration:1],
-          [SKAction moveToY:ypos duration:1]]] ];
-
-    SKNode *node2 = player2.userReference;
-    SKNode *playerName2 = [node2 childNodeWithName:@"playerName"];
-    [playerName2 runAction:[SKAction fadeAlphaTo:0 duration:1]];
-
-    [node2 runAction:
-     [SKAction group:
-      @[[SKAction moveToX:self.frame.size.width / 4 * 3 - playerNode1.frame.size.width /2 duration:1],
-        [SKAction moveToY:ypos duration:1]]] ];
-}
-
-- (void)removeGameOver
-{
-    [self.gameOverNode removeFromParent];
-    self.gameOverNode = nil;
-    Match *match = self.match;
-    
-    for (Player *player in match.players)
-    {
-        SKSpriteNode *node = player.userReference;
-        node.position = CGPointMake(CGRectGetMidX(self.frame) - node.size.width / 2, -100);
-        SKNode *playerName = [node childNodeWithName:@"playerName"];
-        [playerName runAction:[SKAction fadeAlphaTo:1 duration:1]];
-    }
-    
-    [self displayCurrentPlayer:match.players[0]];
-}
-
-- (void)drawBoard
-{
-    self.backgroundColor = [SKColor colorWithRed:.0 green:.70 blue:0.3 alpha:1.0];
-    
-    CGRect boardRect = self.boardRect;
-    CGFloat boardDimensions = self.boardDimensions;
-    SKShapeNode *boardUI = [SKShapeNode node];
-    
-    CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, boardRect.origin.x, boardRect.origin.y);
-    CGPathAddRect(pathToDraw, NULL, CGRectMake(boardRect.origin.x,
-                                               boardRect.origin.y,
-                                               boardRect.size.width,
-                                               boardRect.size.height));
-    
-    CGFloat spacing = boardDimensions / _boardSize;
-    for (CGFloat lines = 0; lines < boardDimensions; lines += spacing)
-    {
-        CGPathMoveToPoint(pathToDraw, NULL,
-                          boardRect.origin.x,
-                          boardRect.origin.y + lines);
-        
-        CGPathAddLineToPoint(pathToDraw, NULL,
-                             boardRect.origin.x + boardRect.size.width,
-                             boardRect.origin.y + lines);
-        
-        CGPathMoveToPoint(pathToDraw, NULL,
-                          boardRect.origin.x + lines,
-                          boardRect.origin.y);
-        
-        CGPathAddLineToPoint(pathToDraw, NULL,
-                             boardRect.origin.x + lines,
-                             boardRect.origin.y + boardRect.size.width);
-    }
-    
-    boardUI.path = pathToDraw;
-    [boardUI setStrokeColor:[SKColor blackColor]];
-    
-    [self addChild:boardUI];
-    CFRelease(pathToDraw);
-    
-    self.boardUI = boardUI;
-    
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
-
-    myLabel.text = @"Fothello";
-    myLabel.fontSize = 30;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   boardRect.origin.y
-                                   + boardRect.size.height + 20 );
-    [self addChild:myLabel];
-
-    SKAction *action = [SKAction fadeAlphaTo:0 duration:2];
-    [myLabel runAction:action];
-    
-    SKNode *dot1 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 2), boardRect.origin.y + (spacing * 2))];
-    [self addChild:dot1];
-
-    SKNode *dot2 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 2), boardRect.origin.y + (spacing * 6))];
-    [self addChild:dot2];
-
-    SKNode *dot3 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 2))];
-    [self addChild:dot3];
-
-    SKNode *dot4 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 6))];
-    [self addChild:dot4];
+    self.gameOverDisplay = [[GameOverDisplay alloc] initWithMatch:self.match boardScene:self];
 }
 
 - (SKColor *)skColorFromPieceColor:(PieceColor)color
@@ -385,93 +235,12 @@ static NSString *kMainFont = @"AvenirNext-Medium";
     return pieceSprite;
 }
 
-- (SKNode *)makeDotAtPosition:(CGPoint)position
-{
-    SKShapeNode *dotSprite = [[SKShapeNode alloc] init];
-    CGFloat size = 5;
-    CGMutablePathRef myPath = CGPathCreateMutable();
-    CGRect rect = CGRectMake(0, 0, size, size);
-    CGPathAddEllipseInRect(myPath, NULL, rect);
-    dotSprite.path = myPath;
-    CFRelease(myPath);
-    
-    dotSprite.lineWidth = 1.0;
-    dotSprite.fillColor = [SKColor whiteColor];
-    dotSprite.strokeColor = [SKColor blackColor];
-    dotSprite.position = CGPointMake(position.x - (size / 2) - .5, position.y - (size / 2) -.5);
-    return dotSprite;
-}
-
-- (void)addPlayerSprites
-{
-    Match *match = self.match;
-    
-    for (Player *player in match.players)
-    {
-        SKSpriteNode *playerSprite = [[SKSpriteNode alloc] init];
-        CGSize size = CGSizeMake(30, 30);
-        playerSprite.size = size;
-        playerSprite.position = CGPointMake(CGRectGetMidX(self.frame) - playerSprite.size.width / 2, -100);
-
-        SKNode *pieceSprite = [self makePieceWithColor:player.color size:size];
-        pieceSprite.name = @"piece";
-        [playerSprite addChild:pieceSprite];
-        
-        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
-        scoreLabel.name = @"score";
-        scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match.board playerScore:player]];
-        scoreLabel.fontSize = 14;
-        scoreLabel.position = CGPointMake(15, -20);
-        [playerSprite addChild:scoreLabel];
-
-        SKLabelNode *playerLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
-        playerLabel.name = @"playerName";
-        playerLabel.text = player.name;
-        playerLabel.fontSize = 14;
-        playerLabel.position = CGPointMake(15, -40);
-        [playerSprite addChild:playerLabel];
-        
-        [self addChild:playerSprite];
-        player.userReference = playerSprite;
-    }
-}
-
 - (void)movePieceTo:(BoardPosition *)pos
 {
     CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
     SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];
     SKAction *action = [SKAction sequence:@[actionPos]];
     [self.currentPlayerSprite runAction:action];
-}
-
-- (void)displayCurrentPlayer:(Player *)player
-{
-    SKAction *fadeIn = [SKAction fadeAlphaTo:1 duration:1];
-    SKAction *fadeOut = [SKAction fadeAlphaTo:0 duration:0];
-    Match *match = self.match;
-    self.currentPlayerSprite = player.userReference;
-    
-    SKLabelNode *scoreLabel = (SKLabelNode *)[self.currentPlayerSprite childNodeWithName:@"score"];
-    scoreLabel.text = [NSString stringWithFormat:@"%ld", (long)[match.board playerScore:player]];
-    CGFloat homePos = self.boardDimensions / 2;
- 
-     SKAction *action = [SKAction moveTo:CGPointMake(homePos, 100) duration:0];
-    [self.currentPlayerSprite runAction:[SKAction sequence:@[action]]];
-    
-    SKNode *piece = [self.currentPlayerSprite childNodeWithName:@"piece"];
-    
-    if (player.strategy.automatic)
-    {
-        [piece runAction:
-             [SKAction repeatActionForever:
-             [SKAction sequence:@[fadeIn, fadeOut]]]];
-    }
-    else
-    {
-        [piece removeAllActions];
-        [piece runAction:
-         [SKAction fadeAlphaTo:1 duration:0]];
-    }
 }
 
 - (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall

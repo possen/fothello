@@ -266,15 +266,11 @@ typedef struct Delta
      {
          NSArray<BoardPiece *> *pieces = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
          
-         if (display)
-         {
-             return pieces ? @[pieces] : @[];
-         }
-         else
+         if (!display)
          {
              pieces = [self findLegals:pieces];
-             return pieces ? @[pieces] : @[];
          }
+         return pieces ? @[pieces] : @[];
      }];
 }
 
@@ -638,7 +634,8 @@ typedef struct Delta
         }
     } while (valid && piece.color != pieceColor);
     
-    return track;
+    BOOL result = valid && piece.color == pieceColor && track.count > 1;
+    return result ? track : nil;
 }
 
 - (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece
@@ -649,8 +646,6 @@ typedef struct Delta
     // pieces of different color than the player's color, terminated by a piece of
     // the same color as the player.
     
-    BOOL found = NO;
-    
     // check that piece is on board and we are placing on clear space
     Piece *piece = [self pieceAtPositionX:boardPiece.position.x Y:boardPiece.position.y];
     if (piece == nil || ![piece isClear])
@@ -660,7 +655,10 @@ typedef struct Delta
     
     NSMutableArray<NSMutableArray <BoardPiece *> *> *tracks
         = [[NSMutableArray alloc] initWithCapacity:10];
+
     
+    BOOL found = NO;
+
     // try each direction, to see if there is a track
     for (Direction direction = DirectionFirst; direction < DirectionLast; direction ++)
     {
@@ -669,7 +667,7 @@ typedef struct Delta
                                                  color:pieceColor];
         
         // found piece of same color, end track call back.
-        if (piece.color == pieceColor && track.count > 1)
+        if (track != nil)
         {
             found = YES;
             [tracks addObject:[track copy]];
