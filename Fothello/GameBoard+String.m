@@ -10,6 +10,7 @@
 #import "GameBoard.h"
 #import "GameBoard+String.h"
 #import "Piece.h"
+#import "BoardPiece.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -110,5 +111,21 @@
     return [self convertToString:NO reverse:YES];
 }
 
+- (void)printBoardUpdates:(NSArray<NSArray<BoardPiece *> *> *)tracks
+{
+    NSLog(@"(%lu){", (unsigned long)tracks.count);
+    for (NSArray<BoardPiece *> *track in tracks)
+    {
+        NSMutableString *string = [[NSString stringWithFormat:@"(%lu)", (unsigned long)track.count] mutableCopy];
+        for (BoardPiece *boardPiece in track)
+        {
+            [string appendString:@"("];
+            [string appendString:boardPiece.description];
+            [string appendString:@") "];
+        }
+        NSLog(@"%@", string);
+    }
+    NSLog(@"}");
+}
 
 @end

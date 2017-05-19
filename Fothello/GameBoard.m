@@ -393,23 +393,6 @@ typedef struct Delta
     [self updateColorCount:piece incdec:1];  // add one for that color.
 }
 
-- (void)printBoardUpdates:(NSArray<NSArray<BoardPiece *> *> *)tracks
-{
-    NSLog(@"(%lu){", (unsigned long)tracks.count);
-    for (NSArray<BoardPiece *> *track in tracks)
-    {
-        NSMutableString *string = [[NSString stringWithFormat:@"(%lu)", (unsigned long)track.count] mutableCopy];
-        for (BoardPiece *boardPiece in track)
-        {
-            [string appendString:@"("];
-            [string appendString:boardPiece.description];
-            [string appendString:@") "];
-        }
-        NSLog(@"%@", string);
-    }
-    NSLog(@"}");
-}
-
 - (BOOL)isFullUnqueud
 {
     NSInteger total = [self.piecesPlayed[@0] integerValue];
@@ -632,7 +615,4 @@ typedef struct Delta
     return result;
 }
 
-
 @end
-
-

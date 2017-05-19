@@ -12,5 +12,6 @@
 @interface GameBoard (String)
 
 - (nonnull NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse;
+- (void)printBoardUpdates:(nonnull NSArray<NSArray<BoardPiece *> *> *)tracks;
 
 @end
