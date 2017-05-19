@@ -145,12 +145,12 @@
 
 - (IBAction)undo:(id)sender
 {
-    [self.match undo];
+    [self.match.matchMoves undo];
 }
 
 - (IBAction)redo:(id)sender
 {
-    [self.match redo];
+    [self.match.matchMoves redo];
 }
 
 - (BOOL)validateUserInterfaceItem:(NSMenuItem *)menuItem
@@ -166,12 +166,12 @@
     
     if (theAction == @selector(redo:))
     {
-        return self.match.redos.count != 0 && !computersOnly;
+        return self.match.matchMoves.redos.count != 0 && !computersOnly;
     }
 
     if (theAction == @selector(undo:))
     {
-        return self.match.moves.count != 0 && !computersOnly;
+        return self.match.matchMoves.moves.count != 0 && !computersOnly;
     }
 
     if (theAction == @selector(hint:))

@@ -9,6 +9,7 @@
 #import "MovesViewAdapter.h"
 #import "Match.h"
 #import "PlayerMove.h"
+#import "MatchMoves.h"
 
 @interface MovesViewAdapter ()
 @end
@@ -29,14 +30,14 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.match.moves.count;
+    return self.match.matchMoves.moves.count;
 }
 
 - (NSTableCellView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
     NSString *movesIdentifier = @"movesID";
     NSTableCellView *cell = [tableView makeViewWithIdentifier:movesIdentifier owner: nil];
-    PlayerMove *move = self.match.moves[row];
+    PlayerMove *move = self.match.matchMoves.moves[row];
     cell.textField.stringValue = [move description];
     return cell;
 }

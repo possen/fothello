@@ -11,6 +11,7 @@
 #import "FothelloGame.h"
 #import "DialogViewController.h"
 #import "Match.h"
+#import "MatchMoves.h"
 #import "Player.h"
 
 @interface MatchViewControllerIOS ()
@@ -104,12 +105,12 @@
 
 - (IBAction)undo:(UIButton *)sender
 {
-    [self.match undo];
+    [self.match.matchMoves undo];
 }
 
 - (IBAction)redo:(UIButton *)sender
 {
-    [self.match redo];
+    [self.match.matchMoves redo];
 }
 
 @end

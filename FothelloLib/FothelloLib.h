@@ -24,6 +24,7 @@ FOUNDATION_EXPORT const unsigned char FothelloLibVersionString[];
 #import <FothelloLib/Player.h>
 #import <FothelloLib/PlayerMove.h>
 #import <FothelloLib/Match.h>
+#import <FothelloLib/MatchMoves.h>
 #import <FothelloLib/Strategy.h>
 #import <FothelloLib/AIStrategy.h>
 #import <FothelloLib/HumanStrategy.h>
@@ -31,4 +32,6 @@ FOUNDATION_EXPORT const unsigned char FothelloLibVersionString[];
 #import <FothelloLib/NSArray+Holes.h>
 #import <FothelloLib/NSDictionary+Extensions.h>
 #import <FothelloLib/Engine.h>
+#import <FothelloLib/EngineStrong.h>
+
 

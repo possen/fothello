@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Match.h"
+#import "MatchMoves.h"
 #import "Player.h"
 #import "FothelloGame.h"
 #import "GameBoard.h"
@@ -22,7 +23,6 @@
 
 @interface Match ()
 @property (nonatomic, readwrite) Player *currentPlayer;
-@property (nonatomic, readwrite) NSMutableArray *redos;
 @end
 
 @implementation Match
@@ -39,10 +39,9 @@
         _name = name;
         _players = [players copy];
         _currentPlayer = players[0];
-        _moves = [[NSMutableArray alloc] initWithCapacity:64];
-        _redos = [[NSMutableArray alloc] initWithCapacity:64];
         [self setupPlayersColors];
         _board = [[GameBoard alloc] initWithBoardSize:8];
+        _matchMoves = [[MatchMoves alloc] initWithMatch:self];
     }
     return self;
 }
@@ -74,80 +73,17 @@
     
     Player *player0 = self.players[0];
     Player *player1 = self.players[1];
-    
+
+    player0.color = PieceColorBlack;
+    player1.color = PieceColorWhite;
+
     if (player0.preferredPieceColor != player1.preferredPieceColor)
     {
         player0.color = player0.preferredPieceColor;
         player1.color = player1.preferredPieceColor;
     }
-    else
-    {
-        player0.color = PieceColorBlack;
-        player1.color = PieceColorWhite;
-    }
 }
 
-- (void)replayMoves
-{
-    [self reset];
- 
-    NSArray<PlayerMove *> *moves = [self.moves copy];
-    
-    NSLog(@"replay moves");
-    for (PlayerMove *obj in moves)
-    {
-        NSLog(@"move %@", obj.description);
-    }
-    [self.board placeMoves:moves];
-    [self beginTurn];
-}
-
-
-- (void)undo
-{
-    // remove the last move
-    [self removeMove];
-    
-    // if the next player is a computer then remove that one too.
-    if ([self isAnyPlayerAComputer])
-    {
-        [self removeMove];
-    }
-
-    [self replayMoves];
-}
-
-- (void)redo
-{
-    if (self.redos.count == 0) return;
-    
-
-    for (Player *player in self.players)
-    {
-        PlayerMove *move = [self.redos lastObject];
-        [self.redos removeLastObject];
-        
-        NSLog(@"redo %@", move);
-        
-        [self placeMove:move forPlayer:player];
-    }
-}
-
-
-- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
-{
-    NSLog(@"place move %@", move);
-    [self.board placeMoves:@[move]];
-    
-    if (self.currentPlayerBlock)
-    {
-        BOOL canMove = [self.board canMoveUnqueued:self.currentPlayer];
-        NSLog(@"canMove %d", canMove);
-        self.currentPlayerBlock(player, canMove, move.isPass);
-    }
-
-    [self addMove:move];
-}
 
 - (BOOL)turnProcessing
 {
@@ -161,8 +97,7 @@
 {
     self.currentPlayer = self.players[0];
 
-    [self.redos removeAllObjects];
-    [self.moves removeAllObjects];
+    [self.matchMoves resetMoves];
     
     if (self.movesUpdateBlock) self.movesUpdateBlock();
     
@@ -213,11 +148,12 @@
 {
     NSArray<Player *> *players = self.players;
     GameBoard *board = self.board;
+    Player *player1 = players[0]; Player *player2 = players[1];
     
     // this enters work queue first so will complete before the second canMove call.
     BOOL prevPlayerCouldMove = [board canMove:self.currentPlayer];
     
-    self.currentPlayer = (self.currentPlayer == players[0] ? players[1] : players[0]);
+    self.currentPlayer = (self.currentPlayer == player1 ? player2 : player1);
     
     NSLog(@"Current Player %@ %@ %@", self.currentPlayer, self.currentPlayer.strategy, board );
     
@@ -249,34 +185,6 @@
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"match %@", self.name];
-}
-
-- (void)resetRedos
-{
-    [self.redos removeAllObjects];
-}
-
-- (PlayerMove *)addMove:(PlayerMove *)move
-{
-    // need to allow multiple pass objects.
-    if (!move.isPass  && [self.moves containsObject:move] ) return nil; // dont add twice
-    
-    [self.moves addObject:[move copy]];
-    
-    if (self.movesUpdateBlock) self.movesUpdateBlock();
-    
-    return move;
-}
-
-- (PlayerMove *)removeMove
-{
-    PlayerMove *move = [self.moves lastObject];
-    [self.redos addObject:move];
-    [self.moves removeLastObject];
-    
-    if (self.movesUpdateBlock) self.movesUpdateBlock();
-    
-    return move;
 }
 
 - (BOOL)isEqual:(id)name
@@ -312,6 +220,22 @@
         return NO;
     }].count == self.players.count;
 }
+
+- (void)placeMove:(PlayerMove *)move forPlayer:(Player *)player
+{
+    NSLog(@"place move %@", move);
+    [self.board placeMoves:@[move]];
+    
+    if (self.currentPlayerBlock)
+    {
+        BOOL canMove = [self.board canMoveUnqueued:self.currentPlayer];
+        NSLog(@"canMove %d", canMove);
+        self.currentPlayerBlock(player, canMove, move.isPass);
+    }
+    
+    [self.matchMoves addMove:move];
+}
+
 
 @end
 

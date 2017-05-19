@@ -9,7 +9,6 @@
 #import <XCTest/XCTest.h>
 #import <FothelloLib/FothelloLib.h>
 #import <GameplayKit/GameplayKit.h>
-#import "EngineStrong.h"
 
 @interface TestBoardOps : XCTestCase
 @property (nonatomic) Match *match;
@@ -624,7 +623,7 @@
         expectation = nil; // may get called multiple times.
     };
     
-    [self.match undo];
+    [self.match.matchMoves undo];
     [self waitForExpectationsWithTimeout:30.0 handler:nil];
     
     board.updateCompleteBlock = ^()

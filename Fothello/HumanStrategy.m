@@ -14,6 +14,7 @@
 #import "PlayerMove.h"
 #import "BoardPosition.h"
 #import "GameBoard.h"
+#import "MatchMoves.h"
 
 
 @interface Strategy (Protected)
@@ -40,7 +41,7 @@
     
     [super makeMove:move forPlayer:player];
     
-    [self.match resetRedos];
+    [self.match.matchMoves resetRedos];
     
     if ([move isPass])
     {

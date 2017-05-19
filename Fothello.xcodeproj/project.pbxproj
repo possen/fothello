@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 47;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -247,7 +247,7 @@
 		D56F0A261E3D485700DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54006901E3B22CB00F2D7BB /* FothelloLib.framework */; };
 		D56F0A271E3D486000DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D540070C1E3BBE8D00F2D7BB /* FothelloLib.framework */; };
 		D5718A0D1E517B4900623E0A /* FothelloMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D535DD501E3D03EF00AE5C1D /* FothelloMacTests.m */; };
-		D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D58775F31E4D42E800A29386 /* FothelloUIMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D58775F21E4D42E800A29386 /* FothelloUIMacTests.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
@@ -255,6 +255,17 @@
 		D5B1C1131ECE895800B0F736 /* GameBoard+String.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C10D1ECE84D800B0F736 /* GameBoard+String.m */; };
 		D5B1C1141ECE895A00B0F736 /* GameBoard+String.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C10D1ECE84D800B0F736 /* GameBoard+String.m */; };
 		D5B1C1151ECE895C00B0F736 /* GameBoard+String.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C10D1ECE84D800B0F736 /* GameBoard+String.m */; };
+		D5B1C1181ECF2E5600B0F736 /* MatchMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C1191ECF2E5600B0F736 /* MatchMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C11A1ECF2E5600B0F736 /* MatchMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C11B1ECF2E5600B0F736 /* MatchMoves.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C11C1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
+		D5B1C11D1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
+		D5B1C11E1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
+		D5B1C11F1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
+		D5B1C1201ECF3CD400B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C1211ECF3CD800B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C1221ECF3CDD00B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C249911E51605E009D8267 /* FothelloUIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C249901E51605E009D8267 /* FothelloUIOSTests.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
@@ -541,13 +552,15 @@
 		D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovesViewAdapter.m; sourceTree = "<group>"; };
 		D5B1C10C1ECE84D800B0F736 /* GameBoard+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GameBoard+String.h"; sourceTree = "<group>"; };
 		D5B1C10D1ECE84D800B0F736 /* GameBoard+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GameBoard+String.m"; sourceTree = "<group>"; };
+		D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMoves.h; sourceTree = "<group>"; };
+		D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMoves.m; sourceTree = "<group>"; };
 		D5C0B66A18C40F73000DCEB8 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		D5C0B66B18C40F73000DCEB8 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Holes.h"; sourceTree = "<group>"; };
 		D5C0B66E18C43701000DCEB8 /* NSArray+Holes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Holes.m"; sourceTree = "<group>"; };
 		D5C2498E1E51605E009D8267 /* FothelloUITestsIOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FothelloUITestsIOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5C249901E51605E009D8267 /* FothelloUIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloUIOSTests.m; sourceTree = "<group>"; };
-		D5C249921E51605E009D8267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5C249921E51605E009D8267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../FothelloUIIOSTests/Info.plist; sourceTree = "<group>"; };
 		D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = FothelloMac.entitlements; path = FothelloMac/FothelloMac.entitlements; sourceTree = SOURCE_ROOT; };
 		D5D9BCB81CD330D700B41864 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5DB1BBF1CFB617100C1B5F6 /* NSArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extensions.h"; sourceTree = "<group>"; };
@@ -743,8 +756,7 @@
 				D535DD501E3D03EF00AE5C1D /* FothelloMacTests.m */,
 				D535DD521E3D03EF00AE5C1D /* Info.plist */,
 			);
-			name = FothelloMacTests;
-			path = FothelloMacTests/FothelloMacTests;
+			path = FothelloMacTests;
 			sourceTree = "<group>";
 		};
 		D54006361E3AD2E200F2D7BB /* Supporting Files */ = {
@@ -920,6 +932,8 @@
 				D50D77801CF8DE2C0073D0A1 /* PlayerMove.m */,
 				D562F4A81CB0E935009A6273 /* Match.h */,
 				D562F4A91CB0E935009A6273 /* Match.m */,
+				D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */,
+				D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */,
 				D5EECCD7183B5152005D5507 /* Strategy.h */,
 				D5EECCD8183B5152005D5507 /* Strategy.m */,
 				D50D77931CF8E5990073D0A1 /* AIStrategy.h */,
@@ -969,8 +983,7 @@
 				D5C249901E51605E009D8267 /* FothelloUIOSTests.m */,
 				D5C249921E51605E009D8267 /* Info.plist */,
 			);
-			name = FothelloUIIOSTests;
-			path = FothelloUITestsIOS;
+			path = FothelloUIIOSTests;
 			sourceTree = "<group>";
 		};
 		D5EECCC5183B4EAB005D5507 /* Mini-Othello */ = {
@@ -1086,6 +1099,7 @@
 				D54006BD1E3B295000F2D7BB /* BoardPosition.h in Headers */,
 				D54006BE1E3B295000F2D7BB /* Piece.h in Headers */,
 				D54006BF1E3B295000F2D7BB /* Player.h in Headers */,
+				D5B1C1181ECF2E5600B0F736 /* MatchMoves.h in Headers */,
 				D54006C01E3B295000F2D7BB /* PlayerMove.h in Headers */,
 				D54006DF1E3BBAC200F2D7BB /* FothelloLib.h in Headers */,
 				D54006C11E3B295000F2D7BB /* Match.h in Headers */,
@@ -1108,6 +1122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54006F71E3BBE8D00F2D7BB /* FothelloGame.h in Headers */,
+				D5B1C1191ECF2E5600B0F736 /* MatchMoves.h in Headers */,
 				D54006F81E3BBE8D00F2D7BB /* BoardPiece.h in Headers */,
 				D54006F91E3BBE8D00F2D7BB /* GameBoard.h in Headers */,
 				D54006FA1E3BBE8D00F2D7BB /* BoardPosition.h in Headers */,
@@ -1115,6 +1130,7 @@
 				D54006FC1E3BBE8D00F2D7BB /* Player.h in Headers */,
 				D54006FD1E3BBE8D00F2D7BB /* PlayerMove.h in Headers */,
 				D54006FE1E3BBE8D00F2D7BB /* FothelloLib.h in Headers */,
+				D5B1C1201ECF3CD400B0F736 /* EngineStrong.h in Headers */,
 				D54006FF1E3BBE8D00F2D7BB /* Match.h in Headers */,
 				D525FBDB1E5A0DAF006CA134 /* Engine.h in Headers */,
 				D54007001E3BBE8D00F2D7BB /* Strategy.h in Headers */,
@@ -1134,6 +1150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54007251E3BBEC200F2D7BB /* FothelloGame.h in Headers */,
+				D5B1C11A1ECF2E5600B0F736 /* MatchMoves.h in Headers */,
 				D54007261E3BBEC200F2D7BB /* BoardPiece.h in Headers */,
 				D54007271E3BBEC200F2D7BB /* GameBoard.h in Headers */,
 				D54007281E3BBEC200F2D7BB /* BoardPosition.h in Headers */,
@@ -1141,6 +1158,7 @@
 				D540072A1E3BBEC200F2D7BB /* Player.h in Headers */,
 				D540072B1E3BBEC200F2D7BB /* PlayerMove.h in Headers */,
 				D540072C1E3BBEC200F2D7BB /* FothelloLib.h in Headers */,
+				D5B1C1211ECF3CD800B0F736 /* EngineStrong.h in Headers */,
 				D540072D1E3BBEC200F2D7BB /* Match.h in Headers */,
 				D525FBDC1E5A0DB0006CA134 /* Engine.h in Headers */,
 				D540072E1E3BBEC200F2D7BB /* Strategy.h in Headers */,
@@ -1160,6 +1178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54007531E3BBF0000F2D7BB /* FothelloGame.h in Headers */,
+				D5B1C11B1ECF2E5600B0F736 /* MatchMoves.h in Headers */,
 				D54007541E3BBF0000F2D7BB /* BoardPiece.h in Headers */,
 				D54007551E3BBF0000F2D7BB /* GameBoard.h in Headers */,
 				D54007561E3BBF0000F2D7BB /* BoardPosition.h in Headers */,
@@ -1167,6 +1186,7 @@
 				D54007581E3BBF0000F2D7BB /* Player.h in Headers */,
 				D54007591E3BBF0000F2D7BB /* PlayerMove.h in Headers */,
 				D540075A1E3BBF0000F2D7BB /* FothelloLib.h in Headers */,
+				D5B1C1221ECF3CDD00B0F736 /* EngineStrong.h in Headers */,
 				D540075B1E3BBF0000F2D7BB /* Match.h in Headers */,
 				D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */,
 				D540075C1E3BBF0000F2D7BB /* Strategy.h in Headers */,
@@ -1537,7 +1557,7 @@
 				};
 			};
 			buildConfigurationList = D5441B1D1831CB1100B5166A /* Build configuration list for PBXProject "Fothello" */;
-			compatibilityVersion = "Xcode 6.3";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1748,6 +1768,7 @@
 				D54006B61E3B232900F2D7BB /* board.cpp in Sources */,
 				D54006B71E3B232900F2D7BB /* minimax.cpp in Sources */,
 				D54006B81E3B232900F2D7BB /* endgamecx.cpp in Sources */,
+				D5B1C11C1ECF2E5600B0F736 /* MatchMoves.m in Sources */,
 				D54006B91E3B232900F2D7BB /* NSArray+Holes.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1785,6 +1806,7 @@
 				D54006EF1E3BBE8D00F2D7BB /* FothelloNetworkRequest.m in Sources */,
 				D54006F01E3BBE8D00F2D7BB /* NetworkController.m in Sources */,
 				D54006F11E3BBE8D00F2D7BB /* board.cpp in Sources */,
+				D5B1C11D1ECF2E5600B0F736 /* MatchMoves.m in Sources */,
 				D54006F21E3BBE8D00F2D7BB /* minimax.cpp in Sources */,
 				D54006F31E3BBE8D00F2D7BB /* endgamecx.cpp in Sources */,
 				D54006F41E3BBE8D00F2D7BB /* NSArray+Holes.m in Sources */,
@@ -1814,6 +1836,7 @@
 				D540071D1E3BBEC200F2D7BB /* FothelloNetworkRequest.m in Sources */,
 				D540071E1E3BBEC200F2D7BB /* NetworkController.m in Sources */,
 				D540071F1E3BBEC200F2D7BB /* board.cpp in Sources */,
+				D5B1C11E1ECF2E5600B0F736 /* MatchMoves.m in Sources */,
 				D54007201E3BBEC200F2D7BB /* minimax.cpp in Sources */,
 				D54007211E3BBEC200F2D7BB /* endgamecx.cpp in Sources */,
 				D54007221E3BBEC200F2D7BB /* NSArray+Holes.m in Sources */,
@@ -1843,6 +1866,7 @@
 				D540074B1E3BBF0000F2D7BB /* FothelloNetworkRequest.m in Sources */,
 				D540074C1E3BBF0000F2D7BB /* NetworkController.m in Sources */,
 				D540074D1E3BBF0000F2D7BB /* board.cpp in Sources */,
+				D5B1C11F1ECF2E5600B0F736 /* MatchMoves.m in Sources */,
 				D540074E1E3BBF0000F2D7BB /* minimax.cpp in Sources */,
 				D540074F1E3BBF0000F2D7BB /* endgamecx.cpp in Sources */,
 				D54007501E3BBF0000F2D7BB /* NSArray+Holes.m in Sources */,
@@ -2556,7 +2580,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FothelloLibTestsTV/Info.plist;
+				INFOPLIST_FILE = FothelloLibTVTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloLibTestsTV;
@@ -2575,7 +2599,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FothelloLibTestsTV/Info.plist;
+				INFOPLIST_FILE = FothelloLibTVTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.synthus.FothelloLibTestsTV;
@@ -2595,7 +2619,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FothelloTestsMac/Info.plist;
+				INFOPLIST_FILE = FothelloMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -2616,7 +2640,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FothelloTestsMac/Info.plist;
+				INFOPLIST_FILE = FothelloMacTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2675,7 +2699,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FothelloUITestsIOS/Info.plist;
+				INFOPLIST_FILE = FothelloUIIOSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -2694,7 +2718,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = FothelloUITestsIOS/Info.plist;
+				INFOPLIST_FILE = FothelloUIIOSTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;

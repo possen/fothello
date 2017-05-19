@@ -12,6 +12,7 @@
 @class PlayerMove;
 @class BoardPiece;
 @class GameBoard;
+@class MatchMoves;
 @class BoardPosition;
 
 #pragma mark - Match -
@@ -28,9 +29,6 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL 
 - (void)beginMatch;
 - (void)endMatch;
 - (void)reset;
-- (void)undo;
-- (void)redo;
-- (void)resetRedos;
 - (void)nextPlayerWithTime:(float)time; // in seconds
 - (void)nextPlayer;
 - (void)beginTurn;
@@ -45,13 +43,14 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL 
 @property (nonatomic, copy, nullable) CurrentPlayerBlock currentPlayerBlock;
 @property (nonatomic, copy, nullable) MatchStatusBlock matchStatusBlock;
 @property (nonatomic, copy, nullable) MovesUpdateBlock movesUpdateBlock;
+@property (nonatomic, nonnull) MatchMoves *matchMoves;
 
-@property (nonatomic, nonnull) NSMutableArray<PlayerMove *> *moves;
-@property (nonatomic, readonly, nonnull) NSMutableArray<PlayerMove *> *redos;
 @property (nonatomic) BOOL noMoves;
 @property (nonatomic, readonly) BOOL turnProcessing;
 
 @property (nonatomic, readonly) BOOL areAllPlayersComputers;
+@property (nonatomic, readonly) BOOL isAnyPlayerAComputer;
+
 @end
 
 
