@@ -24,8 +24,8 @@
     [super viewDidLoad];
     
     self.pass.hidden = YES;
-   
-    CGRect bounds = CGRectMake(0, 0, self.view.frame.size.width,  self.view.frame.size.height);
+    CGSize size = self.view.frame.size;
+    CGRect bounds = CGRectMake(0, 0, size.width, size.height);
     
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];

@@ -164,7 +164,6 @@
     return player;
 }
 
-
 - (void)deletePlayer:(Player *)player
 {
     [self.players removeObject:player];
@@ -185,24 +184,26 @@
     Player *player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
     Player *player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
 
+    Strategy *strategy1; Strategy *strategy2;
+    
     // black goes first.
     switch (kind)
     {
         case PlayerKindSelectionHumanVHuman:
-            player1.strategy = [[HumanStrategy alloc] initWithEngine:engine];
-            player2.strategy = [[HumanStrategy alloc] initWithEngine:engine];
+            strategy1 = [[HumanStrategy alloc] initWithEngine:engine];
+            strategy2 = [[HumanStrategy alloc] initWithEngine:engine];
             break;
         case PlayerKindSelectionHumanVComputer:
-            player1.strategy = [[HumanStrategy alloc] initWithEngine:engine];
-            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
+            strategy1 = [[HumanStrategy alloc] initWithEngine:engine];
+            strategy2 = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
         case PlayerKindSelectionComputerVHuman:
-            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
-            player2.strategy = [[HumanStrategy alloc] initWithEngine:engine];
+            strategy1 = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
+            strategy2 = [[HumanStrategy alloc] initWithEngine:engine];
             break;
         case PlayerKindSelectionComputerVComputer:
-            player1.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
-            player2.strategy = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
+            strategy1 = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
+            strategy2 = [[AIStrategy alloc] initWithDifficulty:difficulty engine:engine];
             break;
         case PlayerKindSelectionHumanVGameCenter:
             NSAssert(false, @"not implemented");
@@ -211,10 +212,7 @@
             NSAssert(false, @"cant find kind");
     }
     
-    if (player1 == nil || player2 == nil)
-    {
-        return nil;
-    }
+    player1.strategy = strategy1; player2.strategy = strategy2;
     
     Match *match = [[Match alloc] initWithName:@"game" players:@[player2, player1]];
     for (Player *player in self.players)

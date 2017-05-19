@@ -56,10 +56,8 @@
 {
     [self.playerDisplay displayPlayer:player];
     
-    if (self.updatePlayerMove)
-    {
-        self.updatePlayerMove(canMove || self.gameOverNode);
-    }
+    if (self.updatePlayerMove) self.updatePlayerMove(canMove || self.gameOverNode);
+    
     [self playerTurnComplete];
 }
 
@@ -68,10 +66,8 @@
     if (gameOver)
     {
         FothelloGame *game = [FothelloGame sharedInstance];
-        if (game.gameOverBlock)
-        {
-            game.gameOverBlock();
-        }
+        
+        if (game.gameOverBlock) game.gameOverBlock();
         
         [self displayGameOver];
     }
@@ -94,34 +90,26 @@
     __weak BoardScene *weakBlockSelf = self;
 
     // whenever a piece is placed on board calls back to here.
-    match.board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks)
-    {        
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
+    match.board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakBlockSelf setPiece:pieceTracks];
         });
     };
     
-    match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
+    match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakBlockSelf currentPlayerChange:player canMove:canMove pass:pass];
        });
     };
 
-    match.matchStatusBlock = ^(BOOL gameOver)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
+    match.matchStatusBlock = ^(BOOL gameOver) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakBlockSelf statusUpdate:gameOver];
         });
     };
     
-    match.board.highlightBlock = ^(BoardPosition *pos, PieceColor color)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
+    match.board.highlightBlock = ^(BoardPosition *pos, PieceColor color) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [weakBlockSelf higlightAtX:pos.x y:pos.y color:color];
         });
     };
@@ -143,8 +131,7 @@
 - (void)syncronizeBoardStateWithModel
 {
     GameBoard *board = self.match.board;
-    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece)
-     {
+    [board visitAll:^(NSInteger x, NSInteger y, Piece *piece) {
          [self placeSpriteAtX:x Y:y withPiece:piece];
      }];
 }
@@ -152,10 +139,7 @@
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy
 {
     // ignore clicks if turn game over.
-    if (self.gameOverNode)
-    {
-        return;
-    }
+    if (self.gameOverNode) return;
     
     /* Called when a touch begins */
     CGRect boardRect = self.boardRect;
@@ -184,20 +168,14 @@
 
 - (void)playerTurnComplete
 {
-    if (self.gameOverNode)
-    {
-        return;
-    }
+    if (self.gameOverNode) return;
 
     [self nextPlayer];
 }
 
 - (void)displayGameOver
 {
-    if (self.gameOverNode)
-    {
-        return;
-    }
+    if (self.gameOverNode) return;
 
     self.gameOverDisplay = [[GameOverDisplay alloc] initWithMatch:self.match boardScene:self];
 }
@@ -248,8 +226,8 @@
     CGFloat boardSize = self.boardSize;
     CGFloat spacing = self.boardDimensions / boardSize;
     CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
-    if (sizeSmall)
-    {
+
+    if (sizeSmall) {
         spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
     }
     return spriteSize;
@@ -261,9 +239,10 @@
     CGFloat boardSize = self.boardSize;
     CGFloat spacing = self.boardDimensions / boardSize;
     CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:sizeSmall];
+    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
     
-    return CGPointMake(x * spacing + boardRect.origin.x - spriteSize.width / 2 + spacing / 2,
-                  y * spacing + boardRect.origin.y - spriteSize.height / 2 + spacing / 2);
+    return CGPointMake(x * spacing + originx - spriteSize.width / 2 + spacing / 2,
+                       y * spacing + originy - spriteSize.height / 2 + spacing / 2);
 }
 
 - (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
@@ -294,10 +273,7 @@
 
 - (void)higlightAtX:(NSInteger)x y:(NSInteger)y color:(PieceColor)color
 {
-    if (x < 0 || y < 0)
-    {
-        return;
-    }
+    if (x < 0 || y < 0) return;
     
     CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:NO];
     SKNode *sprite = [self makePieceWithColor:color size:spriteSize];
@@ -310,8 +286,7 @@
     [self addChild:sprite];
     self.prevHighlight = sprite;
     
-    [sprite runAction:action completion:
-     ^{
+    [sprite runAction:action completion:^{
          [sprite removeFromParent];
      }];
 }
