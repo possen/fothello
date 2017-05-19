@@ -744,7 +744,7 @@
 				D535DD521E3D03EF00AE5C1D /* Info.plist */,
 			);
 			name = FothelloMacTests;
-			path = FothelloTestsMac;
+			path = FothelloMacTests/FothelloMacTests;
 			sourceTree = "<group>";
 		};
 		D54006361E3AD2E200F2D7BB /* Supporting Files */ = {
@@ -896,8 +896,7 @@
 				D55B70B01E481AF000C53A51 /* FothelloLibTVTests.m */,
 				D55B70B21E481AF000C53A51 /* Info.plist */,
 			);
-			name = FothelloLibTVTests;
-			path = FothelloLibTestsTV;
+			path = FothelloLibTVTests;
 			sourceTree = "<group>";
 		};
 		D562F4AE1CB0F02B009A6273 /* Model */ = {
