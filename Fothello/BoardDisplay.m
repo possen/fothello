@@ -100,8 +100,7 @@
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
     
     myLabel.text = @"Fothello";
-    myLabel.fontSize = 30;
-    myLabel.position = CGPointMake(CGRectGetMidX(boardScene.frame),boardRect.origin.y + boardRect.size.height + 20);
+    myLabel.fontSize = 30;      myLabel.position = CGPointMake(CGRectGetMidX(boardScene.frame),boardRect.origin.y + boardRect.size.height + 20);
     [boardScene addChild:myLabel];
     
     SKAction *action = [SKAction fadeAlphaTo:0 duration:2];
