@@ -18,11 +18,8 @@
 
 - (void)printBanner:(NSMutableString *)boardString ascii:(BOOL)ascii
 {
-    if (!ascii)
-    {
-        [boardString appendString:@" "];
-    }
-    
+    if (!ascii) [boardString appendString:@" "];
+
     for (NSInteger width = 0; width < self.size + 2; width++)
     {
         [boardString appendString:@"-"];
@@ -33,27 +30,22 @@
 - (void)printRow:(NSMutableString *)boardString ascii:(BOOL)ascii reverse:(BOOL)reverse
 {
     NSInteger size = self.size;
-    NSInteger reverseOffset = reverse  ? size - 1 : 0;
+    NSInteger reverseOffset = reverse ? size - 1 : 0;
     for (NSInteger y = 0; y < size; ++y)
     {
         NSInteger ry = labs(reverseOffset - y);
-        if (!ascii)
-        {
-            [boardString appendFormat:@"%ld", (long)ry + 1];
-        }
+        if (!ascii) [boardString appendFormat:@"%ld", (long)ry + 1];
         
         [boardString appendString:@"|"];
         
         for (NSInteger x = 0; x < self.size; x++)
         {
             Piece *piece = [self pieceAtPositionX:x Y:ry];
-            [boardString appendString:ascii
-             ? piece.colorStringRepresentationAscii
-                                     : piece.colorStringRepresentation];
+            [boardString appendString:ascii ? piece.colorStringRepresentationAscii
+                                            : piece.colorStringRepresentation];
         }
         
-        [boardString appendString:@"|"];
-        [boardString appendString:@"\n"];
+        [boardString appendString:@"|\n"];
     }
 }
 
@@ -69,8 +61,7 @@
 
 - (void)printPlayedPieces:(NSMutableString *)boardString
 {
-    NSDictionary *dict =  [self.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj)
-                           {
+    NSDictionary *dict =  [self.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj) {
                                return @[[Piece stringFromColor:[key integerValue]], obj];
                            }];
     
@@ -85,18 +76,13 @@
 {
     NSMutableString *boardString = [[NSMutableString alloc] init];
     
-    if (!ascii)
-    {
-        [self printHeader:boardString];
-    }
+    if (!ascii) [self printHeader:boardString];
+    
     [self printBanner:boardString ascii:ascii];
     [self printRow:boardString ascii:ascii reverse:reverse];
     [self printBanner:boardString ascii:ascii];
     
-    if (!ascii)
-    {
-        [self printPlayedPieces:boardString];
-    }
+    if (!ascii) [self printPlayedPieces:boardString];
     
     return [boardString copy];
 }
@@ -119,9 +105,7 @@
         NSMutableString *string = [[NSString stringWithFormat:@"(%lu)", (unsigned long)track.count] mutableCopy];
         for (BoardPiece *boardPiece in track)
         {
-            [string appendString:@"("];
-            [string appendString:boardPiece.description];
-            [string appendString:@") "];
+            [string appendFormat:@"(%@@) ", boardPiece.description];
         }
         NSLog(@"%@", string);
     }

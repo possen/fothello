@@ -34,8 +34,7 @@
     
     if (self)
     {
-        if (players.count > 2)
-            return nil;
+        if (players.count > 2) return nil;
         
         _name = name;
         _players = [players copy];
@@ -120,10 +119,8 @@
 
 - (void)redo
 {
-    if (self.redos.count == 0)
-    {
-        return;
-    }
+    if (self.redos.count == 0) return;
+    
 
     for (Player *player in self.players)
     {
@@ -189,10 +186,8 @@
 {
     [self endTurn];
     
-    if (self.matchStatusBlock)
-    {
-        self.matchStatusBlock(NO);
-    }
+    if (self.matchStatusBlock) self.matchStatusBlock(NO);
+    
     self.noMoves = NO;
     
     [self.board reset];
@@ -214,10 +209,7 @@
 
 - (void)callMatchStatusBlock:(BOOL)result
 {
-    if (self.matchStatusBlock)
-    {
-        self.matchStatusBlock(result);
-    }
+    if (self.matchStatusBlock) self.matchStatusBlock(result);
 }
 
 - (void)nextPlayer
@@ -227,19 +219,14 @@
     // this enters work queue first so will complete before the second canMove call.
     BOOL prevPlayerCouldMove = [self.board canMove:self.currentPlayer];
     
-    self.currentPlayer = (self.currentPlayer == players[0]
-                          ? players[1]
-                          : players[0]);
+    self.currentPlayer = (self.currentPlayer == players[0] ? players[1] : players[0]);
     
     NSLog(@"Current Player %@ %@ %@", self.currentPlayer, self.currentPlayer.strategy, self.board );
     
     BOOL currentPlayerCanMove = [self.board canMove:self.currentPlayer];
     BOOL isFull = [self.board isFull];
 
-    if (!currentPlayerCanMove)
-    {
-        [self callMatchStatusBlock:NO];
-    }
+    if (!currentPlayerCanMove) [self callMatchStatusBlock:NO];
 
     if ( (!prevPlayerCouldMove && !currentPlayerCanMove) || isFull)
     {
@@ -274,17 +261,11 @@
 - (PlayerMove *)addMove:(PlayerMove *)move
 {
     // need to allow multiple pass objects.
-    if (!move.isPass  && [self.moves containsObject:move] )
-    {
-        return nil; // dont add twice
-    }
+    if (!move.isPass  && [self.moves containsObject:move] ) return nil; // dont add twice
     
     [self.moves addObject:[move copy]];
     
-    if (self.movesUpdateBlock)
-    {
-        self.movesUpdateBlock();
-    }
+    if (self.movesUpdateBlock) self.movesUpdateBlock();
     
     return move;
 }
@@ -295,10 +276,7 @@
     [self.redos addObject:move];
     [self.moves removeLastObject];
     
-    if (self.movesUpdateBlock)
-    {
-        self.movesUpdateBlock();
-    }
+    if (self.movesUpdateBlock) self.movesUpdateBlock();
     
     return move;
 }
@@ -328,14 +306,13 @@
 
 - (BOOL)areAllPlayersComputers
 {
-    return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop)
-            {
-                if (player.strategy.automatic)
-                {
-                    return YES;
-                }
-                return NO;
-            }].count == self.players.count;
+    return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop) {
+        if (player.strategy.automatic)
+        {
+            return YES;
+        }
+        return NO;
+    }].count == self.players.count;
 }
 
 @end

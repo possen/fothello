@@ -126,8 +126,7 @@ typedef struct Delta
 - (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
            complete:(UpdateCompleteBlock)updateComplete
 {
-    dispatch_async(self.queue,^
-                   {
+    dispatch_async(self.queue,^{
        if (updateFunction != nil)
        {
            NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
@@ -161,8 +160,7 @@ typedef struct Delta
     
     NSMutableArray<BoardPiece *> *setupBoard = [NSMutableArray new];
     [self boxCoord:1 block:
-     ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
-     {
+     ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop) {
          NSInteger playerCount = (count + 1) % 2;
          NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
          BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
@@ -210,8 +208,7 @@ typedef struct Delta
           forPlayer:(Player *)player
               legal:(void (^)(BOOL))legal
 {
-    [self updateBoard:nil
-             complete:^{
+    [self updateBoard:nil complete:^{
         NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
         
         BOOL legalMove = legalMoves != nil
@@ -222,8 +219,7 @@ typedef struct Delta
             }] != NSNotFound;
         
         // avoid calling into same queue.
-        dispatch_async(dispatch_get_main_queue(), ^
-        {
+        dispatch_async(dispatch_get_main_queue(), ^{
             legal(legalMove);
         });
     }];
@@ -478,10 +474,8 @@ typedef struct Delta
     
     // check that piece is on board and we are placing on clear space
     Piece *piece = [self pieceAtPositionX:boardPiece.position.x Y:boardPiece.position.y];
-    if (piece == nil || ![piece isClear])
-    {
-        return nil;
-    }
+    
+    if (piece == nil || ![piece isClear]) return nil;
     
     NSMutableArray<NSMutableArray <BoardPiece *> *> *tracks = [[NSMutableArray alloc] initWithCapacity:10];
 
