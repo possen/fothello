@@ -53,18 +53,12 @@
     BoardScene *boardScene = self.boardScene;
     CGFloat spacing = self.spacing;
     CGRect boardRect = boardScene.boardRect;
+    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
     
-    SKNode *dot1 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 2), boardRect.origin.y + (spacing * 2))];
-    [boardScene addChild:dot1];
-    
-    SKNode *dot2 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 2), boardRect.origin.y + (spacing * 6))];
-    [boardScene addChild:dot2];
-    
-    SKNode *dot3 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 2))];
-    [boardScene addChild:dot3];
-    
-    SKNode *dot4 = [self makeDotAtPosition:CGPointMake(boardRect.origin.x + (spacing * 6), boardRect.origin.y + (spacing * 6))];
-    [boardScene addChild:dot4];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 2), originy + (spacing * 2))]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 2), originy + (spacing * 6))]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 6), originy + (spacing * 2))]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 6), originy + (spacing * 6))]];
 }
 
 - (void)drawBoardGrid
@@ -73,32 +67,21 @@
     CGRect boardRect = boardScene.boardRect;
     CGFloat boardDimensions = boardScene.boardDimensions;
     SKShapeNode *boardUI = [SKShapeNode node];
-    CGFloat spacing = boardDimensions / _boardSize;
     
+    CGFloat spacing = boardDimensions / _boardSize;
+    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
+    CGFloat width = boardRect.size.width; CGFloat height = boardRect.size.height;
+
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     CGPathMoveToPoint(pathToDraw, NULL, boardRect.origin.x, boardRect.origin.y);
-    CGPathAddRect(pathToDraw, NULL, CGRectMake(boardRect.origin.x,
-                                               boardRect.origin.y,
-                                               boardRect.size.width,
-                                               boardRect.size.height));
+    CGPathAddRect(pathToDraw, NULL, CGRectMake(originx, originy, width, height));
     
     for (CGFloat lines = 0; lines < boardDimensions; lines += spacing)
     {
-        CGPathMoveToPoint(pathToDraw, NULL,
-                          boardRect.origin.x,
-                          boardRect.origin.y + lines);
-        
-        CGPathAddLineToPoint(pathToDraw, NULL,
-                             boardRect.origin.x + boardRect.size.width,
-                             boardRect.origin.y + lines);
-        
-        CGPathMoveToPoint(pathToDraw, NULL,
-                          boardRect.origin.x + lines,
-                          boardRect.origin.y);
-        
-        CGPathAddLineToPoint(pathToDraw, NULL,
-                             boardRect.origin.x + lines,
-                             boardRect.origin.y + boardRect.size.width);
+        CGPathMoveToPoint(pathToDraw, NULL, originx, originy + lines);
+        CGPathAddLineToPoint(pathToDraw, NULL, originx + boardRect.size.width, originy + lines);
+        CGPathMoveToPoint(pathToDraw, NULL, originx + lines, originy);
+        CGPathAddLineToPoint(pathToDraw, NULL, originx + lines, originy + boardRect.size.width);
     }
     
     boardUI.path = pathToDraw;
@@ -118,9 +101,7 @@
     
     myLabel.text = @"Fothello";
     myLabel.fontSize = 30;
-    myLabel.position = CGPointMake(CGRectGetMidX(boardScene.frame),
-                                   boardRect.origin.y
-                                   + boardRect.size.height + 20 );
+    myLabel.position = CGPointMake(CGRectGetMidX(boardScene.frame),boardRect.origin.y + boardRect.size.height + 20);
     [boardScene addChild:myLabel];
     
     SKAction *action = [SKAction fadeAlphaTo:0 duration:2];
