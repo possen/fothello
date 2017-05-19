@@ -64,8 +64,7 @@ typedef struct Delta
 
         _placeBlock = block;
         
-        if (size % 2 == 1)
-            return nil; // must be multiple of 2
+        if (size % 2 == 1) return nil; // must be multiple of 2
         
         _grid = [[NSMutableArray alloc] initWithCapacity:size*size];
         _piecesPlayed = [NSDictionary new];
@@ -159,6 +158,7 @@ typedef struct Delta
     BoardPosition *center = self.center;
     
     NSMutableArray<BoardPiece *> *setupBoard = [NSMutableArray new];
+    
     [self boxCoord:1 block:
      ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop) {
          NSInteger playerCount = (count + 1) % 2;
@@ -168,6 +168,7 @@ typedef struct Delta
          
          [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:playerCount + 1]];
      }];
+    
     return [setupBoard copy];
 }
 
@@ -185,14 +186,15 @@ typedef struct Delta
 {
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
          NSArray<NSArray<BoardPiece *> *> *pieces = @[];
+        
          for (PlayerMove *move in moves)
          {
              if (move.isPass) return nil;
-             
-             Piece *currentBoardPiece = [self pieceAtPositionX:move.position.x Y:move.position.y];
+             BoardPosition *position = move.position;
+             Piece *currentBoardPiece = [self pieceAtPositionX:position.x Y:position.y];
              
              NSArray<NSArray<BoardPiece *> *> *moveBoardPiece = @[@[[BoardPiece makeBoardPieceWithPiece:currentBoardPiece
-                                                                                               position:move.position
+                                                                                               position:position
                                                                                                   color:move.color]]];
              
              NSArray<NSArray<BoardPiece *> *> *movePieces = [moveBoardPiece arrayByAddingObjectsFromArray:
