@@ -7,14 +7,19 @@
 //
 #import <Foundation/Foundation.h>
 
-#import "GameBoard.h"
+#import "GameBoardInternal.h"
 #import "GameBoard+String.h"
 #import "Piece.h"
 #import "BoardPiece.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
-@implementation GameBoard (String)
+@interface GameBoardInternal ()
+@property (nonatomic) NSInteger size;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@end
+
+@implementation GameBoardInternal (String)
 
 - (void)printBanner:(NSMutableString *)boardString ascii:(BOOL)ascii
 {

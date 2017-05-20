@@ -265,6 +265,14 @@
 		D5B1C11F1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
 		D5B1C1201ECF3CD400B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D5B1C1221ECF3CDD00B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D5B1C12F1ED0E23100B0F736 /* GameBoardInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */; };
+		D5B1C1301ED0E23100B0F736 /* GameBoardInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */; };
+		D5B1C1311ED0E23100B0F736 /* GameBoardInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */; };
+		D5B1C1321ED0E23100B0F736 /* GameBoardInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */; };
+		D5B1C1331ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
+		D5B1C1341ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
+		D5B1C1351ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
+		D5B1C1361ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C249911E51605E009D8267 /* FothelloUIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C249901E51605E009D8267 /* FothelloUIOSTests.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
@@ -553,6 +561,8 @@
 		D5B1C10D1ECE84D800B0F736 /* GameBoard+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GameBoard+String.m"; sourceTree = "<group>"; };
 		D5B1C1161ECF2E5600B0F736 /* MatchMoves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMoves.h; sourceTree = "<group>"; };
 		D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMoves.m; sourceTree = "<group>"; };
+		D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardInternal.h; sourceTree = "<group>"; };
+		D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoardInternal.m; sourceTree = "<group>"; };
 		D5C0B66A18C40F73000DCEB8 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		D5C0B66B18C40F73000DCEB8 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Holes.h"; sourceTree = "<group>"; };
@@ -917,6 +927,8 @@
 				D5441B651831CB2800B5166A /* FothelloGame.m */,
 				D562F4AB1CB0E9E2009A6273 /* GameBoard.h */,
 				D562F4AC1CB0E9E2009A6273 /* GameBoard.m */,
+				D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */,
+				D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */,
 				D5B1C10C1ECE84D800B0F736 /* GameBoard+String.h */,
 				D5B1C10D1ECE84D800B0F736 /* GameBoard+String.m */,
 				D50D77861CF8E0F40073D0A1 /* BoardPiece.h */,
@@ -1106,6 +1118,7 @@
 				D54006C21E3B295000F2D7BB /* Strategy.h in Headers */,
 				D54006C31E3B295000F2D7BB /* AIStrategy.h in Headers */,
 				D54006C51E3B295000F2D7BB /* NSArray+Extensions.h in Headers */,
+				D5B1C12F1ED0E23100B0F736 /* GameBoardInternal.h in Headers */,
 				D54006C41E3B295000F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
 				D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */,
@@ -1134,6 +1147,7 @@
 				D525FBDB1E5A0DAF006CA134 /* Engine.h in Headers */,
 				D54007001E3BBE8D00F2D7BB /* Strategy.h in Headers */,
 				D54007011E3BBE8D00F2D7BB /* AIStrategy.h in Headers */,
+				D5B1C1301ED0E23100B0F736 /* GameBoardInternal.h in Headers */,
 				D54007021E3BBE8D00F2D7BB /* NSArray+Extensions.h in Headers */,
 				D54007031E3BBE8D00F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
@@ -1167,6 +1181,7 @@
 				D54007321E3BBEC200F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54007331E3BBEC200F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54007341E3BBEC200F2D7BB /* NetworkController.h in Headers */,
+				D5B1C1311ED0E23100B0F736 /* GameBoardInternal.h in Headers */,
 				D54007351E3BBEC200F2D7BB /* NSArray+Holes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1189,6 +1204,7 @@
 				D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */,
 				D540075C1E3BBF0000F2D7BB /* Strategy.h in Headers */,
 				D540075D1E3BBF0000F2D7BB /* AIStrategy.h in Headers */,
+				D5B1C1321ED0E23100B0F736 /* GameBoardInternal.h in Headers */,
 				D540075E1E3BBF0000F2D7BB /* NSArray+Extensions.h in Headers */,
 				D540075F1E3BBF0000F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE41E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */,
@@ -1746,6 +1762,7 @@
 			files = (
 				D54006A71E3B232900F2D7BB /* FothelloGame.m in Sources */,
 				D54006A81E3B232900F2D7BB /* GameBoard.m in Sources */,
+				D5B1C1331ED0E23100B0F736 /* GameBoardInternal.m in Sources */,
 				D521BEE51E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,
 				D525FBC51E59831D006CA134 /* EngineStrong.mm in Sources */,
 				D54006A91E3B232900F2D7BB /* BoardPiece.m in Sources */,
@@ -1798,6 +1815,7 @@
 				D54006EA1E3BBE8D00F2D7BB /* Strategy.m in Sources */,
 				D54006EB1E3BBE8D00F2D7BB /* AIStrategy.m in Sources */,
 				D54006EC1E3BBE8D00F2D7BB /* HumanStrategy.m in Sources */,
+				D5B1C1341ED0E23100B0F736 /* GameBoardInternal.m in Sources */,
 				D54006ED1E3BBE8D00F2D7BB /* NSArray+Extensions.m in Sources */,
 				D54006EE1E3BBE8D00F2D7BB /* RESTNetworkRequest.m in Sources */,
 				D5B1C1131ECE895800B0F736 /* GameBoard+String.m in Sources */,
@@ -1828,6 +1846,7 @@
 				D54007181E3BBEC200F2D7BB /* Strategy.m in Sources */,
 				D54007191E3BBEC200F2D7BB /* AIStrategy.m in Sources */,
 				D540071A1E3BBEC200F2D7BB /* HumanStrategy.m in Sources */,
+				D5B1C1351ED0E23100B0F736 /* GameBoardInternal.m in Sources */,
 				D540071B1E3BBEC200F2D7BB /* NSArray+Extensions.m in Sources */,
 				D540071C1E3BBEC200F2D7BB /* RESTNetworkRequest.m in Sources */,
 				D5B1C1141ECE895A00B0F736 /* GameBoard+String.m in Sources */,
@@ -1858,6 +1877,7 @@
 				D54007461E3BBF0000F2D7BB /* Strategy.m in Sources */,
 				D54007471E3BBF0000F2D7BB /* AIStrategy.m in Sources */,
 				D54007481E3BBF0000F2D7BB /* HumanStrategy.m in Sources */,
+				D5B1C1361ED0E23100B0F736 /* GameBoardInternal.m in Sources */,
 				D54007491E3BBF0000F2D7BB /* NSArray+Extensions.m in Sources */,
 				D540074A1E3BBF0000F2D7BB /* RESTNetworkRequest.m in Sources */,
 				D5B1C1151ECE895C00B0F736 /* GameBoard+String.m in Sources */,

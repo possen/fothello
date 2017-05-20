@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GameBoard.h"
+#import "GameBoardInternal.h"
 
-@interface GameBoard (String)
+@interface GameBoardInternal (String)
 
 - (nonnull NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse;
 - (void)printBoardUpdates:(nonnull NSArray<NSArray<BoardPiece *> *> *)tracks;

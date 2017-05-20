@@ -149,15 +149,16 @@
     NSArray<Player *> *players = self.players;
     GameBoard *board = self.board;
     Player *player1 = players[0]; Player *player2 = players[1];
+    Player *currentPlayer = self.currentPlayer;
     
     // this enters work queue first so will complete before the second canMove call.
-    BOOL prevPlayerCouldMove = [board canMove:self.currentPlayer];
+    BOOL prevPlayerCouldMove = [board canMove:currentPlayer];
     
-    self.currentPlayer = (self.currentPlayer == player1 ? player2 : player1);
+    self.currentPlayer = currentPlayer = (currentPlayer == player1 ? player2 : player1);
     
-    NSLog(@"Current Player %@ %@ %@", self.currentPlayer, self.currentPlayer.strategy, board );
+    NSLog(@"Current Player %@ %@ %@", currentPlayer, currentPlayer.strategy, board );
     
-    BOOL currentPlayerCanMove = [board canMove:self.currentPlayer];
+    BOOL currentPlayerCanMove = [board canMove:currentPlayer];
     BOOL isFull = [board isFull];
 
     if (!currentPlayerCanMove) [self callMatchStatusBlock:NO];
@@ -228,7 +229,7 @@
     
     if (self.currentPlayerBlock)
     {
-        BOOL canMove = [self.board canMoveUnqueued:self.currentPlayer];
+        BOOL canMove = [self.board canMove:self.currentPlayer];
         NSLog(@"canMove %d", canMove);
         self.currentPlayerBlock(player, canMove, move.isPass);
     }
@@ -236,6 +237,4 @@
     [self.matchMoves addMove:move];
 }
 
-
 @end
-
