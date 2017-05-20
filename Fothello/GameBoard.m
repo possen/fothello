@@ -443,8 +443,8 @@ typedef struct Delta
     Delta diff = [self determineDirection:direction];
     
     NSMutableArray<BoardPiece *> *track = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    NSInteger offsetx = boardPiece.position.x; NSInteger offsety = boardPiece.position.y;
+    BoardPosition *98position = boardPiece.position;
+    NSInteger offsetx = position.x; NSInteger offsety = position.y;
     
     // keep adding pieces until we hit a piece of the same color, edge of board or
     // clear space.
