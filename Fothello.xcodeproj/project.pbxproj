@@ -247,7 +247,7 @@
 		D56F0A261E3D485700DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D54006901E3B22CB00F2D7BB /* FothelloLib.framework */; };
 		D56F0A271E3D486000DEC41A /* FothelloLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D540070C1E3BBE8D00F2D7BB /* FothelloLib.framework */; };
 		D5718A0D1E517B4900623E0A /* FothelloMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D535DD501E3D03EF00AE5C1D /* FothelloMacTests.m */; };
-		D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D58775F31E4D42E800A29386 /* FothelloUIMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D58775F21E4D42E800A29386 /* FothelloUIMacTests.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
@@ -263,9 +263,8 @@
 		D5B1C11D1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
 		D5B1C11E1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
 		D5B1C11F1ECF2E5600B0F736 /* MatchMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */; };
-		D5B1C1201ECF3CD400B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5B1C1211ECF3CD800B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D5B1C1221ECF3CDD00B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5B1C1201ECF3CD400B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		D5B1C1221ECF3CDD00B0F736 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C249911E51605E009D8267 /* FothelloUIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C249901E51605E009D8267 /* FothelloUIOSTests.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
@@ -1158,7 +1157,6 @@
 				D540072A1E3BBEC200F2D7BB /* Player.h in Headers */,
 				D540072B1E3BBEC200F2D7BB /* PlayerMove.h in Headers */,
 				D540072C1E3BBEC200F2D7BB /* FothelloLib.h in Headers */,
-				D5B1C1211ECF3CD800B0F736 /* EngineStrong.h in Headers */,
 				D540072D1E3BBEC200F2D7BB /* Match.h in Headers */,
 				D525FBDC1E5A0DB0006CA134 /* Engine.h in Headers */,
 				D540072E1E3BBEC200F2D7BB /* Strategy.h in Headers */,

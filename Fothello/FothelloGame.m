@@ -101,10 +101,14 @@
 - (void)setupDefaultMatch:(id<Engine>)engine
 {
     Match *match = [self matchWithName:nil players:self.players];
-    match.players[0].strategy = [[HumanStrategy alloc] initWithEngine:engine];
-    match.players[1].strategy = [[AIStrategy alloc] initWithDifficulty:DifficultyEasy engine:engine];
-    match.players[0].strategy.match = match;
-    match.players[1].strategy.match = match;
+    Strategy *strategy1 = [[HumanStrategy alloc] initWithEngine:engine];
+    Strategy *strategy2 = [[AIStrategy alloc] initWithDifficulty:DifficultyEasy engine:engine];
+    Player *player1 = match.players[0];
+    Player *player2 = match.players[1];
+    player1.strategy = strategy1;
+    player2.strategy = strategy2;
+    strategy1.match = match;
+    strategy2.match = match;
 }
 
 - (Match *)createMatch:(NSString *)name
@@ -217,8 +221,9 @@
     Match *match = [[Match alloc] initWithName:@"game" players:@[player2, player1]];
     for (Player *player in self.players)
     {
-        player.strategy.engine = self.engine;
-        player.strategy.match = match;
+        Strategy *strategy = player.strategy;
+        strategy.engine = self.engine;
+        strategy.match = match;
     }
     [match reset];
     return match;

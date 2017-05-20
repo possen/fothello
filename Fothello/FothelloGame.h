@@ -56,9 +56,11 @@ typedef void (^GameOverBlock)();
 @property (nonnull, nonatomic) NSMutableArray <NSString *> *matchOrder;
 @property (nonnull, nonatomic) NSMutableDictionary <NSString *, Match *> *matches;
 @property (nonnull, nonatomic) NSMutableArray <Player *> *players;
-@property (nonatomic, copy, nullable) GameOverBlock gameOverBlock; 
+@property (nonatomic, copy, nullable) GameOverBlock gameOverBlock;
+
 - (nonnull Player *)newPlayerWithName:(nonnull NSString *)name
           preferredPieceColor:(PieceColor)preferredPieceColor;
+
 - (void)setupDefaultMatch:(nonnull id<Engine>)engine;
 
 - (nonnull Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;

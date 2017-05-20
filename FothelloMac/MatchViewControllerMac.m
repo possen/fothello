@@ -43,8 +43,7 @@
     SKView *skView = self.mainView;
   
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size
-                                                   match:self.match];
+    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
     
     //    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
     self.boardScene = scene;

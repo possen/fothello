@@ -26,7 +26,7 @@
         
         _moves = [[NSMutableArray alloc] initWithCapacity:64];
         _redos = [[NSMutableArray alloc] initWithCapacity:64];
-
+        _match = match;
     }
     return self;
 }

@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <FothelloLib/FothelloLib.h>
 #import <GameplayKit/GameplayKit.h>
+#import "EngineStrong.h"
 
 @interface TestBoardOps : XCTestCase
 @property (nonatomic) Match *match;
@@ -166,7 +167,7 @@
     };
     
     __weak TestBoardOps *weakSelf = self;
-    self.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
+    weakSelf.match.currentPlayerBlock = ^(Player *player, BOOL canMove, BOOL pass)
     {
         if (!gameFinished)
         {
@@ -643,14 +644,13 @@
         [expectation fulfill];
     };
     
-    [self.match redo];
+    [self.match.matchMoves redo];
     [self waitForExpectationsWithTimeout:30.0 handler:nil];
     
     board.updateCompleteBlock = ^()
     {
     };
 }
-
 
 - (void)testUndoRedo
 {
