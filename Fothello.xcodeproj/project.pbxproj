@@ -46,6 +46,14 @@
 		D53CE6B51ED1593900B47B0C /* GameBoardLegalMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */; };
 		D53CE6B61ED1593A00B47B0C /* GameBoardLegalMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */; };
 		D53CE6B71ED1593B00B47B0C /* GameBoardLegalMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */; };
+		D53CE6BA1ED15E8800B47B0C /* GameBoardTracks.h in Headers */ = {isa = PBXBuildFile; fileRef = D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */; };
+		D53CE6BB1ED15E8800B47B0C /* GameBoardTracks.h in Headers */ = {isa = PBXBuildFile; fileRef = D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */; };
+		D53CE6BC1ED15E8800B47B0C /* GameBoardTracks.h in Headers */ = {isa = PBXBuildFile; fileRef = D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */; };
+		D53CE6BD1ED15E8800B47B0C /* GameBoardTracks.h in Headers */ = {isa = PBXBuildFile; fileRef = D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */; };
+		D53CE6BE1ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
+		D53CE6BF1ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
+		D53CE6C01ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
+		D53CE6C11ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
@@ -483,6 +491,8 @@
 		D535DD521E3D03EF00AE5C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53CE6B11ED1552100B47B0C /* GameBoardLegalMoves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardLegalMoves.h; sourceTree = "<group>"; };
 		D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoardLegalMoves.m; sourceTree = "<group>"; };
+		D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardTracks.h; sourceTree = "<group>"; };
+		D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoardTracks.m; sourceTree = "<group>"; };
 		D53D351A1CD0928400C67EEF /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
 		D53D351B1CD0928400C67EEF /* NewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameViewController.m; sourceTree = "<group>"; };
 		D54006341E3AD2E200F2D7BB /* FothelloTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -945,6 +955,8 @@
 				D5B1C10D1ECE84D800B0F736 /* GameBoardString.m */,
 				D53CE6B11ED1552100B47B0C /* GameBoardLegalMoves.h */,
 				D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */,
+				D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */,
+				D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */,
 				D50D77861CF8E0F40073D0A1 /* BoardPiece.h */,
 				D50D77871CF8E0F40073D0A1 /* BoardPiece.m */,
 				D55A6CBF1D04BC7500B98809 /* BoardPosition.h */,
@@ -1138,6 +1150,7 @@
 				D54006C41E3B295000F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
 				D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */,
+				D53CE6BA1ED15E8800B47B0C /* GameBoardTracks.h in Headers */,
 				D54006C61E3B295000F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54006C71E3B295000F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54006C81E3B295000F2D7BB /* NetworkController.h in Headers */,
@@ -1167,6 +1180,7 @@
 				D54007021E3BBE8D00F2D7BB /* NSArray+Extensions.h in Headers */,
 				D54007031E3BBE8D00F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */,
+				D53CE6BB1ED15E8800B47B0C /* GameBoardTracks.h in Headers */,
 				D54007041E3BBE8D00F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54007051E3BBE8D00F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54007061E3BBE8D00F2D7BB /* NetworkController.h in Headers */,
@@ -1179,6 +1193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54007251E3BBEC200F2D7BB /* FothelloGame.h in Headers */,
+				D53CE6BC1ED15E8800B47B0C /* GameBoardTracks.h in Headers */,
 				D5B1C11A1ECF2E5600B0F736 /* MatchMoves.h in Headers */,
 				D54007261E3BBEC200F2D7BB /* BoardPiece.h in Headers */,
 				D54007271E3BBEC200F2D7BB /* GameBoard.h in Headers */,
@@ -1224,6 +1239,7 @@
 				D540075E1E3BBF0000F2D7BB /* NSArray+Extensions.h in Headers */,
 				D540075F1E3BBF0000F2D7BB /* HumanStrategy.h in Headers */,
 				D521BEE41E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */,
+				D53CE6BD1ED15E8800B47B0C /* GameBoardTracks.h in Headers */,
 				D54007601E3BBF0000F2D7BB /* RESTNetworkRequest.h in Headers */,
 				D54007611E3BBF0000F2D7BB /* FothelloNetworkRequest.h in Headers */,
 				D54007621E3BBF0000F2D7BB /* NetworkController.h in Headers */,
@@ -1796,6 +1812,7 @@
 				D54006B11E3B232900F2D7BB /* HumanStrategy.m in Sources */,
 				D54006B21E3B232900F2D7BB /* NSArray+Extensions.m in Sources */,
 				D54006B31E3B232900F2D7BB /* RESTNetworkRequest.m in Sources */,
+				D53CE6BE1ED15E8800B47B0C /* GameBoardTracks.m in Sources */,
 				D54006B41E3B232900F2D7BB /* FothelloNetworkRequest.m in Sources */,
 				D53CE6B41ED1593800B47B0C /* GameBoardLegalMoves.m in Sources */,
 				D54006B51E3B232900F2D7BB /* NetworkController.m in Sources */,
@@ -1829,6 +1846,7 @@
 				D54006E51E3BBE8D00F2D7BB /* BoardPosition.m in Sources */,
 				D54006E61E3BBE8D00F2D7BB /* Piece.m in Sources */,
 				D54006E71E3BBE8D00F2D7BB /* Player.m in Sources */,
+				D53CE6BF1ED15E8800B47B0C /* GameBoardTracks.m in Sources */,
 				D54006E81E3BBE8D00F2D7BB /* PlayerMove.m in Sources */,
 				D54006E91E3BBE8D00F2D7BB /* Match.m in Sources */,
 				D53CE6B51ED1593900B47B0C /* GameBoardLegalMoves.m in Sources */,
@@ -1861,6 +1879,7 @@
 				D54007131E3BBEC200F2D7BB /* BoardPosition.m in Sources */,
 				D54007141E3BBEC200F2D7BB /* Piece.m in Sources */,
 				D54007151E3BBEC200F2D7BB /* Player.m in Sources */,
+				D53CE6C01ED15E8800B47B0C /* GameBoardTracks.m in Sources */,
 				D54007161E3BBEC200F2D7BB /* PlayerMove.m in Sources */,
 				D54007171E3BBEC200F2D7BB /* Match.m in Sources */,
 				D53CE6B61ED1593A00B47B0C /* GameBoardLegalMoves.m in Sources */,
@@ -1893,6 +1912,7 @@
 				D54007411E3BBF0000F2D7BB /* BoardPosition.m in Sources */,
 				D54007421E3BBF0000F2D7BB /* Piece.m in Sources */,
 				D54007431E3BBF0000F2D7BB /* Player.m in Sources */,
+				D53CE6C11ED15E8800B47B0C /* GameBoardTracks.m in Sources */,
 				D54007441E3BBF0000F2D7BB /* PlayerMove.m in Sources */,
 				D54007451E3BBF0000F2D7BB /* Match.m in Sources */,
 				D53CE6B71ED1593B00B47B0C /* GameBoardLegalMoves.m in Sources */,
