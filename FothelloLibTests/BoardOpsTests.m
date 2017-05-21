@@ -10,6 +10,16 @@
 #import <FothelloLib/FothelloLib.h>
 #import <GameplayKit/GameplayKit.h>
 #import "EngineStrong.h"
+#import "GameBoardInternal.h"
+#import "GameBoardTracks.h"
+
+@interface GameBoard ()
+@property (nonatomic) GameBoardInternal *boardInternal;
+@end
+
+@interface GameBoardInternal ()
+@property (nonatomic) GameBoardTracks *tracker;
+@end
 
 @interface TestBoardOps : XCTestCase
 @property (nonatomic) Match *match;
@@ -39,17 +49,18 @@
 - (void)testBoardPlace
 {
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    GameBoardInternal *internal  = board.boardInternal;
     XCTestExpectation *expectation =  [self expectationWithDescription:@"testBoardPlace"];
 
     [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
-         BoardPosition *center = board.center;
-         [board boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
+         BoardPosition *center = internal.center;
+         [internal.tracker boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
           {
               NSInteger x = center.x + position.x;
               NSInteger y = center.y + position.y;
-              Piece *piece = [board pieceAtPositionX:x Y:y];
+              Piece *piece = [internal pieceAtPositionX:x Y:y];
          
               BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
               [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:PieceColorWhite]];
@@ -66,11 +77,11 @@
     
     [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
      {
-         Piece *peice1 = [board pieceAtPositionX:0 Y:0];
+         Piece *peice1 = [internal pieceAtPositionX:0 Y:0];
          XCTAssertEqualObjects(peice1.description, @"○");
-         Piece *peice2 = [board pieceAtPositionX:7 Y:7];
+         Piece *peice2 = [internal pieceAtPositionX:7 Y:7];
          XCTAssertEqualObjects(peice2.description, @"○");
-         Piece *peice3 = [board pieceAtPositionX:3 Y:3];
+         Piece *peice3 = [internal pieceAtPositionX:3 Y:3];
          XCTAssertEqualObjects(peice3.description, @"·");
          return nil;
      }];
@@ -80,16 +91,17 @@
 {
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
     XCTestExpectation *expectation =  [self expectationWithDescription:@"testCanMove"];
-    
+    GameBoardInternal *internal  = board.boardInternal;
+
     [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
         
-        Piece *piece1 = [board pieceAtPositionX:3 Y:3];
+        Piece *piece1 = [internal pieceAtPositionX:3 Y:3];
         BoardPosition *pos1 = [[BoardPosition alloc] initWithX:3 Y:3];
         [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
 
-        Piece *piece2 = [board pieceAtPositionX:4 Y:3];
+        Piece *piece2 = [internal pieceAtPositionX:4 Y:3];
         BoardPosition *pos2 = [[BoardPosition alloc] initWithX:4 Y:3];
         [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece2 position:pos2 color:PieceColorBlack]];
         
@@ -110,7 +122,7 @@
      {         
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          
-         Piece *piece1 = [board pieceAtPositionX:5 Y:3];
+         Piece *piece1 = [internal pieceAtPositionX:5 Y:3];
          BoardPosition *pos1 = [[BoardPosition alloc] initWithX:5 Y:3];
          [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
          
@@ -128,14 +140,14 @@
   
     [board updateBoard:^NSArray<NSArray<BoardPiece *> *> *
     {
-        Piece *peice1 = [board pieceAtPositionX:3 Y:3];
+        Piece *peice1 = [internal pieceAtPositionX:3 Y:3];
         XCTAssertEqualObjects(peice1.description, @"○");
-        Piece *peice2 = [board pieceAtPositionX:4 Y:3];
+        Piece *peice2 = [internal pieceAtPositionX:4 Y:3];
         XCTAssertEqualObjects(peice2.description, @"●");
-        Piece *peice3 = [board pieceAtPositionX:5 Y:3];
+        Piece *peice3 = [internal pieceAtPositionX:5 Y:3];
         XCTAssertEqualObjects(peice3.description, @"○");
         
-        NSInteger score = [board playerScoreUnqueued:player];
+        NSInteger score = [internal playerScoreUnqueued:player];
         XCTAssertEqual(score, 2);
         return nil;
     }];
@@ -228,12 +240,14 @@
 
 - (void)testReset
 {
+
     Player *player1 = [[Player alloc] initWithName:@"Player 1"];
     player1.color = PieceColorWhite;
     Player *player2 = [[Player alloc] initWithName:@"Player 2"];
     player2.color = PieceColorBlack;
     
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    GameBoardInternal *internal  = board.boardInternal;
 
     [self doReset:board];
     XCTAssertEqual(2, [board playerScore:player1]);
@@ -254,11 +268,11 @@
      {
          NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
          
-         Piece *piece1 = [board pieceAtPositionX:6 Y:4];
+         Piece *piece1 = [internal pieceAtPositionX:6 Y:4];
          BoardPosition *pos1 = [[BoardPosition alloc] initWithX:3 Y:3];
          [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
          
-         Piece *piece2 = [board pieceAtPositionX:7 Y:2];
+         Piece *piece2 = [internal pieceAtPositionX:7 Y:2];
          BoardPosition *pos2 = [[BoardPosition alloc] initWithX:4 Y:3];
          [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece2 position:pos2 color:PieceColorBlack]];
   
@@ -288,6 +302,8 @@
     player2.color = PieceColorBlack;
 
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    GameBoardInternal *internal  = board.boardInternal;
+
     [self doReset:board];
     
     {
@@ -310,7 +326,7 @@
     {
         NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
         
-        [board visitAllUnqueued:^(NSInteger x, NSInteger y, Piece *piece)
+        [internal visitAllUnqueued:^(NSInteger x, NSInteger y, Piece *piece)
          {
              BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
              [pieces addObject:
@@ -341,6 +357,8 @@
     player2.color = PieceColorBlack;
     
     GameBoard *board = [[GameBoard alloc] initWithBoardSize:8];
+    GameBoardInternal *internal  = board.boardInternal;
+
     [self doReset:board];
     
     {
@@ -364,11 +382,11 @@
          {
              NSMutableArray<BoardPiece *> *pieces = [[NSMutableArray alloc] initWithCapacity:10];
              
-             Piece *piece1 = [board pieceAtPositionX:5 Y:3];
+             Piece *piece1 = [internal pieceAtPositionX:5 Y:3];
              BoardPosition *pos1 = [[BoardPosition alloc] initWithX:5 Y:3];
              [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece1 position:pos1 color:PieceColorWhite]];
              
-             Piece *piece2 = [board pieceAtPositionX:4 Y:2];
+             Piece *piece2 = [internal pieceAtPositionX:4 Y:2];
              BoardPosition *pos2 = [[BoardPosition alloc] initWithX:4 Y:2];
              [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece2 position:pos2 color:PieceColorBlack]];
              
