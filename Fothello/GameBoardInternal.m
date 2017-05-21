@@ -18,7 +18,7 @@
 #import "NSDictionary+Extensions.h"
 #import "GameBoardString.h"
 #import "NSArray+Holes.h"
-
+#import "GameBoardLegalMoves.h"
 
 typedef enum Direction : NSInteger
 {
@@ -45,9 +45,9 @@ typedef struct Delta
 @interface GameBoardInternal ()
 @property (nonatomic) GameBoard *board;
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
-@property (nonatomic) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
+@property (nonatomic) GameBoardLegalMoves *legalMoves;
 @end
 
 @implementation GameBoardInternal
@@ -58,7 +58,7 @@ typedef struct Delta
     if (self)
     {
         _boardString = [[GameBoardString alloc] initWithBoard:self];
-
+        _legalMoves = [[GameBoardLegalMoves alloc] initWithGameBoard:self];
         _board = board;
         _size = size;
         
@@ -72,8 +72,6 @@ typedef struct Delta
         {
             [_grid addObject:[[Piece alloc] init]];
         }
-
-        _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
     }
     return self;
 }
@@ -154,19 +152,6 @@ typedef struct Delta
     NSLog(@"\n%@", self);
 }
 
-- (void)determineLegalMoves
-{
-    // Make copy to update, so it can be read outside queue.
-    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
-    for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
-    {
-        NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayerColor:color];
-        [legalPieces setObject:legalMoves atCheckedIndex:color];
-    }
-    
-    self.legalMovesForPlayer = legalPieces;
-}
-
 - (void)changePiece:(Piece *)piece withColor:(PieceColor)color
 {
     [self updateColorCount:piece incdec:-1]; // take away one for current piece color
@@ -200,7 +185,7 @@ typedef struct Delta
 
 - (BOOL)canMoveUnqueued:(Player *)player
 {
-    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    NSArray <BoardPiece *> *moves = [self.legalMoves.legalMovesForPlayer objectAtCheckedIndex:player.color];
     
     __block NSString *boardMoves = @"";
     [moves mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
@@ -230,56 +215,6 @@ typedef struct Delta
      }];
     
     return [setupBoard copy];
-}
-
-- (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player
-{
-    NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
-    
-    BOOL legalMove = legalMoves != nil
-        && [legalMoves indexOfObjectPassingTest:^
-            BOOL (BoardPiece *boardPiece, NSUInteger idx, BOOL *stop) {
-                return boardPiece.position.x == move.position.x
-                && boardPiece.position.y == move.position.y;
-            }] != NSNotFound;
-    
-    return legalMove;
-}
-
-- (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color
-{
-    NSMutableArray<BoardPiece *>*pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    
-    // Determine moves
-    [self visitAllUnqueued:^(NSInteger x, NSInteger y, Piece *findPiece) {
-        BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-        BoardPiece *findBoardPiece = [BoardPiece makeBoardPieceWithPiece:findPiece position:boardPosition color:color];
-        
-        BOOL foundTrack = [self findTracksForBoardPiece:findBoardPiece color:color] != nil;
-        if (foundTrack)
-        {
-            Piece *piece = [self pieceAtPositionX:x Y:y];
-            [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:PieceColorLegal]];
-        }
-    }];
-    
-    return [pieces copy];
-}
-
-- (NSArray<BoardPiece *> *)findLegals:(NSArray<BoardPiece *> *)pieces
-{
-    NSIndexSet *legals = [pieces indexesOfObjectsPassingTest:
-                          ^BOOL(BoardPiece *piece, NSUInteger idx, BOOL * stop) {
-                              Piece *currentPiece = [self pieceAtPositionX:piece.position.x Y:piece.position.y];
-                              BOOL result = currentPiece.color == PieceColorLegal;
-                              return result;
-                          }];
-    
-    pieces = [pieces objectsAtIndexes:legals];
-    [pieces enumerateObjectsUsingBlock:^(BoardPiece *piece, NSUInteger idx, BOOL *stop) {
-        piece.color = PieceColorNone;
-    }];
-    return pieces;
 }
 
 - (void)visitAllUnqueued:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
@@ -366,7 +301,7 @@ typedef struct Delta
     
     if (piece == nil || ![piece isClear]) return nil;
     
-    NSMutableArray<NSMutableArray <BoardPiece *> *> *tracks = [[NSMutableArray alloc] initWithCapacity:10];
+    NSMutableArray<NSArray <BoardPiece *> *> *tracks = [[NSMutableArray alloc] initWithCapacity:10];
     
     BOOL found = NO;
     
