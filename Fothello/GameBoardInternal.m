@@ -320,7 +320,7 @@ typedef struct Delta
     return pieces;
 }
 
-// codebeat:disable(ABC)
+// codebeat:disable[ABC]
 - (NSArray *)followTrackForDirection:(Direction)direction
                                piece:(BoardPiece *)boardPiece
                                color:(PieceColor)pieceColor
@@ -351,7 +351,7 @@ typedef struct Delta
     BOOL result = valid && currentPieceColor == pieceColor && track.count > 1;
     return result ? track : nil;
 }
-// codebeat:enable(ABC)
+// codebeat:enable[ABC]
 
 - (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece
                                                          color:(PieceColor)pieceColor

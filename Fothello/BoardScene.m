@@ -80,7 +80,7 @@
     }
 }
 
-// codebeat:disable(ABC, LINES_OF_CODE)
+// codebeat:disable[ABC, LINES_OF_CODE]
 - (void)setMatch:(Match *)match
 {
     _match = match;
@@ -117,7 +117,7 @@
     
     self.currentPlayerSprite = match.currentPlayer.userReference;
 }
-// codebeat:enable(ABC, LINES_OF_CODE)
+// codebeat:enable[ABC, LINES_OF_CODE]
 
 
 - (void)teardownMatch
