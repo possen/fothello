@@ -143,18 +143,20 @@
     
     /* Called when a touch begins */
     CGRect boardRect = self.boardRect;
+    CGPoint origin = boardRect.origin;
     CGFloat boardSize = self.boardSize;
-    CGFloat spacing = self.boardDimensions / self.boardSize;
+    CGFloat spacing = self.boardDimensions / boardSize;
+    Match *match = self.match;
     
-    CGFloat x = (rawx - boardRect.origin.x) / spacing;
-    CGFloat y = (rawy - boardRect.origin.y) / spacing;
+    CGFloat x = (rawx - origin.x) / spacing;
+    CGFloat y = (rawy - origin.y) / spacing;
     
     if (x >= 0 && x < boardSize && y >= 0 && y < boardSize)
     {
-        if (!self.match.turnProcessing) // don't allow move if other players are processing.
+        if (!match.turnProcessing) // don't allow move if other players are processing.
         {
             BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
-            [self.match.currentPlayer takeTurnAtPosition:boardPosition];
+            [match.currentPlayer takeTurnAtPosition:boardPosition];
         }
     }
 }
