@@ -330,11 +330,12 @@ typedef struct Delta
     
     // keep adding pieces until we hit a piece of the same color, edge of board or
     // clear space.
-    BOOL valid; Piece *piece;
+    BOOL valid; Piece *piece; PieceColor currentPieceColor;
     
     do {
         offsetx += diff.dx; offsety += diff.dy;
         piece = [self pieceAtPositionX:offsetx Y:offsety];
+        currentPieceColor = piece.color;
         valid = piece && ![piece isClear]; // make sure it is on board and not clear.
         
         if (valid)
@@ -342,9 +343,9 @@ typedef struct Delta
             BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
             [track addObject:[BoardPiece makeBoardPieceWithPiece:piece position:offset color:pieceColor]];
         }
-    } while (valid && piece.color != pieceColor);
+    } while (valid && currentPieceColor != pieceColor);
     
-    BOOL result = valid && piece.color == pieceColor && track.count > 1;
+    BOOL result = valid && currentPieceColor == pieceColor && track.count > 1;
     return result ? track : nil;
 }
 

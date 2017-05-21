@@ -77,9 +77,6 @@
     return self.boardInternal.size;
 }
 
-
-#pragma - Queued - 
-
 //
 // lets the work for the update occur in the processing queue rather than the queue
 // is is being called from the caller's thread. Use this method around calls that
