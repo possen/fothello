@@ -16,11 +16,12 @@
 #import "PlayerMove.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
-#import "GameBoard+String.h"
+#import "GameBoardString.h"
 #import "NSArray+Holes.h"
 
 @interface GameBoard ()
 @property (nonatomic) GameBoardInternal *boardInternal;
+@property (nonatomic) GameBoardString *boardString;
 @end
 
 @interface GameBoardInternal ()
@@ -62,6 +63,7 @@
     if (self)
     {
         _boardInternal = [[GameBoardInternal alloc] initWithBoard:self size:size];
+        
         _queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
 
         _placeBlock = block;
@@ -209,7 +211,7 @@
     __block NSString *result = nil;
     
     dispatch_sync(self.queue, ^{
-        GameBoardInternal *internal = self.boardInternal;
+        GameBoardString *internal = self.boardInternal.boardString;
         result = [internal convertToString:YES reverse:NO];
     });
     

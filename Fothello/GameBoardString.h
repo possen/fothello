@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "GameBoardInternal.h"
 
-@interface GameBoardInternal (String)
+@interface GameBoardString : NSObject
+@property (nonatomic, nonnull) GameBoardInternal * boardInternal;
+
+- (nonnull instancetype)initWithBoard:(nonnull GameBoardInternal *)internal;
 
 - (nonnull NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse;
 - (void)printBoardUpdates:(nonnull NSArray<NSArray<BoardPiece *> *> *)tracks;

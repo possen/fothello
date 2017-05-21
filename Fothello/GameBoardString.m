@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "GameBoardInternal.h"
-#import "GameBoard+String.h"
+#import "GameBoardString.h"
 #import "Piece.h"
 #import "BoardPiece.h"
 #import "NSArray+Extensions.h"
@@ -19,13 +19,23 @@
 @property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @end
 
-@implementation GameBoardInternal (String)
+@implementation GameBoardString
+
+- (instancetype)initWithBoard:(GameBoardInternal *)internal
+{
+    self = [super init];
+    if (self)
+    {
+        _boardInternal = internal;
+    }
+    return self;
+}
 
 - (void)printBanner:(NSMutableString *)boardString ascii:(BOOL)ascii
 {
     if (!ascii) [boardString appendString:@" "];
 
-    for (NSInteger width = 0; width < self.size + 2; width++)
+    for (NSInteger width = 0; width < self.boardInternal.size + 2; width++)
     {
         [boardString appendString:@"-"];
     }
@@ -34,7 +44,9 @@
 
 - (void)printRow:(NSMutableString *)boardString ascii:(BOOL)ascii reverse:(BOOL)reverse
 {
-    NSInteger size = self.size;
+    GameBoardInternal *internal = self.boardInternal;
+    
+    NSInteger size = internal.size;
     NSInteger reverseOffset = reverse ? size - 1 : 0;
     for (NSInteger y = 0; y < size; ++y)
     {
@@ -43,9 +55,9 @@
         
         [boardString appendString:@"|"];
         
-        for (NSInteger x = 0; x < self.size; x++)
+        for (NSInteger x = 0; x < size; x++)
         {
-            Piece *piece = [self pieceAtPositionX:x Y:ry];
+            Piece *piece = [internal pieceAtPositionX:x Y:ry];
             [boardString appendString:ascii ? piece.colorStringRepresentationAscii
                                             : piece.colorStringRepresentation];
         }
@@ -56,8 +68,10 @@
 
 - (void)printHeader:(NSMutableString *)boardString
 {
+    GameBoardInternal *internal = self.boardInternal;
+
     [boardString appendFormat:@"  "];
-    for (NSInteger x = 0; x < self.size; x++)
+    for (NSInteger x = 0; x < internal.size; x++)
     {
         [boardString appendFormat:@"%c", (char)x + 'A'];
     }
@@ -66,7 +80,9 @@
 
 - (void)printPlayedPieces:(NSMutableString *)boardString
 {
-    NSDictionary *dict =  [self.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj) {
+    GameBoardInternal *internal = self.boardInternal;
+ 
+    NSDictionary *dict =  [internal.piecesPlayed mapObjectsUsingBlock:^id(NSString *key, id obj) {
                                return @[[Piece stringFromColor:[key integerValue]], obj];
                            }];
     

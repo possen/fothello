@@ -46,9 +46,7 @@
     
     for (BoardPiece *piece in boardPieces)
     {
-        [self placeSpriteAtX:piece.position.x
-                           Y:piece.position.y
-                   withPiece:piece.piece];
+        [self placeSpriteAtX:piece.position.x Y:piece.position.y withPiece:piece.piece];
     }
 }
 
@@ -256,10 +254,7 @@
     [piece.userReference removeFromParent];
     piece.userReference = nil;    
     
-    if (piece.color == PieceColorNone)
-    {
-        return;
-    }
+    if (piece.color == PieceColorNone) return;
     
     BOOL showLegalMoves = piece.color == PieceColorLegal;
     CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:showLegalMoves];

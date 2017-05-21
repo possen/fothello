@@ -13,8 +13,10 @@
 @class Piece;
 @class BoardPosition;
 @class PlayerMove;
+@class GameBoardString;
 
 @interface GameBoardInternal : NSObject <NSCoding>
+@property (nonatomic, nonnull) GameBoardString *boardString;
 
 - (nonnull BoardPosition *)center;
 - (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size;

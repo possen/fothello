@@ -16,7 +16,7 @@
 #import "PlayerMove.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
-#import "GameBoard+String.h"
+#import "GameBoardString.h"
 #import "NSArray+Holes.h"
 
 
@@ -57,6 +57,8 @@ typedef struct Delta
     self = [super init];
     if (self)
     {
+        _boardString = [[GameBoardString alloc] initWithBoard:self];
+
         _board = board;
         _size = size;
         
@@ -141,7 +143,7 @@ typedef struct Delta
 {
     if (pieces == nil) return;
     
-    [self printBoardUpdates:pieces];
+    [self.boardString printBoardUpdates:pieces];
     
     NSArray<BoardPiece *> *boardPieces = [NSArray flatten:pieces];
     for (BoardPiece *boardPiece in boardPieces)
@@ -318,6 +320,7 @@ typedef struct Delta
     return pieces;
 }
 
+// codebeat:disable(ABC)
 - (NSArray *)followTrackForDirection:(Direction)direction
                                piece:(BoardPiece *)boardPiece
                                color:(PieceColor)pieceColor
@@ -348,6 +351,7 @@ typedef struct Delta
     BOOL result = valid && currentPieceColor == pieceColor && track.count > 1;
     return result ? track : nil;
 }
+// codebeat:enable(ABC)
 
 - (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece
                                                          color:(PieceColor)pieceColor
