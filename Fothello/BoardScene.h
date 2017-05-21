@@ -12,6 +12,7 @@
 static NSString *kMainFont = @"AvenirNext-Medium";
 
 @class Match;
+@class PieceSprite;
 
 typedef void (^UpdatePlayerMove)(BOOL canMove);
 
@@ -25,9 +26,11 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 @property (nonatomic, copy) UpdatePlayerMove updatePlayerMove;
 @property (nonatomic) SKNode *gameOverNode;
 @property (nonatomic) SKShapeNode *boardUI;
+@property (nonatomic) PieceSprite *pieceSprite;
 
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
-- (SKNode *)makePieceWithColor:(PieceColor)color size:(CGSize)size;
+- (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall;
+- (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall;
 
 @end

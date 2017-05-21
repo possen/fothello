@@ -12,13 +12,14 @@
 #import "GameOverDisplay.h"
 #import "BoardDisplay.h"
 #import "PlayerDisplay.h"
+#import "PieceSprite.h"
 
 
 @interface BoardScene ()
-@property (nonatomic) SKNode *prevHighlight;
 @property (nonatomic) GameOverDisplay *gameOverDisplay;
 @property (nonatomic) BoardDisplay *boardDisplay;
 @property (nonatomic) PlayerDisplay *playerDisplay;
+@property (nonatomic) CGFloat spacing;
 @end
 
 @implementation BoardScene
@@ -35,6 +36,8 @@
                                     _boardDimensions, _boardDimensions);
         _boardDisplay = [[BoardDisplay alloc] initWithMatch:match boardScene:self];
         _playerDisplay = [[PlayerDisplay alloc] initWithMatch:match boardScene:self];
+        _spacing = self.boardDimensions / _boardSize;
+        _pieceSprite = [[PieceSprite alloc] initWithBoardScene:self];
         [self setMatch:match];
     }
     return self;
@@ -46,8 +49,31 @@
     
     for (BoardPiece *piece in boardPieces)
     {
-        [self placeSpriteAtX:piece.position.x Y:piece.position.y withPiece:piece.piece];
+        [self.pieceSprite placeSpriteAtX:piece.position.x Y:piece.position.y withPiece:piece.piece];
     }
+}
+
+- (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
+{
+    CGFloat spacing = self.spacing;
+    CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
+    
+    if (sizeSmall) {
+        spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
+    }
+    return spriteSize;
+}
+
+
+- (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall
+{
+    CGRect boardRect = self.boardRect;
+    CGFloat spacing = self.spacing;
+    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:sizeSmall];
+    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
+    
+    return CGPointMake(x * spacing + originx - spriteSize.width / 2 + spacing / 2,
+                       y * spacing + originy - spriteSize.height / 2 + spacing / 2);
 }
 
 - (void)currentPlayerChange:(Player *)player canMove:(BOOL)canMove pass:(BOOL)pass
@@ -109,7 +135,7 @@
     
     match.board.highlightBlock = ^(BoardPosition *pos, PieceColor color) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakBlockSelf higlightAtX:pos.x y:pos.y color:color];
+            [weakBlockSelf.pieceSprite higlightAtX:pos.x y:pos.y color:color];
         });
     };
     
@@ -119,6 +145,13 @@
 }
 // codebeat:enable[ABC, LOC]
 
+- (void)movePieceTo:(BoardPosition *)pos
+{
+    CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
+    SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];
+    SKAction *action = [SKAction sequence:@[actionPos]];
+    [self.currentPlayerSprite runAction:action];
+}
 
 - (void)teardownMatch
 {
@@ -133,7 +166,7 @@
 {
     GameBoard *board = self.match.board;
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece) {
-         [self placeSpriteAtX:x Y:y withPiece:piece];
+         [self.pieceSprite placeSpriteAtX:x Y:y withPiece:piece];
      }];
 }
 
@@ -146,7 +179,7 @@
     CGRect boardRect = self.boardRect;
     CGPoint origin = boardRect.origin;
     CGFloat boardSize = self.boardSize;
-    CGFloat spacing = self.boardDimensions / boardSize;
+    CGFloat spacing = self.spacing;
     Match *match = self.match;
     
     CGFloat x = (rawx - origin.x) / spacing;
@@ -181,116 +214,6 @@
     if (self.gameOverNode) return;
 
     self.gameOverDisplay = [[GameOverDisplay alloc] initWithMatch:self.match boardScene:self];
-}
-
-- (SKColor *)skColorFromPieceColor:(PieceColor)color
-{
-    static NSDictionary *colors = nil;
-    
-    colors = @{@(PieceColorNone)    : [SKColor clearColor],
-               @(PieceColorWhite)   : [SKColor whiteColor],
-               @(PieceColorBlack)   : [SKColor blackColor],
-               @(PieceColorRed)     : [SKColor redColor],
-               @(PieceColorBlue)    : [SKColor blueColor],
-               @(PieceColorGreen)   : [SKColor greenColor],
-               @(PieceColorYellow)  : [SKColor yellowColor],
-               @(PieceColorLegal)   : [SKColor blackColor]};
-    
-    return colors[@(color)];
-}
-
-- (SKNode *)makePieceWithColor:(PieceColor)color size:(CGSize)size
-{
-    SKShapeNode *pieceSprite = [[SKShapeNode alloc] init];
-    
-    CGMutablePathRef myPath = CGPathCreateMutable();
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    CGPathAddEllipseInRect(myPath, NULL, rect);
-    pieceSprite.path = myPath;
-    CFRelease(myPath);
-    
-    pieceSprite.lineWidth = 1.0;
-    pieceSprite.fillColor = [self skColorFromPieceColor:color];
-    pieceSprite.strokeColor = [self skColorFromPieceColor:color];
-    pieceSprite.glowWidth = 0.5;
-    return pieceSprite;
-}
-
-- (void)movePieceTo:(BoardPosition *)pos
-{
-    CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
-    SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];
-    SKAction *action = [SKAction sequence:@[actionPos]];
-    [self.currentPlayerSprite runAction:action];
-}
-
-- (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
-{
-    CGFloat boardSize = self.boardSize;
-    CGFloat spacing = self.boardDimensions / boardSize;
-    CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
-
-    if (sizeSmall) {
-        spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
-    }
-    return spriteSize;
-}
-
-- (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall
-{
-    CGRect boardRect = self.boardRect;
-    CGFloat boardSize = self.boardSize;
-    CGFloat spacing = self.boardDimensions / boardSize;
-    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:sizeSmall];
-    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
-    
-    return CGPointMake(x * spacing + originx - spriteSize.width / 2 + spacing / 2,
-                       y * spacing + originy - spriteSize.height / 2 + spacing / 2);
-}
-
-- (void)placeSpriteAtX:(NSInteger)x Y:(NSInteger)y withPiece:(Piece *)piece
-{
-    // remove the piece
-    [piece.userReference removeFromParent];
-    piece.userReference = nil;    
-    
-    if (piece.color == PieceColorNone) return;
-    
-    BOOL showLegalMoves = piece.color == PieceColorLegal;
-    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:showLegalMoves];
-    
-    SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];
-    sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:showLegalMoves];
-    sprite.alpha = 0.0;
-
-    [self addChild:sprite];
-    CGFloat finalAlpha = showLegalMoves ? .3 : 1.0;
-    SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];
-    
-    // All the animations should complete at about the same time but only want one
-    // callback.
-    [sprite runAction:action];
-    piece.userReference = sprite;
-}
-
-- (void)higlightAtX:(NSInteger)x y:(NSInteger)y color:(PieceColor)color
-{
-    if (x < 0 || y < 0) return;
-    
-    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:NO];
-    SKNode *sprite = [self makePieceWithColor:color size:spriteSize];
-    sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:NO];
-    sprite.alpha = 1.0;
-    
-    SKAction *action = [SKAction fadeAlphaTo:0 duration:.5];
-    
-    [self.prevHighlight removeFromParent];
-    [self addChild:sprite];
-    self.prevHighlight = sprite;
-    
-    [sprite runAction:action completion:^{
-         [sprite removeFromParent];
-     }];
 }
 
 @end

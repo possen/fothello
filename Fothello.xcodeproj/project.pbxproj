@@ -273,6 +273,10 @@
 		D5B1C1341ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
 		D5B1C1351ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
 		D5B1C1361ED0E23100B0F736 /* GameBoardInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */; };
+		D5B1C1391ED1317A00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
+		D5B1C13A1ED1317A00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
+		D5B1C13B1ED1317B00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
+		D5B1C13C1ED1318B00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C249911E51605E009D8267 /* FothelloUIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C249901E51605E009D8267 /* FothelloUIOSTests.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
@@ -563,6 +567,8 @@
 		D5B1C1171ECF2E5600B0F736 /* MatchMoves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMoves.m; sourceTree = "<group>"; };
 		D5B1C12D1ED0E23100B0F736 /* GameBoardInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardInternal.h; sourceTree = "<group>"; };
 		D5B1C12E1ED0E23100B0F736 /* GameBoardInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoardInternal.m; sourceTree = "<group>"; };
+		D5B1C1371ED1317800B0F736 /* PieceSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieceSprite.h; sourceTree = "<group>"; };
+		D5B1C1381ED1317800B0F736 /* PieceSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PieceSprite.m; sourceTree = "<group>"; };
 		D5C0B66A18C40F73000DCEB8 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
 		D5C0B66B18C40F73000DCEB8 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PageViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D5C0B66D18C43701000DCEB8 /* NSArray+Holes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Holes.h"; sourceTree = "<group>"; };
@@ -1088,6 +1094,8 @@
 				D5441B431831CB1100B5166A /* BoardScene.m */,
 				D55948131EB5A40600216D19 /* BoardDisplay.h */,
 				D55948141EB5A40600216D19 /* BoardDisplay.m */,
+				D5B1C1371ED1317800B0F736 /* PieceSprite.h */,
+				D5B1C1381ED1317800B0F736 /* PieceSprite.m */,
 				D5F5E46E1CC1394600A5A023 /* Media.xcassets */,
 				D559480A1EB5895500216D19 /* GameOverDisplay.h */,
 				D559480B1EB5895500216D19 /* GameOverDisplay.m */,
@@ -1728,6 +1736,7 @@
 			files = (
 				D509D6341CC8A9FA0028C082 /* BoardScene.m in Sources */,
 				D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */,
+				D5B1C13A1ED1317A00B0F736 /* PieceSprite.m in Sources */,
 				D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */,
 				D55948171EB5B46A00216D19 /* PlayerDisplay.m in Sources */,
 				D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */,
@@ -1751,6 +1760,7 @@
 				D55948181EB5B46B00216D19 /* PlayerDisplay.m in Sources */,
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
 				D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */,
+				D5B1C13B1ED1317B00B0F736 /* PieceSprite.m in Sources */,
 				D54006381E3AD2E200F2D7BB /* main.m in Sources */,
 				D559481B1EB5B47200216D19 /* BoardDisplay.m in Sources */,
 			);
@@ -1895,6 +1905,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5B1C1391ED1317A00B0F736 /* PieceSprite.m in Sources */,
 				D559480C1EB5895500216D19 /* GameOverDisplay.m in Sources */,
 				D55948151EB5A40600216D19 /* BoardDisplay.m in Sources */,
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
@@ -1960,6 +1971,7 @@
 				D55948191EB5B46C00216D19 /* PlayerDisplay.m in Sources */,
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
 				D5F568101D111C6300998C14 /* ComplicationController.m in Sources */,
+				D5B1C13C1ED1318B00B0F736 /* PieceSprite.m in Sources */,
 				D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */,
 				D559481C1EB5B47400216D19 /* BoardDisplay.m in Sources */,
 			);

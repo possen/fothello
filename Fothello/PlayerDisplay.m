@@ -14,6 +14,7 @@
 #import "BoardScene.h"
 #import "Piece.h"
 #import "Strategy.h"
+#import "PieceSprite.h"
 
 @interface PlayerDisplay ()
 @property (nonatomic) Match *match;
@@ -46,7 +47,7 @@
         playerSprite.size = size;
         playerSprite.position = CGPointMake(CGRectGetMidX(boardScene.frame) - playerSprite.size.width / 2, -100);
         
-        SKNode *pieceSprite = [boardScene makePieceWithColor:player.color size:size];
+        SKNode *pieceSprite = [boardScene.pieceSprite makePieceWithColor:player.color size:size];
         pieceSprite.name = @"piece";
         [playerSprite addChild:pieceSprite];
         
