@@ -82,6 +82,7 @@
     }
 }
 
+// codebeat:disable(ABC, LINES_OF_CODE)
 - (void)setMatch:(Match *)match
 {
     _match = match;
@@ -118,6 +119,8 @@
     
     self.currentPlayerSprite = match.currentPlayer.userReference;
 }
+// codebeat:enable(ABC, LINES_OF_CODE)
+
 
 - (void)teardownMatch
 {
@@ -253,24 +256,26 @@
     [piece.userReference removeFromParent];
     piece.userReference = nil;    
     
-    if (piece.color != PieceColorNone)
+    if (piece.color == PieceColorNone)
     {
-        BOOL showLegalMoves = piece.color == PieceColorLegal;
-        CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:showLegalMoves];
-        
-        SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];
-        sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:showLegalMoves];
-        sprite.alpha = 0.0;
-
-        [self addChild:sprite];
-        CGFloat finalAlpha = showLegalMoves ? .3 : 1.0;
-        SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];
-        
-        // All the animations should complete at about the same time but only want one
-        // callback.
-        [sprite runAction:action];
-        piece.userReference = sprite;
+        return;
     }
+    
+    BOOL showLegalMoves = piece.color == PieceColorLegal;
+    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:showLegalMoves];
+    
+    SKNode *sprite = [self makePieceWithColor:piece.color size:spriteSize];
+    sprite.position = [self calculateScreenPositionFromX:x andY:y sizeSmall:showLegalMoves];
+    sprite.alpha = 0.0;
+
+    [self addChild:sprite];
+    CGFloat finalAlpha = showLegalMoves ? .3 : 1.0;
+    SKAction *action = [SKAction fadeAlphaTo:finalAlpha duration:.5];
+    
+    // All the animations should complete at about the same time but only want one
+    // callback.
+    [sprite runAction:action];
+    piece.userReference = sprite;
 }
 
 - (void)higlightAtX:(NSInteger)x y:(NSInteger)y color:(PieceColor)color

@@ -1086,13 +1086,13 @@
 				D5F568061D111C6300998C14 /* BoardScene.sks */,
 				D5441B421831CB1100B5166A /* BoardScene.h */,
 				D5441B431831CB1100B5166A /* BoardScene.m */,
+				D55948131EB5A40600216D19 /* BoardDisplay.h */,
+				D55948141EB5A40600216D19 /* BoardDisplay.m */,
 				D5F5E46E1CC1394600A5A023 /* Media.xcassets */,
 				D559480A1EB5895500216D19 /* GameOverDisplay.h */,
 				D559480B1EB5895500216D19 /* GameOverDisplay.m */,
 				D55948101EB5A2F900216D19 /* PlayerDisplay.h */,
 				D55948111EB5A2F900216D19 /* PlayerDisplay.m */,
-				D55948131EB5A40600216D19 /* BoardDisplay.h */,
-				D55948141EB5A40600216D19 /* BoardDisplay.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
