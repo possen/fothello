@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, PieceColor)
 
 #pragma mark - Fothello -
 
-typedef void (^GameOverBlock)();
+typedef void (^GameOverBlock)(void);
 
 @interface FothelloGame : NSObject <NSCoding>
 

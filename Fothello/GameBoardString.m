@@ -126,7 +126,7 @@
         NSMutableString *string = [[NSString stringWithFormat:@"(%lu)", (unsigned long)track.count] mutableCopy];
         for (BoardPiece *boardPiece in track)
         {
-            [string appendFormat:@"(%@@) ", boardPiece.description];
+            [string appendFormat:@"%@ ", boardPiece.description];
         }
         NSLog(@"%@", string);
     }

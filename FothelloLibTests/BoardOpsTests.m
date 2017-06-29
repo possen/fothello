@@ -18,7 +18,10 @@
 @end
 
 @interface GameBoardInternal ()
-@property (nonatomic) GameBoardTracks *tracker;
+@property (nonatomic, nonnull) GameBoardString *boardString;
+@property (nonatomic, nonnull) GameBoardLegalMoves *legalMoves;
+@property (nonatomic, nonnull) GameBoardTracks *tracker;
+
 @end
 
 @interface TestBoardOps : XCTestCase

@@ -12,12 +12,14 @@
 @class GameBoardInternal;
 @class BoardPiece;
 @class BoardPosition;
+@class PlayerMove;
 
 @interface GameBoardTracks : NSObject
 
-- (nonnull instancetype)initWithGameBoard:(nonnull GameBoardInternal *)gameBoard;
 - (nonnull NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(nonnull BoardPiece *)boardPiece
                                                          color:(PieceColor)pieceColor;
+
+- (nonnull instancetype)initWithGameBoard:(nonnull GameBoardInternal *)gameBoard;
 
 // Non queued versions, must be wrapped in updateBoard).
 - (void)boxCoord:(NSInteger)dist

@@ -12,15 +12,12 @@
 
 @class Piece;
 @class BoardPosition;
-@class PlayerMove;
-@class GameBoardString;
 
 @interface GameBoardInternal : NSObject <NSCoding>
-@property (nonatomic, nonnull) GameBoardString *boardString;
 
-- (nonnull BoardPosition *)center;
 - (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size;
 
+- (nonnull BoardPosition *)center;
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (NSInteger)playerScoreUnqueued:(nonnull Player *)player;
 - (void)visitAllUnqueued:(nonnull void (^)(NSInteger x, NSInteger y, Piece *_Nonnull piece))block;

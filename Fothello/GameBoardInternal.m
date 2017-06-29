@@ -27,8 +27,6 @@
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
-@property (nonatomic) GameBoardLegalMoves *legalMoves;
-@property (nonatomic) GameBoardTracks *tracker;
 @end
 
 @implementation GameBoardInternal

@@ -9,6 +9,7 @@
 #import "FothelloGame.h"
 #import "GameBoard.h"
 #import "GameBoardInternal.h"
+#import "GameBoardLegalMoves.h"
 #import "Player.h"
 #import "Piece.h"
 #import "BoardPiece.h"
@@ -33,13 +34,6 @@
 - (void)visitAllUnqueued:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (NSArray<NSArray<BoardPiece *> *> *)placeMovesUnqueued:(NSArray<PlayerMove *> *)moves;
-- (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece
-                                                         color:(PieceColor)pieceColor;
-- (NSArray<BoardPiece *> *)findLegals:(NSArray<BoardPiece *> *)pieces;
-- (NSArray <BoardPiece *> *)legalMove:(PlayerMove *)move forPlayer:(Player *)player;
-- (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player;
-- (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color;
-
 - (NSArray<BoardPiece *> *)startingPieces;
 - (NSArray<BoardPiece *> *)erase;
 - (BOOL)isFullUnqueud;
@@ -84,7 +78,7 @@
 // is is being called from the caller's thread. Use this method around calls that
 // are not queued already, if they update or read board data structures
 //
-- (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
+- (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)(void))updateFunction
            complete:(UpdateCompleteBlock)updateComplete
 {
     dispatch_async(self.queue,^{
@@ -104,7 +98,7 @@
    });
 }
 
-- (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)())updateFunction
+- (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)(void))updateFunction
 {
     [self updateBoard:updateFunction complete:nil];
 }
@@ -142,7 +136,9 @@
 {
     [self updateBoard:nil complete:^{
         GameBoardInternal *internal = self.boardInternal;
-        BOOL legalMove = [internal isLegalMove:move forPlayer:player];
+        GameBoardLegalMoves *obj = internal.legalMoves;
+        
+        BOOL legalMove = [obj isLegalMove:move forPlayer:player];
         // avoid calling into same queue.
         dispatch_async(dispatch_get_main_queue(), ^{
             legal(legalMove);
