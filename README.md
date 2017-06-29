@@ -1,5 +1,7 @@
 # fothello
 
+<a href="https://codebeat.co/projects/github-com-possen-fothello-develop"><img alt="codebeat badge" src="https://codebeat.co/badges/38055ff3-1d79-4fb6-b3bd-7f1dce4bf8d8" /></a>
+
 ## Reversi like game.
 
 This is the beginnings of a Reversi like game. The idea is to get familiar with
@@ -18,7 +20,7 @@ SpriteKit and eventually GameKit.
 * Redo
 * Mac and iOS
 * Move display (mac only right now)
-* server 
+* Server to save battery, if connection can be made.
     
 ## Classes
 
