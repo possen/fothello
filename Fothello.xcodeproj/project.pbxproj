@@ -227,6 +227,8 @@
 		D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */; };
 		D5441B441831CB1100B5166A /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
 		D5441B481831CB1100B5166A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5441B471831CB1100B5166A /* Images.xcassets */; };
+		D544BE6B1F0A41A700BD7597 /* GestureSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = D544BE6A1F0A41A700BD7597 /* GestureSelection.m */; };
+		D544BE6C1F0A41A700BD7597 /* GestureSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = D544BE6A1F0A41A700BD7597 /* GestureSelection.m */; };
 		D555BF5A1E4D106C00F954D2 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D555BF551E4D0FF400F954D2 /* UtilTests.m */; };
 		D555BF5B1E4D106D00F954D2 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D555BF551E4D0FF400F954D2 /* UtilTests.m */; };
 		D555BF5C1E4D106F00F954D2 /* UtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D555BF551E4D0FF400F954D2 /* UtilTests.m */; };
@@ -261,6 +263,7 @@
 		D5718A0D1E517B4900623E0A /* FothelloMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D535DD501E3D03EF00AE5C1D /* FothelloMacTests.m */; };
 		D583D18B1E5C241400C6DAB8 /* EngineStrong.h in Headers */ = {isa = PBXBuildFile; fileRef = D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		D58775F31E4D42E800A29386 /* FothelloUIMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D58775F21E4D42E800A29386 /* FothelloUIMacTests.m */; };
+		D59A27421F0B550C000B914F /* GestureSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = D544BE6A1F0A41A700BD7597 /* GestureSelection.m */; };
 		D5AA236B1C9F0A45001C6004 /* Launchscreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5AA236A1C9F0A45001C6004 /* Launchscreen.storyboard */; };
 		D5ADC49D1CDFCEA0009308C5 /* MovesViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */; };
 		D5B1C1121ECE895800B0F736 /* GameBoardString.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C10D1ECE84D800B0F736 /* GameBoardString.m */; };
@@ -538,6 +541,8 @@
 		D5441B4E1831CB1100B5166A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		D5441B641831CB2800B5166A /* FothelloGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FothelloGame.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D5441B651831CB2800B5166A /* FothelloGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FothelloGame.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D544BE691F0A41A700BD7597 /* GestureSelection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GestureSelection.h; sourceTree = "<group>"; };
+		D544BE6A1F0A41A700BD7597 /* GestureSelection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GestureSelection.m; sourceTree = "<group>"; };
 		D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngineStrong.h; sourceTree = "<group>"; };
 		D555BF551E4D0FF400F954D2 /* UtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilTests.m; sourceTree = "<group>"; };
 		D55947F31EB56B3700216D19 /* FothelloAITests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FothelloAITests.mm; sourceTree = "<group>"; };
@@ -1121,6 +1126,8 @@
 				D559480B1EB5895500216D19 /* GameOverDisplay.m */,
 				D55948101EB5A2F900216D19 /* PlayerDisplay.h */,
 				D55948111EB5A2F900216D19 /* PlayerDisplay.m */,
+				D544BE691F0A41A700BD7597 /* GestureSelection.h */,
+				D544BE6A1F0A41A700BD7597 /* GestureSelection.m */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1564,6 +1571,7 @@
 					};
 					D5441B211831CB1100B5166A = {
 						DevelopmentTeam = UVHFXZWG47;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					D55B70AD1E481AF000C53A51 = {
@@ -1780,6 +1788,7 @@
 			files = (
 				D559480E1EB5896B00216D19 /* GameOverDisplay.m in Sources */,
 				D54006561E3AE6E200F2D7BB /* BoardScene.m in Sources */,
+				D544BE6C1F0A41A700BD7597 /* GestureSelection.m in Sources */,
 				D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */,
 				D55948181EB5B46B00216D19 /* PlayerDisplay.m in Sources */,
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
@@ -1947,6 +1956,7 @@
 				D55948121EB5A2F900216D19 /* PlayerDisplay.m in Sources */,
 				D5F2C15E18418C5B000F089E /* DialogViewController.m in Sources */,
 				D5441B341831CB1100B5166A /* main.m in Sources */,
+				D544BE6B1F0A41A700BD7597 /* GestureSelection.m in Sources */,
 				D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1999,6 +2009,7 @@
 			files = (
 				D559480F1EB5896C00216D19 /* GameOverDisplay.m in Sources */,
 				D5F5680A1D111C6300998C14 /* ExtensionDelegate.m in Sources */,
+				D59A27421F0B550C000B914F /* GestureSelection.m in Sources */,
 				D5F5680D1D111C6300998C14 /* NotificationController.m in Sources */,
 				D55948191EB5B46C00216D19 /* PlayerDisplay.m in Sources */,
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
@@ -2602,6 +2613,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
@@ -2616,6 +2628,8 @@
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2627,6 +2641,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_MODULE_DEBUGGING = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = UVHFXZWG47;
@@ -2641,6 +2656,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2821,7 +2837,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Debug;
 		};
@@ -2845,7 +2861,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
 			};
 			name = Release;
 		};

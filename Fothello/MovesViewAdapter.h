@@ -11,8 +11,8 @@
 @class Match;
 
 @interface MovesViewAdapter : NSObject  <NSTableViewDelegate, NSTableViewDataSource>
-@property (nonatomic) Match *match;
+@property (nonatomic, nonnull) Match *match;
 
-- (instancetype)initWithMatch:(Match *)match;
+- (nonnull instancetype)initWithMatch:(nonnull Match *)match tableView:(nonnull NSTableView *)tableView;
 
 @end

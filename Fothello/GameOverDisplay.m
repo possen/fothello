@@ -20,14 +20,16 @@
 
 @implementation GameOverDisplay
 
--(instancetype)initWithMatch:(Match *)match boardScene:(BoardScene *)boardScene
+- (instancetype)initWithMatch:(Match *)match boardScene:(BoardScene *)boardScene
 {
     self = [super init];
+    
     if (self)
     {
         _match = match;
         _boardScene = boardScene;
     }
+    
     return self;
 }
 
@@ -128,6 +130,7 @@
         SKNode *playerName = [node childNodeWithName:@"playerName"];
         [playerName runAction:[SKAction fadeAlphaTo:1 duration:1]];
     }
+    
     boardScene.gameOverNode = nil;
 }
 

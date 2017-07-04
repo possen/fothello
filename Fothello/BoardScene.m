@@ -34,8 +34,9 @@
         _boardDimensions = MIN(size.width, size.height) - 40;
         _boardRect = CGRectMake(20, size.height / 2 - _boardDimensions / 2,
                                     _boardDimensions, _boardDimensions);
-        _boardDisplay = [[BoardDisplay alloc] initWithMatch:match boardScene:self];
+        _boardDisplay = [[BoardDisplay alloc] initWithMatch:match boardScene:self boardDimensions:_boardDimensions];
         _playerDisplay = [[PlayerDisplay alloc] initWithMatch:match boardScene:self];
+        _boardSize = match.board.size;
         _spacing = self.boardDimensions / _boardSize;
         _pieceSprite = [[PieceSprite alloc] initWithBoardScene:self];
         [self setMatch:match];
@@ -58,7 +59,8 @@
     CGFloat spacing = self.spacing;
     CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
     
-    if (sizeSmall) {
+    if (sizeSmall)
+    {
         spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
     }
     return spriteSize;
@@ -144,6 +146,7 @@
     self.currentPlayerSprite = match.currentPlayer.userReference;
 }
 // codebeat:enable[ABC, LOC]
+
 
 - (void)movePieceTo:(BoardPosition *)pos
 {

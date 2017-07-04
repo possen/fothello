@@ -18,8 +18,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineStrong engine];
-    [game setupDefaultMatch:game.engine];
 
     NSMenu *menu = [[NSApplication sharedApplication] mainMenu];
 

@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11163.2" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11133"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11064"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="13034"/>
     </dependencies>
     <scenes>
         <!--BoardScene-->
@@ -12,12 +16,21 @@
                     <items>
                         <spriteKitScene alignment="left" scene="BoardScene" id="eh2-bW-rMT">
                             <gestureRecognizers>
-                                <tapGestureRecognizer id="MgE-5m-htP">
-                                    <nil name="precedingGestureRecognizers"/>
+                                <tapGestureRecognizer id="XeS-fG-zkI">
                                     <connections>
-                                        <action selector="tapAction:" destination="AgC-eL-Hgc" id="afp-nm-eU2"/>
+                                        <action selector="tapAction:" destination="AgC-eL-Hgc" id="rhX-nR-ekU"/>
                                     </connections>
                                 </tapGestureRecognizer>
+                                <swipeGestureRecognizer direction="4" id="bxv-HG-PP3">
+                                    <connections>
+                                        <action selector="upAction:" destination="AgC-eL-Hgc" id="1cF-as-l8a"/>
+                                    </connections>
+                                </swipeGestureRecognizer>
+                                <swipeGestureRecognizer direction="8" id="a1x-yo-1tI">
+                                    <connections>
+                                        <action selector="downAction:" destination="AgC-eL-Hgc" id="KmN-Z7-Q9F"/>
+                                    </connections>
+                                </swipeGestureRecognizer>
                             </gestureRecognizers>
                         </spriteKitScene>
                     </items>

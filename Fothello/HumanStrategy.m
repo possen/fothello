@@ -62,7 +62,7 @@
 - (void)hintForPlayer:(Player *)player
 {
      PlayerMove *move = [self calculateMoveForPlayer:player difficulty:DifficultyEasy];
-     [self.match.board showHintMove:move forPlayer:player];
+     [self.match.board showHintMove:move forPieceColor:player.color];
 }
 
 - (void)beginTurn:(Player *)player

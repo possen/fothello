@@ -10,19 +10,24 @@
 #import "Match.h"
 #import "PlayerMove.h"
 #import "MatchMoves.h"
+#import "GameBoard.h"
 
 @interface MovesViewAdapter ()
+@property (nonatomic) NSTableView *tableView;
 @end
 
 @implementation MovesViewAdapter
 
-- (instancetype)initWithMatch:(Match *)match
+- (instancetype)initWithMatch:(Match *)match tableView:(NSTableView *)tableView
 {
     self = [super init];
     
     if (self)
     {
         _match = match;
+        _tableView = tableView;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
     }
     
     return self;
@@ -42,5 +47,12 @@
     return cell;
 }
 
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    NSInteger row = self.tableView.selectedRow;
+    PlayerMove *move = self.match.matchMoves.moves[row];
+    [self.match.board showClickedMove:move forPieceColor:move.color];
+    [self.tableView scrollRowToVisible:row];
+}
 
 @end

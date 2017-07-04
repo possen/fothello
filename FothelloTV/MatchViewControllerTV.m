@@ -8,9 +8,11 @@
 
 #import "MatchViewControllerTV.h"
 #import "BoardScene.h"
+#import "GestureSelection.h"
 
 @interface MatchViewControllerTV ()
 @property (nonatomic) BoardScene *boardScene;
+@property (nonatomic) GestureSelection *gestureSelection;
 @end
 
 @implementation MatchViewControllerTV
@@ -28,6 +30,8 @@
     CGSize size = CGSizeMake(310, 310);
     
     FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineStrong engine];
+
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
     // Create and configure the scene.
@@ -51,9 +55,12 @@
    
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
-
+    
+    self.gestureSelection = [[GestureSelection alloc] init];
+    
     [self reset];
 }
+
 
 - (void)setMatch:(Match *)match
 {
@@ -78,5 +85,21 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+
+- (IBAction)upAction:(id)sender
+{
+    [self.gestureSelection up];
+}
+
+- (IBAction)downAction:(id)sender
+{
+    [self.gestureSelection down];
+}
+
+- (IBAction)tapAction:(id)sender
+{
+    [self.gestureSelection tap];
+}
+
 
 @end

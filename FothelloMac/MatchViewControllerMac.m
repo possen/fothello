@@ -13,6 +13,8 @@
 #import "MovesViewController.h"
 #import "BoardScene.h"
 #import "AppDelegate.h"
+#import "GameBoard.h"
+#import "PlayerMove.h"
 
 @interface MatchViewControllerMac () <DismissDelegate>
 @property (nonatomic) BoardScene *boardScene;
@@ -35,8 +37,9 @@
     [super viewDidLoad];
 
     FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineStrong engine];
     [game setupDefaultMatch:game.engine];
-    
+        
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
 

@@ -12,6 +12,10 @@
 #import "BoardScene.h"
 
 @interface BoardDisplay : NSObject
-- (instancetype)initWithMatch:(Match *)match boardScene:(BoardScene *)boardScene;
+
+- (instancetype)initWithMatch:(Match *)match
+                   boardScene:(BoardScene *)boardScene
+              boardDimensions:(CGFloat)boardDimensions;
+
 - (void)drawBoard;
 @end

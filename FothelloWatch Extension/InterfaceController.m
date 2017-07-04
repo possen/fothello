@@ -12,12 +12,13 @@
 #import "BoardScene.h"
 #import "GameBoard.h"
 #import "Match.h"
+#import "GestureSelection.h"
 
 @interface InterfaceController() 
 
 @property (strong, nonatomic) IBOutlet WKInterfaceSKScene *skInterface;
 @property (nonatomic) BoardScene *boardScene;
-@property (nonatomic) double currentPos;
+@property (nonatomic) GestureSelection *gestureSelecton;
 @end
 
 
@@ -40,6 +41,10 @@
     [self.crownSequencer focus];
 
     FothelloGame *game = [FothelloGame sharedInstance];
+    
+    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    
+    game.engine = [EngineWatch engine];    
     [game setupDefaultMatch:game.engine];
     
     // Create and configure the scene.
@@ -62,6 +67,8 @@
    
     // Use a value that will maintain consistent frame rate
     self.skInterface.preferredFramesPerSecond = 30;
+    
+    self.gestureSelecton = [[GestureSelection alloc] init];
     
     [self reset];
 }
@@ -96,58 +103,26 @@
     [super didDeactivate];
 }
 
-- (NSInteger)normaizeIndex:(NSInteger)maxIndex value:(CGFloat)value
-{
-    NSInteger result = value;
-    if (self.currentPos > maxIndex - 1)
-    {
-        result = 0;
-    }
-    
-    if (self.currentPos < 0)
-    {
-        result = maxIndex - 1;
-    }
-    return result;
-}
-
 - (void)crownDidRotate:(WKCrownSequencer *)crownSequencer rotationalDelta:(double)rotationalDelta
 {
-    self.currentPos += rotationalDelta;
-    NSArray<BoardPiece *> *legalMoves = [self.match.board
-                                         legalMovesForPlayerColor:self.match.currentPlayer.color];
-   
-    NSInteger countLegalMoves = legalMoves.count;
-    NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
-    
-    if (countLegalMoves != 0)
-    {
-        BoardPosition *pos = legalMoves[index].position;
-        self.match.board.highlightBlock(pos, PieceColorYellow);
-    }
+    self.gestureSelecton.currentPos += rotationalDelta;
+    [self.gestureSelecton selectLegalMove];
+}
+
+
+- (IBAction)upAction:(id)sender
+{
+    [self.gestureSelecton up];
+}
+
+- (IBAction)downAction:(id)sender
+{
+    [self.gestureSelecton down];
 }
 
 - (IBAction)tapAction:(id)sender
 {
-    NSArray<BoardPiece *> *legalMoves = [self.match.board
-                                         legalMovesForPlayerColor:self.match.currentPlayer.color];
-
-    Player *player = self.match.currentPlayer;
-    NSInteger countLegalMoves = legalMoves.count;
-    NSInteger index = [self normaizeIndex:countLegalMoves value:self.currentPos];
- 
-    if (countLegalMoves != 0)
-    {
-        BoardPosition *pos = legalMoves[index].position;
-        PlayerMove *move = [PlayerMove makeMoveForColor:player.color position:pos];
-        [self.match placeMove:move forPlayer:player];
-    }
-    else
-    {
-        PlayerMove *passMove = [PlayerMove makePassMoveForColor:player.color];
-        [self.match placeMove:passMove forPlayer:player];
-    }
-    NSLog(@"tap");
+    [self.gestureSelecton tap];
 }
 
 @end

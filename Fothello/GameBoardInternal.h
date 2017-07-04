@@ -12,8 +12,13 @@
 
 @class Piece;
 @class BoardPosition;
+@class GameBoardLegalMoves;
+@class GameBoardTracks;
 
 @interface GameBoardInternal : NSObject <NSCoding>
+
+@property (nonnull, nonatomic) GameBoardLegalMoves *legalMoves;
+@property (nonnull, nonatomic) GameBoardTracks *tracker;
 
 - (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size;
 

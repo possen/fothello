@@ -37,8 +37,8 @@ typedef void (^UpdateCompleteBlock)(void);
 - (void)showLegalMoves:(BOOL)display forPlayer:(nonnull Player *)player;
 
 // non queued safe
-- (void)showHintMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
-- (void)showClickedMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
+- (void)showHintMove:(nonnull PlayerMove *)move forPieceColor:(PieceColor)color;
+- (void)showClickedMove:(nonnull PlayerMove *)move forPieceColor:(PieceColor)color;
 - (BOOL)isFull;
 - (BOOL)canMove:(nonnull Player *)player;
 - (NSInteger)playerScore:(nonnull Player *)player;

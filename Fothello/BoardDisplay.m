@@ -18,13 +18,14 @@
 
 @implementation BoardDisplay
 
-- (instancetype)initWithMatch:(Match *)match boardScene:(BoardScene *)boardScene
+- (instancetype)initWithMatch:(Match *)match boardScene:(BoardScene *)boardScene boardDimensions:(CGFloat)boardDimensions
 {
     self = [super init];
     if (self)
     {
         _match = match;
         _boardScene = boardScene;
+        _boardDimensions = boardDimensions;
         _boardSize = match.board.size;
         _spacing = _boardDimensions / _boardSize;
     }
@@ -100,7 +101,8 @@
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:kMainFont];
     
     myLabel.text = @"Fothello";
-    myLabel.fontSize = 30;      myLabel.position = CGPointMake(CGRectGetMidX(boardScene.frame),boardRect.origin.y + boardRect.size.height + 20);
+    myLabel.fontSize = 30;
+    myLabel.position = CGPointMake(CGRectGetMidX(boardScene.frame),boardRect.origin.y + boardRect.size.height + 20);
     [boardScene addChild:myLabel];
     
     SKAction *action = [SKAction fadeAlphaTo:0 duration:2];

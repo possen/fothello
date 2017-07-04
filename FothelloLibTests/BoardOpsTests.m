@@ -12,6 +12,8 @@
 #import "EngineStrong.h"
 #import "GameBoardInternal.h"
 #import "GameBoardTracks.h"
+#import "GameBoardString.h"
+#import "GameBoardLegalMoves.h"
 
 @interface GameBoard ()
 @property (nonatomic) GameBoardInternal *boardInternal;
@@ -19,9 +21,6 @@
 
 @interface GameBoardInternal ()
 @property (nonatomic, nonnull) GameBoardString *boardString;
-@property (nonatomic, nonnull) GameBoardLegalMoves *legalMoves;
-@property (nonatomic, nonnull) GameBoardTracks *tracker;
-
 @end
 
 @interface TestBoardOps : XCTestCase

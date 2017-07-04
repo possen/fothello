@@ -24,9 +24,11 @@
 
 @interface GameBoardInternal ()
 @property (nonatomic) GameBoard *board;
+@property (nonatomic) GameBoardString *boardString;
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
+@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @end
 
 @implementation GameBoardInternal
@@ -39,6 +41,7 @@
         _boardString = [[GameBoardString alloc] initWithBoard:self];
         _legalMoves = [[GameBoardLegalMoves alloc] initWithGameBoard:self];
         _tracker = [[GameBoardTracks alloc] initWithGameBoard:self];
+        _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
         
         _board = board;
         _size = size;
@@ -154,7 +157,7 @@
 
 - (BOOL)canMoveUnqueued:(Player *)player
 {
-    NSArray <BoardPiece *> *moves = [self.legalMoves.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
     
     __block NSString *boardMoves = @"";
     [moves mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
@@ -234,6 +237,20 @@
         pieces = [pieces arrayByAddingObjectsFromArray:movePieces];
     }
     return pieces;
+}
+
+- (void)determineLegalMoves
+{
+    // Make copy to update, so it can be read outside queue.
+    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
+    
+    for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
+    {
+        NSArray <BoardPiece *> *legalMoves = [self.legalMoves legalMovesForPlayerColor:color];
+        [legalPieces setObject:legalMoves atCheckedIndex:color];
+    }
+    
+    self.legalMovesForPlayer = legalPieces;
 }
 
 

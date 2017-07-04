@@ -14,6 +14,7 @@
 #import "BoardPiece.h"
 #import "BoardPosition.h"
 #import "NSArray+Holes.h"
+#import "GameBoardTracks.h"
 #import "Piece.h"
 
 @interface GameBoardLegalMoves ()
@@ -21,9 +22,7 @@
 @end
 
 @interface GameBoardInternal ()
-- (NSArray<NSArray <BoardPiece *> *> *)findTracksForBoardPiece:(BoardPiece *)boardPiece
-                                                         color:(PieceColor)pieceColor;
-
+@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @end
 
 @implementation GameBoardLegalMoves
@@ -33,27 +32,15 @@
     self = [super init];
     if (self) {
         _internal = gameBoard;
-        _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
     }
     return self;
 }
 
-- (void)determineLegalMoves
-{
-    // Make copy to update, so it can be read outside queue.
-    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
-    for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
-    {
-        NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayerColor:color];
-        [legalPieces setObject:legalMoves atCheckedIndex:color];
-    }
-    
-    self.legalMovesForPlayer = legalPieces;
-}
 
 - (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    GameBoardInternal *internal = self.internal;
+    NSArray <BoardPiece *> *legalMoves = [internal.legalMovesForPlayer objectAtCheckedIndex:player.color];
     
     BOOL legalMove = legalMoves != nil
     && [legalMoves indexOfObjectPassingTest:^
@@ -75,7 +62,7 @@
         BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
         BoardPiece *findBoardPiece = [BoardPiece makeBoardPieceWithPiece:findPiece position:boardPosition color:color];
         
-        BOOL foundTrack = [internal findTracksForBoardPiece:findBoardPiece color:color] != nil;
+        BOOL foundTrack = [internal.tracker findTracksForBoardPiece:findBoardPiece color:color] != nil;
         if (foundTrack)
         {
             Piece *piece = [internal pieceAtPositionX:x Y:y];

@@ -105,7 +105,7 @@
 - (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     // uses highlight block.
-    [self.match.board showClickedMove:move forPlayer:player];
+    [self.match.board showClickedMove:move forPieceColor:player.color];
 }
 
 @end

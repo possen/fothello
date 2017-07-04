@@ -9,6 +9,10 @@
 #import "MovesViewController.h"
 #import "MovesViewAdapter.h"
 #import "Match.h"
+#import "PlayerMove.h"
+#import "MatchMoves.h"
+#import "GameBoard.h"
+
 
 @interface MovesViewController ()
 @property (weak, nonatomic) IBOutlet NSTableView *tableView;
@@ -26,9 +30,14 @@
     NSAssert(game.matches.count != 0, @"matches empty");
     self.match = game.matches.allValues[0];
     
-    self.adapter = [[MovesViewAdapter alloc] initWithMatch:self.match];
-    self.tableView.delegate = self.adapter;
-    self.tableView.dataSource = self.adapter;
+    self.adapter = [[MovesViewAdapter alloc] initWithMatch:self.match tableView:self.tableView];
+}
+
+- (IBAction)selectAction:(NSTextFieldCell *)sender
+{
+    NSInteger row = self.tableView.selectedRow;
+    PlayerMove *move = self.match.matchMoves.moves[row];
+    [self.match.board showClickedMove:move forPieceColor:move.color];
 }
 
 - (void)resetGame:(Match *)match

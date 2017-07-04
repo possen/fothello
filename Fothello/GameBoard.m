@@ -22,12 +22,13 @@
 
 @interface GameBoard ()
 @property (nonatomic) GameBoardInternal *boardInternal;
-@property (nonatomic) GameBoardString *boardString;
 @end
 
 @interface GameBoardInternal ()
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic, readonly, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
+@property (nonatomic) GameBoardString *boardString;
+
 
 - (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)tracks;
 - (void)determineLegalMoves;
@@ -47,7 +48,7 @@
 
 - (instancetype)initWithBoardSize:(NSInteger)size
 {
-    return [self initWithBoardSize:size piecePlacedBlock:nil ];
+    return [self initWithBoardSize:size piecePlacedBlock:nil];
 }
 
 - (instancetype)initWithBoardSize:(NSInteger)size piecePlacedBlock:(PlaceBlock)block
@@ -57,9 +58,7 @@
     if (self)
     {
         _boardInternal = [[GameBoardInternal alloc] initWithBoard:self size:size];
-        
         _queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
-
         _placeBlock = block;
     }
     return self;
@@ -154,8 +153,9 @@
          NSArray<BoardPiece *> *pieces = [internal.legalMovesForPlayer objectAtCheckedIndex:player.color];
          
          if (!display) {
-             pieces = [internal findLegals:pieces];
+             pieces = [internal.legalMoves findLegals:pieces];
          }
+        
          return pieces ? @[pieces] : @[];
      }];
 }
@@ -164,7 +164,7 @@
     __block NSArray <BoardPiece *> *result = nil;
     dispatch_sync(self.queue,^{
         GameBoardInternal *internal = self.boardInternal;
-        result =  [internal legalMovesForPlayerColor:color];
+        result = [internal.legalMoves legalMovesForPlayerColor:color];
     });
     return result;
 }
@@ -217,16 +217,16 @@
 
 #pragma mark - Queue Safe -
 
-- (void)showClickedMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)showClickedMove:(PlayerMove *)move forPieceColor:(PieceColor)color
 {
     if (self.highlightBlock == nil) return;
-    self.highlightBlock(move.position, player.color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
+    self.highlightBlock(move.position, color == PieceColorWhite ? PieceColorRed : PieceColorBlue);
 }
 
-- (void)showHintMove:(PlayerMove *)move forPlayer:(Player *)player
+- (void)showHintMove:(PlayerMove *)move forPieceColor:(PieceColor)color
 {
     if (self.highlightBlock == nil) return;
-    self.highlightBlock(move.position, player.color);
+    self.highlightBlock(move.position, color);
 }
 
 

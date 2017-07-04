@@ -11,11 +11,4 @@
 
 @implementation BoardScene (BoardScene_iOS)
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = [touches anyObject];
-    CGPoint location = [touch locationInNode:self];
-    [self locationX:location.x Y:location.y];
-}
-
 @end

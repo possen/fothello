@@ -16,9 +16,6 @@
 - (BOOL)application:(UIApplication *)application
     willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineStrongIOS engine];
-    [game setupDefaultMatch:game.engine];
     return YES;
 }
 

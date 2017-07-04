@@ -14,9 +14,6 @@
 - (void)applicationDidFinishLaunching
 {
     // Perform any final initialization of your application.
-    FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineWatch engine];
-    [game setupDefaultMatch:game.engine];
 }
 
 - (void)applicationDidBecomeActive
@@ -38,7 +35,7 @@
         // Process the background task
         
         // Be sure to complete each task when finished processing.
-        [task setTaskCompleted];
+        [task setTaskCompletedWithSnapshot:NO];
     }
 }
 

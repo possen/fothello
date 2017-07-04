@@ -13,9 +13,11 @@
 #import "Match.h"
 #import "MatchMoves.h"
 #import "Player.h"
+#import "EngineStrongIOS.m"
+#import "GestureSelection.h"
 
 @interface MatchViewControllerIOS ()
-
+@property (nonatomic) GestureSelection *gestureSelection;
 @end
 
 @implementation MatchViewControllerIOS
@@ -32,7 +34,7 @@
     BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];
     self.boardScene = scene;
     scene.match = self.match;
-
+    
     __weak MatchViewControllerIOS *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
     {
@@ -46,7 +48,9 @@
     
     // Present the scene.
     [skView presentScene:scene];
-  
+    
+    self.gestureSelection = [[GestureSelection alloc] init];
+    
     [self reset];
 }
 
@@ -75,7 +79,8 @@
     Difficulty difficulty = [difficultyControl selectedSegmentIndex] + 1;
     
     FothelloGame *game = [FothelloGame sharedInstance];
-
+    game.engine = [EngineStrongIOS engine];
+    
     Match *match = [game createMatchFromKind:kind difficulty:difficulty];
     self.boardScene.match = match;
     self.match = match;
