@@ -14,6 +14,7 @@
 
 @implementation ComplicationController
 
+// codebeat: disable(MASS, ARITY)
 #pragma mark - Timeline Configuration
 
 - (void)getSupportedTimeTravelDirectionsForComplication:(CLKComplication *)complication withHandler:(void(^)(CLKComplicationTimeTravelDirections directions))handler {
@@ -55,5 +56,7 @@
     // This method will be called once per supported complication, and the results will be cached
     handler(nil);
 }
+
+// codebeat: enable(MASS, ARITY)
 
 @end
