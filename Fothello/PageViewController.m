@@ -61,6 +61,7 @@
 }
 
 - (UIViewController *)pageControllerForIndex:(NSInteger)incdec
+                              viewController:(UIPageViewController *)viewController
 {
     NSUInteger index = viewController.pageIndex;
     return [self viewControllerForPageIndex:(index + incdec)];
@@ -69,13 +70,13 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
        viewControllerAfterViewController:(MatchViewControllerIOS *)viewController
 {
-    return [self pageControllerForIndex:1]
+    return [self pageControllerForIndex:1 viewController:viewController]
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerBeforeViewController:(MatchViewControllerIOS *)viewController
 {
-    return [self pageControllerForIndex:-1]
+    return [self pageControllerForIndex:-1 viewController: viewController];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder

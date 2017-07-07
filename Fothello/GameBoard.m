@@ -29,7 +29,6 @@
 @property (nonatomic, readonly, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @property (nonatomic) GameBoardString *boardString;
 
-
 - (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)tracks;
 - (void)determineLegalMoves;
 - (void)visitAllUnqueued:(void (^)(NSInteger x, NSInteger y, Piece *piece))block;
@@ -64,11 +63,13 @@
     return self;
 }
 
-- (NSDictionary<NSNumber *, NSNumber *> *)piecesPlayed {
+- (NSDictionary<NSNumber *, NSNumber *> *)piecesPlayed
+{
     return self.boardInternal.piecesPlayed;
 }
 
-- (NSInteger)size {
+- (NSInteger)size
+{
     return self.boardInternal.size;
 }
 
@@ -160,7 +161,8 @@
      }];
 }
 
-- (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color {
+- (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color
+{
     __block NSArray <BoardPiece *> *result = nil;
     dispatch_sync(self.queue,^{
         GameBoardInternal *internal = self.boardInternal;
