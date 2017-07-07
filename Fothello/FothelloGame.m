@@ -186,13 +186,12 @@
     }
 }
 
-- (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
+- (Match *)pickStrategyKind:(PlayerKindSelection)kind
+                 difficulty:(Difficulty)difficulty
+                    players:(NSArray<Player *> *)players
 {
-    id<Engine>engine = [[FothelloGame sharedInstance] engine];
-    Player *player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
-    Player *player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
-
     Strategy *strategy1; Strategy *strategy2;
+    id<Engine>engine = [[FothelloGame sharedInstance] engine];
     
     // black goes first.
     switch (kind)
@@ -220,9 +219,16 @@
             NSAssert(false, @"cant find kind");
     }
     
-    player1.strategy = strategy1; player2.strategy = strategy2;
+    players[0].strategy = strategy1; players[1].strategy = strategy2;
+    return [[Match alloc] initWithName:@"game" players:players];
+}
+
+- (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
+{
+    Player *player1 = [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
+    Player *player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+    Match *match = [self pickStrategyKind:kind difficulty:difficulty players:@[player1, player2]];
     
-    Match *match = [[Match alloc] initWithName:@"game" players:@[player2, player1]];
     for (Player *player in self.players)
     {
         Strategy *strategy = player.strategy;

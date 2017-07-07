@@ -55,17 +55,20 @@
     if (matches.count == 0)
     {
         game.matchOrder = [@[@"game"] mutableCopy];
-        game.matches = [@{@"game": [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy]} mutableCopy];
+        game.matches = [@{@"game": [game createMatchFromKind:PlayerKindSelectionHumanVComputer
+                                                  difficulty:DifficultyEasy]} mutableCopy];
     }
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MatchViewControllerIOS *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+       viewControllerAfterViewController:(MatchViewControllerIOS *)viewController
 {
     NSUInteger index = viewController.pageIndex;
     return [self viewControllerForPageIndex:(index + 1)];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(MatchViewControllerIOS *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+      viewControllerBeforeViewController:(MatchViewControllerIOS *)viewController
 {
     NSUInteger index = viewController.pageIndex;
     return [self viewControllerForPageIndex:(index - 1)];

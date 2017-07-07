@@ -27,7 +27,6 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL 
                              players:(nonnull NSArray<Player *> *)players;
 
 - (void)beginMatch;
-- (void)endMatch;
 - (void)reset;
 - (void)nextPlayerWithTime:(float)time; // in seconds
 - (void)nextPlayer;

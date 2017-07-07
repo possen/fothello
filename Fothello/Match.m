@@ -46,7 +46,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
     if (self)
@@ -95,11 +95,8 @@
 - (void)beginMatch
 {
     self.currentPlayer = self.players[0];
-
     [self.matchMoves resetMoves];
-    
     if (self.movesUpdateBlock) self.movesUpdateBlock();
-    
     [self beginTurn];
     
     // kick off two automatic first player.
@@ -109,18 +106,11 @@
     }
 }
 
-- (void)endMatch
-{
-}
-
 - (void)reset
 {
     [self endTurn];
-    
     if (self.matchStatusBlock) self.matchStatusBlock(NO);
-    
     self.noMoves = NO;
-    
     [self.board reset];
 }
 
@@ -144,8 +134,8 @@
 }
 
 - (void)nextPlayerUpdateBoard:(GameBoard *)board
-    currentPlayer:(Player *)currentPlayer
-    prevPlayerCouldMove:(BOOL)prevPlayerCouldMove
+                currentPlayer:(Player *)currentPlayer
+          prevPlayerCouldMove:(BOOL)prevPlayerCouldMove
 {
     BOOL currentPlayerCanMove = [board canMove:currentPlayer];
     BOOL isFull = [board isFull];
@@ -206,8 +196,7 @@
 
 - (BOOL)isAnyPlayerAComputer
 {
-    return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop)
-    {
+    return [self.players indexesOfObjectsPassingTest:^BOOL(Player *player, NSUInteger idx, BOOL *stop) {
         if (player.strategy.automatic)
         {
             *stop = YES;
