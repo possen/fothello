@@ -11,18 +11,18 @@
 #import "Engine.h"
 #import "EngineStrong.h"
 
-@interface EngineStrongIOS () <WCSessionDelegate>
+@interface EngineStrongWatch () <WCSessionDelegate>
 @property (nonatomic)WCSession *session;
 @end
 
-@implementation EngineStrongIOS
+@implementation EngineStrongWatch
 
 + (instancetype)engine
 {
-    __block EngineStrongIOS *result = nil;
+    __block EngineStrongWatch *result = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        result = [[EngineStrongIOS alloc] init];
+        result = [[EngineStrongWatch alloc] init];
     });
     return result;
 }

@@ -21,12 +21,12 @@
 
 @end
 
-@interface EngineWatch : NSObject <Engine>
+@interface EngineWeakWatch : NSObject <Engine>
 @end
 
 @interface EngineStrong : NSObject <Engine>
 @property (nonatomic, nonnull) GKARC4RandomSource *randomSource;
 @end
 
-@interface EngineStrongIOS : EngineStrong
+@interface EngineStrongWatch : EngineStrong
 @end

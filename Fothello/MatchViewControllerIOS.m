@@ -80,7 +80,7 @@
     Difficulty difficulty = [difficultyControl selectedSegmentIndex] + 1;
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineStrongIOS engine];
+    game.engine = [EngineStrongWatch engine];
     
     Match *match = [game createMatchFromKind:kind difficulty:difficulty];
     self.boardScene.match = match;

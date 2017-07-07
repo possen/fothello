@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Paul Ossenbruggen. All rights reserved.
 //
 
-
 #import "FothelloGame.h"
 #import "Strategy.h"
 #import "Match.h"
@@ -18,7 +17,7 @@
 
 @implementation FothelloGame
 
-+ (id)sharedInstance
++ (instancetype)sharedInstance
 {
     static dispatch_once_t onceToken;
     __strong static id _sharedObject = nil;

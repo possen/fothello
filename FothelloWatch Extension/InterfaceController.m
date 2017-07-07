@@ -44,7 +44,7 @@
     
     self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
-    game.engine = [EngineWatch engine];    
+    game.engine = [EngineWeakWatch engine];    
     [game setupDefaultMatch:game.engine];
     
     // Create and configure the scene.

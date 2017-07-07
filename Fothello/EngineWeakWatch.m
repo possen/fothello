@@ -13,20 +13,20 @@
 #import "Player.h"
 #import "GameBoard.h"
 
-@interface EngineWatch () <WCSessionDelegate>
+@interface EngineWeakWatch () <WCSessionDelegate>
 @property (nonatomic)WCSession *session;
 @end
 
-@implementation EngineWatch
+@implementation EngineWeakWatch
 
 + (instancetype)engine
 {
-    __block EngineWatch *result = nil;
+    __block EngineWeakWatch *result = nil;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^
     {
-        result = [[EngineWatch alloc] init];
+        result = [[EngineWeakWatch alloc] init];
     });
     return result;
 }

@@ -26,7 +26,7 @@
 		D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D521BEE81E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D521BEE01E4BA5FD0043769E /* NSDictionary+Extension.m */; };
 		D52444A91CC9F71E00337D02 /* MatchViewControllerMac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F56A7D1CC36074000700D8 /* MatchViewControllerMac.m */; };
-		D525FBC41E5982FB006CA134 /* EngineWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBC21E596B20006CA134 /* EngineWatch.m */; };
+		D525FBC41E5982FB006CA134 /* EngineWeakWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBC21E596B20006CA134 /* EngineWeakWatch.m */; };
 		D525FBC51E59831D006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
 		D525FBC61E59831E006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
 		D525FBC71E59831F006CA134 /* EngineStrong.mm in Sources */ = {isa = PBXBuildFile; fileRef = D525FBBD1E59634D006CA134 /* EngineStrong.mm */; };
@@ -34,7 +34,7 @@
 		D525FBCA1E599082006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290F91E58DC5F00651B03 /* GameplayKit.framework */; };
 		D525FBCC1E5990AD006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBCB1E5990AD006CA134 /* GameplayKit.framework */; };
 		D525FBCE1E5990B9006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D525FBCD1E5990B9006CA134 /* GameplayKit.framework */; };
-		D525FBD61E5A0621006CA134 /* EngineStrongIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */; };
+		D525FBD61E5A0621006CA134 /* EngineStrongWatch.m in Sources */ = {isa = PBXBuildFile; fileRef = D525FBCF1E5A014E006CA134 /* EngineStrongWatch.m */; };
 		D525FBD91E5A0704006CA134 /* GameplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D57290F91E58DC5F00651B03 /* GameplayKit.framework */; };
 		D525FBDA1E5A0DA6006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D525FBDB1E5A0DAF006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -484,11 +484,11 @@
 		D525FBB91E59569A006CA134 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		D525FBBC1E59634D006CA134 /* Engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Engine.h; sourceTree = "<group>"; };
 		D525FBBD1E59634D006CA134 /* EngineStrong.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EngineStrong.mm; sourceTree = "<group>"; };
-		D525FBC21E596B20006CA134 /* EngineWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineWatch.m; sourceTree = "<group>"; };
+		D525FBC21E596B20006CA134 /* EngineWeakWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineWeakWatch.m; sourceTree = "<group>"; };
 		D525FBC81E598D5E006CA134 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		D525FBCB1E5990AD006CA134 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
 		D525FBCD1E5990B9006CA134 /* GameplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameplayKit.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS10.1.sdk/System/Library/Frameworks/GameplayKit.framework; sourceTree = DEVELOPER_DIR; };
-		D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineStrongIOS.m; sourceTree = "<group>"; };
+		D525FBCF1E5A014E006CA134 /* EngineStrongWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineStrongWatch.m; sourceTree = "<group>"; };
 		D535DD501E3D03EF00AE5C1D /* FothelloMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloMacTests.m; sourceTree = "<group>"; };
 		D535DD521E3D03EF00AE5C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D53CE6B11ED1552100B47B0C /* GameBoardLegalMoves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardLegalMoves.h; sourceTree = "<group>"; };
@@ -984,8 +984,8 @@
 				D525FBBC1E59634D006CA134 /* Engine.h */,
 				D5488FE51E5C0BFF00670CA5 /* EngineStrong.h */,
 				D525FBBD1E59634D006CA134 /* EngineStrong.mm */,
-				D525FBCF1E5A014E006CA134 /* EngineStrongIOS.m */,
-				D525FBC21E596B20006CA134 /* EngineWatch.m */,
+				D525FBCF1E5A014E006CA134 /* EngineStrongWatch.m */,
+				D525FBC21E596B20006CA134 /* EngineWeakWatch.m */,
 				D5F56A821CC37087000700D8 /* Network */,
 				D5EECCC5183B4EAB005D5507 /* Mini-Othello */,
 				D562F4B01CB0F08F009A6273 /* Utility */,
@@ -1808,7 +1808,7 @@
 				D525FBC51E59831D006CA134 /* EngineStrong.mm in Sources */,
 				D54006A91E3B232900F2D7BB /* BoardPiece.m in Sources */,
 				D54006AA1E3B232900F2D7BB /* BoardPosition.m in Sources */,
-				D525FBD61E5A0621006CA134 /* EngineStrongIOS.m in Sources */,
+				D525FBD61E5A0621006CA134 /* EngineStrongWatch.m in Sources */,
 				D54006AB1E3B232900F2D7BB /* Piece.m in Sources */,
 				D54006AC1E3B232900F2D7BB /* Player.m in Sources */,
 				D54006AD1E3B232900F2D7BB /* PlayerMove.m in Sources */,
@@ -1878,7 +1878,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D525FBC41E5982FB006CA134 /* EngineWatch.m in Sources */,
+				D525FBC41E5982FB006CA134 /* EngineWeakWatch.m in Sources */,
 				D54007101E3BBEC200F2D7BB /* FothelloGame.m in Sources */,
 				D54007111E3BBEC200F2D7BB /* GameBoard.m in Sources */,
 				D521BEE71E4BA5FE0043769E /* NSDictionary+Extension.m in Sources */,

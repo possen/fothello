@@ -50,7 +50,7 @@ typedef void (^GameOverBlock)(void);
 
 @interface FothelloGame : NSObject <NSCoding>
 
-+ (nonnull id)sharedInstance;
++ (nonnull instancetype)sharedInstance;
 
 @property (nonnull, nonatomic) id<Engine>engine;
 @property (nonnull, nonatomic) NSMutableArray <NSString *> *matchOrder;
