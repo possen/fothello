@@ -54,7 +54,6 @@
 		D53CE6C01ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
 		D53CE6C11ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
-		D54006381E3AD2E200F2D7BB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006371E3AD2E200F2D7BB /* main.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
 		D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */; };
 		D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */; };
@@ -291,6 +290,7 @@
 		D5B1C13A1ED1317A00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
 		D5B1C13B1ED1317B00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
 		D5B1C13C1ED1318B00B0F736 /* PieceSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B1C1381ED1317800B0F736 /* PieceSprite.m */; };
+		D5BF68781F0FFACF00CFB5BC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B331831CB1100B5166A /* main.m */; };
 		D5C0B66C18C40F73000DCEB8 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C0B66B18C40F73000DCEB8 /* PageViewController.m */; };
 		D5C249911E51605E009D8267 /* FothelloUIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C249901E51605E009D8267 /* FothelloUIOSTests.m */; };
 		D5D9BCB91CD330D700B41864 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5D9BCB81CD330D700B41864 /* GameKit.framework */; };
@@ -498,7 +498,6 @@
 		D53D351A1CD0928400C67EEF /* NewGameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGameViewController.h; sourceTree = "<group>"; };
 		D53D351B1CD0928400C67EEF /* NewGameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGameViewController.m; sourceTree = "<group>"; };
 		D54006341E3AD2E200F2D7BB /* FothelloTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D54006371E3AD2E200F2D7BB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D54006391E3AD2E200F2D7BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FothelloTV/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		D540063A1E3AD2E200F2D7BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FothelloTV/AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		D54006421E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "BoardScene+BoardScene_AppleTV.h"; path = "FothelloTV/BoardScene+BoardScene_AppleTV.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -794,15 +793,6 @@
 			path = FothelloMacTests;
 			sourceTree = "<group>";
 		};
-		D54006361E3AD2E200F2D7BB /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D54006371E3AD2E200F2D7BB /* main.m */,
-			);
-			name = "Supporting Files";
-			path = FothelloTV;
-			sourceTree = SOURCE_ROOT;
-		};
 		D54006541E3AE39000F2D7BB /* AppleTV */ = {
 			isa = PBXGroup;
 			children = (
@@ -815,7 +805,6 @@
 				D540064D1E3AD2E200F2D7BB /* Info.plist */,
 				D54006451E3AD2E200F2D7BB /* MatchViewControllerTV.h */,
 				D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */,
-				D54006361E3AD2E200F2D7BB /* Supporting Files */,
 			);
 			name = AppleTV;
 			sourceTree = "<group>";
@@ -931,7 +920,6 @@
 			children = (
 				D5441B2F1831CB1100B5166A /* Fothello-Info.plist */,
 				D5441B301831CB1100B5166A /* InfoPlist.strings */,
-				D5441B331831CB1100B5166A /* main.m */,
 				D5441B351831CB1100B5166A /* Fothello-Prefix.pch */,
 			);
 			name = "iOS Supporting Files";
@@ -1113,6 +1101,7 @@
 		D5F56A871CC3F247000700D8 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D5441B331831CB1100B5166A /* main.m */,
 				D5F568061D111C6300998C14 /* BoardScene.sks */,
 				D5441B421831CB1100B5166A /* BoardScene.h */,
 				D5441B431831CB1100B5166A /* BoardScene.m */,
@@ -1784,6 +1773,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5BF68781F0FFACF00CFB5BC /* main.m in Sources */,
 				D559480E1EB5896B00216D19 /* GameOverDisplay.m in Sources */,
 				D54006561E3AE6E200F2D7BB /* BoardScene.m in Sources */,
 				D544BE6C1F0A41A700BD7597 /* GestureSelection.m in Sources */,
@@ -1792,7 +1782,6 @@
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
 				D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */,
 				D5B1C13B1ED1317B00B0F736 /* PieceSprite.m in Sources */,
-				D54006381E3AD2E200F2D7BB /* main.m in Sources */,
 				D559481B1EB5B47200216D19 /* BoardDisplay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
