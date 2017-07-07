@@ -35,12 +35,12 @@
                         <action selector="tapAction:" destination="499-42-d0g" id="M7P-pe-V8y"/>
                     </connections>
                 </tapGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="Wyw-cm-px5">
+                <swipeGestureRecognizer direction="left" id="Wyw-cm-px5">
                     <connections>
                         <action selector="upAction:" destination="499-42-d0g" id="Hph-if-G4U"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="down" id="Uqg-8v-hmq">
+                <swipeGestureRecognizer direction="right" id="Uqg-8v-hmq">
                     <connections>
                         <action selector="downAction:" destination="499-42-d0g" id="CpN-XP-PYR"/>
                     </connections>

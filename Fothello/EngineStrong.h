@@ -9,9 +9,12 @@
 #ifndef EngineStrong_h
 #define EngineStrong_h
 
+#import "Engine.h"
+
 @class NetworkController;
 
 @interface EngineStrong ()
+    
 @property (nullable, nonatomic) NetworkController *network;
 
 - (nonnull NSDictionary<NSString *, id> *)calculateMoveWithBoard:(nonnull NSString *)boardStr

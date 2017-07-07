@@ -72,8 +72,8 @@
         _players = [[NSMutableArray alloc] initWithCapacity:10];
                 
         // create default players.
-        [self newPlayerWithName:@"Player 1" preferredPieceColor:PieceColorWhite];
-        [self newPlayerWithName:@"Player 2" preferredPieceColor:PieceColorBlack];
+        [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
+        [self newPlayerWithName:@"Black" preferredPieceColor:PieceColorBlack];
     }
     return self;
 }
@@ -162,7 +162,11 @@
                      strategy:(Strategy *)strategy
 {
     Player *player = [[Player alloc] initWithName:name];
-    player.preferredPieceColor  = preferredPieceColor;
+    player.preferredPieceColor = preferredPieceColor;
+    if ([self.players containsObject:player])
+    {
+        [self.players removeObject:player];
+    }
     [self.players addObject:player];
     player.strategy = strategy;
     return player;

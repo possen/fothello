@@ -13,7 +13,7 @@
 #import "Match.h"
 #import "MatchMoves.h"
 #import "Player.h"
-#import "EngineStrongIOS.m"
+#import "EngineStrong.h"
 #import "GestureSelection.h"
 
 @interface MatchViewControllerIOS ()
@@ -33,7 +33,6 @@
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];
     self.boardScene = scene;
-    scene.match = self.match;
     
     __weak MatchViewControllerIOS *weakBlockSelf = self;
     scene.updatePlayerMove = ^(BOOL canMove)
@@ -49,9 +48,11 @@
     // Present the scene.
     [skView presentScene:scene];
     
-    self.gestureSelection = [[GestureSelection alloc] init];
+    scene.match = self.match;
+    self.gestureSelection = [[GestureSelection alloc] initWithMatch:self.match];
     
     [self reset];
+    
 }
 
 - (void)reset

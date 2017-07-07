@@ -10,6 +10,7 @@
 #import "MatchViewControllerIOS.h"
 #import "FothelloGame.h"
 #import "NSArray+Holes.h"
+#import "EngineStrong.h"
 
 @interface PageViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
@@ -23,19 +24,14 @@
 {
     UIViewController *vc = [self.activeControllers objectAtCheckedIndex:index + 1];
     
-    if (vc && vc != (id) [NSNull null])
-    {
-        return vc;
-    }
+    if (vc && vc != (id) [NSNull null]) { return vc; }
 
-    if (index == -1)
-    {
-        return nil;
-    }
+    if (index == -1) { return nil; }
 
-    NSArray<NSString *> *matchOrder = [[FothelloGame sharedInstance] matchOrder];
-    NSDictionary<NSString *, Match *> *matches = [[FothelloGame sharedInstance] matches];
-
+    FothelloGame *game = [FothelloGame sharedInstance];
+    NSArray<NSString *> *matchOrder = [game matchOrder];
+    NSDictionary<NSString *, Match *> *matches = [game matches];
+    
     BOOL inRange = index >= 0 && index < [matches count];
     
     if (inRange)
@@ -48,6 +44,19 @@
         return vc;
     }
     return nil;
+}
+    
+- (void)createDefaultSetup
+{
+    FothelloGame *game = [FothelloGame sharedInstance];
+    game.engine = [EngineStrongIOS engine];
+    
+    NSMutableDictionary<NSString *, Match *> *matches = [game matches];
+    if (matches.count == 0)
+    {
+        game.matchOrder = [@[@"game"] mutableCopy];
+        game.matches = [@{@"game": [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy]} mutableCopy];
+    }
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(MatchViewControllerIOS *)viewController
@@ -78,6 +87,8 @@
 
     self.dataSource = self;
     
+    [self createDefaultSetup];
+    
     UIViewController *page = [self viewControllerForPageIndex:0];
     if (page != nil)
     {
@@ -86,7 +97,6 @@
                         animated:NO
                       completion:NULL];
     }
-
 }
 
 @end

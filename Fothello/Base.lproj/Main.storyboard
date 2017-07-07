@@ -101,6 +101,7 @@
                             <constraint firstItem="eGx-fN-Uti" firstAttribute="top" secondItem="O8r-Wv-Dp1" secondAttribute="bottom" id="U86-Kv-j8s"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="jY0-6q-y4C"/>
                     <connections>
                         <outlet property="mainScene" destination="1PF-a5-nW1" id="Ksy-Li-auH"/>
                         <outlet property="pass" destination="GVI-4k-byF" id="DZ2-SA-4Fs"/>

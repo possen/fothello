@@ -22,15 +22,14 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 @property (nonatomic,readonly) NSInteger boardDimensions;
 @property (nonatomic,readonly) CGRect boardRect;
 @property (nonatomic,readonly) NSInteger boardSize;
-@property (nonatomic) SKSpriteNode *currentPlayerSprite;
 @property (nonatomic, copy) UpdatePlayerMove updatePlayerMove;
 @property (nonatomic) SKNode *gameOverNode;
 @property (nonatomic) SKShapeNode *boardUI;
 @property (nonatomic) PieceSprite *pieceSprite;
-
+@property (nonatomic) CGFloat spacing;
+@property (nonatomic) SKSpriteNode *currentPlayerSprite;
+    
 - (instancetype)initWithSize:(CGSize)size match:(Match *)match;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
-- (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall;
-- (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall;
 
 @end

@@ -24,11 +24,12 @@
 
 @implementation GestureSelection
 
-- (instancetype)init
+- (instancetype)initWithMatch:(Match *)match
 {
     self = [super init];
     if (self)
     {
+        _match = match;
     }
     return self;
 }
@@ -89,6 +90,7 @@
     
     NSInteger countLegalMoves = legalMoves.count;
     NSInteger index = [self normalizeIndex:countLegalMoves value:self.currentPos];
+    self.currentPos =index;
     
     if (countLegalMoves != 0)
     {

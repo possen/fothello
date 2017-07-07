@@ -11,16 +11,12 @@
 #import "Match.h"
 
 @interface GestureSelection : NSObject
-@property (nonatomic) Match *match;
+@property (nonatomic, nonnull) Match *match;
 @property (nonatomic) double currentPos;
 
-#ifdef TARGET_OS_WATCH
-- (instancetype)init;
-#else
-- (instancetype)initWithView:(UIView *)view;
-#endif
+- (nonnull instancetype)initWithMatch:(nonnull Match *)match;
 
-- (NSArray<BoardPiece *> *)selectLegalMove;
+- (nonnull NSArray<BoardPiece *> *)selectLegalMove;
 - (void)up;
 - (void)down;
 - (void)tap;

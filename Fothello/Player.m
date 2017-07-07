@@ -51,7 +51,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"name %@",self.name];
+    return [NSString stringWithFormat:@"%@", self.name];
 }
 
 - (void)beginTurn
@@ -64,9 +64,9 @@
     return [self.strategy endTurn:self];
 }
 
-- (BOOL)isEqual:(id)name
+- (BOOL)isEqual:(Player *)player
 {
-    return [self.name isEqualToString:name];
+    return [self.name isEqualToString:player.name];
 }
 
 - (NSUInteger)hash

@@ -68,7 +68,7 @@
     // Use a value that will maintain consistent frame rate
     self.skInterface.preferredFramesPerSecond = 30;
     
-    self.gestureSelecton = [[GestureSelection alloc] init];
+    self.gestureSelecton = [[GestureSelection alloc] initWithMatch:self.match];
     
     [self reset];
 }

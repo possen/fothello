@@ -43,7 +43,7 @@
     for (Player *player in match.players)
     {
         SKSpriteNode *playerSprite = [[SKSpriteNode alloc] init];
-        CGSize size = CGSizeMake(30, 30);
+        CGSize size = CGSizeMake(boardScene.spacing, boardScene.spacing);
         playerSprite.size = size;
         playerSprite.position = CGPointMake(CGRectGetMidX(boardScene.frame) - playerSprite.size.width / 2, -100);
         

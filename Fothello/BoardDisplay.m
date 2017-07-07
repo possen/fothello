@@ -45,46 +45,43 @@
     dotSprite.lineWidth = 1.0;
     dotSprite.fillColor = [SKColor whiteColor];
     dotSprite.strokeColor = [SKColor blackColor];
-    dotSprite.position = CGPointMake(position.x - (size / 2) - .5, position.y - (size / 2) -.5);
+    dotSprite.position = CGPointMake(position.x - (size / 2) - .5, position.y - (size / 2) - .5);
     return dotSprite;
 }
 
 - (void)drawDots
 {
     BoardScene *boardScene = self.boardScene;
-    CGFloat spacing = self.spacing;
-    CGRect boardRect = boardScene.boardRect;
-    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
+    CGFloat offsetx = boardScene.boardRect.origin.x; CGFloat offsety = boardScene.boardRect.origin.y;
+    CGFloat pos2 = self.spacing * 2; CGFloat pos6 = self.spacing * 6;
     
-    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 2), originy + (spacing * 2))]];
-    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 2), originy + (spacing * 6))]];
-    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 6), originy + (spacing * 2))]];
-    [boardScene addChild:[self makeDotAtPosition:CGPointMake(originx + (spacing * 6), originy + (spacing * 6))]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(offsetx + pos2, offsety + pos2)]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(offsetx + pos2, offsety + pos6)]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(offsetx + pos6, offsety + pos2)]];
+    [boardScene addChild:[self makeDotAtPosition:CGPointMake(offsetx + pos6, offsety + pos6)]];
 }
 
 - (void)drawBoardGrid
 {
     BoardScene *boardScene = self.boardScene;
-    CGRect boardRect = boardScene.boardRect;
-    CGFloat boardDimensions = boardScene.boardDimensions;
-    SKShapeNode *boardUI = [SKShapeNode node];
-    
-    CGFloat spacing = boardDimensions / _boardSize;
+    CGRect boardRect = boardScene.boardRect;    
+    CGFloat spacing = self.spacing;
     CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
     CGFloat width = boardRect.size.width; CGFloat height = boardRect.size.height;
 
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    CGPathMoveToPoint(pathToDraw, NULL, boardRect.origin.x, boardRect.origin.y);
+    CGPathMoveToPoint(pathToDraw, NULL, originx, originy);
     CGPathAddRect(pathToDraw, NULL, CGRectMake(originx, originy, width, height));
     
-    for (CGFloat lines = 0; lines < boardDimensions; lines += spacing)
+    for (CGFloat lines = 0; lines < boardScene.boardDimensions; lines += spacing)
     {
         CGPathMoveToPoint(pathToDraw, NULL, originx, originy + lines);
-        CGPathAddLineToPoint(pathToDraw, NULL, originx + boardRect.size.width, originy + lines);
+        CGPathAddLineToPoint(pathToDraw, NULL, originx + width, originy + lines);
         CGPathMoveToPoint(pathToDraw, NULL, originx + lines, originy);
-        CGPathAddLineToPoint(pathToDraw, NULL, originx + lines, originy + boardRect.size.width);
+        CGPathAddLineToPoint(pathToDraw, NULL, originx + lines, originy + width);
     }
     
+    SKShapeNode *boardUI = [SKShapeNode node];
     boardUI.path = pathToDraw;
     [boardUI setStrokeColor:[SKColor blackColor]];
     

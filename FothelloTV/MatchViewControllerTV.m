@@ -56,7 +56,7 @@
     skView.showsFPS = YES;
     skView.showsNodeCount = YES;
     
-    self.gestureSelection = [[GestureSelection alloc] init];
+    self.gestureSelection = [[GestureSelection alloc] initWithMatch:self.match];
     
     [self reset];
 }

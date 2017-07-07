@@ -17,7 +17,6 @@
 		D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */; };
 		D509D6401CC8AA4D0028C082 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
-		D517EA3618385AC2009C54E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D517EA3518385AC2009C54E8 /* README.md */; };
 		D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D521BEE21E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D521BEE31E4BA5FE0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1710,7 +1709,6 @@
 				D5441B321831CB1100B5166A /* InfoPlist.strings in Resources */,
 				D56AAD281D13C9EB00BBCDFA /* BoardScene.sks in Resources */,
 				D5F5E46F1CC1394600A5A023 /* Media.xcassets in Resources */,
-				D517EA3618385AC2009C54E8 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

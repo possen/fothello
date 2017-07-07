@@ -1,5 +1,5 @@
     //
-//  MyScene.m
+//  BoardScene.m
 //  Fothello
 //
 //  Created by Paul Ossenbruggen on 11/11/13.
@@ -19,7 +19,6 @@
 @property (nonatomic) GameOverDisplay *gameOverDisplay;
 @property (nonatomic) BoardDisplay *boardDisplay;
 @property (nonatomic) PlayerDisplay *playerDisplay;
-@property (nonatomic) CGFloat spacing;
 @end
 
 @implementation BoardScene
@@ -52,30 +51,6 @@
     {
         [self.pieceSprite placeSpriteAtX:piece.position.x Y:piece.position.y withPiece:piece.piece];
     }
-}
-
-- (CGSize)calculateSpriteSizeWithSmallSize:(BOOL)sizeSmall
-{
-    CGFloat spacing = self.spacing;
-    CGSize spriteSize = CGSizeMake(spacing - 6.5, spacing - 6.5);
-    
-    if (sizeSmall)
-    {
-        spriteSize = CGSizeMake(spacing - spacing/1.5, spacing - spacing/1.5);
-    }
-    return spriteSize;
-}
-
-
-- (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall
-{
-    CGRect boardRect = self.boardRect;
-    CGFloat spacing = self.spacing;
-    CGSize spriteSize = [self calculateSpriteSizeWithSmallSize:sizeSmall];
-    CGFloat originx = boardRect.origin.x; CGFloat originy = boardRect.origin.y;
-    
-    return CGPointMake(x * spacing + originx - spriteSize.width / 2 + spacing / 2,
-                       y * spacing + originy - spriteSize.height / 2 + spacing / 2);
 }
 
 - (void)currentPlayerChange:(Player *)player canMove:(BOOL)canMove pass:(BOOL)pass
@@ -148,14 +123,6 @@
 // codebeat:enable[ABC, LOC]
 
 
-- (void)movePieceTo:(BoardPosition *)pos
-{
-    CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
-    SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];
-    SKAction *action = [SKAction sequence:@[actionPos]];
-    [self.currentPlayerSprite runAction:action];
-}
-
 - (void)teardownMatch
 {
     Match *match = self.match;
@@ -170,7 +137,7 @@
     GameBoard *board = self.match.board;
     [board visitAll:^(NSInteger x, NSInteger y, Piece *piece) {
          [self.pieceSprite placeSpriteAtX:x Y:y withPiece:piece];
-     }];
+    }];
 }
 
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy
