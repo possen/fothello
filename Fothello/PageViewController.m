@@ -60,18 +60,22 @@
     }
 }
 
+- (UIViewController *)pageControllerForIndex:(NSInteger)incdec
+{
+    NSUInteger index = viewController.pageIndex;
+    return [self viewControllerForPageIndex:(index + incdec)];
+}
+
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
        viewControllerAfterViewController:(MatchViewControllerIOS *)viewController
 {
-    NSUInteger index = viewController.pageIndex;
-    return [self viewControllerForPageIndex:(index + 1)];
+    return [self pageControllerForIndex:1]
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
       viewControllerBeforeViewController:(MatchViewControllerIOS *)viewController
 {
-    NSUInteger index = viewController.pageIndex;
-    return [self viewControllerForPageIndex:(index - 1)];
+    return [self pageControllerForIndex:-1]
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
