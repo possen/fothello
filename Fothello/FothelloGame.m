@@ -100,15 +100,8 @@
 
 - (void)setupDefaultMatch:(id<Engine>)engine
 {
-    Match *match = [self matchWithName:nil players:self.players];
-    Strategy *strategy1 = [[HumanStrategy alloc] initWithEngine:engine];
-    Strategy *strategy2 = [[AIStrategy alloc] initWithDifficulty:DifficultyEasy engine:engine];
-    Player *player1 = match.players[0];
-    Player *player2 = match.players[1];
-    player1.strategy = strategy1;
-    player2.strategy = strategy2;
-    strategy1.match = match;
-    strategy2.match = match;
+    _engine = engine;
+    [self createMatchFromKind:PlayerKindSelectionHumanVHuman difficulty:DifficultyEasy];
 }
 
 - (Match *)createMatch:(NSString *)name
@@ -177,15 +170,20 @@
     [self.players removeObject:player];
 }
 
-- (void)setEngine:(id <Engine>) engine
+- (void)setEngine:(id <Engine>) engine match:(Match *)match
 {
     _engine = engine;
+    
     for (Player *player in self.players)
     {
+        Strategy *strategy = player.strategy;
         player.strategy.engine = engine;
+        strategy.match = match;
     }
 }
 
+// don't think it should penalize for using a switch.
+// codebeat:disable[ABC, LOC]
 - (Match *)pickStrategyKind:(PlayerKindSelection)kind
                  difficulty:(Difficulty)difficulty
                     players:(NSArray<Player *> *)players
@@ -222,6 +220,7 @@
     players[0].strategy = strategy1; players[1].strategy = strategy2;
     return [[Match alloc] initWithName:@"game" players:players];
 }
+// codebeat:enable[ABC, LOC]
 
 - (Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty
 {
@@ -229,12 +228,7 @@
     Player *player2 = [self newPlayerWithName:@"White" preferredPieceColor:PieceColorWhite];
     Match *match = [self pickStrategyKind:kind difficulty:difficulty players:@[player1, player2]];
     
-    for (Player *player in self.players)
-    {
-        Strategy *strategy = player.strategy;
-        strategy.engine = self.engine;
-        strategy.match = match;
-    }
+    [self setEngine:self.engine match:match];
     [match reset];
     return match;
 }
