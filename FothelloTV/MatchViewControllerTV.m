@@ -27,7 +27,7 @@
     Match *match = [game setupDefaultMatch];
     self.match = match;
     
-    CGSize size = CGSizeMake(310, 310);
+    CGSize size = self.view.frame.size;
 
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:match];
