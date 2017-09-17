@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Player.h"
+#import "GameBoard.h"
 
 @class Piece;
 @class BoardPosition;
@@ -20,8 +21,7 @@
 @property (nonnull, nonatomic) GameBoardLegalMoves *legalMoves;
 @property (nonnull, nonatomic) GameBoardTracks *tracker;
 
-- (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size;
-
+- (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size piecePlacedBlock:(nonnull PlaceBlock)block;
 - (nonnull BoardPosition *)center;
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
 - (NSInteger)playerScoreUnqueued:(nonnull Player *)player;

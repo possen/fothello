@@ -14,7 +14,7 @@
 		D509D62B1CC8A7AF0028C082 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D509D62A1CC8A7AF0028C082 /* Assets.xcassets */; };
 		D509D62E1CC8A7AF0028C082 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D509D62C1CC8A7AF0028C082 /* Main.storyboard */; };
 		D509D6341CC8A9FA0028C082 /* BoardScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D5441B431831CB1100B5166A /* BoardScene.m */; };
-		D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */; };
+		D509D6391CC8A9FA0028C082 /* BoardScene+Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E4601CC12E5100A5A023 /* BoardScene+Mac.m */; };
 		D509D6401CC8AA4D0028C082 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
 		D509D6441CC8B15E0028C082 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5F5E4501CC129A200A5A023 /* SpriteKit.framework */; };
 		D521BEE11E4BA5FD0043769E /* NSDictionary+Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D521BEDF1E4BA5FD0043769E /* NSDictionary+Extensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -41,6 +41,7 @@
 		D525FBDC1E5A0DB0006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D525FBDD1E5A0DB1006CA134 /* Engine.h in Headers */ = {isa = PBXBuildFile; fileRef = D525FBBC1E59634D006CA134 /* Engine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D52C31311E40FAC700856359 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = D509D6281CC8A7AF0028C082 /* Document.m */; };
+		D53CD05D1F6EEFF8004DBC8A /* BoardScene+Watch.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CD05C1F6EEFF8004DBC8A /* BoardScene+Watch.m */; };
 		D53CE6B41ED1593800B47B0C /* GameBoardLegalMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */; };
 		D53CE6B51ED1593900B47B0C /* GameBoardLegalMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */; };
 		D53CE6B61ED1593A00B47B0C /* GameBoardLegalMoves.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */; };
@@ -55,7 +56,7 @@
 		D53CE6C11ED15E8800B47B0C /* GameBoardTracks.m in Sources */ = {isa = PBXBuildFile; fileRef = D53CE6B91ED15E8800B47B0C /* GameBoardTracks.m */; };
 		D53D351F1CD0929F00C67EEF /* NewGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D53D351B1CD0928400C67EEF /* NewGameViewController.m */; };
 		D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D540063A1E3AD2E200F2D7BB /* AppDelegate.m */; };
-		D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */; };
+		D54006441E3AD2E200F2D7BB /* BoardScene+AppleTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006431E3AD2E200F2D7BB /* BoardScene+AppleTV.m */; };
 		D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */ = {isa = PBXBuildFile; fileRef = D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */; };
 		D540064A1E3AD2E200F2D7BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54006481E3AD2E200F2D7BB /* Main.storyboard */; };
 		D540064C1E3AD2E200F2D7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D540064B1E3AD2E200F2D7BB /* Assets.xcassets */; };
@@ -304,7 +305,7 @@
 		D5F568101D111C6300998C14 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5680F1D111C6300998C14 /* ComplicationController.m */; };
 		D5F568121D111C6300998C14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F568111D111C6300998C14 /* Assets.xcassets */; };
 		D5F568161D111C6300998C14 /* FothelloWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D5F567ED1D111C6200998C14 /* FothelloWatch.app */; };
-		D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */; };
+		D5F5E45E1CC12E2100A5A023 /* BoardScene+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F5E45D1CC12E2100A5A023 /* BoardScene+iOS.m */; };
 		D5F5E46F1CC1394600A5A023 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5F5E46E1CC1394600A5A023 /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -491,6 +492,8 @@
 		D525FBCF1E5A014E006CA134 /* EngineStrongWatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EngineStrongWatch.m; sourceTree = "<group>"; };
 		D535DD501E3D03EF00AE5C1D /* FothelloMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FothelloMacTests.m; sourceTree = "<group>"; };
 		D535DD521E3D03EF00AE5C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D53CD05B1F6EEFF8004DBC8A /* BoardScene+Watch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BoardScene+Watch.h"; sourceTree = "<group>"; };
+		D53CD05C1F6EEFF8004DBC8A /* BoardScene+Watch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BoardScene+Watch.m"; sourceTree = "<group>"; };
 		D53CE6B11ED1552100B47B0C /* GameBoardLegalMoves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardLegalMoves.h; sourceTree = "<group>"; };
 		D53CE6B21ED1552100B47B0C /* GameBoardLegalMoves.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoardLegalMoves.m; sourceTree = "<group>"; };
 		D53CE6B81ED15E8800B47B0C /* GameBoardTracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoardTracks.h; sourceTree = "<group>"; };
@@ -500,8 +503,8 @@
 		D54006341E3AD2E200F2D7BB /* FothelloTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FothelloTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54006391E3AD2E200F2D7BB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = FothelloTV/AppDelegate.h; sourceTree = SOURCE_ROOT; };
 		D540063A1E3AD2E200F2D7BB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = FothelloTV/AppDelegate.m; sourceTree = SOURCE_ROOT; };
-		D54006421E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "BoardScene+BoardScene_AppleTV.h"; path = "FothelloTV/BoardScene+BoardScene_AppleTV.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "BoardScene+BoardScene_AppleTV.m"; path = "FothelloTV/BoardScene+BoardScene_AppleTV.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D54006421E3AD2E200F2D7BB /* BoardScene+AppleTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = "BoardScene+AppleTV.h"; path = "FothelloTV/BoardScene+AppleTV.h"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		D54006431E3AD2E200F2D7BB /* BoardScene+AppleTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = "BoardScene+AppleTV.m"; path = "FothelloTV/BoardScene+AppleTV.m"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D54006451E3AD2E200F2D7BB /* MatchViewControllerTV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MatchViewControllerTV.h; path = FothelloTV/MatchViewControllerTV.h; sourceTree = SOURCE_ROOT; };
 		D54006461E3AD2E200F2D7BB /* MatchViewControllerTV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = MatchViewControllerTV.m; path = FothelloTV/MatchViewControllerTV.m; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D54006491E3AD2E200F2D7BB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -630,10 +633,10 @@
 		D5F5E4501CC129A200A5A023 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/SpriteKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5F5E4521CC129E800A5A023 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
 		D5F5E4541CC129FB00A5A023 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
-		D5F5E45C1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BoardScene+BoardScene_iOS.h"; sourceTree = "<group>"; };
-		D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BoardScene+BoardScene_iOS.m"; sourceTree = "<group>"; };
-		D5F5E45F1CC12E5100A5A023 /* BoardScene+BoardScene_Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BoardScene+BoardScene_Mac.h"; sourceTree = "<group>"; };
-		D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BoardScene+BoardScene_Mac.m"; sourceTree = "<group>"; };
+		D5F5E45C1CC12E2100A5A023 /* BoardScene+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BoardScene+iOS.h"; sourceTree = "<group>"; };
+		D5F5E45D1CC12E2100A5A023 /* BoardScene+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BoardScene+iOS.m"; sourceTree = "<group>"; };
+		D5F5E45F1CC12E5100A5A023 /* BoardScene+Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BoardScene+Mac.h"; sourceTree = "<group>"; };
+		D5F5E4601CC12E5100A5A023 /* BoardScene+Mac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BoardScene+Mac.m"; sourceTree = "<group>"; };
 		D5F5E46E1CC1394600A5A023 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -774,8 +777,8 @@
 				D5ADC4931CDFCD0B009308C5 /* MovesViewController.m */,
 				D5ADC49B1CDFCEA0009308C5 /* MovesViewAdapter.h */,
 				D5ADC49C1CDFCEA0009308C5 /* MovesViewAdapter.m */,
-				D5F5E45F1CC12E5100A5A023 /* BoardScene+BoardScene_Mac.h */,
-				D5F5E4601CC12E5100A5A023 /* BoardScene+BoardScene_Mac.m */,
+				D5F5E45F1CC12E5100A5A023 /* BoardScene+Mac.h */,
+				D5F5E4601CC12E5100A5A023 /* BoardScene+Mac.m */,
 				D5D9BCB31CD31BA600B41864 /* FothelloMac.entitlements */,
 				D509D62C1CC8A7AF0028C082 /* Main.storyboard */,
 				D509D62A1CC8A7AF0028C082 /* Assets.xcassets */,
@@ -798,8 +801,8 @@
 			children = (
 				D54006391E3AD2E200F2D7BB /* AppDelegate.h */,
 				D540063A1E3AD2E200F2D7BB /* AppDelegate.m */,
-				D54006421E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.h */,
-				D54006431E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m */,
+				D54006421E3AD2E200F2D7BB /* BoardScene+AppleTV.h */,
+				D54006431E3AD2E200F2D7BB /* BoardScene+AppleTV.m */,
 				D54006481E3AD2E200F2D7BB /* Main.storyboard */,
 				D540064B1E3AD2E200F2D7BB /* Assets.xcassets */,
 				D540064D1E3AD2E200F2D7BB /* Info.plist */,
@@ -1042,6 +1045,8 @@
 			children = (
 				D5F568001D111C6200998C14 /* InterfaceController.h */,
 				D5F568011D111C6200998C14 /* InterfaceController.m */,
+				D53CD05B1F6EEFF8004DBC8A /* BoardScene+Watch.h */,
+				D53CD05C1F6EEFF8004DBC8A /* BoardScene+Watch.m */,
 				D5F568081D111C6300998C14 /* ExtensionDelegate.h */,
 				D5F568091D111C6300998C14 /* ExtensionDelegate.m */,
 				D5F5680B1D111C6300998C14 /* NotificationController.h */,
@@ -1086,8 +1091,8 @@
 				D5C0B66B18C40F73000DCEB8 /* PageViewController.m */,
 				D5441B3F1831CB1100B5166A /* MatchViewControllerIOS.h */,
 				D5441B401831CB1100B5166A /* MatchViewControllerIOS.m */,
-				D5F5E45C1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.h */,
-				D5F5E45D1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m */,
+				D5F5E45C1CC12E2100A5A023 /* BoardScene+iOS.h */,
+				D5F5E45D1CC12E2100A5A023 /* BoardScene+iOS.m */,
 				D5F2C15C18418C5B000F089E /* DialogViewController.h */,
 				D5F2C15D18418C5B000F089E /* DialogViewController.m */,
 				D5441B471831CB1100B5166A /* Images.xcassets */,
@@ -1102,20 +1107,20 @@
 			isa = PBXGroup;
 			children = (
 				D5441B331831CB1100B5166A /* main.m */,
-				D5F568061D111C6300998C14 /* BoardScene.sks */,
 				D5441B421831CB1100B5166A /* BoardScene.h */,
 				D5441B431831CB1100B5166A /* BoardScene.m */,
 				D55948131EB5A40600216D19 /* BoardDisplay.h */,
 				D55948141EB5A40600216D19 /* BoardDisplay.m */,
 				D5B1C1371ED1317800B0F736 /* PieceSprite.h */,
 				D5B1C1381ED1317800B0F736 /* PieceSprite.m */,
-				D5F5E46E1CC1394600A5A023 /* Media.xcassets */,
 				D559480A1EB5895500216D19 /* GameOverDisplay.h */,
 				D559480B1EB5895500216D19 /* GameOverDisplay.m */,
 				D55948101EB5A2F900216D19 /* PlayerDisplay.h */,
 				D55948111EB5A2F900216D19 /* PlayerDisplay.m */,
 				D544BE691F0A41A700BD7597 /* GestureSelection.h */,
 				D544BE6A1F0A41A700BD7597 /* GestureSelection.m */,
+				D5F5E46E1CC1394600A5A023 /* Media.xcassets */,
+				D5F568061D111C6300998C14 /* BoardScene.sks */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -1764,7 +1769,7 @@
 				D509D6201CC8A7AF0028C082 /* AppDelegate.m in Sources */,
 				D52C31311E40FAC700856359 /* Document.m in Sources */,
 				D559480D1EB5896A00216D19 /* GameOverDisplay.m in Sources */,
-				D509D6391CC8A9FA0028C082 /* BoardScene+BoardScene_Mac.m in Sources */,
+				D509D6391CC8A9FA0028C082 /* BoardScene+Mac.m in Sources */,
 				D559481A1EB5B47100216D19 /* BoardDisplay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1780,7 +1785,7 @@
 				D54006471E3AD2E200F2D7BB /* MatchViewControllerTV.m in Sources */,
 				D55948181EB5B46B00216D19 /* PlayerDisplay.m in Sources */,
 				D540063B1E3AD2E200F2D7BB /* AppDelegate.m in Sources */,
-				D54006441E3AD2E200F2D7BB /* BoardScene+BoardScene_AppleTV.m in Sources */,
+				D54006441E3AD2E200F2D7BB /* BoardScene+AppleTV.m in Sources */,
 				D5B1C13B1ED1317B00B0F736 /* PieceSprite.m in Sources */,
 				D559481B1EB5B47200216D19 /* BoardDisplay.m in Sources */,
 			);
@@ -1937,7 +1942,7 @@
 				D559480C1EB5895500216D19 /* GameOverDisplay.m in Sources */,
 				D55948151EB5A40600216D19 /* BoardDisplay.m in Sources */,
 				D5441B441831CB1100B5166A /* BoardScene.m in Sources */,
-				D5F5E45E1CC12E2100A5A023 /* BoardScene+BoardScene_iOS.m in Sources */,
+				D5F5E45E1CC12E2100A5A023 /* BoardScene+iOS.m in Sources */,
 				D5441B411831CB1100B5166A /* MatchViewControllerIOS.m in Sources */,
 				D5441B381831CB1100B5166A /* AppDelegate.m in Sources */,
 				D55948121EB5A2F900216D19 /* PlayerDisplay.m in Sources */,
@@ -2001,6 +2006,7 @@
 				D55948191EB5B46C00216D19 /* PlayerDisplay.m in Sources */,
 				D5F568021D111C6200998C14 /* InterfaceController.m in Sources */,
 				D5F568101D111C6300998C14 /* ComplicationController.m in Sources */,
+				D53CD05D1F6EEFF8004DBC8A /* BoardScene+Watch.m in Sources */,
 				D5B1C13C1ED1318B00B0F736 /* PieceSprite.m in Sources */,
 				D56AAD291D13E12500BBCDFA /* BoardScene.m in Sources */,
 				D559481C1EB5B47400216D19 /* BoardDisplay.m in Sources */,

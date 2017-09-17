@@ -7,7 +7,7 @@
 //
 
 #import "MatchViewControllerTV.h"
-#import "BoardScene.h"
+#import "BoardScene+AppleTV.h"
 #import "GestureSelection.h"
 
 @interface MatchViewControllerTV ()
@@ -21,63 +21,29 @@
 {
     [super viewDidLoad];
     
-    // Load 'BoardScene.sks' as a GKScene. This provides gameplay related content
-    // including entities and graphs.
-    //   GKScene *scene = [GKScene sceneWithFileNamed:@"BoardScene"];
-    
-    // Get the SKScene from the loaded GKScene
-    //    BoardScene *sceneNode = (BoardScene *)scene.rootNode;
-    CGSize size = CGSizeMake(310, 310);
-    
     FothelloGame *game = [FothelloGame sharedInstance];
     game.engine = [EngineStrong engine];
-
-    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
     
+    Match *match = [game setupDefaultMatch];
+    self.match = match;
+    
+    CGSize size = CGSizeMake(310, 310);
+
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
+    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:match];
     self.boardScene = scene;
     
-    __weak MatchViewControllerTV *weakSelf = self;
-    scene.updatePlayerMove = ^(BOOL canMove)
-    {
-        [weakSelf updateMove:canMove];
-    };
-  
-    // Set the scale mode to scale to fit the window
-    scene.scaleMode = SKSceneScaleModeAspectFit;
-    
     SKView *skView = (SKView *)self.view;
-    
-    // Present the scene
-    [skView presentScene:scene];
-    scene.match = self.match;
-   
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    
-    self.gestureSelection = [[GestureSelection alloc] initWithMatch:self.match];
-    
-    [self reset];
+    [scene presentWithView:skView updatePlayerMove:^(BOOL canMove) {
+        //    self.pass.hidden = canMove;
+    }];
 }
-
 
 - (void)setMatch:(Match *)match
 {
     [self.match reset]; // erase board
     _match = match;
     [self.match reset]; // setup board
-}
-
-- (void)reset
-{
-    [self.match reset];
-    [self.match beginMatch];
-}
-
-- (void)updateMove:(BOOL)canMove
-{
-    //    self.pass.hidden = canMove;
 }
 
 - (void)didReceiveMemoryWarning

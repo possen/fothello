@@ -9,10 +9,10 @@
 #import <FothelloLib/FothelloLib.h>
 
 #import "InterfaceController.h"
-#import "BoardScene.h"
 #import "GameBoard.h"
 #import "Match.h"
 #import "GestureSelection.h"
+#import "BoardScene+Watch.h"
 
 @interface InterfaceController() 
 
@@ -21,67 +21,30 @@
 @property (nonatomic) GestureSelection *gestureSelecton;
 @end
 
-
-@implementation InterfaceController 
+@implementation InterfaceController
 
 - (void)awakeWithContext:(id)context
 {
     [super awakeWithContext:context];
-
-//    SKView *skView = (SKView *)self.mainScene;
-    //    skView.showsFPS = YES;
-    //skView.showsNodeCount = YES;
-    
-    // Load the SKScene from 'BoardScene.sks'
-//    BoardScene *scene = [BoardScene nodeWithFileNamed:@"BoardScene"];
-    CGSize size = CGSizeMake(310, 310);
-//    self.pass.hidden = YES;
     
     self.crownSequencer.delegate = self;
     [self.crownSequencer focus];
-
+    
     FothelloGame *game = [FothelloGame sharedInstance];
+    EngineWeakWatch *engine =  [EngineWeakWatch engine];
+    game.engine = engine;
     
-    self.match = [game createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    Match *match = [game setupDefaultMatch];
+    self.match = match;
+    BoardScene *boardScene = self.boardScene;
+    boardScene.match = match;
+    self.boardScene = boardScene;
     
-    game.engine = [EngineWeakWatch engine];    
-    [game setupDefaultMatch:game.engine];
+    [self.boardScene presentWithUpdatePlayerMove:^(BOOL canMove) {
+        //    self.pass.hidden = canMove;
+    }];
     
-    // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:size match:self.match];
-    self.boardScene = scene;
-    
-    __weak InterfaceController *weakBlockSelf = self;
-    scene.updatePlayerMove = ^(BOOL canMove)
-    {
-        [weakBlockSelf updateMove:canMove];
-    };
-    
-    // Set the scale mode to scale to fit the window
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene
-    [self.skInterface presentScene:scene];
-    
-    scene.match = self.match;
-   
-    // Use a value that will maintain consistent frame rate
-    self.skInterface.preferredFramesPerSecond = 30;
-    
-    self.gestureSelecton = [[GestureSelection alloc] initWithMatch:self.match];
-    
-    [self reset];
-}
-
-- (void)updateMove:(BOOL)canMove
-{
-    //x`    self.pass.hidden = canMove;
-}
-
-- (void)reset
-{
-    [self.match reset];
-    [self.match beginMatch];
+ //   [self presentScene:boardScene];
 }
 
 - (void)setMatch:(Match *)match
@@ -108,7 +71,6 @@
     self.gestureSelecton.currentPos += rotationalDelta;
     [self.gestureSelecton selectLegalMove];
 }
-
 
 - (IBAction)upAction:(id)sender
 {

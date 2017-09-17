@@ -13,7 +13,5 @@
 
 @interface MatchViewControllerMac : NSViewController
 
-@property (nonatomic) Match *match;
-
-- (void)reset;
+@property (nonatomic, nonnull) Match *match;
 @end

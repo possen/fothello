@@ -33,7 +33,7 @@
 
 @implementation GameBoardInternal
 
-- (instancetype)initWithBoard:(GameBoard *)board size:(NSInteger)size
+- (instancetype)initWithBoard:(GameBoard *)board size:(NSInteger)size piecePlacedBlock:(PlaceBlock)block
 {
     self = [super init];
     if (self)
@@ -253,5 +253,18 @@
     self.legalMovesForPlayer = legalPieces;
 }
 
+- (void)updateCompletion:(UpdateCompleteBlock)updateComplete
+          updateFunction:(NSArray<NSArray<BoardPiece *> *> *(^)(void))updateFunction
+{
+    if (updateFunction != nil)
+    {
+        NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
+        [self updateBoardWithPieces:pieces];
+        [self determineLegalMoves];
+        if (self.board.placeBlock != nil) self.board.placeBlock(pieces);
+    }
+    
+    if (updateComplete != nil) updateComplete();
+}
 
 @end

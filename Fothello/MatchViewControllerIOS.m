@@ -7,7 +7,7 @@
 //
 
 #import "MatchViewControllerIOS.h"
-#import "BoardScene+BoardScene_iOS.h"
+#import "BoardScene+iOS.h"
 #import "FothelloGame.h"
 #import "DialogViewController.h"
 #import "Match.h"
@@ -16,7 +16,7 @@
 #import "EngineStrong.h"
 #import "GestureSelection.h"
 
-@interface MatchViewControllerIOS ()
+@interface MatchViewControllerIOS () 
 @property (nonatomic) GestureSelection *gestureSelection;
 @end
 
@@ -27,43 +27,22 @@
     [super viewDidLoad];
     
     self.pass.hidden = YES;
-    CGSize size = self.view.frame.size;
-    CGRect bounds = CGRectMake(0, 0, size.width, size.height);
     
     // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:bounds.size match:self.match];
-    self.boardScene = scene;
+    FothelloGame *game = [FothelloGame sharedInstance];
+    EngineStrong *engine = [EngineStrong engine];
+    game.engine = engine;
     
-    __weak MatchViewControllerIOS *weakBlockSelf = self;
-    scene.updatePlayerMove = ^(BOOL canMove)
-    {
-        [weakBlockSelf updateMove:canMove];
-    };
+    Match *match = [game setupDefaultMatch];
+    self.match = match;
+    CGSize size = self.view.bounds.size;
+    BoardScene *boardScene = [[BoardScene alloc] initWithSize:size match:self.match];
+    self.boardScene = boardScene;
     
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Configure the view.
-    SKView *skView = (SKView *)self.mainScene;
-    
-    // Present the scene.
-    [skView presentScene:scene];
-    
-    scene.match = self.match;
-    self.gestureSelection = [[GestureSelection alloc] initWithMatch:self.match];
-    
-    [self reset];
-    
-}
-
-- (void)reset
-{
-    [self.match reset];
-    [self.match beginMatch];
-}
-
-- (void)updateMove:(BOOL)canMove
-{
-    self.pass.hidden = canMove;
+    SKView *skView = (SKView *)self.view;
+    [boardScene presentWithView:skView updatePlayerMove:^(BOOL canMove) {
+        self.pass.hidden = canMove;
+    }];
 }
 
 - (IBAction)unwindFromCancelForm:(UIStoryboardSegue *)segue
@@ -86,7 +65,7 @@
     self.boardScene.match = match;
     self.match = match;
     
-    [self reset];
+    [self.match reset];
 }
 
 - (BOOL)allowActionToRun
@@ -101,7 +80,7 @@
 
 - (IBAction)resetGame:(UIButton *)sender
 {
-    [self reset];
+    [self.match reset];
 }
 
 - (IBAction)hint:(UIButton *)sender

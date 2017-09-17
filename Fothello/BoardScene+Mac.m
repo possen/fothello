@@ -1,5 +1,5 @@
 //
-//  BoardScene+BoardScene_Mac.m
+//  BoardScene+Mac.m
 //  Fothello
 //
 //  Created by Paul Ossenbruggen on 4/15/16.
@@ -7,9 +7,15 @@
 //
 #import "FothelloGame.h"
 #import "BoardScene.h"
-#import "BoardScene+BoardScene_Mac.h"
+#import "BoardScene+Mac.h"
 
-@implementation BoardScene (BoardScene_Mac)
+@implementation BoardScene (Mac)
+
+- (void)presentWithView:(SKView *)view updatePlayerMove:(UpdatePlayerMove)updateMove
+{
+    [self presentCommon:updateMove];
+    [view presentScene:self];
+}
 
 - (void)mouseDown:(NSEvent *)theEvent
 {

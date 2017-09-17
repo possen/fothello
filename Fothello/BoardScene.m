@@ -13,7 +13,8 @@
 #import "BoardDisplay.h"
 #import "PlayerDisplay.h"
 #import "PieceSprite.h"
-
+#import "GameBoard.h"
+#import "GameBoardInternal.h"
 
 @interface BoardScene ()
 @property (nonatomic) GameOverDisplay *gameOverDisplay;
@@ -42,6 +43,14 @@
     }
     return self;
 }
+
+- (void)presentCommon:(UpdatePlayerMove)updateMove
+{
+    self.scaleMode = SKSceneScaleModeAspectFill;
+    self.updatePlayerMove = updateMove;
+    [self.match reset];
+}
+
 
 - (void)setPiece:(NSArray<NSArray <BoardPiece *> *> *)pieceTracks
 {
@@ -91,7 +100,6 @@
     [self.boardDisplay drawBoard];
     __weak BoardScene *weakBlockSelf = self;
 
-    // whenever a piece is placed on board calls back to here.
     match.board.placeBlock = ^(NSArray<NSArray <BoardPiece *> *> *pieceTracks) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakBlockSelf setPiece:pieceTracks];

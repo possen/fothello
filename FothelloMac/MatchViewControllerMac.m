@@ -11,7 +11,7 @@
 #import "MatchViewControllerMac.h"
 #import "NewGameViewController.h"
 #import "MovesViewController.h"
-#import "BoardScene.h"
+#import "BoardScene+Mac.h"
 #import "AppDelegate.h"
 #import "GameBoard.h"
 #import "PlayerMove.h"
@@ -38,37 +38,19 @@
 
     FothelloGame *game = [FothelloGame sharedInstance];
     game.engine = [EngineStrong engine];
-    [game setupDefaultMatch:game.engine];
-        
-    NSAssert(game.matches.count != 0, @"matches empty");
-    self.match = game.matches.allValues[0];
-
+    Match *match = [game setupDefaultMatch];
+    self.match = match;
     SKView *skView = self.mainView;
   
-    // Create and configure the scene.
-    BoardScene *scene = [[BoardScene alloc] initWithSize:skView.bounds.size match:self.match];
+    BoardScene *boardScene = [[BoardScene alloc] initWithSize:skView.bounds.size match:match];
+    self.boardScene = boardScene;
     
-    //    BoardScene *scene = (BoardScene *)[SKScene nodeWithFileNamed:@"BoardScene"];
-    self.boardScene = scene;
-  
-    __weak typeof(self) weakSelf = self;
-    scene.updatePlayerMove = ^(BOOL canMove)
-    {
-        [weakSelf updateMove:canMove];
-    };
+    NSAssert(game.matches.count != 0, @"matches empty");
+    self.match = game.matches.allValues[0];
     
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Set the scale mode to scale to fit the window
-    self.boardScene.scaleMode = SKSceneScaleModeAspectFit;
-    
-    // Present the scene.
-    [skView presentScene:scene];
-    
-    // do this after setting up scene otherwise we get an error sometimes modifiying an array while iterating.
-    scene.match = self.match;
-
-    [self reset];
+    [boardScene presentWithView:skView updatePlayerMove:^(BOOL canMove) {
+        self.canMove = canMove;
+    }];
 }
 
 - (void)prepareForSegue:(NSStoryboardSegue *)segue sender:(id)sender
@@ -107,7 +89,6 @@
 {
     [self.movesController resetGame:self.match];
     [self.match reset];
-    [self.match beginMatch];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
@@ -118,11 +99,6 @@
 - (void)restoreStateWithCoder:(NSCoder *)coder
 {
     [super restoreStateWithCoder:coder];
-}
-
-- (void)updateMove:(BOOL)canMove
-{
-    self.canMove = canMove;
 }
 
 - (IBAction)newDocument:(id)sender

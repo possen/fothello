@@ -9,7 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "FothelloGame.h"
 
-static NSString *kMainFont = @"AvenirNext-Medium";
+static NSString *_Nonnull kMainFont = @"AvenirNext-Medium";
 
 @class Match;
 @class PieceSprite;
@@ -18,18 +18,19 @@ typedef void (^UpdatePlayerMove)(BOOL canMove);
 
 @interface BoardScene : SKScene
 
-@property (nonatomic) Match *match;
-@property (nonatomic,readonly) NSInteger boardDimensions;
-@property (nonatomic,readonly) CGRect boardRect;
-@property (nonatomic,readonly) NSInteger boardSize;
-@property (nonatomic, copy) UpdatePlayerMove updatePlayerMove;
-@property (nonatomic) SKNode *gameOverNode;
-@property (nonatomic) SKShapeNode *boardUI;
-@property (nonatomic) PieceSprite *pieceSprite;
+@property (nonatomic, nonnull) Match *match;
+@property (nonatomic, readonly) NSInteger boardDimensions;
+@property (nonatomic, readonly) CGRect boardRect;
+@property (nonatomic, readonly) NSInteger boardSize;
+@property (nonatomic, nonnull, copy) UpdatePlayerMove updatePlayerMove;
+@property (nonatomic, nullable) SKNode *gameOverNode;
+@property (nonatomic, nonnull) SKShapeNode *boardUI;
+@property (nonatomic, nonnull) PieceSprite *pieceSprite;
 @property (nonatomic) CGFloat spacing;
-@property (nonatomic) SKSpriteNode *currentPlayerSprite;
+@property (nonatomic, nullable) SKSpriteNode *currentPlayerSprite;
     
-- (instancetype)initWithSize:(CGSize)size match:(Match *)match;
+- (nonnull instancetype)initWithSize:(CGSize)size match:(nonnull Match *)match;
 - (void)locationX:(NSInteger)rawx Y:(NSInteger)rawy;
+- (void)presentCommon:(nonnull UpdatePlayerMove)updateMove;
 
 @end

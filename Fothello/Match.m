@@ -108,10 +108,12 @@
 
 - (void)reset
 {
+
     [self endTurn];
     if (self.matchStatusBlock) self.matchStatusBlock(NO);
     self.noMoves = NO;
     [self.board reset];
+    [self beginMatch];
 }
 
 - (void)nextPlayerWithTime:(float)time

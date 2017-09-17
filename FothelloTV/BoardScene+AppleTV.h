@@ -1,5 +1,5 @@
 //
-//  BoardScene.h
+//  BoardScene+tvos.h
 //  FothelloTV
 //
 //  Created by Paul Ossenbruggen on 1/26/17.
@@ -9,6 +9,6 @@
 #import <SpriteKit/SpriteKit.h>
 #import "BoardScene.h"
 
-@interface BoardScene (BoardScene_AppleTV)
-
+@interface BoardScene (TVOS)
+- (void)presentWithView:(nonnull SKView *)view updatePlayerMove:(nonnull UpdatePlayerMove)updateMove;
 @end

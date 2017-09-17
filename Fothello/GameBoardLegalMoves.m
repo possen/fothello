@@ -18,7 +18,7 @@
 #import "Piece.h"
 
 @interface GameBoardLegalMoves ()
-@property (nonatomic) GameBoardInternal *internal;
+@property (nonatomic) GameBoardInternal *gameBoardInternal;
 @end
 
 @interface GameBoardInternal ()
@@ -31,7 +31,7 @@
 {
     self = [super init];
     if (self) {
-        _internal = gameBoard;
+        _gameBoardInternal = gameBoard;
     }
     return self;
 }
@@ -39,7 +39,7 @@
 
 - (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    GameBoardInternal *internal = self.internal;
+    GameBoardInternal *internal = self.gameBoardInternal;
     NSArray <BoardPiece *> *legalMoves = [internal.legalMovesForPlayer objectAtCheckedIndex:player.color];
     
     BOOL legalMove = legalMoves != nil
@@ -55,7 +55,7 @@
 - (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color
 {
     NSMutableArray<BoardPiece *>*pieces = [[NSMutableArray alloc] initWithCapacity:10];
-    GameBoardInternal *internal = self.internal;
+    GameBoardInternal *internal = self.gameBoardInternal;
     
     // Determine moves
     [internal visitAllUnqueued:^(NSInteger x, NSInteger y, Piece *findPiece) {
@@ -75,7 +75,7 @@
 
 - (NSArray<BoardPiece *> *)findLegals:(NSArray<BoardPiece *> *)pieces
 {
-    GameBoardInternal *internal = self.internal;
+    GameBoardInternal *internal = self.gameBoardInternal;
 
     NSIndexSet *legals = [pieces indexesOfObjectsPassingTest:
                           ^BOOL(BoardPiece *piece, NSUInteger idx, BOOL * stop) {

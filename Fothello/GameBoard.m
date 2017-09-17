@@ -39,6 +39,8 @@
 - (BOOL)isFullUnqueud;
 - (BOOL)canMoveUnqueued:(nonnull Player *)player;
 - (NSInteger)size;
+- (void)updateCompletion:(UpdateCompleteBlock)updateComplete
+          updateFunction:(NSArray<NSArray<BoardPiece *> *> *(^)(void))updateFunction;
 
 @end
 
@@ -56,9 +58,8 @@
     
     if (self)
     {
-        _boardInternal = [[GameBoardInternal alloc] initWithBoard:self size:size];
+        _boardInternal = [[GameBoardInternal alloc] initWithBoard:self size:size piecePlacedBlock:block];
         _queue = dispatch_queue_create("match update queue", DISPATCH_QUEUE_SERIAL);
-        _placeBlock = block;
     }
     return self;
 }
@@ -82,19 +83,8 @@
            complete:(UpdateCompleteBlock)updateComplete
 {
     dispatch_async(self.queue,^{
-       if (updateFunction != nil)
-       {
-           GameBoardInternal *internal = self.boardInternal;
-           NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
-           [internal updateBoardWithPieces:pieces];
-           [internal determineLegalMoves];
-           if (self.placeBlock != nil) self.placeBlock(pieces);
-
-//           NSLog(@"%@", self.legalMovesForPlayer);
-       }
-       
-       if (self.updateCompleteBlock != nil) self.updateCompleteBlock();
-       if (updateComplete != nil) updateComplete();
+        GameBoardInternal *internal = self.boardInternal;
+        [internal updateCompletion:updateComplete updateFunction:updateFunction];
    });
 }
 

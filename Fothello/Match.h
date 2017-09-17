@@ -32,7 +32,6 @@ typedef void (^CurrentPlayerBlock)(Player * _Nonnull player, BOOL canMove, BOOL 
 - (void)nextPlayer;
 - (void)beginTurn;
 - (void)endTurn;
-
 - (void)placeMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 
 @property (nonatomic, copy, nonnull) NSString *name;

@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-
 @class Match;
 @class Player;
 @class Strategy;
+@class BoardScene;
+
 @protocol Engine;
 
 typedef NS_ENUM(NSInteger, Difficulty)
@@ -61,8 +62,7 @@ typedef void (^GameOverBlock)(void);
 - (nonnull Player *)newPlayerWithName:(nonnull NSString *)name
           preferredPieceColor:(PieceColor)preferredPieceColor;
 
-- (void)setupDefaultMatch:(nonnull id<Engine>)engine;
-
+- (nonnull Match *)setupDefaultMatch;
 - (nonnull Match *)createMatchFromKind:(PlayerKindSelection)kind difficulty:(Difficulty)difficulty;
 
 @end

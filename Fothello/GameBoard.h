@@ -46,10 +46,11 @@ typedef void (^UpdateCompleteBlock)(void);
 // updates or reads board on queue, if nothing to update return @[];
 - (void)updateBoard:(nullable NSArray<NSArray <BoardPiece *> *> * _Nonnull(^)(void))updateFunction;
 
-@property (nonatomic, copy, nullable) PlaceBlock placeBlock;
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
 @property (nonatomic, copy, nullable) UpdateCompleteBlock updateCompleteBlock;
 @property (nonatomic, nonnull) dispatch_queue_t queue;
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic, readonly) NSInteger size;
+@property (nonatomic, copy, nullable) PlaceBlock placeBlock;
+
 @end

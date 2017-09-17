@@ -11,6 +11,7 @@
 #import "Match.h"
 #import "Player.h"
 #import "AIStrategy.h"
+#import "BoardScene.h"
 #import "HumanStrategy.h"
 
 #pragma mark - FothelloGame -
@@ -97,10 +98,10 @@
     [encoder encodeObject:self.matches forKey:@"matches"];
 }
 
-- (void)setupDefaultMatch:(id<Engine>)engine
+- (Match *)setupDefaultMatch
 {
-    _engine = engine;
-    [self createMatchFromKind:PlayerKindSelectionHumanVHuman difficulty:DifficultyEasy];
+    Match *match = [self createMatchFromKind:PlayerKindSelectionHumanVComputer difficulty:DifficultyEasy];
+    return match;
 }
 
 - (Match *)createMatch:(NSString *)name

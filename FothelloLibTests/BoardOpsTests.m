@@ -38,7 +38,7 @@
     FothelloGame *game = [FothelloGame sharedInstance];
     EngineStrong *engineStrong = [EngineStrong engine];
     game.engine = engineStrong;
-    [game setupDefaultMatch:engineStrong];
+    Match *match = [game setupDefaultMatch];
     self.engineStrong = engineStrong;
     self.game = game;
 }

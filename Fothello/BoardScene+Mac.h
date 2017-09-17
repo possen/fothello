@@ -1,5 +1,5 @@
 //
-//  BoardScene+BoardScene_Mac.h
+//  BoardScene+Mac.h
 //  Fothello
 //
 //  Created by Paul Ossenbruggen on 4/15/16.
@@ -8,6 +8,6 @@
 
 #import "BoardScene.h"
 
-@interface BoardScene (BoardScene_Mac)
-
+@interface BoardScene (Mac)
+- (void)presentWithView:(nonnull SKView *)view updatePlayerMove:(nonnull UpdatePlayerMove)updateMove;
 @end
