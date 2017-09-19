@@ -51,7 +51,6 @@
     [self.match reset];
 }
 
-
 - (void)setPiece:(NSArray<NSArray <BoardPiece *> *> *)pieceTracks
 {
     NSArray<BoardPiece *> *boardPieces = [NSArray flatten:pieceTracks];
@@ -65,9 +64,7 @@
 - (void)currentPlayerChange:(Player *)player canMove:(BOOL)canMove pass:(BOOL)pass
 {
     [self.playerDisplay displayPlayer:player];
-    
     if (self.updatePlayerMove) self.updatePlayerMove(canMove || self.gameOverNode);
-    
     [self playerTurnComplete];
 }
 
@@ -76,9 +73,7 @@
     if (gameOver)
     {
         FothelloGame *game = [FothelloGame sharedInstance];
-        
         if (game.gameOverBlock) game.gameOverBlock();
-        
         [self displayGameOver];
     }
     else
@@ -125,11 +120,9 @@
     };
     
     [self syncronizeBoardStateWithModel];
-    
     self.currentPlayerSprite = match.currentPlayer.userReference;
 }
 // codebeat:enable[ABC, LOC]
-
 
 - (void)teardownMatch
 {
@@ -160,8 +153,7 @@
     CGFloat spacing = self.spacing;
     Match *match = self.match;
     
-    CGFloat x = (rawx - origin.x) / spacing;
-    CGFloat y = (rawy - origin.y) / spacing;
+    CGFloat x = (rawx - origin.x) / spacing; CGFloat y = (rawy - origin.y) / spacing;
     
     if (x >= 0 && x < boardSize && y >= 0 && y < boardSize)
     {
@@ -183,14 +175,12 @@
 - (void)playerTurnComplete
 {
     if (self.gameOverNode) return;
-
     [self nextPlayer];
 }
 
 - (void)displayGameOver
 {
     if (self.gameOverNode) return;
-
     self.gameOverDisplay = [[GameOverDisplay alloc] initWithMatch:self.match boardScene:self];
 }
 

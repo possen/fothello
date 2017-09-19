@@ -79,7 +79,7 @@ CGFloat fudge =  2.5;
     
 - (void)movePieceTo:(BoardPosition *)pos
 {
-    CGPoint screenPos = [self calculateScreenPositionFromX:pos.x andY:pos.y sizeSmall:NO];
+    CGPoint screenPos = [self calculateScreenPositionFromPos:pos sizeSmall:NO];
     SKAction *actionPos = [SKAction moveTo:screenPos duration:.5];
     SKAction *action = [SKAction sequence:@[actionPos]];
     [self.currentPlayerSprite runAction:action];
@@ -91,7 +91,12 @@ CGFloat fudge =  2.5;
     CGSize spriteSize = CGSizeMake(size, size);
     return spriteSize;
 }
-    
+
+- (CGPoint)calculateScreenPositionFromPos:(BoardPosition *)pos sizeSmall:(BOOL)sizeSmall
+{
+    return CGPointMake(pos.x * _spacing + _centersOffset.x, pos.y * _spacing + _centersOffset.y);
+}
+
 - (CGPoint)calculateScreenPositionFromX:(NSInteger)x andY:(NSInteger)y sizeSmall:(BOOL)sizeSmall
 {
     return CGPointMake(x * _spacing + _centersOffset.x, y * _spacing + _centersOffset.y);

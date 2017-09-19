@@ -20,8 +20,7 @@
 
 + (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y
 {
-    BoardPosition *position = [[BoardPosition alloc] initWithX:x Y:y];
-    return position;
+    return [[BoardPosition alloc] initWithX:x Y:y];
 }
 
 - (instancetype)initWithX:(NSInteger)x Y:(NSInteger)y

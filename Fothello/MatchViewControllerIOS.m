@@ -39,8 +39,7 @@
     BoardScene *boardScene = [[BoardScene alloc] initWithSize:size match:self.match];
     self.boardScene = boardScene;
     
-    SKView *skView = (SKView *)self.view;
-    [boardScene presentWithView:skView updatePlayerMove:^(BOOL canMove) {
+    [boardScene presentWithView:self.mainScene updatePlayerMove:^(BOOL canMove) {
         self.pass.hidden = canMove;
     }];
 }

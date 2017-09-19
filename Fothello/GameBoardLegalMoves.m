@@ -65,7 +65,7 @@
         BOOL foundTrack = [internal.tracker findTracksForBoardPiece:findBoardPiece color:color] != nil;
         if (foundTrack)
         {
-            Piece *piece = [internal pieceAtPositionX:x Y:y];
+            Piece *piece = [internal pieceAtPosition:boardPosition];
             [pieces addObject:[BoardPiece makeBoardPieceWithPiece:piece position:boardPosition color:PieceColorLegal]];
         }
     }];
@@ -79,7 +79,7 @@
 
     NSIndexSet *legals = [pieces indexesOfObjectsPassingTest:
                           ^BOOL(BoardPiece *piece, NSUInteger idx, BOOL * stop) {
-                              Piece *currentPiece = [internal pieceAtPositionX:piece.position.x Y:piece.position.y];
+                              Piece *currentPiece = [internal pieceAtPosition:piece.position];
                               BOOL result = currentPiece.color == PieceColorLegal;
                               return result;
                           }];

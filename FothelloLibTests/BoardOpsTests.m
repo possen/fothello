@@ -60,8 +60,7 @@
          BoardPosition *center = internal.center;
          [internal.tracker boxCoord:4 block:^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop)
           {
-              NSInteger x = center.x + position.x;
-              NSInteger y = center.y + position.y;
+              NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
               Piece *piece = [internal pieceAtPositionX:x Y:y];
          
               BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];

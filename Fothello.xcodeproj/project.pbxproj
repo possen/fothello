@@ -1518,7 +1518,6 @@
 				TargetAttributes = {
 					D509D61B1CC8A7AE0028C082 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = UVHFXZWG47;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.GameCenter = {

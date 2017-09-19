@@ -42,17 +42,16 @@
         _legalMoves = [[GameBoardLegalMoves alloc] initWithGameBoard:self];
         _tracker = [[GameBoardTracks alloc] initWithGameBoard:self];
         _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
-        
         _board = board;
         _size = size;
         
         if (size % 2 == 1) return nil; // must be multiple of 2
-        
-        _grid = [[NSMutableArray alloc] initWithCapacity:size*size];
+        NSInteger piecesCount = size * size;
+        _grid = [[NSMutableArray alloc] initWithCapacity:piecesCount];
         _piecesPlayed = [NSDictionary new];
         
         // init with empty pieces
-        for (NSInteger index = 0; index < size * size; index ++)
+        for (NSInteger index = 0; index < piecesCount; index ++)
         {
             [_grid addObject:[[Piece alloc] init]];
         }
@@ -169,6 +168,11 @@
     return moves.count != 0;
 }
 
+- (Piece *)pieceAtPosition:(BoardPosition *)pos
+{
+    return [self pieceAtPositionX:pos.x Y:pos.y];
+}
+
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y
 {
     if (x >= self.size || y >= self.size || x < 0 || y < 0) return nil;
@@ -200,8 +204,7 @@
          NSInteger playerCount = (count + 1) % 2;
          NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
          BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
-         Piece *piece = [self pieceAtPositionX:x Y:y];
-         
+         Piece *piece = [self pieceAtPosition:pos];
          [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:playerCount + 1]];
      }];
     
@@ -224,11 +227,10 @@
     for (PlayerMove *move in moves)
     {
         if (move.isPass) return nil;
-        BoardPosition *position = move.position;
-        Piece *currentBoardPiece = [self pieceAtPositionX:position.x Y:position.y];
+        Piece *currentBoardPiece = [self pieceAtPosition:move.position];
         
         NSArray<NSArray<BoardPiece *> *> *moveBoardPiece = @[@[[BoardPiece makeBoardPieceWithPiece:currentBoardPiece
-                                                                                          position:position
+                                                                                          position:move.position
                                                                                              color:move.color]]];
         
         NSArray<NSArray<BoardPiece *> *> *movePieces = [moveBoardPiece arrayByAddingObjectsFromArray:

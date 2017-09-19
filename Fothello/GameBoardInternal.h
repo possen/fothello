@@ -24,6 +24,7 @@
 - (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size piecePlacedBlock:(nonnull PlaceBlock)block;
 - (nonnull BoardPosition *)center;
 - (nullable Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y;
+- (nullable Piece *)pieceAtPosition:(nonnull BoardPosition *)pos;
 - (NSInteger)playerScoreUnqueued:(nonnull Player *)player;
 - (void)visitAllUnqueued:(nonnull void (^)(NSInteger x, NSInteger y, Piece *_Nonnull piece))block;
 

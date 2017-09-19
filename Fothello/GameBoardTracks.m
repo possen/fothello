@@ -70,7 +70,7 @@ typedef struct Delta
     
     do {
         offsetx += diff.dx; offsety += diff.dy;
-        piece = [internal pieceAtPositionX:offsetx Y:offsety];
+        piece = [internal pieceAtPosition:position];
         currentPieceColor = piece.color;
         valid = piece && ![piece isClear]; // make sure it is on board and not clear.
         

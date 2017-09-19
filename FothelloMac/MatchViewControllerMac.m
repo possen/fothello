@@ -22,7 +22,6 @@
 @property (nonatomic) IBOutlet SKView *mainView;
 @property (nonatomic) IBOutlet MovesViewController *movesController;
 @property (nonatomic) BOOL canMove;
-
 @end
 
 @implementation MatchViewControllerMac
