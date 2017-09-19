@@ -49,7 +49,7 @@
 - (void)createDefaultSetup
 {
     FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineStrongWatch engine];
+    game.engine = [[EngineStrongWatch alloc] init];
     
     NSMutableDictionary<NSString *, Match *> *matches = [game matches];
     if (matches.count == 0)

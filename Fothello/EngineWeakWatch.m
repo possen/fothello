@@ -19,18 +19,6 @@
 
 @implementation EngineWeakWatch
 
-+ (instancetype)engine
-{
-    __block EngineWeakWatch *result = nil;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^
-    {
-        result = [[EngineWeakWatch alloc] init];
-    });
-    return result;
-}
-
 - (instancetype)init
 {
     self = [super init];

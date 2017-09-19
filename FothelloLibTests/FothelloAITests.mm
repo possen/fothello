@@ -67,7 +67,7 @@ using json = nlohmann::json;
    
     printBoard(myB, legal, CONV_21(0, 0));
     
-    EngineStrong *engine = [EngineStrong engine];
+    EngineStrong *engine = [[EngineStrong alloc] init];
     engine.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
     char move1 = getMove(myB, CONV_21(6, 5), 2, BoardDiffcultyExperienced, [engine.randomSource nextInt]);
     XCTAssertEqual(move1, -1);
@@ -101,7 +101,7 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    EngineStrong *engine = [EngineStrong engine];
+    EngineStrong *engine = [[EngineStrong alloc] init];
     engine.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
 
     std::string jsonResp = getMoveFromJSON(j.dump(4), [engine.randomSource nextInt]);
@@ -153,7 +153,7 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    EngineStrong *engine = [EngineStrong engine];
+    EngineStrong *engine = [[EngineStrong alloc] init];
     engine.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
 
     std::string jsonResp = getMoveFromJSON(j.dump(4), [engine.randomSource nextInt]);
@@ -210,7 +210,7 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    EngineStrong *engine = [EngineStrong engine];
+    EngineStrong *engine = [[EngineStrong alloc] init];;
     engine.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
 
     std::string jsonResp = getMoveFromJSON(j.dump(4), [engine.randomSource nextInt]);
@@ -265,7 +265,7 @@ using json = nlohmann::json;
     std::string s = j.dump(4);
     printf("%s", s.c_str());
     
-    EngineStrong *engine = [EngineStrong engine];
+    EngineStrong *engine = [[EngineStrong alloc] init];;
     engine.randomSource = [[GKARC4RandomSource alloc] initWithSeed:[@"4" dataUsingEncoding:NSASCIIStringEncoding]];
 
     std::string jsonResp = getMoveFromJSON(j.dump(4), [engine.randomSource nextInt]);

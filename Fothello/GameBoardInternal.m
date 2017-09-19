@@ -28,7 +28,6 @@
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
 @property (nonatomic) NSInteger size;
-@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @end
 
 @implementation GameBoardInternal
@@ -41,7 +40,6 @@
         _boardString = [[GameBoardString alloc] initWithBoard:self];
         _legalMoves = [[GameBoardLegalMoves alloc] initWithGameBoard:self];
         _tracker = [[GameBoardTracks alloc] initWithGameBoard:self];
-        _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
         _board = board;
         _size = size;
         
@@ -58,7 +56,6 @@
     }
     return self;
 }
-
 
 - (id)initWithCoder:(NSCoder *)coder
 {
@@ -97,7 +94,7 @@
 
 - (NSInteger)calculateIndexX:(NSInteger)x Y:(NSInteger)y
 {
-    return x * self.size + y;
+    return y * self.size + x;
 }
 
 //
@@ -154,20 +151,6 @@
     return [self.piecesPlayed[key] integerValue];
 }
 
-- (BOOL)canMoveUnqueued:(Player *)player
-{
-    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
-    
-    __block NSString *boardMoves = @"";
-    [moves mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
-        boardMoves = [boardMoves stringByAppendingString:boardMoves];
-        return @[];
-    }];
-    NSLog(@"boardMoves %@", boardMoves);
-    
-    return moves.count != 0;
-}
-
 - (Piece *)pieceAtPosition:(BoardPosition *)pos
 {
     return [self pieceAtPositionX:pos.x Y:pos.y];
@@ -176,7 +159,6 @@
 - (Piece *)pieceAtPositionX:(NSInteger)x Y:(NSInteger)y
 {
     if (x >= self.size || y >= self.size || x < 0 || y < 0) return nil;
-    
     return [self.grid objectAtIndex:[self calculateIndexX:x Y:y]];
 }
 
@@ -202,8 +184,7 @@
     [self.tracker boxCoord:1 block:
      ^(BoardPosition *position, BOOL isCorner, NSInteger count, BOOL *stop) {
          NSInteger playerCount = (count + 1) % 2;
-         NSInteger x = center.x + position.x; NSInteger y = center.y + position.y;
-         BoardPosition *pos = [[BoardPosition alloc] initWithX:x Y:y];
+         BoardPosition *pos = [center addPosition:position];
          Piece *piece = [self pieceAtPosition:pos];
          [setupBoard addObject:[BoardPiece makeBoardPieceWithPiece:piece position:pos color:playerCount + 1]];
      }];
@@ -241,20 +222,6 @@
     return pieces;
 }
 
-- (void)determineLegalMoves
-{
-    // Make copy to update, so it can be read outside queue.
-    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
-    
-    for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
-    {
-        NSArray <BoardPiece *> *legalMoves = [self.legalMoves legalMovesForPlayerColor:color];
-        [legalPieces setObject:legalMoves atCheckedIndex:color];
-    }
-    
-    self.legalMovesForPlayer = legalPieces;
-}
-
 - (void)updateCompletion:(UpdateCompleteBlock)updateComplete
           updateFunction:(NSArray<NSArray<BoardPiece *> *> *(^)(void))updateFunction
 {
@@ -262,7 +229,7 @@
     {
         NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
         [self updateBoardWithPieces:pieces];
-        [self determineLegalMoves];
+        [self.legalMoves determineLegalMoves];
         if (self.board.placeBlock != nil) self.board.placeBlock(pieces);
     }
     

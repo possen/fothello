@@ -16,5 +16,5 @@
 
 - (nonnull instancetype)initWithX:(NSInteger)x Y:(NSInteger)y;
 + (nonnull instancetype)positionWithX:(NSInteger)x y:(NSInteger)y;
-
+- (nonnull instancetype)addPosition:(nonnull BoardPosition *)pos;
 @end

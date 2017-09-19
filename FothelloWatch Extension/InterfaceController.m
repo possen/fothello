@@ -31,7 +31,7 @@
     [self.crownSequencer focus];
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    EngineWeakWatch *engine =  [EngineWeakWatch engine];
+    EngineWeakWatch *engine =  [[EngineWeakWatch alloc] init];
     game.engine = engine;
     
     Match *match = [game setupDefaultMatch];

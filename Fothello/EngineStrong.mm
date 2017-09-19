@@ -45,18 +45,6 @@ std::string testString(
 
 @implementation EngineStrong
 
-+ (instancetype)engine
-{
-    __strong static id _sharedObject = nil;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^
-    {
-        _sharedObject = [[EngineStrong alloc] init];
-    });
-    return _sharedObject;
-}
-
 - (instancetype)init
 {
     self = [super init];

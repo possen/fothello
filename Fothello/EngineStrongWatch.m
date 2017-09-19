@@ -17,16 +17,6 @@
 
 @implementation EngineStrongWatch
 
-+ (instancetype)engine
-{
-    __block EngineStrongWatch *result = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        result = [[EngineStrongWatch alloc] init];
-    });
-    return result;
-}
-
 - (instancetype)init
 {
     self = [super init];

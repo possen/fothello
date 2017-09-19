@@ -221,5 +221,4 @@
     self.highlightBlock(move.position, color);
 }
 
-
 @end

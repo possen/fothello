@@ -29,10 +29,7 @@
     self.pass.hidden = YES;
     
     // Create and configure the scene.
-    FothelloGame *game = [FothelloGame sharedInstance];
-    EngineStrong *engine = [EngineStrong engine];
-    game.engine = engine;
-    
+    FothelloGame *game = [FothelloGame sharedInstance];    
     Match *match = [game setupDefaultMatch];
     self.match = match;
     CGSize size = self.view.bounds.size;
@@ -58,7 +55,6 @@
     Difficulty difficulty = [difficultyControl selectedSegmentIndex] + 1;
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineStrongWatch engine];
     
     Match *match = [game createMatchFromKind:kind difficulty:difficulty];
     self.boardScene.match = match;

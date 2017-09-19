@@ -34,6 +34,11 @@
     return self;
 }
 
+- (nonnull instancetype)addPosition:(BoardPosition *)pos
+{
+    return [[BoardPosition alloc] initWithX:self.x + pos.x Y:self.y + pos.y];
+}
+
 - (NSUInteger)hash
 {
     return self.x ^ self.y;

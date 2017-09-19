@@ -41,7 +41,6 @@
     return _sharedObject;
 }
 
-
 + (NSString *)pathForGameState
 {
     NSString *docsPath
@@ -189,7 +188,7 @@
                     players:(NSArray<Player *> *)players
 {
     Strategy *strategy1; Strategy *strategy2;
-    id<Engine>engine = [[FothelloGame sharedInstance] engine];
+    id<Engine>engine = [FothelloGame sharedInstance].engine;
     
     // black goes first.
     switch (kind)

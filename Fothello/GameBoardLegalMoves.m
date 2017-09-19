@@ -16,13 +16,14 @@
 #import "NSArray+Holes.h"
 #import "GameBoardTracks.h"
 #import "Piece.h"
+#import "NSArray+Extensions.m"
 
 @interface GameBoardLegalMoves ()
 @property (nonatomic) GameBoardInternal *gameBoardInternal;
+@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @end
 
 @interface GameBoardInternal ()
-@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @end
 
 @implementation GameBoardLegalMoves
@@ -32,6 +33,8 @@
     self = [super init];
     if (self) {
         _gameBoardInternal = gameBoard;
+        _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
+
     }
     return self;
 }
@@ -39,8 +42,7 @@
 
 - (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    GameBoardInternal *internal = self.gameBoardInternal;
-    NSArray <BoardPiece *> *legalMoves = [internal.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
     
     BOOL legalMove = legalMoves != nil
     && [legalMoves indexOfObjectPassingTest:^
@@ -91,5 +93,32 @@
     return pieces;
 }
 
+- (BOOL)canMoveUnqueued:(Player *)player
+{
+    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    
+    __block NSString *boardMoves = @"";
+    [moves mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
+        boardMoves = [boardMoves stringByAppendingString:boardMoves];
+        return @[];
+    }];
+    NSLog(@"boardMoves %@", boardMoves);
+    
+    return moves.count != 0;
+}
+
+- (void)determineLegalMoves
+{
+    // Make copy to update, so it can be read outside queue.
+    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
+    
+    for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
+    {
+        NSArray <BoardPiece *> *legalMoves = [self legalMovesForPlayerColor:color];
+        [legalPieces setObject:legalMoves atCheckedIndex:color];
+    }
+    
+    self.legalMovesForPlayer = legalPieces;
+}
 
 @end

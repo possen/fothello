@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    game.engine = [EngineStrong engine];
+    game.engine = [[EngineStrong alloc] init];
     
     Match *match = [game setupDefaultMatch];
     self.match = match;

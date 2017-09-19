@@ -14,8 +14,6 @@
 
 @protocol Engine <NSObject>
 
-+ (nonnull instancetype)engine;
-
 - (nullable instancetype)init;
 - (nonnull NSDictionary<NSString *, id> *)calculateMoveForPlayer:(PieceColor)playerColor match:(nonnull Match *)match difficulty:(Difficulty)difficulty;
 
