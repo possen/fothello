@@ -14,7 +14,7 @@
 
 @implementation ComplicationController
 
-// codebeat: disable(MASS, ARITY)
+// codebeat:disable(MASS, ARITY)
 #pragma mark - Timeline Configuration
 
 - (void)getSupportedTimeTravelDirectionsForComplication:(CLKComplication *)complication withHandler:(void(^)(CLKComplicationTimeTravelDirections directions))handler {
@@ -57,6 +57,6 @@
     handler(nil);
 }
 
-// codebeat: enable(MASS, ARITY)
+// codebeat:enable(MASS, ARITY)
 
 @end
