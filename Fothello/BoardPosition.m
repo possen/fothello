@@ -18,7 +18,7 @@
     return position;
 }
 
-+ (instancetype)positionWithX:(NSInteger)x y:(NSInteger)y
++ (instancetype)positionWithX:(NSInteger)x Y:(NSInteger)y
 {
     return [[BoardPosition alloc] initWithX:x Y:y];
 }

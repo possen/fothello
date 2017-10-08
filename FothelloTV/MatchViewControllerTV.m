@@ -27,13 +27,13 @@
     Match *match = [game setupDefaultMatch];
     self.match = match;
     
-    CGSize size = self.view.frame.size;
+    SKView *skView = (SKView *)self.view;
+    CGSize size = skView.frame.size;
 
     // Create and configure the scene.
     BoardScene *scene = [[BoardScene alloc] initWithSize:size match:match];
     self.boardScene = scene;
     
-    SKView *skView = (SKView *)self.view;
     [scene presentWithView:skView updatePlayerMove:^(BOOL canMove) {
         //    self.pass.hidden = canMove;
     }];

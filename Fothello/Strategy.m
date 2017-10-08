@@ -88,7 +88,7 @@
         return makeMoveForColor;
     }
     BoardPosition *boardPosition = [BoardPosition positionWithX:[response[@"movex"] integerValue]
-                                                              y:[response[@"movey"] integerValue]];
+                                                              Y:[response[@"movey"] integerValue]];
     return [PlayerMove makeMoveForColor:player.color position:boardPosition];
 }
 

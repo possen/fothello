@@ -31,19 +31,17 @@
     [self.crownSequencer focus];
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    EngineWeakWatch *engine =  [[EngineWeakWatch alloc] init];
+    EngineWeakWatch *engine = [[EngineWeakWatch alloc] init];
     game.engine = engine;
     
     Match *match = [game setupDefaultMatch];
     self.match = match;
     CGSize size = self.skInterface.scene.size;
     CGSize newSize = CGSizeMake(size.width * 2, size.height * 2);
-    BoardScene *boardScene = [[BoardScene alloc] initWithSize:newSize match:self.match];
-
+    BoardScene *boardScene = [[BoardScene alloc] initWithSize:newSize match:match];
     self.boardScene = boardScene;
-    boardScene.match = self.match;
     
-    [self.boardScene presentWithWKInterface:self.skInterface updatePlayerMove:^(BOOL canMove) {
+    [boardScene presentWithWKInterface:self.skInterface updatePlayerMove:^(BOOL canMove) {
         //    self.pass.hidden = canMove;
     }];
 }

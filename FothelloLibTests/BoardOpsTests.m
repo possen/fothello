@@ -584,7 +584,7 @@
         // clear out block
     };
     
-    [self makeMoveHuman:[BoardPosition positionWithX:1 y:4]];
+    [self makeMoveHuman:[BoardPosition positionWithX:1 Y:4]];
 
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
@@ -679,13 +679,13 @@
     [self makeMoveAI];
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
-    [self makeMoveHuman:[BoardPosition positionWithX:1 y:4]];
+    [self makeMoveHuman:[BoardPosition positionWithX:1 Y:4]];
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
     [self makeMoveAI];
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"Black", self.match.currentPlayer.name);
-    [self makeMoveHuman:[BoardPosition positionWithX:2 y:6]];
+    [self makeMoveHuman:[BoardPosition positionWithX:2 Y:6]];
     [self.match nextPlayer];
     XCTAssertEqualObjects(@"White", self.match.currentPlayer.name);
     [self makeMoveAI];    

@@ -159,7 +159,7 @@
     {
         if (!match.turnProcessing) // don't allow move if other players are processing.
         {
-            BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+            BoardPosition *boardPosition = [BoardPosition positionWithX:x Y:y];
             [match.currentPlayer takeTurnAtPosition:boardPosition];
         }
     }

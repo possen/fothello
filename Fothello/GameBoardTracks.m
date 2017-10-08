@@ -70,7 +70,7 @@ typedef struct Delta
     
     do {
         offsetx += diff.dx; offsety += diff.dy;
-        BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
+        BoardPosition *offset = [BoardPosition positionWithX:offsetx Y:offsety];
         piece = [internal pieceAtPosition:offset];
         currentPieceColor = piece.color;
         valid = piece && ![piece isClear]; // make sure it is on board and not clear.
@@ -151,7 +151,7 @@ typedef struct Delta
     dist = (dist - 1) * 2 + 1; // skip even rings
     
     // calculate start position
-    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2 y:dist - dist / 2];
+    BoardPosition *position = [BoardPosition positionWithX:dist - dist / 2 Y:dist - dist / 2];
     
     // calculate how many pieces to place.
     // Four times dist for the number of directions

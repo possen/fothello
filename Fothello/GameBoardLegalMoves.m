@@ -60,7 +60,7 @@
     
     // Determine moves
     [internal visitAllUnqueued:^(NSInteger x, NSInteger y, Piece *findPiece) {
-        BoardPosition *boardPosition = [BoardPosition positionWithX:x y:y];
+        BoardPosition *boardPosition = [BoardPosition positionWithX:x Y:y];
         BoardPiece *findBoardPiece = [BoardPiece makeBoardPieceWithPiece:findPiece position:boardPosition color:color];
         
         BOOL foundTrack = [internal.tracker findTracksForBoardPiece:findBoardPiece color:color] != nil;

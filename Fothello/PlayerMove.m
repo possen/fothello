@@ -40,7 +40,7 @@
 {
     Piece *piece = [[Piece alloc] initWithColor:color];
     PlayerMove *move = [[PlayerMove alloc] init];
-    BoardPosition *position = [BoardPosition positionWithX:PlayerMovePass y:PlayerMovePass];
+    BoardPosition *position = [BoardPosition positionWithX:PlayerMovePass Y:PlayerMovePass];
     move.position = position;
     move.piece = piece;
     move.color = color;

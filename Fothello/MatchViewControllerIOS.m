@@ -33,7 +33,7 @@
     Match *match = [game setupDefaultMatch];
     self.match = match;
     CGSize size = self.view.bounds.size;
-    BoardScene *boardScene = [[BoardScene alloc] initWithSize:size match:self.match];
+    BoardScene *boardScene = [[BoardScene alloc] initWithSize:size match:match];
     self.boardScene = boardScene;
     
     [boardScene presentWithView:self.mainScene updatePlayerMove:^(BOOL canMove) {
