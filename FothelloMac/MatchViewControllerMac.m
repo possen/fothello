@@ -132,6 +132,7 @@
 
 - (BOOL)validateUserInterfaceItem:(NSMenuItem *)menuItem
 {
+    Match *match = self.match;
     SEL theAction = [menuItem action];
 
     if (theAction == @selector(pass:))
@@ -139,22 +140,21 @@
         return !self.canMove;
     }
     
-    BOOL computersOnly = [self.match areAllPlayersComputers];
+    MatchMoves *matchMoves = match.matchMoves;
+    BOOL computersOnly = [match areAllPlayersComputers];
     
     if (theAction == @selector(redo:))
     {
-        return self.match.matchMoves.redos.count != 0 && !computersOnly;
+        return matchMoves.redos.count != 0 && !computersOnly;
     }
-
-    if (theAction == @selector(undo:))
+    else if (theAction == @selector(undo:))
     {
-        return self.match.matchMoves.moves.count != 0 && !computersOnly;
+        return matchMoves.moves.count != 0 && !computersOnly;
     }
-
-    if (theAction == @selector(hint:))
+    else if (theAction == @selector(hint:))
     {
-        NSLog(@"hint %d", self.match.noMoves);
-        return !self.match.noMoves;
+        NSLog(@"hint %d", match.noMoves);
+        return !match.noMoves;
     }
     
     return YES;
