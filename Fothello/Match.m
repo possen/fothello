@@ -108,7 +108,6 @@
 
 - (void)reset
 {
-
     [self endTurn];
     if (self.matchStatusBlock) self.matchStatusBlock(NO);
     self.noMoves = NO;

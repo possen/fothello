@@ -40,7 +40,7 @@
     Match *match = [game setupDefaultMatch];
     self.match = match;
     SKView *skView = self.mainView;
-  
+    
     BoardScene *boardScene = [[BoardScene alloc] initWithSize:skView.bounds.size match:match];
     self.boardScene = boardScene;
     

@@ -70,13 +70,13 @@ typedef struct Delta
     
     do {
         offsetx += diff.dx; offsety += diff.dy;
-        piece = [internal pieceAtPosition:position];
+        BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
+        piece = [internal pieceAtPosition:offset];
         currentPieceColor = piece.color;
         valid = piece && ![piece isClear]; // make sure it is on board and not clear.
         
         if (valid)
         {
-            BoardPosition *offset = [BoardPosition positionWithX:offsetx y:offsety];
             [track addObject:[BoardPiece makeBoardPieceWithPiece:piece position:offset color:pieceColor]];
         }
     } while (valid && currentPieceColor != pieceColor);
@@ -97,7 +97,7 @@ typedef struct Delta
     // the same color as the player.
     
     // check that piece is on board and we are placing on clear space
-    Piece *piece = [internal pieceAtPositionX:boardPiece.position.x Y:boardPiece.position.y];
+    Piece *piece = [internal pieceAtPosition:boardPiece.position];
     
     if (piece == nil || ![piece isClear]) return nil;
     

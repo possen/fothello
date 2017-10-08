@@ -6,11 +6,16 @@
 //  Copyright © 2017 Paul Ossenbruggen. All rights reserved.
 //
 
+#import <WatchKit/WatchKit.h>
+#import <SpriteKit/SpriteKit.h>
 #import "BoardScene+Watch.h"
 
 @implementation BoardScene (Watch)
-- (void)presentWithUpdatePlayerMove:(UpdatePlayerMove)updateMove
+
+- (void)presentWithWKInterface:(WKInterfaceSKScene *)interface updatePlayerMove:(UpdatePlayerMove)updateMove
 {
     [self presentCommon:updateMove];
+    [interface presentScene:self];
 }
+
 @end

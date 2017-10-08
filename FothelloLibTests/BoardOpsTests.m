@@ -36,7 +36,7 @@
     [super setUp];
     
     FothelloGame *game = [FothelloGame sharedInstance];
-    EngineStrong *engineStrong = [[[EngineStrong alloc] init];
+    EngineStrong *engineStrong = [[EngineStrong alloc] init];
     game.engine = engineStrong;
     Match *match = [game setupDefaultMatch];
     self.engineStrong = engineStrong;

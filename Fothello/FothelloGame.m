@@ -217,7 +217,9 @@
     }
     
     players[0].strategy = strategy1; players[1].strategy = strategy2;
-    return [[Match alloc] initWithName:@"game" players:players];
+    FothelloGame *game = [FothelloGame sharedInstance];
+    return [game matchWithName:nil players:players];
+
 }
 // codebeat:enable[ABC, LOC]
 

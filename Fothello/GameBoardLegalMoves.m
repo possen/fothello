@@ -39,7 +39,6 @@
     return self;
 }
 
-
 - (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player
 {
     NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];

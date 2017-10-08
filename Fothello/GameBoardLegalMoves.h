@@ -21,5 +21,6 @@
 - (BOOL)isLegalMove:(nonnull PlayerMove *)move forPlayer:(nonnull Player *)player;
 - (nonnull NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color;
 - (void)determineLegalMoves;
+- (BOOL)canMoveUnqueued:(nonnull Player *)player;
 
 @end

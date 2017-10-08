@@ -9,5 +9,5 @@
 #import "BoardScene.h"
 
 @interface BoardScene (Watch)
-- (void)presentWithUpdatePlayerMove:(nonnull UpdatePlayerMove)updateMove;
+- (void)presentWithWKInterface:(WKInterfaceSKScene *)interface updatePlayerMove:(UpdatePlayerMove)updateMove;
 @end

@@ -26,7 +26,6 @@
 
 @interface GameBoardInternal ()
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
-@property (nonatomic, readonly, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
 @property (nonatomic) GameBoardString *boardString;
 
 - (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)tracks;
@@ -37,7 +36,6 @@
 - (NSArray<BoardPiece *> *)startingPieces;
 - (NSArray<BoardPiece *> *)erase;
 - (BOOL)isFullUnqueud;
-- (BOOL)canMoveUnqueued:(nonnull Player *)player;
 - (NSInteger)size;
 - (void)updateCompletion:(UpdateCompleteBlock)updateComplete
           updateFunction:(NSArray<NSArray<BoardPiece *> *> *(^)(void))updateFunction;
@@ -141,7 +139,7 @@
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
         GameBoardInternal *internal = self.boardInternal;
 
-         NSArray<BoardPiece *> *pieces = [internal.legalMovesForPlayer objectAtCheckedIndex:player.color];
+         NSArray<BoardPiece *> *pieces = [internal.legalMoves legalMovesForPlayerColor:player.color];
          
          if (!display) {
              pieces = [internal.legalMoves findLegals:pieces];
@@ -167,7 +165,7 @@
     __block BOOL result = NO;
     dispatch_sync(self.queue,^{
         GameBoardInternal *internal = self.boardInternal;
-        result = [internal canMoveUnqueued:player];
+        result = [internal.legalMoves canMoveUnqueued:player];
     });
     
     return result;

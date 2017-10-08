@@ -36,15 +36,16 @@
     
     Match *match = [game setupDefaultMatch];
     self.match = match;
-    BoardScene *boardScene = self.boardScene;
-    boardScene.match = match;
+    CGSize size = self.skInterface.scene.size;
+    CGSize newSize = CGSizeMake(size.width * 2, size.height * 2);
+    BoardScene *boardScene = [[BoardScene alloc] initWithSize:newSize match:self.match];
+
     self.boardScene = boardScene;
+    boardScene.match = self.match;
     
-    [self.boardScene presentWithUpdatePlayerMove:^(BOOL canMove) {
+    [self.boardScene presentWithWKInterface:self.skInterface updatePlayerMove:^(BOOL canMove) {
         //    self.pass.hidden = canMove;
     }];
-    
- //   [self presentScene:boardScene];
 }
 
 - (void)setMatch:(Match *)match
