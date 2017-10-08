@@ -33,28 +33,30 @@
 
 - (void)makeMove:(PlayerMove *)move forPlayer:(Player *)player
 {
+    Match *match = self.match;
+
     // ignore clicks if turn still processing.
-    if (self.match.currentPlayer.turnProcessing)
+    if (match.currentPlayer.turnProcessing)
     {
         return;
     }
     
     [super makeMove:move forPlayer:player];
     
-    [self.match.matchMoves resetRedos];
+    [match.matchMoves resetRedos];
     
     if ([move isPass])
     {
-        [self.match placeMove:move forPlayer:player];
+        [match placeMove:move forPlayer:player];
         return;
     }
 
-    [self.match.board isLegalMove:move forPlayer:player legal:^(BOOL legal)
+    [match.board isLegalMove:move forPlayer:player legal:^(BOOL legal)
     {
         if (legal)
         {
             [self endTurn:player];
-            [self.match placeMove:move forPlayer:player];
+            [match placeMove:move forPlayer:player];
         }
     }];
 }

@@ -94,15 +94,16 @@
 
 - (void)beginMatch
 {
-    self.currentPlayer = self.players[0];
+    Player *currentPlayer = self.currentPlayer;;
+    currentPlayer = self.players[0];
     [self.matchMoves resetMoves];
     if (self.movesUpdateBlock) self.movesUpdateBlock();
     [self beginTurn];
     
     // kick off two automatic first player.
-    if (self.currentPlayer.strategy.automatic)
+    if (currentPlayer.strategy.automatic)
     {
-        [self.currentPlayer takeTurn];
+        [currentPlayer takeTurn];
     }
 }
 
@@ -117,14 +118,15 @@
 
 - (void)nextPlayerWithTime:(float)time
 {
+    Player *currentPlayer = self.currentPlayer;
     [self nextPlayer];
     
-    if (self.currentPlayer.strategy.automatic)
+    if (currentPlayer.strategy.automatic)
     {
         // schedule time for AI Player to start turn
         dispatch_time_t when = dispatch_time(DISPATCH_TIME_NOW, time * NSEC_PER_SEC);
         dispatch_after(when, dispatch_get_main_queue(), ^{
-            [self.currentPlayer takeTurn];
+            [currentPlayer takeTurn];
         });
     } 
 }

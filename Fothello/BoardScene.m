@@ -37,7 +37,7 @@
         _boardDisplay = [[BoardDisplay alloc] initWithMatch:match boardScene:self boardDimensions:_boardDimensions];
         _playerDisplay = [[PlayerDisplay alloc] initWithMatch:match boardScene:self];
         _boardSize = match.board.size;
-        _spacing = self.boardDimensions / _boardSize;
+        _spacing = _boardDimensions / _boardSize;
         _pieceSprite = [[PieceSprite alloc] initWithBoardScene:self];
         [self setMatch:match];
     }

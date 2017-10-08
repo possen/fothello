@@ -80,10 +80,10 @@
 - (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)(void))updateFunction
            complete:(UpdateCompleteBlock)updateComplete
 {
+    GameBoardInternal *internal = self.boardInternal;
     dispatch_async(self.queue,^{
-        GameBoardInternal *internal = self.boardInternal;
         [internal updateCompletion:updateComplete updateFunction:updateFunction];
-   });
+    });
 }
 
 - (void)updateBoard:(NSArray<NSArray <BoardPiece *> *> *(^)(void))updateFunction
@@ -93,17 +93,17 @@
 
 - (void)visitAll:(void (^)(NSInteger x, NSInteger y, Piece *piece))block
 {
+    GameBoardInternal *internal = self.boardInternal;
     [self updateBoard:nil
              complete:^{
-         GameBoardInternal *internal = self.boardInternal;
          [internal visitAllUnqueued:block];
      }];
 }
 
 - (void)reset
 {
+    GameBoardInternal *internal = self.boardInternal;
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> * {
-        GameBoardInternal *internal = self.boardInternal;
         NSArray<BoardPiece *> *boardPieces = [internal erase];
         NSArray<BoardPiece *> *startingPieces = [internal startingPieces];
         return @[boardPieces, startingPieces];
@@ -112,8 +112,8 @@
 
 - (void)placeMoves:(NSArray<PlayerMove *> *)moves
 {
+    GameBoardInternal *internal = self.boardInternal;
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
-        GameBoardInternal *internal = self.boardInternal;
         return [internal placeMovesUnqueued:moves];
      }];
 }
@@ -122,8 +122,8 @@
           forPlayer:(Player *)player
               legal:(void (^)(BOOL))legal
 {
+    GameBoardInternal *internal = self.boardInternal;
     [self updateBoard:nil complete:^{
-        GameBoardInternal *internal = self.boardInternal;
         GameBoardLegalMoves *obj = internal.legalMoves;
         
         BOOL legalMove = [obj isLegalMove:move forPlayer:player];
@@ -136,12 +136,12 @@
 
 - (void)showLegalMoves:(BOOL)display forPlayer:(Player *)player
 {
+    GameBoardInternal *internal = self.boardInternal;
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
-        GameBoardInternal *internal = self.boardInternal;
-
          NSArray<BoardPiece *> *pieces = [internal.legalMoves legalMovesForPlayerColor:player.color];
          
-         if (!display) {
+         if (!display)
+         {
              pieces = [internal.legalMoves findLegals:pieces];
          }
         
@@ -152,19 +152,18 @@
 - (NSArray <BoardPiece *> *)legalMovesForPlayerColor:(PieceColor)color
 {
     __block NSArray <BoardPiece *> *result = nil;
+    GameBoardInternal *internal = self.boardInternal;
     dispatch_sync(self.queue,^{
-        GameBoardInternal *internal = self.boardInternal;
         result = [internal.legalMoves legalMovesForPlayerColor:color];
     });
     return result;
 }
 
-
 - (BOOL)canMove:(Player *)player
 {
     __block BOOL result = NO;
+    GameBoardInternal *internal = self.boardInternal;
     dispatch_sync(self.queue,^{
-        GameBoardInternal *internal = self.boardInternal;
         result = [internal.legalMoves canMoveUnqueued:player];
     });
     
@@ -174,8 +173,8 @@
 - (BOOL)isFull
 {
     __block BOOL result = NO;
+    GameBoardInternal *internal = self.boardInternal;
     dispatch_sync(self.queue,^{
-        GameBoardInternal *internal = self.boardInternal;
         result = [internal isFullUnqueud];
     });
     return result;
@@ -184,21 +183,19 @@
 - (NSInteger)playerScore:(Player *)player
 {
     __block NSInteger result = 0;
+    GameBoardInternal *internal = self.boardInternal;
     dispatch_sync(self.queue,^{
-        GameBoardInternal *internal = self.boardInternal;
         result = [internal playerScoreUnqueued:player];
     });
     return result;
 }
 
-
 - (NSString *)requestFormat
 {
     __block NSString *result = nil;
-    
+    GameBoardString *boardString = self.boardInternal.boardString;
     dispatch_sync(self.queue, ^{
-        GameBoardString *internal = self.boardInternal.boardString;
-        result = [internal convertToString:YES reverse:NO];
+        result = [boardString convertToString:YES reverse:NO];
     });
     
     return result;
