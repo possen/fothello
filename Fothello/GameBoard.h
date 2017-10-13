@@ -48,7 +48,7 @@ typedef void (^UpdateCompleteBlock)(void);
 
 @property (nonatomic, copy, nullable) HighlightBlock highlightBlock;
 @property (nonatomic, copy, nullable) UpdateCompleteBlock updateCompleteBlock;
-@property (nonatomic, nonnull) dispatch_queue_t queue;
+@property (nonatomic, nonnull, readonly) dispatch_queue_t queue;
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic, readonly) NSInteger size;
 @property (nonatomic, copy, nullable) PlaceBlock placeBlock;

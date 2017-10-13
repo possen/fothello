@@ -16,18 +16,18 @@
 #import "PlayerMove.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
-#import "GameBoardString.h"
+#import "GameBoardRepresentation.h"
 #import "NSArray+Holes.h"
 #import "GameBoardLegalMoves.h"
 #import "GameBoardTracks.h"
 
 
 @interface GameBoardInternal ()
-@property (nonatomic) GameBoard *board;
-@property (nonatomic) GameBoardString *boardString;
+@property (nonatomic, readonly) GameBoardRepresentation *boardRepresentation;
 @property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @property (nonatomic) NSMutableArray<Piece *> *grid;
-@property (nonatomic) NSInteger size;
+@property (nonatomic, readonly) NSInteger size;
+@property (nonatomic, copy, readonly) PlaceBlock piecePlayedBlock;
 @end
 
 @implementation GameBoardInternal
@@ -37,10 +37,10 @@
     self = [super init];
     if (self)
     {
-        _boardString = [[GameBoardString alloc] initWithBoard:self];
+        _boardRepresentation = [[GameBoardRepresentation alloc] initWithBoard:self];
         _legalMoves = [[GameBoardLegalMoves alloc] initWithGameBoard:self];
         _tracker = [[GameBoardTracks alloc] initWithGameBoard:self];
-        _board = board;
+        _piecePlayedBlock = block;
         _size = size;
         
         if (size % 2 == 1) return nil; // must be multiple of 2
@@ -121,7 +121,7 @@
 {
     if (pieces == nil) return;
     
-    [self.boardString printBoardUpdates:pieces];
+    [self.boardRepresentation printBoardUpdates:pieces];
     
     NSArray<BoardPiece *> *boardPieces = [NSArray flatten:pieces];
     for (BoardPiece *boardPiece in boardPieces)
@@ -230,7 +230,7 @@
         NSArray<NSArray <BoardPiece *> *> *pieces = updateFunction();
         [self updateBoardWithPieces:pieces];
         [self.legalMoves determineLegalMoves];
-        if (self.board.placeBlock != nil) self.board.placeBlock(pieces);
+        if (self.piecePlayedBlock != nil) self.piecePlayedBlock(pieces);
     }
     
     if (updateComplete != nil) updateComplete();

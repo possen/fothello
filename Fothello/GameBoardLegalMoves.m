@@ -19,8 +19,8 @@
 #import "NSArray+Extensions.m"
 
 @interface GameBoardLegalMoves ()
-@property (nonatomic) GameBoardInternal *gameBoardInternal;
-@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayer;
+@property (nonatomic, readonly) GameBoardInternal *gameBoardInternal;
+@property (nonatomic, nonnull) NSMutableArray<NSArray<BoardPiece *>*> *legalMovesForPlayers;
 @end
 
 @interface GameBoardInternal ()
@@ -33,7 +33,7 @@
     self = [super init];
     if (self) {
         _gameBoardInternal = gameBoard;
-        _legalMovesForPlayer = [@[@[], @[]] mutableCopy];
+        _legalMovesForPlayers = [@[@[], @[]] mutableCopy];
 
     }
     return self;
@@ -41,7 +41,7 @@
 
 - (BOOL)isLegalMove:(PlayerMove *)move forPlayer:(Player *)player
 {
-    NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    NSArray <BoardPiece *> *legalMoves = [self.legalMovesForPlayers objectAtCheckedIndex:player.color];
     
     BOOL legalMove = legalMoves != nil
     && [legalMoves indexOfObjectPassingTest:^
@@ -94,7 +94,7 @@
 
 - (BOOL)canMoveUnqueued:(Player *)player
 {
-    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayer objectAtCheckedIndex:player.color];
+    NSArray <BoardPiece *> *moves = [self.legalMovesForPlayers objectAtCheckedIndex:player.color];
     
     __block NSString *boardMoves = @"";
     [moves mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
@@ -109,7 +109,7 @@
 - (void)determineLegalMoves
 {
     // Make copy to update, so it can be read outside queue.
-    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayer mutableCopy];
+    NSMutableArray<NSArray<BoardPiece *>*> *legalPieces = [self.legalMovesForPlayers mutableCopy];
     
     for (PieceColor color = PieceColorBlack; color <= PieceColorWhite; color ++)
     {
@@ -117,7 +117,7 @@
         [legalPieces setObject:legalMoves atCheckedIndex:color];
     }
     
-    self.legalMovesForPlayer = legalPieces;
+    self.legalMovesForPlayers = legalPieces;
 }
 
 @end

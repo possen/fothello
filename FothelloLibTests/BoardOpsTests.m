@@ -12,7 +12,7 @@
 #import "EngineStrong.h"
 #import "GameBoardInternal.h"
 #import "GameBoardTracks.h"
-#import "GameBoardString.h"
+#import "GameBoardRepresentation.h"
 #import "GameBoardLegalMoves.h"
 
 @interface GameBoard ()
@@ -20,7 +20,7 @@
 @end
 
 @interface GameBoardInternal ()
-@property (nonatomic, nonnull) GameBoardString *boardString;
+@property (nonatomic, nonnull) GameBoardRepresentation *boardRepresentation;
 @end
 
 @interface TestBoardOps : XCTestCase
@@ -40,6 +40,8 @@
     game.engine = engineStrong;
     Match *match = [game setupDefaultMatch];
     self.engineStrong = engineStrong;
+    self.match = match;
+    self.game.matches = [@[match] mutableCopy];
     self.game = game;
 }
 
@@ -241,7 +243,6 @@
 
 - (void)testReset
 {
-
     Player *player1 = [[Player alloc] initWithName:@"Player 1"];
     player1.color = PieceColorWhite;
     Player *player2 = [[Player alloc] initWithName:@"Player 2"];
@@ -369,6 +370,9 @@
         XCTAssertTrue(canMove1);
         BOOL canMove2 = [board canMove:player2];
         XCTAssertTrue(canMove2);
+        [board isLegalMove:[PlayerMove makeMoveForColor:PieceColorWhite position:[BoardPosition positionWithX:2 Y:2]] forPlayer:player1 legal:^(BOOL legal) {
+            XCTAssertTrue(legal);
+        }];
     }
     
     {

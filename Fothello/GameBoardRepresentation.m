@@ -8,18 +8,18 @@
 #import <Foundation/Foundation.h>
 
 #import "GameBoardInternal.h"
-#import "GameBoardString.h"
+#import "GameBoardRepresentation.h"
 #import "Piece.h"
 #import "BoardPiece.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 @interface GameBoardInternal ()
-@property (nonatomic) NSInteger size;
+@property (nonatomic, readonly) NSInteger size;
 @property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
 @end
 
-@implementation GameBoardString
+@implementation GameBoardRepresentation
 
 - (instancetype)initWithBoard:(GameBoardInternal *)internal
 {
@@ -91,6 +91,16 @@
     {
         [boardString appendFormat:@"%@ %@\n", dictItem, dict[dictItem]];
     }
+}
+
+- (NSString *)toAscii
+{
+    return [self convertToString:YES reverse:NO];
+}
+
+- (NSString *)toUnicode
+{
+    return [self convertToString:NO reverse:YES];
 }
 
 - (NSString *)convertToString:(BOOL)ascii reverse:(BOOL)reverse

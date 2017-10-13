@@ -17,16 +17,16 @@
 #import "PlayerMove.h"
 #import "NSArray+Extensions.h"
 #import "NSDictionary+Extensions.h"
-#import "GameBoardString.h"
+#import "GameBoardRepresentation.h"
 #import "NSArray+Holes.h"
 
 @interface GameBoard ()
-@property (nonatomic) GameBoardInternal *boardInternal;
+@property (nonatomic, readonly) GameBoardInternal *boardInternal;
 @end
 
 @interface GameBoardInternal ()
-@property (nonatomic, readwrite, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
-@property (nonatomic) GameBoardString *boardString;
+@property (nonatomic, readonly, nonnull) NSDictionary<NSNumber *, NSNumber *> *piecesPlayed;
+@property (nonatomic, readonly) GameBoardRepresentation *boardRepresentation;
 
 - (void)updateBoardWithPieces:(NSArray<NSArray <BoardPiece *> *> *)tracks;
 - (void)determineLegalMoves;
@@ -115,7 +115,7 @@
     GameBoardInternal *internal = self.boardInternal;
     [self updateBoard:^NSArray<NSArray<BoardPiece *> *> *{
         return [internal placeMovesUnqueued:moves];
-     }];
+    }];
 }
 
 - (void)isLegalMove:(PlayerMove *)move
@@ -193,9 +193,9 @@
 - (NSString *)requestFormat
 {
     __block NSString *result = nil;
-    GameBoardString *boardString = self.boardInternal.boardString;
+    GameBoardRepresentation *boardString = self.boardInternal.boardRepresentation;
     dispatch_sync(self.queue, ^{
-        result = [boardString convertToString:YES reverse:NO];
+        result = [boardString toAscii];
     });
     
     return result;

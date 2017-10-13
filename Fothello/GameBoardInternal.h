@@ -18,8 +18,8 @@
 
 @interface GameBoardInternal : NSObject <NSCoding>
 
-@property (nonnull, nonatomic) GameBoardLegalMoves *legalMoves;
-@property (nonnull, nonatomic) GameBoardTracks *tracker;
+@property (nonnull, nonatomic, readonly) GameBoardLegalMoves *legalMoves;
+@property (nonnull, nonatomic, readonly) GameBoardTracks *tracker;
 
 - (nonnull instancetype)initWithBoard:(nonnull GameBoard *)board size:(NSInteger)size piecePlacedBlock:(nonnull PlaceBlock)block;
 - (nonnull BoardPosition *)center;
